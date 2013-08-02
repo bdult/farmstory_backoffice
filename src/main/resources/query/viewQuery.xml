@@ -6,7 +6,7 @@
 
   <select id="memberList" resultType="hashmap">
        SELECT *
-       FROM  bg_member
+       FROM  BG_MEMBER
        WHERE 1=1       
    </select>
    
