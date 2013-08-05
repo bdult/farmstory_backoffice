@@ -21,6 +21,20 @@ public class ViewController {
 	@Autowired
 	private ViewService viewService;
 	
+	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
+	public String dashboard(Model model) {
+		logger.info("into dashboard.do");
+		
+		//db sample
+		List<HashMap<String, String>> data = viewService.memberList();
+		
+		for(int i=0;i<data.size();i++) {
+			System.out.println(data.get(i));
+		}
+		
+		return "view/dashboard";
+	}
+	
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
 	public String main(Model model) {
 		logger.info("into main.do");
@@ -32,9 +46,22 @@ public class ViewController {
 			System.out.println(data.get(i));
 		}
 		
-		model.addAttribute("param1", "A-HA-" );
-		
 		return "view/main";
+	}
+	
+	@RequestMapping(value = "sub.do", method = RequestMethod.GET)
+	public String sub(Model model) {
+		logger.info("into sub.do");
+		
+		//db sample
+		List<HashMap<String, String>> data = viewService.memberList();
+		
+		for(int i=0;i<data.size();i++) {
+			System.out.println(data.get(i));
+		}
+		
+		
+		return "view/sub";
 	}
 	
 }

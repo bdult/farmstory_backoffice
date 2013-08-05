@@ -36,9 +36,23 @@
 	
 		<ul class="nav nav-list">
 			<li class="active">
-				<a href="index.html">
+				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
 					<span class="menu-text"> Dashboard </span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="${ contextPath }/main.do">
+					<i class="icon-thumbs-up-alt"></i>
+					<span class="menu-text"> 스토리팜 메인 </span>
+				</a>
+			</li>
+			
+			<li>
+				<a href="${ contextPath }/sub.do">
+					<i class="icon-thumbs-down-alt"></i>
+					<span class="menu-text"> 스토리팜 서브 </span>
 				</a>
 			</li>
 	

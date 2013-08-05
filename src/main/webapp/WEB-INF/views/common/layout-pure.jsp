@@ -8,19 +8,9 @@
 </head>
 <body>
 
-	<tiles:insertAttribute name="header"/>
-	
 	<div class="main-container container-fluid">
-		<a class="menu-toggler" id="menu-toggler" href="#">
-			<span class="menu-text"></span>
-		</a>
-	
-	    <tiles:insertAttribute name="side-bar"/>	
-			
 		<tiles:insertAttribute name="content"/>
 	</div>
-	
-	<tiles:insertAttribute name="footer"/>	
 	
 </body>
 </html>
