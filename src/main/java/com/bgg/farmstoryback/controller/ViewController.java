@@ -10,7 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.dao.UserDao;
+import com.bgg.farmstoryback.dto.UserDto;
+import com.bgg.farmstoryback.service.UserService;
 import com.bgg.farmstoryback.service.ViewService;
 
 @Controller
@@ -20,6 +24,9 @@ public class ViewController {
 	
 	@Autowired
 	private ViewService viewService;
+
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
@@ -64,4 +71,16 @@ public class ViewController {
 		return "view/sub";
 	}
 	
+	@RequestMapping(value = "user.do", method = RequestMethod.GET)
+	public ModelAndView user(Model model) {
+		
+
+		ModelAndView mav = new ModelAndView();
+		logger.info("into user.do");
+		
+		mav.addObject("positionList", userService.userList());
+
+		mav.setViewName("view/user");
+		return mav;
+	}
 }

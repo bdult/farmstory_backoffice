@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+
 @Repository
 public class ViewDao extends SqlSessionDaoSupport {
 	
@@ -16,5 +17,6 @@ public class ViewDao extends SqlSessionDaoSupport {
 	public List<HashMap<String, String>> memberList() {
 		return (List<HashMap<String, String>>)getSqlSession().selectList( "viewQuery.memberList");
 	}
+
 	
 }
