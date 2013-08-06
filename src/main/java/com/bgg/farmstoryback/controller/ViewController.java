@@ -26,7 +26,7 @@ public class ViewController {
 	private ViewService viewService;
 
 	@Autowired
-	private ViewService userService;
+	private UserService userService;
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
