@@ -35,7 +35,7 @@
 		</div><!--#sidebar-shortcuts-->
 	
 		<ul class="nav nav-list">
-			<li class="active">
+			<li>
 				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
 					<span class="menu-text"> Dashboard </span>
@@ -55,7 +55,13 @@
 					<span class="menu-text"> 스토리팜 서브 </span>
 				</a>
 			</li>
-	
+			
+			<li>
+				<a href="${ contextPath }/user.do">
+					<i class="icon-key"></i>
+					<span class="menu-text"> 회원관리 </span>
+				</a>
+			</li>
 	
 			<li>
 				<a href="#" class="dropdown-toggle">
@@ -105,3 +111,10 @@
 			<i class="icon-double-angle-left"></i>
 		</div>
 	</div>
+
+<script>
+$(function(){
+	
+	
+});
+</script>
