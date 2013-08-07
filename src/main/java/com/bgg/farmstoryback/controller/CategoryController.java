@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bgg.farmstoryback.service.CategoryService;
-import com.bgg.farmstoryback.service.UserService;
 
 @Controller
 public class CategoryController {
