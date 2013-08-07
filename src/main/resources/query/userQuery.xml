@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userQuery">
+
+	<select id="userList" resultType="hashmap" >
+		SELECT
+		MEMBER_ID,
+		MEMBER_NM,
+		MEMBER_PW
+		FROM BG_MEMBER
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertUser"  parameterType="hashmap">
+		INSERT INTO BG_MEMBER (
+		MEMBER_ID,
+		MEMBER_NM,
+		MEMBER_PW
+		)
+		VALUES (
+        #{ id },
+        #{ name },
+        #{ pw }
+		)
+	
+	</insert>
+	
+	<!-- UPDATE USER -->
+	<update id="updateUser" parameterType="hashmap">
+		UPDATE BG_MEMBER
+		<set>
+		id = #{ id },
+		name = #{ name },
+		pw = #{ pw }
+		</set>
+		WHERE = id = #{ id }
+	</update>
+	
+	<!-- DELETE USER -->
+	<delete id="deleteUser" parameterType="hashmap">
+    	DELETE from USER
+    	WHERE id = #{ id }
+        LIMIT = 1
+	</delete>
+</mapper>

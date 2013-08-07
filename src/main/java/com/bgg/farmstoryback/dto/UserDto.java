@@ -13,23 +13,23 @@ public class UserDto {
 		return id;
 	}
 
-	public void setId(String member_id) {
-		this.id = member_id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String member_nm) {
-		this.name = member_nm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPw() {
 		return pw;
 	}
 
-	public void setPw(String member_pw) {
-		this.pw = member_pw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 }

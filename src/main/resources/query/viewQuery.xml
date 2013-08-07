@@ -10,12 +10,4 @@
 		WHERE 1=1
 	</select>
 
-
-	<select id="userList" resultType="com.bgg.farmstoryback.dto.UserDto">
-		SELECT
-		MEMBER_ID,
-		MEMBER_NM,
-		MEMBER_PW
-		FROM BG_MEMBER
-	</select>
 </mapper>
