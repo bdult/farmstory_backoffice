@@ -11,7 +11,7 @@ import com.bgg.farmstoryback.dto.UserDto;
 
 
 @Service
-public class UserService {
+public class CategoryService {
 
 	@Autowired
 	private UserDao userDao;
