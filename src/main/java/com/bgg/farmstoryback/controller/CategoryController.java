@@ -40,7 +40,7 @@ public class CategoryController {
 	 */
 	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
 	public String listAll(Model model, int level) {
-		List<Map<String, Object>> cateList  = null;
+		List<Map> cateList  = null;
 		if(level == 0){
 			cateList = categoryService.list();
 		}else{

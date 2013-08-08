@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.dao.ContentsDao;
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
 
 
 

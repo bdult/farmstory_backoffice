@@ -6,8 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.bgg.farmstoryback.dto.UserDto;
-
 
 @Repository
 public class BrandDao extends SqlSessionDaoSupport {

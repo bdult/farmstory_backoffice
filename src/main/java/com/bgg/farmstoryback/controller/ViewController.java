@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
 import com.bgg.farmstoryback.service.CategoryService;
 import com.bgg.farmstoryback.service.UserService;
 import com.bgg.farmstoryback.service.ViewService;
@@ -74,23 +73,11 @@ public class ViewController {
 		return "view/sub";
 	}
 	
-	@RequestMapping(value = "user.do", method = RequestMethod.GET)
-	public ModelAndView user(Model model) {
-		
-
-		ModelAndView mav = new ModelAndView();
-		logger.info("into user.do");
-		mav.addObject("positionList", userService.userList());
-		mav.setViewName("view/user");
-		return mav;
-	}
-	
 	// Contents
-	
 	@RequestMapping(value = "contents/manage.do", method = RequestMethod.GET)
 	public String contentsManage(Model model) {
 		
-		List<Map<String, Object>> cateList = cateService.listByLevel(1);
+		List<Map> cateList = cateService.listByLevel(1);
 		model.addAttribute("cateList", cateList);
 		return "view/contents";
 	}

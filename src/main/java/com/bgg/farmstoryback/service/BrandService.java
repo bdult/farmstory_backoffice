@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.bgg.farmstoryback.dao.BrandDao;
 import com.bgg.farmstoryback.dao.ContentsDao;
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
 
 
 
@@ -22,6 +21,9 @@ public class BrandService {
 	
 	@Autowired
 	private BrandDao brandDao;
+	
+	@Autowired
+	private CategoryService cateService;
 
 	public List<Map> list() {
 		return brandDao.list();
@@ -38,7 +40,9 @@ public class BrandService {
 	public void create(Map parameterMap) {
 		parameterMap.put("brand_id", itemIdMake());
 		brandDao.create(parameterMap);
-		brandDao.createCateBrand(parameterMap);
+		if(parameterMap.get("cate_id") != null){
+			brandDao.createCateBrand(parameterMap);
+		}
 	}
 	
 	private String itemIdMake() {
