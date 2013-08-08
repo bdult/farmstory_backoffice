@@ -12,7 +12,7 @@ public class LogPrinter {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public void printMapList(List<Map<String, Object>> mapList){
+	public void printMapList(List<Map> mapList){
 		for(Map<String, Object>  mapInfo  : mapList){
 			for (String key : mapInfo.keySet()) {
 				logger.info("Key : {} -> Value : {}", key, mapInfo.get(key));
@@ -20,8 +20,8 @@ public class LogPrinter {
 		}
 	}
 
-	public void printMap(Map<String, Object> mapInfo) {
-		for (String key : mapInfo.keySet()) {
+	public void printMap(Map mapInfo) {
+		for (Object key : mapInfo.keySet()) {
 			logger.info("Key : {} -> Value : {}", key, mapInfo.get(key));
 		}
 	}

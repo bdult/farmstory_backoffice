@@ -6,8 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.bgg.farmstoryback.dto.UserDto;
-
 
 @Repository
 public class CategoryDao extends SqlSessionDaoSupport {
@@ -17,8 +15,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * 카테고리 전체 리스트
 	 * @return
 	 */
-	public List<Map<String, Object>> listAll() {
-		return (List<Map<String, Object>>)getSqlSession().selectList("cateQuery.listAll");
+	public List<Map> list() {
+		return (List<Map>)getSqlSession().selectList("cateQuery.listAll");
 	}
 	
 	/**
@@ -34,8 +32,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param level
 	 * @return
 	 */
-	public List<Map<String, Object>> listByLevel(int level) {
-		return (List<Map<String, Object>>)getSqlSession().selectList("cateQuery.listByLevel", level);
+	public List<Map> listByLevel(int level) {
+		return (List<Map>)getSqlSession().selectList("cateQuery.listByLevel", level);
 	}
 
 	/**

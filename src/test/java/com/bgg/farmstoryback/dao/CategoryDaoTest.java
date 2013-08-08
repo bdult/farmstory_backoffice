@@ -38,18 +38,6 @@ public class CategoryDaoTest {
 
 	
 	@Test
-	public void specDescription() {
-
-		// given 
-		
-		// when
-		int connCheckCount = categoryDao.connectionTest();
-
-		// then
-		assertThat(connCheckCount, is(not(0)));
-	}
-	
-	@Test
 	public void testList() {
 
 		// given 
@@ -63,7 +51,7 @@ public class CategoryDaoTest {
 		categoryDao.create(cateInfo);
 
 		// when
-		List<Map<String, Object>> cateList = categoryDao.listAll();
+		List<Map> cateList = categoryDao.list();
 
 		// then
 		assertThat(cateList, is(notNullValue()));
@@ -77,8 +65,8 @@ public class CategoryDaoTest {
 		// given 
 
 		// when
-		List<Map<String, Object>> cateList = categoryDao.listByLevel(1);
-		List<Map<String, Object>> cate2List = categoryDao.listByLevel(2);
+		List<Map> cateList = categoryDao.listByLevel(1);
+		List<Map> cate2List = categoryDao.listByLevel(2);
 
 		// then
 		logPrinter.printMapList(cateList);

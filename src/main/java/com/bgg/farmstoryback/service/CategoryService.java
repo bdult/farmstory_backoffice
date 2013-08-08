@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.dao.CategoryDao;
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
 
 
 
@@ -24,8 +23,8 @@ public class CategoryService {
 	 * 모든 카테고리 리스트(등급 제한 없음)
 	 * @return
 	 */
-	public List<Map<String, Object>> list() {
-		return cateDao.listAll();
+	public List<Map> list() {
+		return cateDao.list();
 	}
 	
 	/**
@@ -49,7 +48,7 @@ public class CategoryService {
 	 * @param level
 	 * @return
 	 */
-	public List<Map<String, Object>> listByLevel(int level) {
+	public List<Map> listByLevel(int level) {
 		return cateDao.listByLevel(level);
 	}
 
@@ -79,5 +78,5 @@ public class CategoryService {
 	public Map<String, Object> detail(Map<String, String> cateInfo) {
 		return cateDao.detail(cateInfo);
 	}
-	
+
 }

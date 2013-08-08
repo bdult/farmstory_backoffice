@@ -14,7 +14,6 @@ import com.bgg.farmstoryback.dao.BrandDao;
 import com.bgg.farmstoryback.dao.ContentsDao;
 import com.bgg.farmstoryback.dao.SeriseDao;
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
 
 
 

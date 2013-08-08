@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
 
 
 
@@ -17,8 +16,5 @@ public class UserService {
 	private UserDao userDao;
 
 	
-	public List<UserDto> userList() {
-		return userDao.userList();
-	}
 	
 }
