@@ -6,15 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bgg.farmstoryback.dao.DisplayDao;
 import com.bgg.farmstoryback.dao.ViewDao;
 
 @Service
-public class ViewService {
+public class DispalyService {
 
 		@Autowired
-		private ViewDao viewDao;
+		private DisplayDao displayDao;
 		
-		public List<HashMap<String, String>> memberList() {
-			return viewDao.memberList();
-		}
 }

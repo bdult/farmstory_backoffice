@@ -62,6 +62,13 @@
 					<span class="menu-text"> 회원관리 </span>
 				</a>
 			</li>
+			
+			<li>
+				<a href="${ contextPath }/category.do">
+					<i class="icon-apple"></i>
+					<span class="menu-text"> 카테고리 관리 </span>
+				</a>
+			</li>
 	
 			<li>
 				<a href="#" class="dropdown-toggle">
