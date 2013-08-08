@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bgg.farmstoryback.dto.UserDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
@@ -66,7 +65,7 @@ public class UserDaoTest {
 		logger.info(userDao.toString());
 
 		Map<String, String> userDTO = new TreeMap();
-		userDTO.put("id", "safss");
+		userDTO.put("id", "testttt");
 		userDTO.put("name", "굿");
 		userDTO.put("pw", "123");
 		

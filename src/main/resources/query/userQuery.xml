@@ -4,6 +4,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userQuery">
 
+    <select id="getUserone" parameterType="hashmap">
+        SELECT
+        	*
+        FROM BG_MEMBER
+        WHERE id = #{ id }
+    </select>
+
 	<select id="userList" resultType="hashmap" >
 		SELECT
 		MEMBER_ID,
