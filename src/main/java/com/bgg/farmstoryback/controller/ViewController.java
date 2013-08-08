@@ -2,6 +2,7 @@ package com.bgg.farmstoryback.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.dao.UserDao;
 import com.bgg.farmstoryback.dto.UserDto;
+import com.bgg.farmstoryback.service.CategoryService;
 import com.bgg.farmstoryback.service.UserService;
 import com.bgg.farmstoryback.service.ViewService;
 
@@ -27,6 +29,9 @@ public class ViewController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CategoryService cateService;
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
@@ -66,8 +71,6 @@ public class ViewController {
 		for(int i=0;i<data.size();i++) {
 			System.out.println(data.get(i));
 		}
-		
-		
 		return "view/sub";
 	}
 	
@@ -77,10 +80,20 @@ public class ViewController {
 
 		ModelAndView mav = new ModelAndView();
 		logger.info("into user.do");
-		
 		mav.addObject("positionList", userService.userList());
-
 		mav.setViewName("view/user");
 		return mav;
 	}
+	
+	// Contents
+	
+	@RequestMapping(value = "contents/manage.do", method = RequestMethod.GET)
+	public String contentsManage(Model model) {
+		
+		List<Map<String, Object>> cateList = cateService.listByLevel(1);
+		model.addAttribute("cateList", cateList);
+		return "view/contents";
+	}
+	
+	
 }

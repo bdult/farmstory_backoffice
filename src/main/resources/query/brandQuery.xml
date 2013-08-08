@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="brandQuery">
+
+	<select id="list" resultType="hashmap">
+		SELECT * FROM BG_BRAND
+	</select>
+	
+	<select id="listByCateId" resultType="hashmap">
+		SELECT BB.* FROM BG_BRAND BB, BG_CATE_BRAND BCB
+		WHERE 1=1
+		AND BB.BRAND_ID=BCB.BRAND_ID
+		AND BCB.CATE_ID = #{cate_id}
+	</select>
+	
+	
+	
+	<insert id="create" parameterType="map">
+		INSERT BG_BRAND(
+			BRAND_ID,
+			BRAND_NM
+   		)
+   		VALUES(
+   			#{brand_id},
+   			#{brand_nm}
+   		)
+	</insert>
+	
+	<insert id="createCateBrand" parameterType="hashmap">
+		INSERT BG_CATE_BRAND(
+			BRAND_ID,
+			CATE_ID
+   		)
+   		VALUES(
+   			#{brand_id},
+   			#{cate_id}
+   		)
+	</insert>
+	
+</mapper>

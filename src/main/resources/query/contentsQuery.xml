@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contentsQuery">
+
+
+	<select id="list" resultType="hashmap">
+		SELECT
+			*
+		FROM  BG_ITEMT
+	</select>
+	
+	<select id="listBySeriseId" resultType="hashmap">
+		SELECT
+			BI.*
+		FROM BG_SERISE BS, BG_ITEMT BI
+		WHERE 1=1
+		AND BS.SERISE_ID= #{seriseId}
+		AND BI.SERISE_ID = BS.SERISE_ID
+	</select>
+	
+	
+	<insert id="create" parameterType="map">
+   		INSERT BG_ITEMT(
+			ITEM_ID,
+			ITEM_NM,
+			BRAND_ID,
+			SRC_PATH   		
+   		)
+   		VALUES(
+   			'${item_id}',
+   			'${item_nm}',
+   			'${brand_id}',
+   			'${src_path}'
+   		)
+   </insert>
+	
+	
+	
+</mapper>
