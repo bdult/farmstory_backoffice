@@ -14,10 +14,10 @@
 	<select id="listBySeriseId" resultType="hashmap">
 		SELECT
 			BI.*
-		FROM BG_SERISE BS, BG_ITEMT BI
+		FROM BG_SERIES BS, BG_ITEMT BI
 		WHERE 1=1
-		AND BS.SERISE_ID= #{seriseId}
-		AND BI.SERISE_ID = BS.SERISE_ID
+		AND BS.IDX= #{serise_idx}
+		AND BI.SERIES_ID = BS.SERIES_ID
 	</select>
 	
 	
@@ -35,7 +35,10 @@
    			'${src_path}'
    		)
    </insert>
-	
-	
+   
+   <delete id="deleteBySeriesId" >
+   		DELETE FROM BG_ITEMT
+   		WHERE SERIES_IDX = #{series_idx}
+   </delete>
 	
 </mapper>
