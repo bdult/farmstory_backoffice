@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -56,8 +57,21 @@ public class UserDaoTest {
 		logger.info("Result set 갯수 : {}", userList.size());
 	}
 	
-	
+	@Test
+	public void testGetUserList(){
+		logger.info("asf");
+		logger.info(userDao.toString());
+		
+		String id = "test";
+		Map<String, Object> userDTO = new TreeMap();
+		userDTO.put("id", id);
 
+		
+		Map<String, String> userList = userDao.getUserOne(userDTO);
+		logger.info("Result : {}", userList.toString());
+		logger.info("Result set 갯수 : {}", userList.size());
+	}
+	
 	@Test
 	public void testInsertUser(){
 
@@ -93,7 +107,7 @@ public class UserDaoTest {
 
 	@Test
 	public void testDeleteUser(){
-		String id = "test";
+		String id = "asf";
 		
 		Map<String, String> userDTO = new TreeMap();
 		userDTO.put("id", id);
@@ -103,5 +117,4 @@ public class UserDaoTest {
 		assertThat(result, is(not(0)));
 		logger.info("{}", userDTO);
 	}
-	
 }

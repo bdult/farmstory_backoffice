@@ -3,12 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userQuery">
-
-    <select id="getUserone" parameterType="hashmap">
+    <select id="getUserOne" resultType="hashmap" parameterType="hashmap">
         SELECT
         	*
         FROM BG_MEMBER
-        WHERE id = #{ id }
+        WHERE MEMBER_ID = #{ id }
     </select>
 
 	<select id="userList" resultType="hashmap" >
@@ -29,7 +28,7 @@
 		VALUES (
         #{ id },
         #{ name },
-        #{ pw }
+        #{ pwd }
 		)
 	
 	</insert>
@@ -38,17 +37,16 @@
 	<update id="updateUser" parameterType="hashmap">
 		UPDATE BG_MEMBER
 		<set>
-		id = #{ id },
-		name = #{ name },
-		pw = #{ pw }
+		MEMBER_ID = #{ id },
+		MEMBER_NM = #{ name },
+		MEMBER_PW = #{ pwd }
 		</set>
-		WHERE = id = #{ id }
+		WHERE MEMBER_ID = #{ id }
 	</update>
 	
 	<!-- DELETE USER -->
 	<delete id="deleteUser" parameterType="hashmap">
-    	DELETE from USER
-    	WHERE id = #{ id }
-        LIMIT = 1
+    	DELETE from BG_MEMBER
+    	WHERE MEMBER_ID = #{ id }
 	</delete>
 </mapper>

@@ -7,6 +7,11 @@
 	margin: 0;
 	float: left;
 }
+
+#userCreatebtn {
+	float: right;
+}
+
 </style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
@@ -64,27 +69,23 @@
 							<td>${userlist.MEMBER_PW}</td>
 							<td>
 								<div class="hidden-phone visible-desktop btn-group">
-									<form method="post" action="">
+									<form method="get" action="">
 										<button class="btn btn-mini btn-success">
 											<i class="icon-ok bigger-120"></i>
 										</button>
 									</form>
 
-									<form method="post" action="/storyfarm-admin/userinsert.do">
+									<form method="get" action="/storyfarm-admin/useredit.do">
+										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">
 										<button class="btn btn-mini btn-info">
 											<i class="icon-edit bigger-120"></i>
 										</button>
 									</form>
 
-									<form method="post" action="">
+									<form method="get" action="/storyfarm-admin/userdelete.do">
+										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">
 										<button class="btn btn-mini btn-danger">
 											<i class="icon-trash bigger-120"></i>
-										</button>
-									</form>
-
-									<form method="post" action="">
-										<button class="btn btn-mini btn-warning">
-											<i class="icon-flag bigger-120"></i>
 										</button>
 									</form>
 								</div>
@@ -93,6 +94,12 @@
 					</c:forEach>
 				</tbody>
 			</table>
+
+			<form method="POST" action="/storyfarm-admin/userinsert.do">
+				<button id="userCreatebtn" class="btn btn-info">
+					<i class="icon-ok bigger-110"></i> 회원추가
+				</button>
+			</form>
 		</div>
 
 

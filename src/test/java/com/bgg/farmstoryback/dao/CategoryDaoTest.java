@@ -36,7 +36,7 @@ public class CategoryDaoTest {
 	public void tearDown() throws Exception {
 	}
 
-	
+	/*
 	@Test
 	public void specDescription() {
 
@@ -48,7 +48,7 @@ public class CategoryDaoTest {
 		// then
 		assertThat(connCheckCount, is(not(0)));
 	}
-	
+	*/
 	@Test
 	public void testList() {
 
