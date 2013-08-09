@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.IdMaker;
 import com.bgg.farmstoryback.dao.ContentsDao;
 import com.bgg.farmstoryback.dao.UserDao;
 
@@ -22,6 +23,9 @@ public class ContentsService {
 
 	@Autowired
 	private ContentsDao contsDao;
+	
+	@Autowired
+	private IdMaker idMaker;
 
 	public List<Map> list() {
 		return contsDao.list();
@@ -39,7 +43,7 @@ public class ContentsService {
 	public void createItem(Map<String, Object> itemInfo) {
 		
 		// item_id make
-		itemInfo.put("item_id", itemIdMake());
+		itemInfo.put("item_id", idMaker.makeId());
 		
 		// 원본 파일 경로 생성
 		itemInfo.put("src_path", makeFilePath((MultipartFile)itemInfo.get("file")));
@@ -47,12 +51,6 @@ public class ContentsService {
 		
 	}
 
-	private String itemIdMake() {
-		UUID uid = UUID.randomUUID();
-		return uid.toString().replace("-", "");
-	}
-
-	
 	private String makeFilePath(MultipartFile file) {
 		try {
 			
@@ -64,7 +62,7 @@ public class ContentsService {
 				desti.mkdirs(); 
 			}
 			String extenstion = file.getOriginalFilename().substring(file.getOriginalFilename().length()-3);
-			String fileName = UUID.randomUUID().toString().replace("-", "")+"."+extenstion;
+			String fileName = idMaker.makeId()+"."+extenstion;
 			byte fileData[] = file.getBytes();
 			FileOutputStream fos = new FileOutputStream(parentPath +fileName);
 			fos.write(fileData);

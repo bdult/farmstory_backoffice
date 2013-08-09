@@ -52,4 +52,13 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	public Map<String, Object> detail(Map<String, String> cateInfo) {
 		return (Map<String, Object>)getSqlSession().selectOne("cateQuery.detail", cateInfo);
 	}
+
+	/**
+	 * 브랜드 카테고리 리스트
+	 * @param brandInfo
+	 * @return
+	 */
+	public List<Map> listByBrandId(Map cateInfo) {
+		return (List<Map>)getSqlSession().selectList("cateQuery.listByBrandId", cateInfo);
+	}
 }

@@ -6,6 +6,7 @@
 
 	<select id="list" resultType="hashmap">
 		SELECT * FROM BG_BRAND
+		WHERE DEL_YN = 'N'
 	</select>
 	
 	<select id="listByCateId" resultType="hashmap">
@@ -13,6 +14,13 @@
 		WHERE 1=1
 		AND BB.BRAND_ID=BCB.BRAND_ID
 		AND BCB.CATE_ID = #{cate_id}
+		AND BB.DEL_YN = 'N'
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT * FROM BG_BRAND
+		WHERE BRAND_ID = #{brand_id}
+		AND DEL_YN = 'N'
 	</select>
 	
 	
@@ -38,5 +46,30 @@
    			#{cate_id}
    		)
 	</insert>
+	
+	<update id="modify">
+		UPDATE BG_BRAND SET
+			BRAND_NM = #{brand_nm}
+			, MOD_DT = now()
+		WHERE 1=1
+		AND BRAND_ID = #{brand_id}
+	</update>
+	
+	<update id="delete">
+		UPDATE BG_BRAND SET
+			DEL_YN = 'Y'
+			, MOD_DT = now()
+		WHERE 1=1
+		AND BRAND_ID = #{brand_id}
+	</update>
+	
+	<update id="modifyCateBrand">
+		UPDATE BG_CATE_BRAND SET
+			CATE_ID = #{cate_id}
+			, MOD_DT = now()
+		WHERE 1=1
+		AND BRAND_ID = #{brand_id}
+		AND CATE_ID = #{pre_cate_id}
+	</update>
 	
 </mapper>

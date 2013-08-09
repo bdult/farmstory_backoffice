@@ -25,4 +25,20 @@ public class BrandDao extends SqlSessionDaoSupport {
 	public void createCateBrand(Map parameterMap) {
 		getSqlSession().insert("brandQuery.createCateBrand", parameterMap);
 	}
+
+	public void modify(Map parameterMap) {
+		getSqlSession().update("brandQuery.modify", parameterMap);
+	}
+
+	public void modifyCateBrand(Map parameterMap) {
+		getSqlSession().update("brandQuery.modifyCateBrand", parameterMap);
+	}
+
+	public Map detail(Map brandInfo) {
+		return (Map)getSqlSession().selectOne("brandQuery.detail", brandInfo);
+	}
+
+	public void delete(Map brandInfo) {
+		getSqlSession().update("brandQuery.delete", brandInfo);
+	}
 }
