@@ -97,6 +97,7 @@ public class BrandServiceTest {
 		List<Map> brandCateList = (List<Map>)resultInfo.get("brand_cate_list");
 		Map brandDetail  = (Map)resultInfo.get("brand");
 		assertThat(resultInfo, is(notNullValue()));
+		assertThat((String)resultInfo.get("BRAND_NM"), is("modify_brand"));
 		printer.printMap(brandDetail);
 		
 		if(brandCateList != null){

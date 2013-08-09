@@ -74,5 +74,9 @@ public class ContentsService {
 		}
 	}
 
+	public void deleteBySeriesId(int series_idx) {
+		contsDao.deleteBySeriesId(series_idx);
+	}
+
 	
 }

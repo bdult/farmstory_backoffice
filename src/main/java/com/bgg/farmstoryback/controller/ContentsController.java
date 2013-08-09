@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.ContentsService;
-import com.bgg.farmstoryback.service.SeriseService;
+import com.bgg.farmstoryback.service.SeriesService;
 import com.bgg.farmstoryback.service.UserService;
 
 @Controller
@@ -33,7 +33,7 @@ public class ContentsController {
 	private BrandService brandService;
 	
 	@Autowired
-	private SeriseService seriseService;
+	private SeriesService seriseService;
 	
 	@RequestMapping(value = "contents/list.do", method = RequestMethod.GET)
 	public String list(Model model) {

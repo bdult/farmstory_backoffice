@@ -21,5 +21,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		getSqlSession().insert("contentsQuery.create", contentsInfo);
 		
 	}
+	public void deleteBySeriesId(int series_idx) {
+		getSqlSession().delete("contentsQuery.deleteBySeriesId", series_idx);
+	}
 	
 }
