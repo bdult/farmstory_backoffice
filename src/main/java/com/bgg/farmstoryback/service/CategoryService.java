@@ -48,8 +48,9 @@ public class CategoryService {
 	 * @param level
 	 * @return
 	 */
-	public List<Map> listByLevel(int level) {
-		return cateDao.listByLevel(level);
+	public List<Map> listByLevel(Map<String, String> cateInfo) {
+		
+		return cateDao.listByLevel(cateInfo);
 	}
 
 	/**

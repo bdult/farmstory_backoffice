@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.service.CategoryService;
 
@@ -20,13 +22,6 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
-	
-	@RequestMapping(value = "category.do", method = RequestMethod.GET)
-	public String category(Model model) {
-		
-		return "category/list";
-	}
-	
 	
 	/**
 	 * 	Result
@@ -39,16 +34,24 @@ public class CategoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
-	public String listAll(Model model, int level) {
-		List<Map> cateList  = null;
-		if(level == 0){
-			cateList = categoryService.list();
-		}else{
-			cateList = categoryService.listByLevel(level);
-		}
-		return "category/list";
+	public ModelAndView list(Map<String, String> cateInfo) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("category/list");
+		
+		List<Map> cateList = categoryService.listByLevel(cateInfo);
+		mav.addObject("firstDepthList", cateList);
+		return mav;
 	}
 	
+	@RequestMapping(value = "list.ajax", produces = "application/json;charset=UTF-8")
+	public @ResponseBody String listAjax(Map<String, String> cateInfo) {
+		
+		List<Map> cateList = categoryService.listByLevel(cateInfo);
+//		logger.info(jsonString);
+		return "";
+	}
+
 	@RequestMapping(value = "cate/create.do", method = RequestMethod.POST)
 	public String create(Map<String, String> cateInfo) {
 		categoryService.create(cateInfo);

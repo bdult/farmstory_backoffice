@@ -32,8 +32,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param level
 	 * @return
 	 */
-	public List<Map> listByLevel(int level) {
-		return (List<Map>)getSqlSession().selectList("cateQuery.listByLevel", level);
+	public List<Map> listByLevel(Map<String, String> cateInfo) {
+		return (List<Map>)getSqlSession().selectList("cateQuery.listByLevel", cateInfo);
 	}
 
 	/**

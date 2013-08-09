@@ -47,7 +47,10 @@ public class ViewController {
 	}
 	
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
-	public String main(Model model) {
+	public ModelAndView main(Model model) {
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("view/main");
 		logger.info("into main.do");
 		
 		//db sample
@@ -56,8 +59,7 @@ public class ViewController {
 		for(int i=0;i<data.size();i++) {
 			System.out.println(data.get(i));
 		}
-		
-		return "view/main";
+		return mav;
 	}
 	
 	@RequestMapping(value = "sub.do", method = RequestMethod.GET)
@@ -77,8 +79,8 @@ public class ViewController {
 	@RequestMapping(value = "contents/manage.do", method = RequestMethod.GET)
 	public String contentsManage(Model model) {
 		
-		List<Map> cateList = cateService.listByLevel(1);
-		model.addAttribute("cateList", cateList);
+//		List<Map> cateList = cateService.listByLevel(1);
+//		model.addAttribute("cateList", cateList);
 		return "view/contents";
 	}
 	
