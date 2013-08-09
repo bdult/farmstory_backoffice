@@ -22,6 +22,13 @@
 		 WHERE CATE_ID = #{cate_id}
 	</select>
 	
+	<select id="listByBrandId" resultType="hashmap">
+		SELECT BC.* FROM BG_CATE BC, BG_CATE_BRAND BCB
+		 WHERE 1=1 
+		 AND BC.CATE_ID = BCB.CATE_ID
+		 AND BCB.CATE_ID = #{cate_id}
+	</select>
+	
 	<insert id="create" parameterType="map">
 		
 		INSERT /* cateQuery.create 2013.08.07 최지순*/  INTO BG_CATE 

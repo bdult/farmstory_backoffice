@@ -48,8 +48,9 @@ public class CategoryService {
 	 * @param level
 	 * @return
 	 */
-	public List<Map> listByLevel(int level) {
-		return cateDao.listByLevel(level);
+	public List<Map> listByLevel(Map<String, String> cateInfo) {
+		
+		return cateDao.listByLevel(cateInfo);
 	}
 
 	/**
@@ -77,6 +78,10 @@ public class CategoryService {
 	 */
 	public Map<String, Object> detail(Map<String, String> cateInfo) {
 		return cateDao.detail(cateInfo);
+	}
+
+	public List<Map> listByBrandId(Map brandInfo) {
+		return (List<Map>)cateDao.listByBrandId(brandInfo);
 	}
 
 }

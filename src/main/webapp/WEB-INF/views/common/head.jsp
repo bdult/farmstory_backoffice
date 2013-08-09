@@ -13,69 +13,72 @@
 
 <!--basic styles-->
 
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+<link href="${contextPath}/assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${contextPath}/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="${contextPath}/assets/css/font-awesome.min.css" />
 
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
+<!--[if IE 7]>
+  <link rel="stylesheet" href="${contextPath}/assets/css/font-awesome-ie7.min.css" />
+<![endif]-->
 
-		<!--page specific plugin styles-->
+<!--page specific plugin styles-->
 
-		<link rel="stylesheet" href="assets/css/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/jquery-ui-1.10.3.custom.min.css" />
 
-		<!--fonts-->
+<!--fonts-->
 
-		<link rel="stylesheet" href="assets/css/ace-fonts.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/ace-fonts.css" />
 
-		<!--ace styles-->
+<!--ace styles-->
 
-		<link rel="stylesheet" href="assets/css/ace.min.css" />
-		<link rel="stylesheet" href="assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/ace.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/ace-responsive.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/ace-skins.min.css" />
 
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+<!-- RNTS -->
+<link rel="stylesheet" href="${contextPath}/css/main.css" />
 
-		<!--inline styles related to this page-->
-		
-		<!--basic scripts-->
+<!--[if lte IE 8]>
+  <link rel="stylesheet" href="${contextPath}/assets/css/ace-ie.min.css" />
+<![endif]-->
 
-		<!--[if !IE]>-->
+<!--inline styles related to this page-->
 
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
+<!--basic scripts-->
 
-		<!--<![endif]-->
+<!--[if !IE]>-->
 
-		<!--[if IE]>
 <script type="text/javascript">
- window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+	window.jQuery || document.write("<script src='${contextPath}/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+</script>
+
+<!--<![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='${contextPath}/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
 </script>
 <![endif]-->
 
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	if("ontouchend" in document) document.write("<script src='${contextPath}/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
+<script src="${contextPath}/assets/js/bootstrap.min.js"></script>
 
-		<!--page specific plugin scripts-->
+<!--page specific plugin scripts-->
 
-		<script src="assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
-		<script src="assets/js/markdown/markdown.min.js"></script>
-		<script src="assets/js/markdown/bootstrap-markdown.min.js"></script>
-		<script src="assets/js/jquery.hotkeys.min.js"></script>
-		<script src="assets/js/bootstrap-wysiwyg.min.js"></script>
-		<script src="assets/js/bootbox.min.js"></script>
+<script src="${contextPath}/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="${contextPath}/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="${contextPath}/assets/js/markdown/markdown.min.js"></script>
+<script src="${contextPath}/assets/js/markdown/bootstrap-markdown.min.js"></script>
+<script src="${contextPath}/assets/js/jquery.hotkeys.min.js"></script>
+<script src="${contextPath}/assets/js/bootstrap-wysiwyg.min.js"></script>
+<script src="${contextPath}/assets/js/bootbox.min.js"></script>
 
-		<!--ace scripts-->
+<!--ace scripts-->
 
-		<script src="assets/js/ace-elements.min.js"></script>
-		<script src="assets/js/ace.min.js"></script>
+<script src="${contextPath}/assets/js/ace-elements.min.js"></script>
+<script src="${contextPath}/assets/js/ace.min.js"></script>
 
-		<!--inline scripts related to this page-->
+<!--inline scripts related to this page-->
 
