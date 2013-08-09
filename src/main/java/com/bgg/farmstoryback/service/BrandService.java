@@ -1,18 +1,15 @@
 package com.bgg.farmstoryback.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.IdMaker;
 import com.bgg.farmstoryback.dao.BrandDao;
-import com.bgg.farmstoryback.dao.ContentsDao;
-import com.bgg.farmstoryback.dao.UserDao;
 
 
 
@@ -23,7 +20,11 @@ public class BrandService {
 	private BrandDao brandDao;
 	
 	@Autowired
+	private IdMaker idMaker;
+	
+	@Autowired
 	private CategoryService cateService;
+	
 
 	public List<Map> list() {
 		return brandDao.list();
@@ -38,16 +39,40 @@ public class BrandService {
 	 * @param parameterMap
 	 */
 	public void create(Map parameterMap) {
-		parameterMap.put("brand_id", itemIdMake());
+		parameterMap.put("brand_id", idMaker.makeId());
 		brandDao.create(parameterMap);
 		if(parameterMap.get("cate_id") != null){
 			brandDao.createCateBrand(parameterMap);
 		}
 	}
 	
-	private String itemIdMake() {
-		UUID uid = UUID.randomUUID();
-		return uid.toString().replace("-", "");
+	/**
+	 * 브랜드 정보 변경  
+	 * 카테고리 변경시 pre_cate_id 가 있어야된
+	 * <pre>
+	 * Parameter Ex
+	 * cate_id
+	 * brand_nm
+	 * brand_id
+	 * pre_cate_id
+	 * </pre>
+	 * 
+	 * @param parameterMap
+	 */
+	public void modify(Map parameterMap){
+		brandDao.modify(parameterMap);
+		if(parameterMap.get("pre_cate_id") != null){
+			brandDao.modifyCateBrand(parameterMap);
+		}
 	}
+
+	public Map detail(Map brandInfo) {
+		Map brand = brandDao.detail(brandInfo);
+		List<Map> cateList = cateService.listByBrandId(brandInfo);
+		Map<String, Object> brandDetail = new HashMap<String, Object>();
+		brandDetail.put("brand", brand);
+		brandDetail.put("brand_cate_list", cateList);
+		return brandDetail;
+	}	
 	
 }

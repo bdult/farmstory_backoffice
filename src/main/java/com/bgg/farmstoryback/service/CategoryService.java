@@ -79,4 +79,8 @@ public class CategoryService {
 		return cateDao.detail(cateInfo);
 	}
 
+	public List<Map> listByBrandId(Map brandInfo) {
+		return (List<Map>)cateDao.listByBrandId(brandInfo);
+	}
+
 }

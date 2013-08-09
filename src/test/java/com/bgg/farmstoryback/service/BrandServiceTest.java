@@ -79,6 +79,76 @@ public class BrandServiceTest {
 		
 	}
 	
+	@Test
+	public void testModifyJustBrandInfo() {
+
+		// given 
+		String brandId = "cb51ca4ab4da4ac5bf00cac3a91276cc";
+		
+		Map brandInfo = new HashMap();
+		brandInfo.put("brand_nm", "modify_brand");
+		brandInfo.put("brand_id", brandId);
+
+		// when
+		brandService.modify(brandInfo);
+
+		// then
+		Map resultInfo = brandService.detail(brandInfo);
+		List<Map> brandCateList = (List<Map>)resultInfo.get("brand_cate_list");
+		Map brandDetail  = (Map)resultInfo.get("brand");
+		assertThat(resultInfo, is(notNullValue()));
+		printer.printMap(brandDetail);
+		
+		if(brandCateList != null){
+			assertThat(brandCateList.size(), is(notNullValue()));
+			printer.printMapList(brandCateList);
+		}
+		
+	}
+	
+	@Test
+	public void testModifyWithCate() {
+		
+		// given 
+		String brandId = "c6c15a3a0d60481e940efa7b50dad739";
+		String preCateId = "C_954682af87414cca86c18a70754b5b58";
+		String modifyCateId = "C_954682af87414cca86c18a70754b5b46";
+		
+		Map brandInfo = new HashMap();
+		brandInfo.put("brand_nm", "modify_with_cate");
+		brandInfo.put("brand_id", brandId);
+		brandInfo.put("pre_cate_id", preCateId);
+		brandInfo.put("cate_id", modifyCateId);
+		
+		// when
+		brandService.modify(brandInfo);
+		
+		// then
+		Map resultInfo = brandService.detail(brandInfo);
+		List<Map> brandCateList = (List<Map>)resultInfo.get("brand_cate_list");
+		Map brandDetail  = (Map)resultInfo.get("brand");
+		assertThat(resultInfo, is(notNullValue()));
+		printer.printMap(brandDetail);
+		
+		if(brandCateList != null){
+			assertThat(brandCateList.size(), is(notNullValue()));
+			printer.printMapList(brandCateList);
+		}
+		
+	}
+	
+	@Test
+	public void testDelete() {
+
+		// given 
+
+		// when
+
+		// then
+
+		
+	}
+	
 	
 	
 }
