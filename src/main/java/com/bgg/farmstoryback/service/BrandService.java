@@ -67,12 +67,21 @@ public class BrandService {
 	}
 
 	public Map detail(Map brandInfo) {
-		Map brand = brandDao.detail(brandInfo);
-		List<Map> cateList = cateService.listByBrandId(brandInfo);
 		Map<String, Object> brandDetail = new HashMap<String, Object>();
+		
+		Map brand = brandDao.detail(brandInfo);
 		brandDetail.put("brand", brand);
-		brandDetail.put("brand_cate_list", cateList);
+		
+		if(brand != null){
+			List<Map> cateList = cateService.listByBrandId(brandInfo);
+			brandDetail.put("brand_cate_list", cateList);
+			
+		}
 		return brandDetail;
+	}
+
+	public void delete(Map brandInfo) {
+		brandDao.delete(brandInfo);
 	}	
 	
 }

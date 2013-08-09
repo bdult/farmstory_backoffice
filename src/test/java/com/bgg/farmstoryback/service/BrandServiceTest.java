@@ -141,11 +141,21 @@ public class BrandServiceTest {
 	public void testDelete() {
 
 		// given 
+		String brandId = "c6c15a3a0d60481e940efa7b50dad739";
+		String preCateId = "C_954682af87414cca86c18a70754b5b58";
+		String modifyCateId = "C_954682af87414cca86c18a70754b5b46";
+		Map brandInfo = new HashMap();
+		brandInfo.put("brand_nm", "modify_with_cate");
+		brandInfo.put("brand_id", brandId);
+		brandInfo.put("pre_cate_id", preCateId);
+		brandInfo.put("cate_id", modifyCateId);
 
 		// when
+		brandService.delete(brandInfo);
 
 		// then
-
+		Map resultInfo = brandService.detail(brandInfo);
+		assertThat(resultInfo.get("brand"), is(nullValue()));
 		
 	}
 	
