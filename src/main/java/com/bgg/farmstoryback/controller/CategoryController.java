@@ -44,7 +44,7 @@ public class CategoryController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "list.ajax", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "cate/list.ajax", produces = "application/json;charset=UTF-8")
 	public @ResponseBody String listAjax(Map<String, String> cateInfo) {
 		
 		List<Map> cateList = categoryService.listByLevel(cateInfo);
