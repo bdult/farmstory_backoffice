@@ -1,0 +1,6 @@
+@CHARSET "EUC-KR";
+
+.pointer:hover {
+	cursor: pointer;
+	background: gray;
+}

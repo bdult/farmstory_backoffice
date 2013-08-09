@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 <style>
 #editor {
@@ -64,23 +64,16 @@
 						</tr>
 					</thead>				
 					<tbody>
-						<tr>
-							<td></td>
-							<td>수학</td>
-							<td>x e</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>수학</td>
-							<td>x e</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>수학</td>
-							<td>x e</td>
-						</tr>
-					</tbody>	
+						<c:forEach items="${ firstDepthList }" var="cate">
+							<tr>
+								<td>${ cate.CATE_ID }</td>
+								<td class="pointer">${ cate.CATE_NM }</td>
+								<td>x e</td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
+				<button class="btn btn-info pull-right">생성</button>
 			</div><!--/.span-->
 			<div class="span6">
 			
@@ -91,7 +84,7 @@
 					<strong>레벨 2</strong>
 					브랜드 관리(?)
 					<br>
-				</div>
+				</div>x
 				
 				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 					<thead>

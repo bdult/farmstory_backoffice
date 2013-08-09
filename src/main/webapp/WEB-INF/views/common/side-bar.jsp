@@ -64,7 +64,7 @@
 			</li>
 			
 			<li>
-				<a href="${ contextPath }/category.do">
+				<a href="${ contextPath }/cate/list.do">
 					<i class="icon-apple"></i>
 					<span class="menu-text"> 카테고리 관리 </span>
 				</a>
