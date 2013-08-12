@@ -57,6 +57,7 @@
 						<th>ID</th>
 						<th>NAME</th>
 						<th>PASSWORD</th>
+						<th>ROLE</th>
 						<th>STATUS</th>
 					</tr>
 				</thead>
@@ -67,13 +68,9 @@
 							<td>${userlist.MEMBER_ID}</td>
 							<td>${userlist.MEMBER_NM}</td>
 							<td>${userlist.MEMBER_PW}</td>
+							<td>${userlist.MEMBER_ROLE}</td>
 							<td>
 								<div class="hidden-phone visible-desktop btn-group">
-									<form method="get" action="">
-										<button class="btn btn-mini btn-success">
-											<i class="icon-ok bigger-120"></i>
-										</button>
-									</form>
 
 									<form method="get" action="/storyfarm-admin/useredit.do">
 										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">

@@ -50,6 +50,7 @@
 						<th>ID</th>
 						<th>NAME</th>
 						<th>PASSWORD</th>
+						<th>ROLE</th>
 						<th>STATUS</th>
 					</tr>
 				</thead>
@@ -60,6 +61,7 @@
 								<td><input type="text" name="id" value=""></td>
 								<td><input type="text" name="name" value=""></td>
 								<td><input type="text" name="pwd" value=""></td>
+								<td><input type="text" name="role" value=""></td>
 								<td>
 									<div id="btnAdd" class="hidden-phone visible-desktop btn-group">
 
@@ -78,6 +80,7 @@
 								<td><input type="text" name="id" value="${userListOne.MEMBER_ID}"></td>
 								<td><input type="text" name="name" value="${userListOne.MEMBER_NM}"></td>
 								<td><input type="text" name="pwd" value="${userListOne.MEMBER_PW}"></td>
+								<td><input type="text" name="role" value="${userListOne.MEMBER_ROLE}"></td>
 								<td>
 									<div id="btnAdd" class="hidden-phone visible-desktop btn-group">
 

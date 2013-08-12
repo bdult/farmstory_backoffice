@@ -14,7 +14,8 @@
 		SELECT
 		MEMBER_ID,
 		MEMBER_NM,
-		MEMBER_PW
+		MEMBER_PW,
+		MEMBER_ROLE
 		FROM BG_MEMBER
 	</select>
 	
@@ -23,12 +24,14 @@
 		INSERT INTO BG_MEMBER (
 		MEMBER_ID,
 		MEMBER_NM,
-		MEMBER_PW
+		MEMBER_PW,
+		MEMBER_ROLE
 		)
 		VALUES (
         #{ id },
         #{ name },
-        #{ pwd }
+        #{ pwd },
+        #{ role }
 		)
 	
 	</insert>
@@ -39,7 +42,8 @@
 		<set>
 		MEMBER_ID = #{ id },
 		MEMBER_NM = #{ name },
-		MEMBER_PW = #{ pwd }
+		MEMBER_PW = #{ pwd },
+		MEMBER_ROLE = #{ role }
 		</set>
 		WHERE MEMBER_ID = #{ id }
 	</update>

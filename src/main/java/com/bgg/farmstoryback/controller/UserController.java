@@ -22,12 +22,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "login.do", method = RequestMethod.GET)
-	public String main(Model model) {
-		
-		return "pure-view/login";
-	}
-
+	
+	/**
+	 * 	Result
+			Key : MEMBER_ID -> Value : test
+			Key : MEMBER_NM -> Value : unho
+			Key : MEMBER_PW -> Value : 1234
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "user.do", method = RequestMethod.GET)
 	public ModelAndView user(Model model) {
 		
@@ -44,7 +47,7 @@ public class UserController {
 	public ModelAndView userInsert(Model model) {
 		
 		ModelAndView mav = new ModelAndView();
-
+		
 		mav.addObject("type", "create");
 		mav.setViewName("view/userinsert");
 		return mav;
@@ -79,7 +82,7 @@ public class UserController {
 	public ModelAndView userEdit(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
-
+		
 		logger.info(paramMap.toString());
 		
 		mav.addObject("userListOne",userService.getUserOne(paramMap));

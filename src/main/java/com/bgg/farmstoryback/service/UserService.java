@@ -54,6 +54,7 @@ public class UserService {
 		map.put("id", (String)paramMap.get("id"));
 		map.put("name", (String)paramMap.get("name"));
 		map.put("pwd", (String)paramMap.get("pwd"));
+		map.put("role", (String)paramMap.get("role"));
 		
 		return userDao.insertUser(map);
 	}
@@ -76,6 +77,7 @@ public class UserService {
 		map.put("id", (String)paramMap.get("id"));
 		map.put("name", (String)paramMap.get("name"));
 		map.put("pwd", (String)paramMap.get("pwd"));
+		map.put("role", (String)paramMap.get("role"));
 		
 		return userDao.updateUser(map);
 	}

@@ -32,11 +32,11 @@
 
 												<div class="space-6"></div>
 
-												<form>
+												<form  method="get" action="/storyfarm-admin/sessionstore.do">
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input type="text" class="span12" placeholder="Username" />
+																<input type="text" name="id" class="span12" placeholder="Username" />
 																<i class="icon-user"></i>
 															</span>
 														</label>
@@ -263,7 +263,7 @@
 			 $('#'+id).addClass('visible');
 			}
 		</script>
-
+<!-- 
 <script>
 $(function(){
 	$("#loginBtn").click(function(event){
@@ -273,3 +273,4 @@ $(function(){
 	
 });
 </script>
+ -->

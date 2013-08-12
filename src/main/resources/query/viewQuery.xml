@@ -10,4 +10,11 @@
 		WHERE 1=1
 	</select>
 
+    <select id="getOneRole" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        	MEMBER_ROLE, MEMBER_ID
+        FROM BG_MEMBER
+        WHERE MEMBER_ID = #{ id } 
+    </select>
+
 </mapper>
