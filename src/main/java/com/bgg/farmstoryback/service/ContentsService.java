@@ -38,6 +38,9 @@ public class ContentsService {
 	
 	/**
 	 * 컨텐츠 생성
+	 * paramter key
+	 * item_nm
+	 * brand_id
 	 * @param itemInfo
 	 */
 	public void createItem(Map<String, Object> itemInfo) {
@@ -46,7 +49,9 @@ public class ContentsService {
 		itemInfo.put("item_id", idMaker.makeId());
 		
 		// 원본 파일 경로 생성
-		itemInfo.put("src_path", makeFilePath((MultipartFile)itemInfo.get("file")));
+		if(itemInfo.get("file") != null){
+			itemInfo.put("src_path", makeFilePath((MultipartFile)itemInfo.get("file")));
+		}
 		contsDao.create(itemInfo);
 		
 	}

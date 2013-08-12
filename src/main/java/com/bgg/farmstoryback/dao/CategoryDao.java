@@ -32,8 +32,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param level
 	 * @return
 	 */
-	public List<Map> listByLevel(Map<String, String> cateInfo) {
-		return (List<Map>)getSqlSession().selectList("cateQuery.listByLevel", cateInfo);
+	public List<Map> listByLevel(int cateLevel) {
+		return (List<Map>)getSqlSession().selectList("cateQuery.listByLevel", cateLevel);
 	}
 
 	/**
@@ -61,4 +61,14 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	public List<Map> listByBrandId(Map cateInfo) {
 		return (List<Map>)getSqlSession().selectList("cateQuery.listByBrandId", cateInfo);
 	}
+
+	public String cateId(Map<String, String> cateInfo) {
+		return (String)getSqlSession().selectOne("cateQuery.cateId", cateInfo);
+	}
+
+	public void delete(int cateId) {
+		getSqlSession().delete("cateQuery.deleteCateItemRelation", cateId);
+		getSqlSession().delete("cateQuery.delete", cateId);
+	}
+
 }

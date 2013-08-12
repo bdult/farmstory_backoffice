@@ -94,6 +94,6 @@ public class CategoryDaoTest {
 		Map<String, Object> cateDetail = categoryDao.detail(cateInfo);
 		logPrinter.printMap(cateDetail);
 		assertThat(cateDetail, is(notNullValue())	);
-		assertThat((String)cateDetail.get("CATE_NM"), is("test_modify2"));
+		assertThat((String)cateDetail.get("CATE_NM"), is("수학"));
 	}
 }

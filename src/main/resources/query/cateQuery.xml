@@ -14,7 +14,7 @@
 	
 	<select id="listByLevel" resultType="hashmap">
 		SELECT * FROM BG_CATE
-		 WHERE CATE_LEVEL = #{level}
+		 WHERE CATE_LEVEL = #{cateLevel}
 	</select>
 	
 	<select id="detail" resultType="hashmap">
@@ -27,6 +27,13 @@
 		 WHERE 1=1 
 		 AND BC.CATE_ID = BCB.CATE_ID
 		 AND BCB.CATE_ID = #{cate_id}
+	</select>
+	
+	<select id="cateId" resultType="String">
+		SELECT CATE_ID FROM BG_CATE
+		 WHERE 1=1
+		 AND CATE_LEVEL = ${cate_level}
+		 AND CATE_NM like '%${cate_nm}%'
 	</select>
 	
 	<insert id="create" parameterType="map">
@@ -47,13 +54,28 @@
 	
 	<update id="modyfy">
 		UPDATE BG_CATE SET
+			<if test="cate_level != null">
 			CATE_LEVEL= #{cate_level},
+			</if>
 			CATE_NM = #{cate_nm},
+			<if test="cate_level != null">
 			PARENT_CATE_ID = #{parent_cate_id},
+			</if>
 			MOD_DT = now()
 		WHERE 1=1
 		AND CATE_ID = #{cate_id}
 	</update>
-	
+
+	<delete id="deleteCateItemRelation">
+		DELETE FROM BG_CATE_ITEM_RELATIONSHIPS
+		WHERE 1=1
+		AND CATE_ID = #{cateId}
+	</delete>
+		
+	<delete id="delete">
+		DELETE FROM BG_CATE
+		WHERE 1=1
+		AND CATE_ID = #{cateId}
+	</delete>	
 	
 </mapper>
