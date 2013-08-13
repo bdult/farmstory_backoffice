@@ -225,8 +225,8 @@
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 						<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo" />
 						<span class="user-info">
-							<small>Welcome,</small>
-							Jason
+							ID : ${ login_session.MEMBER_ID }<br>
+							권한 : ${ login_session.MEMBER_ROLE }
 						</span>
 
 						<i class="icon-caret-down"></i>
@@ -250,7 +250,7 @@
 						<li class="divider"></li>
 
 						<li>
-							<a href="#">
+							<a href="${ contextPath }/logout.do">
 								<i class="icon-off"></i>
 								Logout
 							</a>

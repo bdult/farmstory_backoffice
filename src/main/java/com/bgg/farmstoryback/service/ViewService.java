@@ -2,6 +2,7 @@ package com.bgg.farmstoryback.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,14 @@ public class ViewService {
 
 		@Autowired
 		private ViewDao viewDao;
-		
+
 		public List<HashMap<String, String>> memberList() {
 			return viewDao.memberList();
 		}
+		
+
+		public Map<String, String> getOneRole(Map<String, Object> paramMap) {
+			return viewDao.getOneRole(paramMap);
+		}
+		
 }

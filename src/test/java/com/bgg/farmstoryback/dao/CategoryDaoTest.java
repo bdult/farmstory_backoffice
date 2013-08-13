@@ -34,7 +34,19 @@ public class CategoryDaoTest {
 	public void tearDown() throws Exception {
 	}
 
-	
+	/*
+	@Test
+	public void specDescription() {
+
+		// given 
+		
+		// when
+		int connCheckCount = categoryDao.connectionTest();
+
+		// then
+		assertThat(connCheckCount, is(not(0)));
+	}
+	*/
 	@Test
 	public void testList() {
 
