@@ -3,12 +3,9 @@ package com.bgg.farmstoryback.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-<<<<<<< HEAD
-=======
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
->>>>>>> Unho
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.service.CategoryService;
-import com.bgg.farmstoryback.service.UserService;
-=======
->>>>>>> Unho
 import com.bgg.farmstoryback.service.ViewService;
 
 @Controller
@@ -73,9 +64,6 @@ public class ViewController {
 		return mav;
 	}
 	
-	
-	@Autowired
-	private CategoryService cateService;
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
