@@ -51,6 +51,11 @@ public class FarmstoryInterceptor extends HandlerInterceptorAdapter {
 					if( role.equals("1") && 
 							! request.getServletPath().contains( "dashboard.do" ) &&
 							! request.getServletPath().contains( "user.do" ) &&
+							! request.getServletPath().contains( "userinsert.do" ) &&
+							! request.getServletPath().contains( "userupdate.do" ) &&
+							! request.getServletPath().contains( "usercreate.do" ) &&
+							! request.getServletPath().contains( "useredit.do" ) &&
+							! request.getServletPath().contains( "userdelete.do" ) &&
 							! request.getServletPath().contains( "category.do" ) &&
 							! request.getServletPath().contains( "main.do" ) &&
 							! request.getServletPath().contains( "sub.do" )
