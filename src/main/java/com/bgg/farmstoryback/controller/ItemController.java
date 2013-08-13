@@ -17,23 +17,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.service.BrandService;
-import com.bgg.farmstoryback.service.ContentsService;
-import com.bgg.farmstoryback.service.SeriesService;
+import com.bgg.farmstoryback.service.ItemService;
+import com.bgg.farmstoryback.service.ItemGroupService;
 import com.bgg.farmstoryback.service.UserService;
 
 @Controller
-public class ContentsController {
+public class ItemController {
 	
-	private Logger logger = LoggerFactory.getLogger(ContentsController.class);
+	private Logger logger = LoggerFactory.getLogger(ItemController.class);
 	
 	@Autowired
-	private ContentsService contsService;
+	private ItemService itemService;
 	
 	@Autowired
 	private BrandService brandService;
 	
 	@Autowired
-	private SeriesService seriseService;
+	private ItemGroupService seriseService;
 	
 	@RequestMapping(value = "contents/list.do", method = RequestMethod.GET)
 	public String list(Model model) {
@@ -54,7 +54,7 @@ public class ContentsController {
 		contentsInfo.put("item_desc",item_desc );
 		contentsInfo.put("brand_nm",brand_nm );
 		
-		contsService.createItem(contentsInfo);
+		itemService.createItem(contentsInfo);
 		
 		return "redirect:/main.do";
 	}
@@ -75,14 +75,14 @@ public class ContentsController {
 		return null;
 	}
 	
-	// AJAX
-	@RequestMapping(value = "contents/brandList.ajax")
-	public String brandListAjax(Model model, String cateId) {
-		
-		List<Map> contentsList  = brandService.listByCateId(cateId);
-		
-		return null;
-	}
+//	// AJAX
+//	@RequestMapping(value = "contents/brandList.ajax")
+//	public String brandListAjax(Model model, String cateId) {
+//		
+//		List<Map> contentsList  = brandService.listByCateId(cateId);
+//		
+//		return null;
+//	}
 	
 	// AJAX
 	@RequestMapping(value = "contents/seriseList.ajax")
@@ -95,9 +95,9 @@ public class ContentsController {
 	
 	// AJAX
 	@RequestMapping(value = "contents/itemList.ajax")
-	public String itemListAjax(Model model, String seriseId) {
+	public String itemListAjax(Model model, String groupId) {
 		
-		List<Map> contentsList  = contsService.listBySeriseId(seriseId);
+		List<Map> contentsList  = itemService.listByGroupId(groupId);
 		
 		return null;
 	}

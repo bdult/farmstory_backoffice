@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.service.CategoryService;
-import com.bgg.farmstoryback.service.UserService;
 import com.bgg.farmstoryback.service.ViewService;
 
 @Controller
@@ -26,40 +27,60 @@ public class ViewController {
 	@Autowired
 	private ViewService viewService;
 
-	@Autowired
-	private UserService userService;
+	@RequestMapping(value = "login.do", method = RequestMethod.GET)
+	public String login(Model model) {
+
+	    
+		return "pure-view/login";
+	}
 	
-	@Autowired
-	private CategoryService cateService;
+	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
+	public String logout(Model model, HttpServletRequest request, HttpSession session) {
+		logger.info("logout.do");
+
+		if(session != null){
+			session.invalidate();
+		}
+        
+        return "pure-view/login";
+	}
+	
+	@RequestMapping(value = "sessionstore.do", method = RequestMethod.GET)
+	public ModelAndView sessionstore(@RequestParam Map<String,Object> paramMap, HttpServletRequest request, HttpSession session) {
+		logger.info("into sessionstore.do");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(paramMap);
+		session.setAttribute("login_session", sessionMap);
+	    
+		if(session == null || session.getAttribute("login_session") == null){
+			mav.setViewName("pure-view/login");
+		}else{
+			mav.setViewName("view/dashboard");
+		}
+		
+	    
+		return mav;
+	}
+	
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
 		logger.info("into dashboard.do");
 		
-		//db sample
-		List<HashMap<String, String>> data = viewService.memberList();
-		
-		for(int i=0;i<data.size();i++) {
-			System.out.println(data.get(i));
-		}
 		
 		return "view/dashboard";
 	}
 	
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
-	public ModelAndView main(Model model) {
+	public String main(Model model) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("view/main");
 		logger.info("into main.do");
 		
-		//db sample
-		List<HashMap<String, String>> data = viewService.memberList();
-		
-		for(int i=0;i<data.size();i++) {
-			System.out.println(data.get(i));
-		}
-		return mav;
+		return "view/main";
 	}
 	
 	@RequestMapping(value = "sub.do", method = RequestMethod.GET)
@@ -83,6 +104,4 @@ public class ViewController {
 //		model.addAttribute("cateList", cateList);
 		return "view/contents";
 	}
-	
-	
 }

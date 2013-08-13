@@ -32,26 +32,27 @@ public class CategoryService {
 	 * <pre>
 	 * Param sample
 	 * Map<String, String> cateInfo = new HashMap<String, String>();
-	 * cateInfo.put("cate_id", "C_954682af87414cca86c18a70754b5b58");
 	 * cateInfo.put("cate_level", "1");
 	 * cateInfo.put("cate_nm", "test_modify2");
 	 * cateInfo.put("parent_cate_id", "C_954682af87414cca86c18a70754b5b58");
 	 * </pre>
 	 * @param cateInfo
+	 * @return cate_id
 	 */
-	public void create(Map<String, String> cateInfo) {
-		cateDao.create(cateInfo);
+	public String create(Map<String, String> cateInfo) {
+		
+		String cateId = cateDao.cateId(cateInfo);
+		// 중복 체크
+		if(cateId == null){
+			cateDao.create(cateInfo);
+			return ""+cateInfo.get("cate_id");
+		}else{
+			return cateId;
+		}
+		
+		
 	}
 
-	/**
-	 * 특정 레벨 카테고리 리스트
-	 * @param level
-	 * @return
-	 */
-	public List<Map> listByLevel(Map<String, String> cateInfo) {
-		
-		return cateDao.listByLevel(cateInfo);
-	}
 
 	/**
 	 * 카테고리 수정
@@ -76,12 +77,21 @@ public class CategoryService {
 	 * @param cateInfo
 	 * @return
 	 */
-	public Map<String, Object> detail(Map<String, String> cateInfo) {
-		return cateDao.detail(cateInfo);
+	public Map detail(String cateId) {
+		return cateDao.detail(cateId);
 	}
 
-	public List<Map> listByBrandId(Map brandInfo) {
-		return (List<Map>)cateDao.listByBrandId(brandInfo);
+	/**
+	 * 특정 레벨 카테고리 리스트
+	 * @param cateLevel
+	 * @return
+	 */
+	public List<Map> listByLevel(int cateLevel) {
+		return (List<Map>)cateDao.listByLevel(cateLevel);
+	}
+
+	public void delete(String cateId) {
+		cateDao.delete(cateId);
 	}
 
 }

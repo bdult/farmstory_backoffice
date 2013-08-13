@@ -33,24 +33,24 @@ public class CategoryController {
 			Key : CATE_ID -> Value : C_954682af87414cca86c18a70754b5b58
 	 * @return
 	 */
-	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
-	public ModelAndView list(Map<String, String> cateInfo) {
-		
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("category/list");
-		
-		List<Map> cateList = categoryService.list();
-		mav.addObject("cateList", cateList);
-		return mav;
-	}
-	
-	@RequestMapping(value = "cate/list.ajax", produces = "application/json;charset=UTF-8")
-	public @ResponseBody String listAjax(Map<String, String> cateInfo) {
-		
-		List<Map> cateList = categoryService.listByLevel(cateInfo);
-//		logger.info(jsonString);
-		return "";
-	}
+//	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
+//	public ModelAndView list(Map<String, String> cateInfo) {
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("category/list");
+//		
+//		List<Map> cateList = categoryService.listByLevel(cateInfo);
+//		mav.addObject("firstDepthList", cateList);
+//		return mav;
+//	}
+//	
+//	@RequestMapping(value = "list.ajax", produces = "application/json;charset=UTF-8")
+//	public @ResponseBody String listAjax(Map<String, String> cateInfo) {
+//		
+//		List<Map> cateList = categoryService.listByLevel(cateInfo);
+////		logger.info(jsonString);
+//		return "";
+//	}
 
 	@RequestMapping(value = "cate/create.do", method = RequestMethod.POST)
 	public String create(Map<String, String> cateInfo) {
@@ -66,8 +66,8 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "cate/detail.do")
-	public String detail(Model model, Map<String, String> cateInfo) {
-		categoryService.detail(cateInfo);
+	public String detail(Model model, String cateId) {
+		categoryService.detail(cateId);
 		return null;
 	}
 	

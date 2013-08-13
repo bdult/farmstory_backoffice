@@ -3,27 +3,18 @@
     pageEncoding="UTF-8"%>
 
 <style>
-.btn-group form{
-	margin: 0;
-	float: left;
-}
-
-#userCreatebtn {
-	float: right;
-}
 
 </style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
-			<li>
-				<i class="icon-home home-icon"></i> 
-				<a href="#">Home</a> 
-				<span class="divider"> 
-					<i class="icon-angle-right arrow-icon"></i>
-				</span>
+			<li><i class="icon-home home-icon"></i> <a href="#">Home</a> <span
+				class="divider"> <i class="icon-angle-right arrow-icon"></i>
+			</span></li>
+			<li class="active">
+			<c:if test="${ type == 'create' }">create</c:if>
+			<c:if test="${ type == 'edit' }">edit</c:if>
 			</li>
-			<li class="active">User</li>
 		</ul>
 		<!--.breadcrumb-->
 
@@ -42,7 +33,9 @@
 	<div class="page-content">
 		<div class="page-header position-relative">
 			<h1>
-				User <small> <i class="icon-double-angle-right"></i>
+				<c:if test="${ type == 'create' }">UserCreate</c:if>
+				<c:if test="${ type == 'edit' }">UserEdit</c:if>
+				<small> <i class="icon-double-angle-right"></i>
 					overview &amp; stats
 				</small>
 			</h1>
@@ -62,41 +55,45 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="userlist" items="${positionList}"
-						varStatus="status">
+					<c:if test="${ type == 'create' }">
 						<tr>
-							<td>${userlist.MEMBER_ID}</td>
-							<td>${userlist.MEMBER_NM}</td>
-							<td>${userlist.MEMBER_PW}</td>
-							<td>${userlist.MEMBER_ROLE}</td>
-							<td>
-								<div class="hidden-phone visible-desktop btn-group">
+							<form method="post" action="/storyfarm-admin/usercreate.do">
+								<td><input type="text" name="id" value=""></td>
+								<td><input type="text" name="name" value=""></td>
+								<td><input type="text" name="pwd" value=""></td>
+								<td><input type="text" name="role" value=""></td>
+								<td>
+									<div id="btnAdd" class="hidden-phone visible-desktop btn-group">
 
-									<form method="get" action="/storyfarm-admin/useredit.do">
-										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">
-										<button class="btn btn-mini btn-info">
-											<i class="icon-edit bigger-120"></i>
+										<button class="btn btn-mini btn-success">
+											<i class="icon-ok bigger-120"></i>
 										</button>
-									</form>
-
-									<form method="get" action="/storyfarm-admin/userdelete.do">
-										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">
-										<button class="btn btn-mini btn-danger">
-											<i class="icon-trash bigger-120"></i>
-										</button>
-									</form>
-								</div>
+									</div>
+							</form>
 							</td>
 						</tr>
-					</c:forEach>
+					</c:if>
+
+					<c:if test="${ type == 'edit' }">
+						<tr>
+							<form method="get" action="/storyfarm-admin/userupdate.do">
+								<td><input type="text" name="id" value="${userListOne.MEMBER_ID}"></td>
+								<td><input type="text" name="name" value="${userListOne.MEMBER_NM}"></td>
+								<td><input type="text" name="pwd" value="${userListOne.MEMBER_PW}"></td>
+								<td><input type="text" name="role" value="${userListOne.MEMBER_ROLE}"></td>
+								<td>
+									<div id="btnAdd" class="hidden-phone visible-desktop btn-group">
+
+										<button class="btn btn-mini btn-success">
+											<i class="icon-ok bigger-120"></i>
+										</button>
+									</div>
+							</form>
+							</td>
+						</tr>
+					</c:if>
 				</tbody>
 			</table>
-
-			<form method="POST" action="/storyfarm-admin/userinsert.do">
-				<button id="userCreatebtn" class="btn btn-info">
-					<i class="icon-ok bigger-110"></i> 회원추가
-				</button>
-			</form>
 		</div>
 
 

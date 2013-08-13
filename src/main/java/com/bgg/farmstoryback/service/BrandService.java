@@ -30,20 +30,14 @@ public class BrandService {
 		return brandDao.list();
 	}
 	
-	public List<Map> listByCateId(String cateId) {
-		return brandDao.listByCateId(cateId);
-	}
-
 	/**
-	 * 브랜드 생성
-	 * @param parameterMap
+	 * @param brandInfo
+	 * @return brand_Id
 	 */
-	public void create(Map parameterMap) {
-		parameterMap.put("brand_id", idMaker.makeId());
-		brandDao.create(parameterMap);
-		if(parameterMap.get("cate_id") != null){
-			brandDao.createCateBrand(parameterMap);
-		}
+	public String create(Map brandInfo) {
+		// 중복 체크 로직 필요 할 듯
+		brandDao.create(brandInfo);
+		return ""+brandInfo.get("brand_id");
 	}
 	
 	/**
@@ -61,23 +55,10 @@ public class BrandService {
 	 */
 	public void modify(Map parameterMap){
 		brandDao.modify(parameterMap);
-		if(parameterMap.get("pre_cate_id") != null){
-			brandDao.modifyCateBrand(parameterMap);
-		}
 	}
 
-	public Map detail(Map brandInfo) {
-		Map<String, Object> brandDetail = new HashMap<String, Object>();
-		
-		Map brand = brandDao.detail(brandInfo);
-		brandDetail.put("brand", brand);
-		
-		if(brand != null){
-			List<Map> cateList = cateService.listByBrandId(brandInfo);
-			brandDetail.put("brand_cate_list", cateList);
-			
-		}
-		return brandDetail;
+	public Map detail(String brandId) {
+		return brandDao.detail(brandId);
 	}
 
 	public void delete(Map brandInfo) {
