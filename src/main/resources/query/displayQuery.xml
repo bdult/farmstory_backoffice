@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="displayQuery">
+	
+	<insert id="create"  keyProperty="display_id">
+		INSERT BG_DISPLAY(
+			DISPLAY_NM,
+			DIS_TYPE
+   		)
+   		VALUES(
+   			#{display_nm},
+   			#{display_type}
+   		)
+	</insert>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT * FROM BG_DISPLAY
+		WHERE DISPLAY_ID = #{displayId}
+	</select>
+	
+	<select id="displayIdByName" resultType="String">
+		SELECT DISPLAY_ID FROM BG_DISPLAY
+		WHERE 1=1
+		AND DISPLAY_NM like '%#{display_nm}%'
+		LIMIT 1
+	</select>
+	
+</mapper>
