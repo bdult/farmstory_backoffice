@@ -31,6 +31,27 @@ public class DispalyService {
 		public Map detail(String displayId) {
 			return displayDao.detail(displayId);
 		}
+
+		public List<Map> list() {
+			return displayDao.list();
+		}
+
+		public void delete(String displayId) {
+			displayDao.deleteInDisplayItem(displayId);
+			displayDao.delete(displayId);
+		}
+
+		public void modify(Map displayInfo) {
+			displayDao.modify(displayInfo);
+		}
+
+		public void createObjectDisplay(Map groupDisplayInfo) {
+			displayDao.createObjectDisplay(groupDisplayInfo);
+		}
+
+		public Map detailObjectDisplay(Map groupDisplayInfo) {
+			return displayDao.detailObjectDisplay(groupDisplayInfo);
+		}
 		
 		// event list
 		

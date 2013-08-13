@@ -19,13 +19,35 @@ public class DisplayDao extends SqlSessionDaoSupport {
 		getSqlSession().insert("displayQuery.create", displayInfo);
 	}
 
-	public Map detail(String displayId) {
-		return (Map)getSqlSession().selectOne("displayQuery.detail", displayId);
-	}
-
 	public String displayIdByName(String displayNm) {
 		return (String)getSqlSession().selectOne("displayQuery.displayIdByName", displayNm);
 	}
 
-	
+	public List<Map> list() {
+		return getSqlSession().selectList("displayQuery.list");
+	}
+
+	public Map detail(String displayId) {
+		return (Map)getSqlSession().selectOne("displayQuery.detail", displayId);
+	}
+
+	public void delete(String displayId) {
+		getSqlSession().delete("displayQuery.delete", displayId);
+	}
+
+	public void deleteInDisplayItem(String displayId) {
+		getSqlSession().delete("displayQuery.deleteInDisplayItem", displayId);
+	}
+
+	public void modify(Map displayInfo) {
+		getSqlSession().delete("displayQuery.modify", displayInfo);
+	}
+
+	public void createObjectDisplay(Map groupDisplayInfo) {
+		getSqlSession().insert("displayQuery.createObjectDisplay", groupDisplayInfo);
+	}
+
+	public Map detailObjectDisplay(Map groupDisplayInfo) {
+		return (Map)getSqlSession().selectOne("displayQuery.detailObjectDisplay", groupDisplayInfo);
+	}
 }
