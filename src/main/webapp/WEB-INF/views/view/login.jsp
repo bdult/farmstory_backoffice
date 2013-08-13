@@ -27,7 +27,7 @@
 											<div class="widget-main">
 												<h4 class="header blue lighter bigger">
 													<i class="icon-coffee green"></i>
-													Please Enter Your Information
+													회원정보를 입력해 주세요
 												</h4>
 
 												<div class="space-6"></div>
@@ -43,7 +43,7 @@
 
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input type="password" class="span12" placeholder="Password" />
+																<input type="password" name="pw" class="span12" placeholder="Password" />
 																<i class="icon-lock"></i>
 															</span>
 														</label>
@@ -53,12 +53,12 @@
 														<div class="clearfix">
 															<label class="inline">
 																<input type="checkbox" />
-																<span class="lbl"> Remember Me</span>
+																<span class="lbl"> 로그인 상태 유지</span>
 															</label>
 
 															<button id="loginBtn" class="width-35 pull-right btn btn-small btn-primary">
 																<i class="icon-key"></i>
-																Login
+																로그인
 															</button>
 														</div>
 
@@ -89,13 +89,13 @@
 												<div>
 													<a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
 														<i class="icon-arrow-left"></i>
-														I forgot my password
+														비밀번호 찾기
 													</a>
 												</div>
 
 												<div>
 													<a href="#" onclick="show_box('signup-box'); return false;" class="user-signup-link">
-														I want to register
+														회원가입
 														<i class="icon-arrow-right"></i>
 													</a>
 												</div>
@@ -108,12 +108,12 @@
 											<div class="widget-main">
 												<h4 class="header red lighter bigger">
 													<i class="icon-key"></i>
-													Retrieve Password
+													비밀번호 찾기
 												</h4>
 
 												<div class="space-6"></div>
 												<p>
-													Enter your email and to receive instructions
+													이메일 주소를 입력하면 새로운 비밀번호가 메일로 갑니다.
 												</p>
 
 												<form>
@@ -128,7 +128,7 @@
 														<div class="clearfix">
 															<button onclick="return false;" class="width-35 pull-right btn btn-small btn-danger">
 																<i class="icon-lightbulb"></i>
-																Send Me!
+																확인
 															</button>
 														</div>
 													</fieldset>
@@ -137,7 +137,7 @@
 
 											<div class="toolbar center">
 												<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
-													Back to login
+													로그인 페이지로
 													<i class="icon-arrow-right"></i>
 												</a>
 											</div>
@@ -149,11 +149,11 @@
 											<div class="widget-main">
 												<h4 class="header green lighter bigger">
 													<i class="icon-group blue"></i>
-													New User Registration
+													회원가입
 												</h4>
 
 												<div class="space-6"></div>
-												<p> Enter your details to begin: </p>
+												<p> 회원정보를 입력해 주세요 </p>
 
 												<form>
 													<fieldset>
@@ -188,8 +188,8 @@
 														<label>
 															<input type="checkbox" />
 															<span class="lbl">
-																I accept the
-																<a href="#">User Agreement</a>
+																<a href="#">이용약관에</a>
+																동의 합니다.
 															</span>
 														</label>
 
@@ -198,11 +198,11 @@
 														<div class="clearfix">
 															<button type="reset" class="width-30 pull-left btn btn-small">
 																<i class="icon-refresh"></i>
-																Reset
+																초기화
 															</button>
 
 															<button onclick="return false;" class="width-65 pull-right btn btn-small btn-success">
-																Register
+																등록
 																<i class="icon-arrow-right icon-on-right"></i>
 															</button>
 														</div>
@@ -213,7 +213,7 @@
 											<div class="toolbar center">
 												<a href="#" onclick="show_box('login-box'); return false;" class="back-to-login-link">
 													<i class="icon-arrow-left"></i>
-													Back to login
+													로그인 페이지로
 												</a>
 											</div>
 										</div><!--/widget-body-->

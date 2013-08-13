@@ -14,7 +14,7 @@
         SELECT
         	MEMBER_ROLE, MEMBER_ID
         FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ id } 
+        WHERE MEMBER_ID = #{ id } and MEMBER_PW = #{ pw }
     </select>
 
 </mapper>
