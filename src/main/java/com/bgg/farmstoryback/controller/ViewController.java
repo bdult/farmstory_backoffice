@@ -38,8 +38,9 @@ public class ViewController {
 	public String logout(Model model, HttpServletRequest request, HttpSession session) {
 		logger.info("logout.do");
 
-        session.setAttribute("login_session", null);
-        logger.info((String)session.getAttribute("login_session"));
+		if(session != null){
+			session.invalidate();
+		}
         
         return "pure-view/login";
 	}
@@ -52,7 +53,13 @@ public class ViewController {
 		
 		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(paramMap);
 		session.setAttribute("login_session", sessionMap);
-	    mav.setViewName("view/dashboard");
+	    
+		if(session == null || session.getAttribute("login_session") == null){
+			mav.setViewName("pure-view/login");
+		}else{
+			mav.setViewName("view/dashboard");
+		}
+		
 	    
 		return mav;
 	}

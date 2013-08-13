@@ -23,7 +23,7 @@ public class FarmstoryInterceptor extends HandlerInterceptorAdapter {
 
 			if(	
 				//세션 체크 예외 리스트
-				! request.getServletPath().contains( "dashboard.do" ) &&
+//				! request.getServletPath().contains( "dashboard.do" ) &&
 				! request.getServletPath().contains( "sessionstore.do" ) &&
 				! request.getServletPath().contains( "login.do" ) &&
 				! request.getServletPath().contains( "logout.do" )
@@ -49,6 +49,7 @@ public class FarmstoryInterceptor extends HandlerInterceptorAdapter {
 					
 					// 권한 체크
 					if( role.equals("1") && 
+							! request.getServletPath().contains( "dashboard.do" ) &&
 							! request.getServletPath().contains( "user.do" ) &&
 							! request.getServletPath().contains( "category.do" ) &&
 							! request.getServletPath().contains( "main.do" ) &&
@@ -57,6 +58,7 @@ public class FarmstoryInterceptor extends HandlerInterceptorAdapter {
 						response.sendRedirect("dashboard.do");
 						return false;
 					}else if( role.equals("2") && 
+							! request.getServletPath().contains( "dashboard.do" ) &&
 							! request.getServletPath().contains( "main.do" ) &&
 							! request.getServletPath().contains( "sub.do" )
 					){
