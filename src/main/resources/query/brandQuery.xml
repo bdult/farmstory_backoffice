@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="brandQuery">
+
+	<select id="list" resultType="hashmap">
+		SELECT * FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT * FROM BG_BRAND
+		WHERE BRAND_ID = #{brandId}
+		AND DEL_YN = 'N'
+	</select>
+	
+	<insert id="create"  keyProperty="brand_id">
+		INSERT BG_BRAND(
+			BRAND_NM,
+			IMG_PATH
+   		)
+   		VALUES(
+   			#{brand_nm},
+   			#{img_path}
+   		)
+	</insert>
+	
+	<update id="modify">
+		UPDATE BG_BRAND SET
+			BRAND_NM = #{brand_nm}
+			, MOD_DT = now()
+		WHERE 1=1
+		AND BRAND_ID = #{brand_id}
+	</update>
+	
+	<update id="delete">
+		UPDATE BG_BRAND SET
+			DEL_YN = 'Y'
+			, MOD_DT = now()
+		WHERE 1=1
+		AND BRAND_ID = #{brand_id}
+	</update>
+	
+</mapper>

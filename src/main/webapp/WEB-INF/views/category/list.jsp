@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 <style>
 #editor {
@@ -44,10 +44,74 @@
 		</div><!--/.page-header-->
 
 		<div class="row-fluid">
-			<div class="span12">
-				<!--PAGE CONTENT BEGINS-->
-				<div class="well">카테고리 관리</div>
-				<!--PAGE CONTENT ENDS-->
+			<div class="span6">
+				
+				<div class="alert alert-info">
+					<button type="button" class="close" data-dismiss="alert">
+						<i class="icon-remove"></i>
+					</button>
+					<strong>레벨 1</strong>
+					수학, 영어, 동화 같은 과목을 관리(?)
+					<br>
+				</div>
+				
+				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th>이름</th>
+							<th></th>
+						</tr>
+					</thead>				
+					<tbody>
+						<c:forEach items="${ firstDepthList }" var="cate">
+							<tr>
+								<td>${ cate.CATE_ID }</td>
+								<td class="pointer">${ cate.CATE_NM }</td>
+								<td>x e</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<button class="btn btn-info pull-right">생성</button>
+			</div><!--/.span-->
+			<div class="span6">
+			
+				<div class="alert alert-info">
+					<button type="button" class="close" data-dismiss="alert">
+						<i class="icon-remove"></i>
+					</button>
+					<strong>레벨 2</strong>
+					브랜드 관리(?)
+					<br>
+				</div>x
+				
+				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th></th>
+							<th>이름</th>
+							<th>x e</th>
+						</tr>
+					</thead>				
+					<tbody>
+						<tr>
+							<td></td>
+							<td>삐아제</td>
+							<td>x e</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>시사영어사</td>
+							<td>x e</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>재능교육</td>
+							<td>x e</td>
+						</tr>
+					</tbody>	
+				</table>
 			</div><!--/.span-->
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->

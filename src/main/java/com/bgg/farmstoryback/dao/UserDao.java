@@ -1,5 +1,11 @@
 package com.bgg.farmstoryback.dao;
 
+import java.util.List;
+
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
+
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.service.CategoryService;
 
@@ -21,13 +23,6 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@RequestMapping(value = "category.do", method = RequestMethod.GET)
-	public String category(Model model) {
-		
-		return "category/list";
-	}
-	
-	
 	/**
 	 * 	Result
 			Key : CATE_NM -> Value : test_modify2
@@ -38,17 +33,25 @@ public class CategoryController {
 			Key : CATE_ID -> Value : C_954682af87414cca86c18a70754b5b58
 	 * @return
 	 */
-	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
-	public String listAll(Model model, int level) {
-		List<Map<String, Object>> cateList  = null;
-		if(level == 0){
-			cateList = categoryService.list();
-		}else{
-			cateList = categoryService.listByLevel(level);
-		}
-		return "category/list";
-	}
-	
+//	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
+//	public ModelAndView list(Map<String, String> cateInfo) {
+//		
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("category/list");
+//		
+//		List<Map> cateList = categoryService.listByLevel(cateInfo);
+//		mav.addObject("firstDepthList", cateList);
+//		return mav;
+//	}
+//	
+//	@RequestMapping(value = "list.ajax", produces = "application/json;charset=UTF-8")
+//	public @ResponseBody String listAjax(Map<String, String> cateInfo) {
+//		
+//		List<Map> cateList = categoryService.listByLevel(cateInfo);
+////		logger.info(jsonString);
+//		return "";
+//	}
+
 	@RequestMapping(value = "cate/create.do", method = RequestMethod.POST)
 	public String create(Map<String, String> cateInfo) {
 		categoryService.create(cateInfo);
@@ -63,8 +66,8 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "cate/detail.do")
-	public String detail(Model model, Map<String, String> cateInfo) {
-		categoryService.detail(cateInfo);
+	public String detail(Model model, String cateId) {
+		categoryService.detail(cateId);
 		return null;
 	}
 	

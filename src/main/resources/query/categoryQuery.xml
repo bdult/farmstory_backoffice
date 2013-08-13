@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cateQuery">
+<mapper namespace="categoryQuery">
 
 	<select id="connCheck" resultType="int">
 		SELECT 1 FROM DUAL
@@ -14,7 +14,7 @@
 	
 	<select id="listByLevel" resultType="hashmap">
 		SELECT * FROM BG_CATE
-		 WHERE CATE_LEVEL = #{level}
+		 WHERE CATE_LEVEL = #{cateLevel}
 	</select>
 	
 	<select id="detail" resultType="hashmap">
@@ -22,7 +22,14 @@
 		 WHERE CATE_ID = #{cate_id}
 	</select>
 	
-	<insert id="create" parameterType="map">
+	<select id="cateId" resultType="String">
+		SELECT CATE_ID FROM BG_CATE
+		 WHERE 1=1
+		 AND CATE_LEVEL = ${cate_level}
+		 AND CATE_NM like '%${cate_nm}%'
+	</select>
+	
+	<insert id="create" parameterType="map"  keyProperty="cate_id">
 		
 		INSERT /* cateQuery.create 2013.08.07 최지순*/  INTO BG_CATE 
 			(CATE_ID,
@@ -40,13 +47,28 @@
 	
 	<update id="modyfy">
 		UPDATE BG_CATE SET
+			<if test="cate_level != null">
 			CATE_LEVEL= #{cate_level},
+			</if>
 			CATE_NM = #{cate_nm},
+			<if test="cate_level != null">
 			PARENT_CATE_ID = #{parent_cate_id},
+			</if>
 			MOD_DT = now()
 		WHERE 1=1
 		AND CATE_ID = #{cate_id}
 	</update>
-	
+
+	<delete id="deleteCateItemRelation">
+		DELETE FROM BG_CATE_ITEM_RELATIONSHIPS
+		WHERE 1=1
+		AND CATE_ID = #{cateId}
+	</delete>
+		
+	<delete id="delete">
+		DELETE FROM BG_CATE
+		WHERE 1=1
+		AND CATE_ID = #{cateId}
+	</delete>	
 	
 </mapper>

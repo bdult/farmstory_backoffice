@@ -6,16 +6,12 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="[%p %c{1} %L] - %m%n"/>
-            <!--
-                변경 후 콘솔에 찍히는 차이점을 확인 해보시길 바랍니다. 
-    			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
-             -->
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="net.okjsp.spring">
+	<logger name="com.bgg.farmstoryback">
 		<level value="info" />
 	</logger>
 	
@@ -35,9 +31,10 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
-    
-    <logger name="java.sql">
-        <level value="DEBUG" />
+	
+	<!-- SQL Query -->
+	<logger name="java.sql">
+    	<level value="DEBUG" />
     </logger>
 
 	<!-- Root Logger -->

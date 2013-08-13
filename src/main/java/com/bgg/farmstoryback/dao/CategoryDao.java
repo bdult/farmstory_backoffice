@@ -6,8 +6,6 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import com.bgg.farmstoryback.dto.UserDto;
-
 
 @Repository
 public class CategoryDao extends SqlSessionDaoSupport {
@@ -17,8 +15,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * 카테고리 전체 리스트
 	 * @return
 	 */
-	public List<Map<String, Object>> listAll() {
-		return (List<Map<String, Object>>)getSqlSession().selectList("cateQuery.listAll");
+	public List<Map> list() {
+		return (List<Map>)getSqlSession().selectList("categoryQuery.listAll");
 	}
 	
 	/**
@@ -26,7 +24,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param cateInfo
 	 */
 	public void create(Map<String, String> cateInfo) {
-		getSqlSession().insert("cateQuery.create", cateInfo);
+		getSqlSession().insert("categoryQuery.create", cateInfo);
 	}
 
 	/**
@@ -34,8 +32,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param level
 	 * @return
 	 */
-	public List<Map<String, Object>> listByLevel(int level) {
-		return (List<Map<String, Object>>)getSqlSession().selectList("cateQuery.listByLevel", level);
+	public List<Map> listByLevel(int cateLevel) {
+		return (List<Map>)getSqlSession().selectList("categoryQuery.listByLevel", cateLevel);
 	}
 
 	/**
@@ -43,7 +41,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param cateInfo
 	 */
 	public void modify(Map<String, String> cateInfo) {
-		getSqlSession().update("cateQuery.modyfy", cateInfo);
+		getSqlSession().update("categoryQuery.modyfy", cateInfo);
 	}
 
 	/**
@@ -51,7 +49,17 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param cateInfo
 	 * @return
 	 */
-	public Map<String, Object> detail(Map<String, String> cateInfo) {
-		return (Map<String, Object>)getSqlSession().selectOne("cateQuery.detail", cateInfo);
+	public Map detail(String cateId) {
+		return (Map)getSqlSession().selectOne("categoryQuery.detail", cateId);
 	}
+
+	public String cateId(Map<String, String> cateInfo) {
+		return (String)getSqlSession().selectOne("categoryQuery.cateId", cateInfo);
+	}
+
+	public void delete(String cateId) {
+		getSqlSession().delete("categoryQuery.deleteCateItemRelation", cateId);
+		getSqlSession().delete("categoryQuery.delete", cateId);
+	}
+
 }
