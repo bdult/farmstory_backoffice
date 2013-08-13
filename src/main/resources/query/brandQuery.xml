@@ -11,11 +11,11 @@
 	
 	<select id="detail" resultType="hashmap">
 		SELECT * FROM BG_BRAND
-		WHERE BRAND_ID = #{brand_id}
+		WHERE BRAND_ID = #{brandId}
 		AND DEL_YN = 'N'
 	</select>
 	
-	<insert id="create" parameterType="map">
+	<insert id="create"  keyProperty="brand_id">
 		INSERT BG_BRAND(
 			BRAND_NM,
 			IMG_PATH

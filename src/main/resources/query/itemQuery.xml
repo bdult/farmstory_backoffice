@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="itemQuery">
+
+
+	<select id="list" resultType="hashmap">
+		SELECT
+			*
+		FROM  BG_ITEM
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT
+			*
+		FROM  BG_ITEM
+		WHERE ITEM_ID = #{itemId}
+	</select>
+	
+	<select id="listByGroupId" resultType="hashmap">
+		SELECT
+			BI.*
+		FROM BG_ITEM_GROUP BIG, BG_ITEM BI
+		WHERE 1=1
+		AND BI.GROUP_ID = BIG.GROUP_ID
+		AND BIG.GROUP_ID= #{groupId}
+	</select>
+	
+	
+	<insert id="create" parameterType="map"  keyProperty="item_id">
+   		INSERT BG_ITEM(
+			ITEM_NM,
+			GROUP_ID,
+			SRC_PATH   		
+   		)
+   		VALUES(
+   			#{item_nm},
+   			#{group_id},
+   			#{src_path}
+   		)
+   </insert>
+   
+   <update id="modify">
+   		UPDATE BG_ITEM SET
+   			ITEM_NM = #{item_nm}
+   			, SRC_PATH = #{src_path}
+   			, GROUP_ID = #{group_id}
+   			, MOD_DT = now()
+   		WHERE 1=1
+   		AND ITEM_ID = #{item_id}
+   </update>
+   
+   <delete id="delete" >
+   		DELETE FROM BG_ITEM
+   		WHERE ITEM_ID = #{itemId}
+   </delete>
+   
+   <delete id="deleteByGroupId" >
+   		DELETE FROM BG_ITEM
+   		WHERE GROUP_ID = #{groupId}
+   </delete>
+	
+</mapper>

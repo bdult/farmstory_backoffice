@@ -31,13 +31,13 @@ public class BrandService {
 	}
 	
 	/**
-	 * 브랜드 생성
-	 * @param parameterMap
+	 * @param brandInfo
+	 * @return brand_Id
 	 */
-	public void create(Map parameterMap) {
+	public String create(Map brandInfo) {
 		// 중복 체크 로직 필요 할 듯
-		
-		brandDao.create(parameterMap);
+		brandDao.create(brandInfo);
+		return ""+brandInfo.get("brand_id");
 	}
 	
 	/**
@@ -57,9 +57,8 @@ public class BrandService {
 		brandDao.modify(parameterMap);
 	}
 
-	public Map detail(Map brandInfo) {
-		
-		return brandDao.detail(brandInfo);
+	public Map detail(String brandId) {
+		return brandDao.detail(brandId);
 	}
 
 	public void delete(Map brandInfo) {

@@ -17,7 +17,7 @@ public class ItemGroupService {
 	private ItemGroupDao groupDao;
 	
 	@Autowired
-	private ContentsService contentsService;
+	private ItemService itemService;
 
 	/**
 	 * 시리즈 전체 조회
@@ -38,10 +38,11 @@ public class ItemGroupService {
 
 	/**
 	 * 시리즈 생성
-	 * @param parameterMap
+	 * @param itemGroupInfo
 	 */
-	public void create(Map parameterMap) {
-		groupDao.create(parameterMap);
+	public String create(Map itemGroupInfo) {
+		groupDao.create(itemGroupInfo);
+		return ""+itemGroupInfo.get("item_group_id");
 	}
 
 	public void modify(Map seriseInfo) {
@@ -53,7 +54,7 @@ public class ItemGroupService {
 	}
 
 	public void delete(String groupId) {
-		contentsService.deleteByGroupId(groupId);
+		itemService.deleteByGroupId(groupId);
 		groupDao.delete(groupId);
 		
 	}

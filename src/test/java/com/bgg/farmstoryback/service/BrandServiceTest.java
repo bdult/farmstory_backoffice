@@ -58,12 +58,17 @@ public class BrandServiceTest {
 	@Test
 	public void testCreate() {
 		// given 
+		String brandNm = "brand_insert_test";
 		Map brandInfo = new HashMap();
-		brandInfo.put("brand_nm", "brand_insert_test");
+		brandInfo.put("brand_nm", brandNm);
 		
 		// when
-		brandService.create(brandInfo);
+		String brandId = brandService.create(brandInfo);
 		
+		// then
+		Map brandDetail = brandService.detail(brandId);
+		assertThat(brandDetail, is(notNullValue()));
+		assertThat((String)brandDetail.get("BRAND_NM"), is(brandNm));
 	}
 	
 	@Test
@@ -85,7 +90,7 @@ public class BrandServiceTest {
 		brandService.modify(modifyInfo);
 
 		// then
-		Map resultInfo = brandService.detail(modifyInfo);
+		Map resultInfo = brandService.detail(brandId);
 		assertThat(resultInfo, is(notNullValue()));
 		assertThat((String)resultInfo.get("BRAND_NM"), is("modify_brand"));
 		printer.printMap(resultInfo);
@@ -112,7 +117,7 @@ public class BrandServiceTest {
 		brandService.delete(brandInfo);
 
 		// then
-		Map resultInfo = brandService.detail(brandInfo);
+		Map resultInfo = brandService.detail(brandId);
 		assertThat(resultInfo, is(nullValue()));
 		
 	}

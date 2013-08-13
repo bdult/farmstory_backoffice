@@ -16,7 +16,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @return
 	 */
 	public List<Map> list() {
-		return (List<Map>)getSqlSession().selectList("cateQuery.listAll");
+		return (List<Map>)getSqlSession().selectList("categoryQuery.listAll");
 	}
 	
 	/**
@@ -24,7 +24,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param cateInfo
 	 */
 	public void create(Map<String, String> cateInfo) {
-		getSqlSession().insert("cateQuery.create", cateInfo);
+		getSqlSession().insert("categoryQuery.create", cateInfo);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @return
 	 */
 	public List<Map> listByLevel(int cateLevel) {
-		return (List<Map>)getSqlSession().selectList("cateQuery.listByLevel", cateLevel);
+		return (List<Map>)getSqlSession().selectList("categoryQuery.listByLevel", cateLevel);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param cateInfo
 	 */
 	public void modify(Map<String, String> cateInfo) {
-		getSqlSession().update("cateQuery.modyfy", cateInfo);
+		getSqlSession().update("categoryQuery.modyfy", cateInfo);
 	}
 
 	/**
@@ -49,17 +49,17 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * @param cateInfo
 	 * @return
 	 */
-	public Map<String, Object> detail(Map<String, String> cateInfo) {
-		return (Map<String, Object>)getSqlSession().selectOne("cateQuery.detail", cateInfo);
+	public Map detail(String cateId) {
+		return (Map)getSqlSession().selectOne("categoryQuery.detail", cateId);
 	}
 
 	public String cateId(Map<String, String> cateInfo) {
-		return (String)getSqlSession().selectOne("cateQuery.cateId", cateInfo);
+		return (String)getSqlSession().selectOne("categoryQuery.cateId", cateInfo);
 	}
 
-	public void delete(int cateId) {
-		getSqlSession().delete("cateQuery.deleteCateItemRelation", cateId);
-		getSqlSession().delete("cateQuery.delete", cateId);
+	public void delete(String cateId) {
+		getSqlSession().delete("categoryQuery.deleteCateItemRelation", cateId);
+		getSqlSession().delete("categoryQuery.delete", cateId);
 	}
 
 }

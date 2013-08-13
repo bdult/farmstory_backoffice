@@ -60,10 +60,10 @@ public class CategoryServiceTest {
 		cateInfo.put("parent_cate_id", "0");
 		
 		// when
-		cateService.create(cateInfo);
+		String cateId = cateService.create(cateInfo);
 
 		// then
-		Map detailInfo =cateService.detail(cateInfo);
+		Map detailInfo =cateService.detail(cateId);
 		assertThat(detailInfo, is(notNullValue()));
 		logPrinter.printMap(detailInfo);
 		
@@ -104,7 +104,7 @@ public class CategoryServiceTest {
 		cateService.modify(cateInfo);
 
 		// then
-		Map detailInfo =cateService.detail(cateInfo);
+		Map detailInfo =cateService.detail(""+cateList.get(0).get("CATE_ID"));
 		assertThat(detailInfo, is(notNullValue()));
 		assertThat((String)detailInfo.get("CATE_NM"), is("수학"));
 		logPrinter.printMap(detailInfo);
@@ -115,19 +115,18 @@ public class CategoryServiceTest {
 	public void testDeleteCate() {
 
 		// given 
-		Map<String, String> cateInfo = new HashMap<String, String>();
-		cateInfo.put("cate_id", "1");
+				List<Map> cateList = cateService.list();
+				if(cateList.size() == 0){
+					testCreate();
+					cateList = cateService.list();
+				}
 
 		// when
-		cateService.delete(1);
+		cateService.delete(""+cateList.get(0).get("CATE_ID"));
 
 		// then
-		Map detailInfo =cateService.detail(cateInfo);
+		Map detailInfo =cateService.detail(""+cateList.get(0).get("CATE_ID"));
 		assertThat(detailInfo, is(nullValue()));
-		List<Map> cateList = cateService.list();
-		for(Map checkInfo : cateList){
-			assertThat((Long)checkInfo.get("CATE_ID"), is(not(1L)));
-		}
 	}
 
 }

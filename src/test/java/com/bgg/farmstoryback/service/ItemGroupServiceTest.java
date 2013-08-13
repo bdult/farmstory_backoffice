@@ -45,9 +45,9 @@ public class ItemGroupServiceTest {
 		// given 
 		List<Map> brandList = brandService.list();
 		if(brandList.size() == 0){
-			Map brandInfo = new HashMap();
-			brandInfo.put("brand_nm", "testForGroup");
-			brandService.create(brandInfo);
+			Map groupCreateInfo = new HashMap();
+			groupCreateInfo.put("brand_nm", "testForGroup");
+			brandService.create(groupCreateInfo);
 			 brandList = brandService.list();
 		}
 		Map groupInfo = new HashMap();
@@ -55,11 +55,10 @@ public class ItemGroupServiceTest {
 		groupInfo.put("brand_id", ""+brandList.get(0).get("BRAND_ID"));
 
 		// when
-		groupService.create(groupInfo);
+		String groupId = groupService.create(groupInfo);
 
 		// then
-		List<Map> groupList = groupService.list();
-		Map groupDetail = groupService.detail(""+groupList.get(0).get("GROUP_ID"));
+		Map groupDetail = groupService.detail(groupId);
 		assertThat(groupDetail, is(notNullValue()));
 		
 	}

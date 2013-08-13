@@ -37,16 +37,20 @@ public class CategoryService {
 	 * cateInfo.put("parent_cate_id", "C_954682af87414cca86c18a70754b5b58");
 	 * </pre>
 	 * @param cateInfo
+	 * @return cate_id
 	 */
-	public void create(Map<String, String> cateInfo) {
+	public String create(Map<String, String> cateInfo) {
 		
 		String cateId = cateDao.cateId(cateInfo);
 		// 중복 체크
 		if(cateId == null){
 			cateDao.create(cateInfo);
+			return ""+cateInfo.get("cate_id");
 		}else{
-			cateInfo.put("cate_id", cateId	);
+			return cateId;
 		}
+		
+		
 	}
 
 
@@ -73,8 +77,8 @@ public class CategoryService {
 	 * @param cateInfo
 	 * @return
 	 */
-	public Map<String, Object> detail(Map<String, String> cateInfo) {
-		return cateDao.detail(cateInfo);
+	public Map detail(String cateId) {
+		return cateDao.detail(cateId);
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class CategoryService {
 		return (List<Map>)cateDao.listByLevel(cateLevel);
 	}
 
-	public void delete(int cateId) {
+	public void delete(String cateId) {
 		cateDao.delete(cateId);
 	}
 

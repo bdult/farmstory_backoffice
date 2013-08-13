@@ -21,7 +21,7 @@
 		AND GROUP_ID = #{group_id}
 	</select>
 	
-	<insert id="create" parameterType="map">
+	<insert id="create" parameterType="map" keyProperty="item_group_id">
 		INSERT BG_ITEM_GROUP(
 			GROUP_NM,
 			BRAND_ID

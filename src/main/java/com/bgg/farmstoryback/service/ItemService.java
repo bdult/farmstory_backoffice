@@ -11,30 +11,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.common.IdMaker;
-import com.bgg.farmstoryback.dao.ContentsDao;
+import com.bgg.farmstoryback.dao.ItemDao;
 import com.bgg.farmstoryback.dao.UserDao;
 
 
 
 @Service
-public class ContentsService {
+public class ItemService {
 	
 	private final String parentPath = "/var/lib/tomcat6/webapps/storyfarm/source/";
 
 	@Autowired
-	private ContentsDao contsDao;
+	private ItemDao itemDao;
 	
 	@Autowired
 	private IdMaker idMaker;
 
 	public List<Map> list() {
-		return contsDao.list();
+		return itemDao.list();
 	}
 	
-	public List<Map> listBySeriseId(String seriseId) {
-		return contsDao.listBySeriseId(seriseId);
+	public List<Map> listByGroupId(String groupId) {
+		return itemDao.listByGroupId(groupId);
 	}
-
+	
 	
 	/**
 	 * 컨텐츠 생성
@@ -51,8 +51,10 @@ public class ContentsService {
 		// 원본 파일 경로 생성
 		if(itemInfo.get("file") != null){
 			itemInfo.put("src_path", makeFilePath((MultipartFile)itemInfo.get("file")));
+		}else{
+			itemInfo.put("src_path", "/temp/default.flv");
 		}
-		contsDao.create(itemInfo);
+		itemDao.create(itemInfo);
 		
 	}
 
@@ -80,8 +82,28 @@ public class ContentsService {
 	}
 
 	public void deleteByGroupId(String groupId) {
-		contsDao.deleteByGroupId(groupId);
+		itemDao.deleteByGroupId(groupId);
 	}
+
+	public Map detail(String itemId) {
+		return itemDao.detail(itemId);
+	}
+
+	public void delete(String itemId) {
+		itemDao.delete(itemId);
+	}
+
+	public void modify(Map itemModInfo) {
+		// 원본 파일 경로 생성
+		if(itemModInfo.get("file") != null){
+			itemModInfo.put("src_path", makeFilePath((MultipartFile)itemModInfo.get("file")));
+		}else{
+			itemModInfo.put("src_path", "/temp/mod.flv");
+		}
+		itemDao.modify(itemModInfo);
+	}
+
+
 
 	
 }
