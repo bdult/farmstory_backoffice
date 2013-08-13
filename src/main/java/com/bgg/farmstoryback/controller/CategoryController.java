@@ -39,8 +39,8 @@ public class CategoryController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("category/list");
 		
-		List<Map> cateList = categoryService.listByLevel(cateInfo);
-		mav.addObject("firstDepthList", cateList);
+		List<Map> cateList = categoryService.list();
+		mav.addObject("cateList", cateList);
 		return mav;
 	}
 	
