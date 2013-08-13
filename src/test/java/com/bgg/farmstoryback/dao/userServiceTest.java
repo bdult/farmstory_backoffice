@@ -19,8 +19,13 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.bgg.farmstoryback.service.ViewService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,6 +36,9 @@ public class userServiceTest {
 
 	@Autowired
 	private ViewDao viewDao;
+	
+	@Autowired
+	private ViewService viewService;
 	
 	@Before
 	public void before() {
@@ -48,12 +56,52 @@ public class userServiceTest {
 	
 	@Test
 	public void testgetOneRole(){
-		logger.info("아이디 비밀번호 일치 테스트 입니다.");
+		logger.info("아이디, 권한 세션 테스트 입니다.");
 		logger.info(viewDao.toString());
 		
-		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+	    MockHttpSession session = new MockHttpSession();
+	    
+	    Map<String, Object> userList = new HashMap<String, Object>();
+	    userList.put("id", "test");
+	    userList.put("pw", "123");
+	    userList.put("role", "1");
+
+		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(userList);
+	    session.setAttribute("login_session", sessionMap);
+	    
+		if(session == null || session.getAttribute("login_session") == null){
+			logger.info("login.do");
+		}else{
+			logger.info("dashboard.do");
+		}
 	}
 	
+	@Test
+	public void testlogOut(){
+		logger.info("로그아웃 테스트 입니다.");
+		logger.info(viewDao.toString());
+
+		MockHttpServletRequest request = new MockHttpServletRequest();
+	    MockHttpSession session = new MockHttpSession();
+	    
+	    Map<String, Object> userList = new HashMap<String, Object>();
+	    userList.put("id", "test");
+	    userList.put("pw", "123");
+	    userList.put("role", "1");
+	    
+		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(userList);
+	    session.setAttribute("login_session", sessionMap);
+	    
+		logger.info("세션 인" + session.getAttribute("login_session"));
+		
+		if(session != null){
+			session.invalidate();
+		}
+
+		logger.info("세션 아웃" + session.getAttribute("login_session"));
+		
+	}
 	
 	
 	
