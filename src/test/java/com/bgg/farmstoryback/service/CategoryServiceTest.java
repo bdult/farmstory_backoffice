@@ -39,11 +39,7 @@ public class CategoryServiceTest {
 	public void testList() {
 
 		// given 
-		Map<String, String> cateInfo = new HashMap<String, String>();
-		cateInfo.put("cate_level", "1");
-		cateInfo.put("cate_nm", "한글");
-		cateInfo.put("parent_cate_id", "0");
-		cateService.create(cateInfo);
+		testCreate();
 
 		// when
 		List<Map> cateList = cateService.list();
@@ -95,8 +91,13 @@ public class CategoryServiceTest {
 	public void testModCate() {
 
 		// given 
+		List<Map> cateList = cateService.list();
+		if(cateList.size() == 0){
+			testCreate();
+			cateList = cateService.list();
+		}
 		Map<String, String> cateInfo = new HashMap<String, String>();
-		cateInfo.put("cate_id", "1");
+		cateInfo.put("cate_id", ""+cateList.get(0).get("CATE_ID"));
 		cateInfo.put("cate_nm", "수학");
 		
 		// when

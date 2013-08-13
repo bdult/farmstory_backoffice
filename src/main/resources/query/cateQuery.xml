@@ -22,13 +22,6 @@
 		 WHERE CATE_ID = #{cate_id}
 	</select>
 	
-	<select id="listByBrandId" resultType="hashmap">
-		SELECT BC.* FROM BG_CATE BC, BG_CATE_BRAND BCB
-		 WHERE 1=1 
-		 AND BC.CATE_ID = BCB.CATE_ID
-		 AND BCB.CATE_ID = #{cate_id}
-	</select>
-	
 	<select id="cateId" resultType="String">
 		SELECT CATE_ID FROM BG_CATE
 		 WHERE 1=1

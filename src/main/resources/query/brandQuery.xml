@@ -9,41 +9,20 @@
 		WHERE DEL_YN = 'N'
 	</select>
 	
-	<select id="listByCateId" resultType="hashmap">
-		SELECT BB.* FROM BG_BRAND BB, BG_CATE_BRAND BCB
-		WHERE 1=1
-		AND BB.BRAND_ID=BCB.BRAND_ID
-		AND BCB.CATE_ID = #{cate_id}
-		AND BB.DEL_YN = 'N'
-	</select>
-	
 	<select id="detail" resultType="hashmap">
 		SELECT * FROM BG_BRAND
 		WHERE BRAND_ID = #{brand_id}
 		AND DEL_YN = 'N'
 	</select>
 	
-	
-	
 	<insert id="create" parameterType="map">
 		INSERT BG_BRAND(
-			BRAND_ID,
-			BRAND_NM
+			BRAND_NM,
+			IMG_PATH
    		)
    		VALUES(
-   			#{brand_id},
-   			#{brand_nm}
-   		)
-	</insert>
-	
-	<insert id="createCateBrand" parameterType="hashmap">
-		INSERT BG_CATE_BRAND(
-			BRAND_ID,
-			CATE_ID
-   		)
-   		VALUES(
-   			#{brand_id},
-   			#{cate_id}
+   			#{brand_nm},
+   			#{img_path}
    		)
 	</insert>
 	
@@ -61,15 +40,6 @@
 			, MOD_DT = now()
 		WHERE 1=1
 		AND BRAND_ID = #{brand_id}
-	</update>
-	
-	<update id="modifyCateBrand">
-		UPDATE BG_CATE_BRAND SET
-			CATE_ID = #{cate_id}
-			, MOD_DT = now()
-		WHERE 1=1
-		AND BRAND_ID = #{brand_id}
-		AND CATE_ID = #{pre_cate_id}
 	</update>
 	
 </mapper>

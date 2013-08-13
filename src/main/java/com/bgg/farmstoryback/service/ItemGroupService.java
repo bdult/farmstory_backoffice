@@ -6,15 +6,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bgg.farmstoryback.dao.SeriesDao;
+import com.bgg.farmstoryback.dao.ItemGroupDao;
 
 
 
 @Service
-public class SeriesService {
+public class ItemGroupService {
 	
 	@Autowired
-	private SeriesDao seriseDao;
+	private ItemGroupDao groupDao;
 	
 	@Autowired
 	private ContentsService contentsService;
@@ -24,7 +24,7 @@ public class SeriesService {
 	 * @return
 	 */
 	public List<Map> list() {
-		return seriseDao.list();
+		return groupDao.list();
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class SeriesService {
 	 * @return
 	 */
 	public List<Map> listByBrandId(String barndId) {
-		return seriseDao.listByBrandId(barndId);
+		return groupDao.listByBrandId(barndId);
 	}
 
 	/**
@@ -41,24 +41,20 @@ public class SeriesService {
 	 * @param parameterMap
 	 */
 	public void create(Map parameterMap) {
-		seriseDao.create(parameterMap);
-	}
-
-	public List<Map> listByCateId(String cateId) {
-		return seriseDao.listByCateId(cateId);
+		groupDao.create(parameterMap);
 	}
 
 	public void modify(Map seriseInfo) {
-		seriseDao.modify(seriseInfo);
+		groupDao.modify(seriseInfo);
 	}
 
-	public Map detail(int seriseIdx) {
-		return seriseDao.detail(seriseIdx);
+	public Map detail(String groupId) {
+		return groupDao.detail(groupId);
 	}
 
-	public void delete(Map seriesInfo) {
-		contentsService.deleteBySeriesId(Integer.parseInt((String)seriesInfo.get("series_idx")));
-		seriseDao.delete(seriesInfo);
+	public void delete(String groupId) {
+		contentsService.deleteByGroupId(groupId);
+		groupDao.delete(groupId);
 		
 	}
 	

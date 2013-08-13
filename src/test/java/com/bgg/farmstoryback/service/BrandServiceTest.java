@@ -27,6 +27,9 @@ public class BrandServiceTest {
 	
 	@Autowired
 	BrandService brandService;
+	
+	@Autowired
+	CategoryService cateService;
 
 	@Before
 	public void setUp() throws Exception {
@@ -40,9 +43,7 @@ public class BrandServiceTest {
 	public void testList() {
 
 		// given 
-		Map brandInfo = new HashMap();
-		brandInfo.put("brand_nm", "test1");
-		brandService.create(brandInfo);
+		testCreate();
 		
 		// when
 		List<Map> brandList = brandService.list();
@@ -52,20 +53,6 @@ public class BrandServiceTest {
 		assertThat(brandList, is(notNullValue()));
 		assertThat(brandList.size(), is(not(0)));
 		
-	}
-	
-	@Test
-	public void testListByCateId() {
-		// given 
-		String cateId = "C_954682af87414cca86c18a70754b5b58";
-		
-		// when
-		List<Map> brandList = brandService.listByCateId(cateId);
-		
-		// then
-		printer.printMapList(brandList);
-		assertThat(brandList, is(notNullValue()));
-		assertThat(brandList.size(), is(not(0)));
 	}
 	
 	@Test
@@ -83,80 +70,50 @@ public class BrandServiceTest {
 	public void testModifyJustBrandInfo() {
 
 		// given 
-		String brandId = "cb51ca4ab4da4ac5bf00cac3a91276cc";
+		List<Map> brandList = brandService.list();
+		if(brandList.size() == 0){
+			testCreate();
+			brandList = brandService.list();
+		}
+		String brandId = ""+brandList.get(0).get("BRAND_ID");
 		
-		Map brandInfo = new HashMap();
-		brandInfo.put("brand_nm", "modify_brand");
-		brandInfo.put("brand_id", brandId);
+		Map modifyInfo = new HashMap();
+		modifyInfo.put("brand_nm", "modify_brand");
+		modifyInfo.put("brand_id", brandId);
 
 		// when
-		brandService.modify(brandInfo);
+		brandService.modify(modifyInfo);
 
 		// then
-		Map resultInfo = brandService.detail(brandInfo);
-		List<Map> brandCateList = (List<Map>)resultInfo.get("brand_cate_list");
-		Map brandDetail  = (Map)resultInfo.get("brand");
+		Map resultInfo = brandService.detail(modifyInfo);
 		assertThat(resultInfo, is(notNullValue()));
 		assertThat((String)resultInfo.get("BRAND_NM"), is("modify_brand"));
-		printer.printMap(brandDetail);
-		
-		if(brandCateList != null){
-			assertThat(brandCateList.size(), is(notNullValue()));
-			printer.printMapList(brandCateList);
-		}
-		
+		printer.printMap(resultInfo);
 	}
 	
-	@Test
-	public void testModifyWithCate() {
-		
-		// given 
-		String brandId = "c6c15a3a0d60481e940efa7b50dad739";
-		String preCateId = "C_954682af87414cca86c18a70754b5b58";
-		String modifyCateId = "C_954682af87414cca86c18a70754b5b46";
-		
-		Map brandInfo = new HashMap();
-		brandInfo.put("brand_nm", "modify_with_cate");
-		brandInfo.put("brand_id", brandId);
-		brandInfo.put("pre_cate_id", preCateId);
-		brandInfo.put("cate_id", modifyCateId);
-		
-		// when
-		brandService.modify(brandInfo);
-		
-		// then
-		Map resultInfo = brandService.detail(brandInfo);
-		List<Map> brandCateList = (List<Map>)resultInfo.get("brand_cate_list");
-		Map brandDetail  = (Map)resultInfo.get("brand");
-		assertThat(resultInfo, is(notNullValue()));
-		printer.printMap(brandDetail);
-		
-		if(brandCateList != null){
-			assertThat(brandCateList.size(), is(notNullValue()));
-			printer.printMapList(brandCateList);
-		}
-		
-	}
 	
 	@Test
 	public void testDelete() {
 
 		// given 
-		String brandId = "c6c15a3a0d60481e940efa7b50dad739";
-		String preCateId = "C_954682af87414cca86c18a70754b5b58";
-		String modifyCateId = "C_954682af87414cca86c18a70754b5b46";
+		List<Map> brandList = brandService.list();
+		if(brandList.size() == 0){
+			Map brandInfo = new HashMap();
+			brandInfo.put("brand_nm", "brand_insert_test");
+			brandService.create(brandInfo);
+			brandList = brandService.list();
+		}
+		String brandId = ""+brandList.get(0).get("BRAND_ID");
+		
 		Map brandInfo = new HashMap();
-		brandInfo.put("brand_nm", "modify_with_cate");
 		brandInfo.put("brand_id", brandId);
-		brandInfo.put("pre_cate_id", preCateId);
-		brandInfo.put("cate_id", modifyCateId);
 
 		// when
 		brandService.delete(brandInfo);
 
 		// then
 		Map resultInfo = brandService.detail(brandInfo);
-		assertThat(resultInfo.get("brand"), is(nullValue()));
+		assertThat(resultInfo, is(nullValue()));
 		
 	}
 	

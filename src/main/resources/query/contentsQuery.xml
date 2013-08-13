@@ -8,13 +8,13 @@
 	<select id="list" resultType="hashmap">
 		SELECT
 			*
-		FROM  BG_ITEMT
+		FROM  BG_ITEM
 	</select>
 	
 	<select id="listBySeriseId" resultType="hashmap">
 		SELECT
 			BI.*
-		FROM BG_SERIES BS, BG_ITEMT BI
+		FROM BG_SERIES BS, BG_ITEM BI
 		WHERE 1=1
 		AND BS.IDX= #{serise_idx}
 		AND BI.SERIES_ID = BS.SERIES_ID
@@ -22,7 +22,7 @@
 	
 	
 	<insert id="create" parameterType="map">
-   		INSERT BG_ITEMT(
+   		INSERT BG_ITEM(
 			ITEM_ID,
 			ITEM_NM,
 			BRAND_ID,
@@ -36,9 +36,9 @@
    		)
    </insert>
    
-   <delete id="deleteBySeriesId" >
-   		DELETE FROM BG_ITEMT
-   		WHERE SERIES_IDX = #{series_idx}
+   <delete id="deleteByGroupId" >
+   		DELETE FROM BG_ITEM
+   		WHERE GROUP_ID = #{groupId}
    </delete>
 	
 </mapper>
