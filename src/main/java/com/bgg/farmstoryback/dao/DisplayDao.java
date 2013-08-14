@@ -50,4 +50,8 @@ public class DisplayDao extends SqlSessionDaoSupport {
 	public Map detailObjectDisplay(Map groupDisplayInfo) {
 		return (Map)getSqlSession().selectOne("displayQuery.detailObjectDisplay", groupDisplayInfo);
 	}
+
+	public List<Map> listDisplayItemGroup(String displayId) {
+		return getSqlSession().selectList("displayQuery.listDisplayItemGroup", displayId);
+	}
 }

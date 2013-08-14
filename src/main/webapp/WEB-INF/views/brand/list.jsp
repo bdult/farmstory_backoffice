@@ -106,19 +106,19 @@
 </div>
 
 <div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="/storyfarm-admin/brand/create.do" method="post">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 등록</h3>
-		</div>
-		<div class="modal-body">
-					브랜드 명  <input type="text" name="brand_nm">
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
-			<button type="submit" class="btn btn-primary btn-series-select">등록하기</button>
-		</div>
-	</form>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 class="text-center">브랜드 등록</h3>
+	</div>
+	<div class="modal-body">
+		<form action="/brand/create.do">
+				브랜드 명  <input type="text" name="brand_nm">
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
+		<button class="btn btn-primary btn-series-select">등록하기</button>
+	</div>
 </div>
 
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">

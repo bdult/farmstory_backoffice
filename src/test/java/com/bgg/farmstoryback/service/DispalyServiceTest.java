@@ -146,6 +146,19 @@ public class DispalyServiceTest {
 		assertThat(detailInfo, is(notNullValue()));
 		assertThat(detailInfo.get("OBJECT_ID"), is(itemGroupList.get(0).get("GROUP_ID")));
 		assertThat(detailInfo.get("DISPLAY_ID"), is(displayList.get(0).get("DISPLAY_ID")));
+	}
+	
+	@Test
+	public void testListDisplayItemGroup() {
+
+		// given 
+		List<Map> displayList = displayService.list();
+
+		// when
+		List<Map> displayItemGroupList = displayService.listDisplayItemGroupByDisplayId(""+displayList.get(0).get("DISPLAY_ID"));
+
+		// then
+		assertThat(displayItemGroupList.size(), is(not(0)));
 		
 	}
 

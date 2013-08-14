@@ -52,6 +52,15 @@
 		AND OBJECT_TYPE = #{object_type}
 	</select>
 	
+	<select id="listDisplayItemGroup" resultType="hashmap">
+		SELECT * FROM 
+			BG_DIPLAY_ITEM_RELATIONSHIPS BDIR, BG_ITEM_GROUP BIG, BG_DISPLAY BD
+		WHERE 1=1
+		AND BDIR.OBJECT_ID = BIG.GROUP_ID
+		AND BD.DISPLAY_ID = BDIR.DISPLAY_ID
+		AND BDIR.DISPLAY_ID = #{displayId}
+	</select>
+	
 	<update id="modify">
 		UPDATE BG_DISPLAY SET
 			DISPLAY_NM = #{display_nm}

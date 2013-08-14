@@ -52,6 +52,10 @@ public class DispalyService {
 		public Map detailObjectDisplay(Map groupDisplayInfo) {
 			return displayDao.detailObjectDisplay(groupDisplayInfo);
 		}
+
+		public List<Map> listDisplayItemGroupByDisplayId(String displayId) {
+			return displayDao.listDisplayItemGroup(displayId);
+		}
 		
 		// event list
 		

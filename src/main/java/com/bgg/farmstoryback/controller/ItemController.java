@@ -54,6 +54,9 @@ public class ItemController {
 		contentsInfo.put("item_desc",item_desc );
 		contentsInfo.put("brand_nm",brand_nm );
 		
+		
+		
+		
 		itemService.createItem(contentsInfo);
 		
 		return "redirect:/main.do";
