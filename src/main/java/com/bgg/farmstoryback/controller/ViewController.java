@@ -28,9 +28,7 @@ public class ViewController {
 	private ViewService viewService;
 
 	@RequestMapping(value = "login.do", method = RequestMethod.GET)
-	public String login(Model model) {
-
-	    
+	public String loginView(Model model) {
 		return "pure-view/login";
 	}
 	
@@ -52,15 +50,13 @@ public class ViewController {
 		ModelAndView mav = new ModelAndView();
 		
 		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(paramMap);
-		session.setAttribute("login_session", sessionMap);
 	    
 		if(session == null || session.getAttribute("login_session") == null){
 			mav.setViewName("pure-view/login");
 		}else{
 			mav.setViewName("view/dashboard");
+			session.setAttribute("login_session", sessionMap);
 		}
-		
-	    
 		return mav;
 	}
 	
@@ -68,8 +64,6 @@ public class ViewController {
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
 		logger.info("into dashboard.do");
-		
-		
 		return "view/dashboard";
 	}
 	
