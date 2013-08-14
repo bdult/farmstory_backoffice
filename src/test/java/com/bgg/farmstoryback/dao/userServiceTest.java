@@ -1,15 +1,12 @@
 package com.bgg.farmstoryback.dao;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -34,6 +30,7 @@ public class userServiceTest {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 
+	
 	@Autowired
 	private ViewDao viewDao;
 	
@@ -54,34 +51,51 @@ public class userServiceTest {
 		logger.info("==========================");
 	}
 	
+
+	
 	@Test
-	public void testgetOneRole(){
-		logger.info("아이디, 권한 세션 테스트 입니다.");
-		logger.info(viewDao.toString());
-		
+	public void testsessionstore(){
+		logger.info("로그인 체크 테스트 입니다.");
+
+		//given
 		MockHttpServletRequest request = new MockHttpServletRequest();
 	    MockHttpSession session = new MockHttpSession();
-	    
+	    request.setMethod("GET");
+	    request.addParameter("id", "test");
+	    request.addParameter("pw", "123");
+	    request.addParameter("role", "1");
+
+
 	    Map<String, Object> userList = new HashMap<String, Object>();
 	    userList.put("id", "test");
 	    userList.put("pw", "123");
 	    userList.put("role", "1");
-
-		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(userList);
-	    session.setAttribute("login_session", sessionMap);
 	    
-		if(session == null || session.getAttribute("login_session") == null){
+		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(userList);
+		String id = ( (String) sessionMap.get("MEMBER_ID") );
+		String pw = ( (String) sessionMap.get("MEMBER_PW") );
+
+		
+		//when
+	    if(request.getParameter("id").equals(id) && request.getParameter("pw").equals(pw)){
+		    session.setAttribute("login_session", sessionMap);
 			logger.info("login.do");
 		}else{
 			logger.info("dashboard.do");
 		}
+	    
+	    //than
+		assertThat((String)sessionMap.get("MEMBER_ID"), is("test"));
+		assertThat((String)sessionMap.get("MEMBER_PW"), is("123"));
+	    
 	}
 	
 	@Test
 	public void testlogOut(){
 		logger.info("로그아웃 테스트 입니다.");
-		logger.info(viewDao.toString());
 
+
+		//given
 		MockHttpServletRequest request = new MockHttpServletRequest();
 	    MockHttpSession session = new MockHttpSession();
 	    
@@ -93,20 +107,14 @@ public class userServiceTest {
 		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(userList);
 	    session.setAttribute("login_session", sessionMap);
 	    
-		logger.info("세션 인" + session.getAttribute("login_session"));
-		
+		//when
 		if(session != null){
-			session.invalidate();
+			session.setAttribute("login_session", null);
 		}
 
-		logger.info("세션 아웃" + session.getAttribute("login_session"));
+	    //than
+		assertThat(session.getAttribute("login_session"), is(nullValue()));
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 }
