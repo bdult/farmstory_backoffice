@@ -30,14 +30,19 @@ public class BrandController {
 	
 	@RequestMapping(value = "brand/create.do", method = RequestMethod.POST)
 	public String create(Model model, @RequestParam Map<String,Object> parameter) {
-		System.out.println((String)parameter.get("brand_nm"));
 		brandService.create(parameter);
 		return "redirect:/cate/manage.do";
 	}
 	
+	@RequestMapping(value = "brand/detail.do", method = RequestMethod.GET)
+	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
+		brandService.delete(parameter);
+		return "brand/detail";
+	}
+	
 	@RequestMapping(value = "brand/create.ajax", method = RequestMethod.POST)
-	public @ResponseBody String createAjax(Model model, Map<String, String> cateInfo) {
-			
+	public @ResponseBody String createAjax(@RequestParam Map<String,Object> parameter) {
+		brandService.create(parameter);
 		return "{code:ok}";
 	}
 }
