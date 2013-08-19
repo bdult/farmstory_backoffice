@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.CategoryService;
 
 @Controller
@@ -22,6 +23,9 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
+	@Autowired
+	private BrandService brandService;
 	
 	/**
 	 * 	Result
@@ -33,16 +37,14 @@ public class CategoryController {
 			Key : CATE_ID -> Value : C_954682af87414cca86c18a70754b5b58
 	 * @return
 	 */
-//	@RequestMapping(value = "cate/list.do", method = RequestMethod.GET)
-//	public ModelAndView list(Map<String, String> cateInfo) {
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.setViewName("category/list");
-//		
-//		List<Map> cateList = categoryService.listByLevel(cateInfo);
-//		mav.addObject("firstDepthList", cateList);
-//		return mav;
-//	}
+	@RequestMapping(value = "cate/manage.do", method = RequestMethod.GET)
+	public String list(Model model, Map<String, String> cateInfo) {
+		
+		List<Map> cateList = categoryService.list();
+		model.addAttribute("cateList", cateList);
+		
+		return "category/manage";
+	}
 //	
 //	@RequestMapping(value = "list.ajax", produces = "application/json;charset=UTF-8")
 //	public @ResponseBody String listAjax(Map<String, String> cateInfo) {

@@ -15,16 +15,70 @@
    		)
 	</insert>
 	
+	<insert id="createObjectDisplay"  >
+		INSERT BG_DIPLAY_ITEM_RELATIONSHIPS(
+			OBJECT_ID,
+			DISPLAY_ID,
+			OBJECT_TYPE
+   		)
+   		VALUES(
+   			#{object_id},
+   			#{display_id},
+   			#{object_type}
+   		)
+	</insert>
+	
+	<select id="list" resultType="hashmap">
+		SELECT * FROM BG_DISPLAY
+	</select>
+	
 	<select id="detail" resultType="hashmap">
 		SELECT * FROM BG_DISPLAY
 		WHERE DISPLAY_ID = #{displayId}
 	</select>
 	
-	<select id="displayIdByName" resultType="String">
+	<select id="displayIdByName"  resultType="String">
 		SELECT DISPLAY_ID FROM BG_DISPLAY
 		WHERE 1=1
-		AND DISPLAY_NM like '%#{display_nm}%'
+		AND DISPLAY_NM LIKE CONCAT('%', #{displayNm}, '%')
 		LIMIT 1
 	</select>
+	
+	<select id="detailObjectDisplay"  resultType="hashmap">
+		SELECT * FROM BG_DIPLAY_ITEM_RELATIONSHIPS
+		WHERE 1=1
+		AND DISPLAY_ID = #{display_id}
+		AND OBJECT_ID = #{object_id}
+		AND OBJECT_TYPE = #{object_type}
+	</select>
+	
+	<select id="listDisplayItemGroup" resultType="hashmap">
+		SELECT * FROM 
+			BG_DIPLAY_ITEM_RELATIONSHIPS BDIR, BG_ITEM_GROUP BIG, BG_DISPLAY BD
+		WHERE 1=1
+		AND BDIR.OBJECT_ID = BIG.GROUP_ID
+		AND BD.DISPLAY_ID = BDIR.DISPLAY_ID
+		AND BDIR.DISPLAY_ID = #{displayId}
+	</select>
+	
+	<update id="modify">
+		UPDATE BG_DISPLAY SET
+			DISPLAY_NM = #{display_nm}
+			, DIS_TYPE = #{display_type}
+		WHERE 1=1
+		AND DISPLAY_ID = #{display_id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM BG_DISPLAY
+		WHERE 1=1
+		AND DISPLAY_ID = #{displayId}
+	</delete>
+	
+	<delete id="deleteInDisplayItem">
+		DELETE FROM BG_DIPLAY_ITEM_RELATIONSHIPS
+		WHERE 1=1
+		AND DISPLAY_ID = #{displayId}
+	</delete>
 	
 </mapper>

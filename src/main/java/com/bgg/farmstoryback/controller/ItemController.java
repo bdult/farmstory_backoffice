@@ -35,10 +35,10 @@ public class ItemController {
 	@Autowired
 	private ItemGroupService seriseService;
 	
-	@RequestMapping(value = "contents/list.do", method = RequestMethod.GET)
+	@RequestMapping(value = "item/manage.do", method = RequestMethod.GET)
 	public String list(Model model) {
 		
-		return "pure-view/login";
+		return "item/list";
 	}
 	
 	@RequestMapping(value = "contents/createItem.do", method = RequestMethod.POST)
@@ -53,6 +53,9 @@ public class ItemController {
 		contentsInfo.put("item_nm",item_nm );
 		contentsInfo.put("item_desc",item_desc );
 		contentsInfo.put("brand_nm",brand_nm );
+		
+		
+		
 		
 		itemService.createItem(contentsInfo);
 		

@@ -44,77 +44,81 @@
 		</div><!--/.page-header-->
 
 		<div class="row-fluid">
-			<div class="span6">
+			<div class="span5">
 				
 				<div class="alert alert-info">
 					<button type="button" class="close" data-dismiss="alert">
 						<i class="icon-remove"></i>
 					</button>
-					<strong>레벨 1</strong>
-					수학, 영어, 동화 같은 과목을 관리(?)
+					<strong>카테고리</strong>
 					<br>
 				</div>
 				
 				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th></th>
+							<th>ID</th>
 							<th>이름</th>
-							<th></th>
+							<th>생성일</th>
 						</tr>
 					</thead>				
 					<tbody>
-						<c:forEach items="${ firstDepthList }" var="cate">
+						<c:forEach items="${ cateList }" var="cate">
 							<tr>
 								<td>${ cate.CATE_ID }</td>
 								<td class="pointer">${ cate.CATE_NM }</td>
-								<td>x e</td>
+								<td>${cate.REG_DT }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<button class="btn btn-info pull-right">생성</button>
+				<button id="create-category" class="btn btn-info pull-right">카테고리 생성</button>
 			</div><!--/.span-->
-			<div class="span6">
+			<div class="span5">
 			
 				<div class="alert alert-info">
-					<button type="button" class="close" data-dismiss="alert">
-						<i class="icon-remove"></i>
-					</button>
-					<strong>레벨 2</strong>
-					브랜드 관리(?)
+					<strong>브랜드</strong>
 					<br>
-				</div>x
+				</div>
 				
 				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th></th>
+							<th>ID</th>
 							<th>이름</th>
-							<th>x e</th>
+							<th>생성일</th>
 						</tr>
 					</thead>				
 					<tbody>
+						<c:forEach items="${brandList }" var="brand">
 						<tr>
-							<td></td>
-							<td>삐아제</td>
-							<td>x e</td>
+							<td>${brand.BRAND_ID }</td>
+							<td>${brand.BRAND_NM }</td>
+							<td>${brand.REG_DT }</td>
 						</tr>
-						<tr>
-							<td></td>
-							<td>시사영어사</td>
-							<td>x e</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>재능교육</td>
-							<td>x e</td>
-						</tr>
+						</c:forEach>
 					</tbody>	
 				</table>
+				<button id="create-brand-btn" class="btn btn-info pull-right">브랜드 생성</button>
 			</div><!--/.span-->
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->
+</div>
+
+<div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 class="text-center">브랜드 등록</h3>
+	</div>
+	<div class="modal-body">
+		<form action="/brand/create.do">
+				브랜드 명  <input type="text" name="brand_nm">
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
+		<button class="btn btn-primary btn-series-select">등록하기</button>
+	</div>
 </div>
 
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
@@ -123,8 +127,15 @@
 
 <script>
 $(function(){
+	$("#create-brand-btn").click(function(){
+			console.log("create-brand-btn click");
+			$("#creat-brand-modal").modal('toggle');
+	});
 	
-
+	$("#create-category").click(function(){
+			console.log("creat-category click");
+	});
+	
 });
 </script>
 
