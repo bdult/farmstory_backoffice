@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +93,10 @@ public class CategoryService {
 
 	public void delete(String cateId) {
 		cateDao.delete(cateId);
+	}
+
+	public List<Map> listOfChild(int parentId) {
+		return cateDao.listOfChild(parentId);
 	}
 
 }

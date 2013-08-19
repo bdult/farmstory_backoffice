@@ -9,12 +9,31 @@
 	</select>
 	
 	<select id="listAll" resultType="hashmap">
-		SELECT * FROM BG_CATE
+		SELECT 
+			A.CATE_ID,
+			A.CATE_NM AS name,
+			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
+		 FROM BG_CATE A
+		 WHERE CATE_LEVEL = 1
 	</select>
 	
 	<select id="listByLevel" resultType="hashmap">
-		SELECT * FROM BG_CATE
+		SELECT 
+			A.CATE_ID,
+			A.CATE_NM AS name,
+			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
+		 FROM BG_CATE A
+		 WHERE CATE_LEVEL = 1
 		 WHERE CATE_LEVEL = #{cateLevel}
+	</select>
+	
+	<select id="listOfChild" resultType="hashmap">
+		SELECT 
+			A.CATE_ID,
+			A.CATE_NM AS name,
+			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
+		 FROM BG_CATE A
+		 WHERE PARENT_CATE_ID = #{parentId}
 	</select>
 	
 	<select id="detail" resultType="hashmap">

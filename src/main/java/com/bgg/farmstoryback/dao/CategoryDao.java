@@ -19,6 +19,10 @@ public class CategoryDao extends SqlSessionDaoSupport {
 		return (List<Map>)getSqlSession().selectList("categoryQuery.listAll");
 	}
 	
+	public List<Map> listOfChild(int parentId) {
+		return (List<Map>)getSqlSession().selectList("categoryQuery.listOfChild", parentId);
+	}
+	
 	/**
 	 * 카테고리 생성
 	 * @param cateInfo
@@ -61,5 +65,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 		getSqlSession().delete("categoryQuery.deleteCateItemRelation", cateId);
 		getSqlSession().delete("categoryQuery.delete", cateId);
 	}
+
+
 
 }
