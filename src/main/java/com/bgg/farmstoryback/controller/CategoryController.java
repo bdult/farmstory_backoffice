@@ -43,10 +43,7 @@ public class CategoryController {
 		List<Map> cateList = categoryService.list();
 		model.addAttribute("cateList", cateList);
 		
-		List<Map> brandList = brandService.list();
-		model.addAttribute("brandList", brandList);
-		
-		return "category/list";
+		return "category/manage";
 	}
 //	
 //	@RequestMapping(value = "list.ajax", produces = "application/json;charset=UTF-8")

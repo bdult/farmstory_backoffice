@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -69,6 +70,24 @@
 					<span class="menu-text"> 카테고리 관리 </span>
 				</a>
 			</li>
+			<li>
+				<a href="${ contextPath }/brand/manage.do">
+					<i class="icon-apple"></i>
+					<span class="menu-text"> 브랜드 관리 </span>
+				</a>
+			</li>	
+			<li>
+				<a href="${ contextPath }/contents/manage.do">
+					<i class="icon-apple"></i>
+					<span class="menu-text"> 컨텐츠 관리 </span>
+				</a>
+			</li>	
+			<li>
+				<a href="${ contextPath }/display/manage.do">
+					<i class="icon-apple"></i>
+					<span class="menu-text"> 전시 관리 </span>
+				</a>
+			</li>	
 	
 			<li>
 				<a href="#" class="dropdown-toggle">

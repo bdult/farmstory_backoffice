@@ -28,6 +28,15 @@ public class BrandController {
 	@Autowired
 	private BrandService brandService;
 	
+	@RequestMapping(value = "brand/manage.do", method = RequestMethod.GET)
+	public String manage(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		List<Map> brandList = brandService.list();
+		model.addAttribute("brandList", brandList);
+		
+		return "brand/manage";
+	}
+	
 	@RequestMapping(value = "brand/create.do", method = RequestMethod.POST)
 	public String create(Model model, @RequestParam Map<String,Object> parameter) {
 		brandService.create(parameter);
