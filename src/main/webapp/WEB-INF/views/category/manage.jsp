@@ -1,48 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<head>
-		<meta charset="utf-8" />
-		<title>Treeview - Ace Admin</title>
-
-		<meta name="description" content="with selectable items(single &amp; multiple) and custom icons" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-		<!--basic styles-->
-
-		<link href="${rootPath}/assets/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="${rootPath}/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="${rootPath}/assets/css/font-awesome.min.css" />
-
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
-
-		<!--page specific plugin styles-->
-
-		<!--fonts-->
-
-		<link rel="stylesheet" href="${ rootPath }/assets/css/ace-fonts.css" />
-
-		<!--ace styles-->
-
-		<link rel="stylesheet" href="${ rootPath }/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="${ rootPath }/assets/css/ace-responsive.min.css" />
-		<link rel="stylesheet" href="${ rootPath }/assets/css/ace-skins.min.css" />
-
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
-
-		<!--inline styles related to this page-->
-	</head>
-
-	<body>
-
-		<div class="main-container container-fluid">
-			<a class="menu-toggler" id="menu-toggler" href="#">
-				<span class="menu-text"></span>
-			</a>
-
 
 			<div class="main-content">
 				<div class="breadcrumbs" id="breadcrumbs">
@@ -55,15 +12,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-
-						<li>
-							<a href="#">UI Elements</a>
-
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li class="active">Treeview</li>
+						<li class="active">카테고리 관리</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -75,17 +24,17 @@
 						</form>
 					</div><!--#nav-search-->
 				</div>
-
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							Treeview
+							카테고리 관리
 							<small>
 								<i class="icon-double-angle-right"></i>
-								with selectable items(single &amp; multiple) and custom icons
+								카테고리 생성, 수정, 삭제를 할 수 있습니다.
 							</small>
 						</h1>
-					</div><!--/.page-header-->
+					</div>
+					<!--/.page-header-->
 
 					<div class="row-fluid">
 						<div class="span12">
@@ -95,23 +44,50 @@
 								<div class="widget-box span6">
 									<div class="widget-header header-color-blue2">
 										<h4 class="lighter smaller">Choose Categories</h4>
+									<button id="create-category-btn" class="btn btn-info">카테고리 생성</button>
 									</div>
 
 									<div class="widget-body">
 										<div class="widget-main padding-8">
-											<div id="cate-tree" class="tree"></div>
+											<div id="cate-tree" class="tree" ></div>
 										</div>
 									</div>
 								</div>
-
+								
 								<div class="widget-box span6">
 									<div class="widget-header header-color-green2">
-										<h4 class="lighter smaller">Browse Files</h4>
+										<h4 class="lighter smaller">Category Infomation</h4>
 									</div>
-
+							
 									<div class="widget-body">
 										<div class="widget-main padding-8">
-											<div id="tree2" class="tree"></div>
+											<div id="category-info" >
+												<form action="${contextPath }/category/modify.do" class="form-horizontal" method="post">
+														<input type="hidden" id="category-id" name="cate_id">
+														<div class="control-group">
+															<label class="control-label">카테고리 명</label>
+															<div class="controls">
+																<input id="category-name" name="cate_nm" type="text">															
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label">카테고리 레벨</label>
+															<div class="controls">
+																<input id="category-level" name="cate_level" type="text">															
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label">상위 카테고리 명</label>
+															<div class="controls">
+																<input id="parent-category-name" name="parent_cate_nm" type="text">															
+															</div>
+														</div>
+														<div class="form-actions">
+															<button class="btn btn-info" type="submit"> 수정</button>
+															<button id="delete-category-btn" class="btn" type="button"> 삭제</button>
+														</div>
+												</form>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -125,88 +101,69 @@
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
-
-				<div class="ace-settings-container" id="ace-settings-container">
-					<div class="btn btn-app btn-mini btn-warning ace-settings-btn" id="ace-settings-btn">
-						<i class="icon-cog bigger-150"></i>
-					</div>
-
-					<div class="ace-settings-box" id="ace-settings-box">
-						<div>
-							<div class="pull-left">
-								<select id="skin-colorpicker" class="hide">
-									<option data-class="default" value="#438EB9">#438EB9</option>
-									<option data-class="skin-1" value="#222A2D">#222A2D</option>
-									<option data-class="skin-2" value="#C6487E">#C6487E</option>
-									<option data-class="skin-3" value="#D0D0D0">#D0D0D0</option>
-								</select>
-							</div>
-							<span>&nbsp; Choose Skin</span>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-header" />
-							<label class="lbl" for="ace-settings-header"> Fixed Header</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-sidebar" />
-							<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-breadcrumbs" />
-							<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-rtl" />
-							<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
-						</div>
-					</div>
-				</div><!--/#ace-settings-container-->
 			</div><!--/.main-content-->
-		</div><!--/.main-container-->
+			
+<!-- delete form -->
+<form id="delete-category-form" action="${contextPath }/category/delete.do"method="post">
+	<input id="delete-cate-id" type="hidden" name="cate_id">
+</form>
 
-		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
-			<i class="icon-double-angle-up icon-only bigger-110"></i>
-		</a>
+<!--  create modal -->			
+<div id="creat-category-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="${contextPath }/category/create.do" class="form-horizontal" method="post">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">카테고리 등록</h3>
+		</div>
+		<div class="modal-body">
+			<div class="control-group">
+				<label class="control-label">카테고리 명</label>
+				<div class="controls">
+					<input  name="cate_nm" type="text">															
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">카테고리 레벨 </label>
+				<div class="controls">
+					<input  name="cate_level" type="text">															
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">상위 카테고리 명</label>
+				<div class="controls">
+					<input  name="parent_cate_nm" type="text">															
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
+			<button type="submit" class="btn btn-primary btn-series-select">등록하기</button>
+		</div>
+	</form>
+</div>		
 
-		<!--basic scripts-->
-
-		<!--[if !IE]>-->
-
-		<script type="text/javascript">
-			window.jQuery || document.write("<script src='${ rootPath }/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-		</script>
-
-		<!--<![endif]-->
-
-		<!--[if IE]>
-			<script type="text/javascript">
-			 window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-			</script>
-			<![endif]-->
-
-		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='${ rootPath }/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
-		<script src="${ rootPath }/assets/js/bootstrap.min.js"></script>
 
 		<!--page specific plugin scripts-->
-
-		<script src="${ rootPath }/assets/js/fuelux/data/fuelux.tree-sampledata.js"></script>
 		<script src="${ rootPath }/assets/js/fuelux/fuelux.tree.min.js"></script>
-
-		<!--ace scripts-->
-
-		<script src="${ rootPath }/assets/js/ace-elements.min.js"></script>
-		<script src="${ rootPath }/assets/js/ace.min.js"></script>
 
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
 				$(function() {
+					// infomation layout hide
+					$("#category-info").hide();
+					
+					
+					$("#create-category-btn").click(function(){
+						$("#creat-category-modal").modal('toggle');
+					});
+					
+					$("#delete-category-btn").click(function(){
+						$("#delete-cate-id").val($("#category-id").val());
+						$("#delete-category-form").submit();
+					});
+					
+					
 					var DataSourceTree = function(options) {
 						this.url = options.url;
 					}
@@ -229,7 +186,6 @@
 							type: 'GET',
 							dataType: 'json',
 							success : function(response) {
-								console.log(response.data);
 								callback({ data: response.data })
 							},
 							error: function(xhr, status, error) {
@@ -249,33 +205,36 @@
 					'unselected-icon' : 'icon-remove'
 				});
 		
-				$('#tree2').ace_tree({
-					dataSource: treeDataSource2 ,
-					loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
-					'open-icon' : 'icon-folder-open',
-					'close-icon' : 'icon-folder-close',
-					'selectable' : false,
-					'selected-icon' : null,
-					'unselected-icon' : null
-				});
-
-
-
-				/**
-				$('#tree1').on('loaded', function (evt, data) {
+				$('#cate-tree').on('loaded', function (evt, data) {
+					console.log("load");
 				});
 		
-				$('#tree1').on('opened', function (evt, data) {
+				$('#cate-tree').on('opened', function (evt, data) {
+					console.log("opened");
+					$("#category-info").show();
+					$("#category-name").val(data.name);
+					$("#category-level").val(data.CATE_LEVEL);
+					$("#category-id").val(data.CATE_ID);
+					$("#parent-category-name").val(data.PARENT_NM);
 				});
 		
-				$('#tree1').on('closed', function (evt, data) {
+				$('#cate-tree').on('closed', function (evt, data) {
+					console.log("closed");
+					$("#category-name").val(data.name);
+					$("#category-level").val(data.CATE_LEVEL);
+					$("#category-id").val(data.CATE_ID);
+					$("#parent-category-name").val(data.PARENT_NM);
 				});
 		
-				$('#tree1').on('selected', function (evt, data) {
+				$('#cate-tree').on('selected', function (evt, data) {
+					selectedIdx = data.info.length -1;
+					$("#category-info").show();
+					$("#category-name").val(data.info[selectedIdx].name);
+					$("#category-level").val(data.info[selectedIdx].CATE_LEVEL);
+					$("#category-id").val(data.info[selectedIdx].CATE_ID);
+					$("#parent-category-name").val(data.info[selectedIdx].PARENT_NM);
 				});
-				*/
 			});
 		</script>
-	</body>
 
 		

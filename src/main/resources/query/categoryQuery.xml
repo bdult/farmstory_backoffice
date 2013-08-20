@@ -12,6 +12,8 @@
 		SELECT 
 			A.CATE_ID,
 			A.CATE_NM AS name,
+			A.CATE_LEVEL,
+			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID) as PARENT_NM,
 			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
 		 FROM BG_CATE A
 		 WHERE CATE_LEVEL = 1
@@ -31,6 +33,8 @@
 		SELECT 
 			A.CATE_ID,
 			A.CATE_NM AS name,
+			A.CATE_LEVEL,
+			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID) as PARENT_NM,
 			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
 		 FROM BG_CATE A
 		 WHERE PARENT_CATE_ID = #{parentId}
@@ -51,26 +55,29 @@
 	<insert id="create" parameterType="map"  keyProperty="cate_id">
 		
 		INSERT /* cateQuery.create 2013.08.07 최지순*/  INTO BG_CATE 
-			(CATE_ID,
+			(
 			CATE_LEVEL,
 			CATE_NM,
+			PARENT_CATE_ID,
 			MOD_DT)
 			VALUES
 			(
-			#{cate_id},
 			#{cate_level},
 			#{cate_nm},
+			#{parent_cate_id},
 			now()
 			)
 	</insert>
 	
-	<update id="modyfy">
+	<select id="parentCateId" resultType="int">
+		SELECT CATE_ID FROM BG_CATE WHERE CATE_NM = #{parent_cate_nm}
+	</select>
+	
+	<update id="modify"  parameterType="map">
 		UPDATE BG_CATE SET
-			<if test="cate_level != null">
 			CATE_LEVEL= #{cate_level},
-			</if>
 			CATE_NM = #{cate_nm},
-			<if test="cate_level != null">
+			<if test="parent_cate_nm != null or parent_cate_nm !='' ">
 			PARENT_CATE_ID = #{parent_cate_id},
 			</if>
 			MOD_DT = now()
@@ -88,6 +95,12 @@
 		DELETE FROM BG_CATE
 		WHERE 1=1
 		AND CATE_ID = #{cateId}
+	</delete>
+		
+	<delete id="deleteChildCate">
+		DELETE FROM BG_CATE
+		WHERE 1=1
+		AND PARENT_CATE_ID = #{cateId}
 	</delete>	
 	
 </mapper>

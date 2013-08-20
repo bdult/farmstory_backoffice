@@ -6,6 +6,8 @@ import java.util.Map;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
+import com.mysql.jdbc.StringUtils;
+
 
 @Repository
 public class CategoryDao extends SqlSessionDaoSupport {
@@ -44,8 +46,8 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	 * 카테고리 수정
 	 * @param cateInfo
 	 */
-	public void modify(Map<String, String> cateInfo) {
-		getSqlSession().update("categoryQuery.modyfy", cateInfo);
+	public void modify(Map cateInfo) {
+		getSqlSession().update("categoryQuery.modify", cateInfo);
 	}
 
 	/**
@@ -63,7 +65,20 @@ public class CategoryDao extends SqlSessionDaoSupport {
 
 	public void delete(String cateId) {
 		getSqlSession().delete("categoryQuery.deleteCateItemRelation", cateId);
+		
+		// 하위 카테고리 삭제
+		getSqlSession().delete("categoryQuery.deleteChildCate", cateId);
+		
+		// 카테고리 삭제
 		getSqlSession().delete("categoryQuery.delete", cateId);
+	}
+
+	public int parentCateId(Map<String, String> cateInfo) {
+		try {
+			return (Integer)getSqlSession().selectOne("categoryQuery.parentCateId", cateInfo);
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 
