@@ -26,7 +26,7 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<Map> list() {
-		return cateDao.list();
+		return cateDao.listByLevel(1);
 	}
 	
 	/**
@@ -42,12 +42,7 @@ public class CategoryService {
 	 * @return cate_id
 	 */
 	public String create(Map<String, String> cateInfo) {
-		int parentCateId = cateDao.parentCateId(cateInfo);
-		if(StringUtils.isEmptyOrWhitespaceOnly(cateInfo.get("parent_cate_nm"))){
-			// skip;
-		}else{
-			cateInfo.put("parent_cate_id", ""+parentCateId);
-		}
+		cateInfo.put("ordering_no", cateDao.lastOrderingNo(cateInfo));
 		cateDao.create(cateInfo);
 		return ""+cateInfo.get("CATE_ID");
 	}
@@ -66,11 +61,27 @@ public class CategoryService {
 	 * @param cateInfo
 	 */
 	public void modify(Map cateInfo) {
-		int parentCateId = cateDao.parentCateId(cateInfo);
-		if(StringUtils.isEmptyOrWhitespaceOnly((String)cateInfo.get("parent_cate_nm"))){
+		int parentCateId =0;
+		if(StringUtils.isNullOrEmpty((String)cateInfo.get("parent_cate_nm"))){
 			// skip;
 		}else{
-			cateInfo.put("parent_cate_id", parentCateId);
+			parentCateId = cateDao.parentCateId(cateInfo);
+		}
+		cateInfo.put("parent_cate_id", parentCateId);
+		
+		// 다른 캘린더 정렬 순서 변경
+		int originOrderingNo  = Integer.parseInt((String)cateInfo.get("origin-category-ordering-no"));
+		int convertOrderingNo = Integer.parseInt((String)cateInfo.get("category-ordering-no"));
+		
+		if(originOrderingNo != convertOrderingNo){
+			List<Map> anotherCateList = cateDao.listOfChild(parentCateId);
+			for(Map anotherCate : anotherCateList){
+				int anthoderOrderingNo = (Integer)anotherCate.get("ORDERING_NO");
+				if(anthoderOrderingNo >= convertOrderingNo && anthoderOrderingNo < originOrderingNo){
+					anotherCate.put("ordering_no", anthoderOrderingNo+1);
+					cateDao.orderingModify(anotherCate);
+				}
+			}
 		}
 		cateDao.modify(cateInfo);
 	}
@@ -101,6 +112,10 @@ public class CategoryService {
 
 	public List<Map> listOfChild(int parentId) {
 		return cateDao.listOfChild(parentId);
+	}
+
+	public List<Map> parentCateList(Map<String, String> categoryInfo) {
+		return cateDao.parentCateList(categoryInfo);
 	}
 
 }

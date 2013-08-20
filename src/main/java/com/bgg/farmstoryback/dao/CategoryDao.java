@@ -25,13 +25,6 @@ public class CategoryDao extends SqlSessionDaoSupport {
 		return (List<Map>)getSqlSession().selectList("categoryQuery.listOfChild", parentId);
 	}
 	
-	/**
-	 * 카테고리 생성
-	 * @param cateInfo
-	 */
-	public void create(Map<String, String> cateInfo) {
-		getSqlSession().insert("categoryQuery.create", cateInfo);
-	}
 
 	/**
 	 * 특정 레벨 카테고리 리스트
@@ -41,6 +34,15 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	public List<Map> listByLevel(int cateLevel) {
 		return (List<Map>)getSqlSession().selectList("categoryQuery.listByLevel", cateLevel);
 	}
+	
+	/**
+	 * 카테고리 생성
+	 * @param cateInfo
+	 */
+	public void create(Map<String, String> cateInfo) {
+		getSqlSession().insert("categoryQuery.create", cateInfo);
+	}
+
 
 	/**
 	 * 카테고리 수정
@@ -79,6 +81,19 @@ public class CategoryDao extends SqlSessionDaoSupport {
 		} catch (Exception e) {
 			return 0;
 		}
+	}
+
+	public void orderingModify(Map anotherCate) {
+		getSqlSession().update("categoryQuery.orderingModify", anotherCate);
+		
+	}
+
+	public List<Map> parentCateList(Map<String, String> categoryInfo) {
+		return getSqlSession().selectList("categoryQuery.parentCateList", categoryInfo);
+	}
+
+	public String lastOrderingNo(Map<String, String> cateInfo) {
+		return (String)getSqlSession().selectOne("categoryQuery.lastOrderingNo", cateInfo);
 	}
 
 

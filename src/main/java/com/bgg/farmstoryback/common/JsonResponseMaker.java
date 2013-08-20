@@ -2,6 +2,7 @@ package com.bgg.farmstoryback.common;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,13 +38,13 @@ public class JsonResponseMaker {
 	}
 	
 //	"{\"status\":\"200\",\"data\":{\"test\":{\"name\":\"test\",\"type\":\"item\"}}}";
-	public String generateCateList(String string, List<Map> cateList) {
+	public String generateCateListForTree(String string, List<Map> cateList) {
 		JSONObject json = new JSONObject();
 		if (cateList != null) {
 			setSucessCode(json);
-			Map cateMap = new HashMap();
+			Map cateMap = new LinkedHashMap();
 			for(Map parameter : cateList){
-				cateMap.put(parameter.get("CATE_ID"), parameter);
+				cateMap.put("cate_"+parameter.get("CATE_ID"), parameter);
 			}
 			json.put("data", cateMap);
 		}else{

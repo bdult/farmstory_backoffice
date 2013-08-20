@@ -4,29 +4,30 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categoryQuery">
 
-	<select id="connCheck" resultType="int">
-		SELECT 1 FROM DUAL
-	</select>
-	
 	<select id="listAll" resultType="hashmap">
 		SELECT 
 			A.CATE_ID,
 			A.CATE_NM AS name,
 			A.CATE_LEVEL,
+			A.ORDERING_NO,
+			A.PARENT_CATE_ID,
 			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID) as PARENT_NM,
 			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
 		 FROM BG_CATE A
-		 WHERE CATE_LEVEL = 1
+		 ORDER BY  A.ORDERING_NO
 	</select>
 	
 	<select id="listByLevel" resultType="hashmap">
 		SELECT 
 			A.CATE_ID,
 			A.CATE_NM AS name,
+			A.ORDERING_NO,
+			A.CATE_LEVEL,
+			A.PARENT_CATE_ID,
 			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
 		 FROM BG_CATE A
-		 WHERE CATE_LEVEL = 1
 		 WHERE CATE_LEVEL = #{cateLevel}
+		 ORDER BY A.ORDERING_NO
 	</select>
 	
 	<select id="listOfChild" resultType="hashmap">
@@ -34,10 +35,13 @@
 			A.CATE_ID,
 			A.CATE_NM AS name,
 			A.CATE_LEVEL,
+			A.ORDERING_NO,
+			A.PARENT_CATE_ID,
 			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID) as PARENT_NM,
 			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
 		 FROM BG_CATE A
 		 WHERE PARENT_CATE_ID = #{parentId}
+		 ORDER BY  A.ORDERING_NO
 	</select>
 	
 	<select id="detail" resultType="hashmap">
@@ -52,6 +56,24 @@
 		 AND CATE_NM like '%${cate_nm}%'
 	</select>
 	
+	<select id="parentCateId" resultType="int">
+		SELECT CATE_ID FROM BG_CATE WHERE CATE_NM = #{parent_cate_nm}
+	</select>
+	
+	<select id="parentCateList" resultType="hashmap">
+		SELECT 
+			CATE_ID,
+			CATE_NM
+		 FROM BG_CATE 
+		WHERE 1=1
+		AND  CATE_LEVEL = #{cate_level,jdbcType=INTEGER}-1
+		AND CATE_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
+	</select>
+	
+	<select id="lastOrderingNo" resultType="String">
+		SELECT MAX(ORDERING_NO)+1 FROM BG_CATE WHERE PARENT_CATE_ID = #{parent_cate_id}
+	</select>
+	
 	<insert id="create" parameterType="map"  keyProperty="cate_id">
 		
 		INSERT /* cateQuery.create 2013.08.07 최지순*/  INTO BG_CATE 
@@ -59,30 +81,37 @@
 			CATE_LEVEL,
 			CATE_NM,
 			PARENT_CATE_ID,
+			ORDERING_NO,
 			MOD_DT)
 			VALUES
 			(
 			#{cate_level},
 			#{cate_nm},
-			#{parent_cate_id},
+			#{parent_cate_id,jdbcType=INTEGER},
+			#{ordering_no},
 			now()
 			)
 	</insert>
 	
-	<select id="parentCateId" resultType="int">
-		SELECT CATE_ID FROM BG_CATE WHERE CATE_NM = #{parent_cate_nm}
-	</select>
 	
 	<update id="modify"  parameterType="map">
 		UPDATE BG_CATE SET
 			CATE_LEVEL= #{cate_level},
 			CATE_NM = #{cate_nm},
-			<if test="parent_cate_nm != null or parent_cate_nm !='' ">
+			ORDERING_NO= #{category-ordering-no},
 			PARENT_CATE_ID = #{parent_cate_id},
-			</if>
 			MOD_DT = now()
 		WHERE 1=1
 		AND CATE_ID = #{cate_id}
+	</update>
+	
+	
+	<update id="orderingModify"  parameterType="map">
+		UPDATE BG_CATE SET
+			ORDERING_NO= #{ordering_no},
+			MOD_DT = now()
+		WHERE 1=1
+		AND CATE_ID = #{CATE_ID}
 	</update>
 
 	<delete id="deleteCateItemRelation">

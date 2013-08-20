@@ -64,10 +64,17 @@
 											<div id="category-info" >
 												<form action="${contextPath }/category/modify.do" class="form-horizontal" method="post">
 														<input type="hidden" id="category-id" name="cate_id">
+														<input type="hidden" id="origin-category-ordering-no" name="origin-category-ordering-no" >		
 														<div class="control-group">
 															<label class="control-label">카테고리 명</label>
 															<div class="controls">
 																<input id="category-name" name="cate_nm" type="text">															
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label">카테고리 순서</label>
+															<div class="controls">
+																<input id="category-ordering-no" name="category-ordering-no" type="text">															
 															</div>
 														</div>
 														<div class="control-group">
@@ -79,7 +86,7 @@
 														<div class="control-group">
 															<label class="control-label">상위 카테고리 명</label>
 															<div class="controls">
-																<input id="parent-category-name" name="parent_cate_nm" type="text">															
+																<input id="parent-category-name" name="parent_cate_nm" type="text">
 															</div>
 														</div>
 														<div class="form-actions">
@@ -119,25 +126,33 @@
 			<div class="control-group">
 				<label class="control-label">카테고리 명</label>
 				<div class="controls">
-					<input  name="cate_nm" type="text">															
+					<input id="modal-category-name" name="cate_nm" type="text">															
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label">카테고리 레벨 </label>
 				<div class="controls">
-					<input  name="cate_level" type="text">															
+					<input  id="modal-category-level" name="cate_level" type="text">															
 				</div>
 			</div>
-			<div class="control-group">
+			<div  class="control-group">
 				<label class="control-label">상위 카테고리 명</label>
 				<div class="controls">
-					<input  name="parent_cate_nm" type="text">															
+					<input  id="modal-parent-category-name" name="parent_cate_nm" type="text">					
+					<button id="parent-cate-search" type="button" class="btn btn-primary">검색</button>
+				</div>
+			</div>
+			<div id="parent-category-list" class="control-group">
+				<label class="control-label">상위 카테고리 리스트</label>
+				<div class="controls">
+					<select id="parent-category-select" name="parent_cate_id">
+					</select>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
-			<button type="submit" class="btn btn-primary btn-series-select">등록하기</button>
+			<button type="submit" class="btn btn-primary">등록하기</button>
 		</div>
 	</form>
 </div>		
@@ -152,9 +167,15 @@
 				$(function() {
 					// infomation layout hide
 					$("#category-info").hide();
+					$("#parent-category-list").hide();
 					
 					
 					$("#create-category-btn").click(function(){
+						$("#parent-category-select").empty();
+						$("#parent-category-list").hide();
+						$("#modal-category-level").val('');
+						$("#modal-category-name").val('');
+						$("#modal-parent-category-name").val('');
 						$("#creat-category-modal").modal('toggle');
 					});
 					
@@ -162,6 +183,34 @@
 						$("#delete-cate-id").val($("#category-id").val());
 						$("#delete-category-form").submit();
 					});
+					
+					$("#parent-cate-search").click(function(){
+						$("#parent-category-select").empty();
+						param = {
+							cate_level :	$("#modal-category-level").val(),
+							parent_cate_nm : $("#modal-parent-category-name").val()
+						};
+						$.ajax({
+							url: "parentCateList.ajax",
+							data: param,
+							type: 'POST',
+							dataType: 'json',
+							success : function(response) {
+								if(response.data.length == 0){
+									alert("검색된 상위 카테고리가 없습니다.");
+									return false;
+								}else{
+									$("#parent-category-list").show();
+									$.each(response.data, function(index, cate){
+										$("#parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+cate.CATE_NM+"</option>")
+									});
+								}
+							},
+							error: function(xhr, status, error) {
+								console.log("error="+error);
+							}
+						});
+					})
 					
 					
 					var DataSourceTree = function(options) {
@@ -183,9 +232,10 @@
 						$.ajax({
 							url: this.url,
 							data: 'id='+param,
-							type: 'GET',
+							type: 'POST',
 							dataType: 'json',
 							success : function(response) {
+								console.log(response.data);
 								callback({ data: response.data })
 							},
 							error: function(xhr, status, error) {
@@ -205,11 +255,12 @@
 					'unselected-icon' : 'icon-remove'
 				});
 		
-				/* $('#cate-tree').on('loaded', function (evt, data) {
+				 $('#cate-tree').on('loaded', function (evt, data) {
 					console.log("load");
-				}); */
+				}); 
 		
 				$('#cate-tree').on('opened', function (evt, data) {
+					console.log(data);
 					cleanSelected();
 					cateInfoSet(data);
 					
@@ -241,6 +292,8 @@
 				$("#category-info").show();
 				$("#category-name").val(data.name);
 				$("#category-level").val(data.CATE_LEVEL);
+				$("#category-ordering-no").val(data.ORDERING_NO);
+				$("#origin-category-ordering-no").val(data.ORDERING_NO);
 				$("#category-id").val(data.CATE_ID);
 				$("#parent-category-name").val(data.PARENT_NM);
 			}
