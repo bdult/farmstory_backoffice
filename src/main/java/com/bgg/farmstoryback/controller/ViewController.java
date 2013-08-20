@@ -74,13 +74,13 @@ public class ViewController {
 	}
 	
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
-	public String main(Model model) {
+	public ModelAndView main(Model model) {
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("view/main");
 		logger.info("into main.do");
 		
-		return "view/main";
+		return mav;
 	}
 	
 	@RequestMapping(value = "sub.do", method = RequestMethod.GET)

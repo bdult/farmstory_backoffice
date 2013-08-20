@@ -5,23 +5,6 @@
 	
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-			<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-				<button class="btn btn-small btn-success">
-					<i class="icon-signal"></i>
-				</button>
-	
-				<button class="btn btn-small btn-info">
-					<i class="icon-pencil"></i>
-				</button>
-	
-				<button class="btn btn-small btn-warning">
-					<i class="icon-group"></i>
-				</button>
-	
-				<button class="btn btn-small btn-danger">
-					<i class="icon-cogs"></i>
-				</button>
-			</div>
 	
 			<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 				<span class="btn btn-success"></span>
@@ -64,10 +47,31 @@
 			</li>
 			
 			<li>
-				<a href="${ contextPath }/cate/list.do">
-					<i class="icon-apple"></i>
-					<span class="menu-text"> 카테고리 관리 </span>
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+	
+					<span class="menu-text">
+						컨텐츠 관리
+					</span>
+	
+					<b class="arrow icon-angle-down"></b>
 				</a>
+	
+				<ul class="submenu">
+					<li>
+						<a href="${ contextPath }/item/list.do">
+							<i class="icon-double-angle-right"></i>
+							컨테츠 관리
+						</a>
+					</li>
+	
+					<li>
+						<a href="${ contextPath }/cate/list.do">
+							<i class="icon-double-angle-right"></i>
+							카테고리 관리
+						</a>
+					</li>
+				</ul>
 			</li>
 	
 			<li>

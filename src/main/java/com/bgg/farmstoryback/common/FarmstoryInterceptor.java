@@ -33,7 +33,7 @@ public class FarmstoryInterceptor extends HandlerInterceptorAdapter {
 				HttpSession session = request.getSession(false);
 				
 				if ( session == null || session.getAttribute("login_session") == null){
-					response.sendRedirect("login.do");
+					response.sendRedirect(request.getContextPath() + "/login.do");
 
 					return false;
 				} else {
@@ -48,21 +48,14 @@ public class FarmstoryInterceptor extends HandlerInterceptorAdapter {
 					logger.info("role: {}", role);
 					
 					// 권한 체크
-					if( role.equals("1") && 
-							! request.getServletPath().contains( "dashboard.do" ) &&
-							! request.getServletPath().contains( "user.do" ) &&
-							! request.getServletPath().contains( "category.do" ) &&
-							! request.getServletPath().contains( "main.do" ) &&
-							! request.getServletPath().contains( "sub.do" )
-					){
-						response.sendRedirect("dashboard.do");
-						return false;
-					}else if( role.equals("2") && 
+					// role==1 super-admin : 모든페이지를 이용가능
+					// role==2 제한적관리자 : 특정페이지만 오픈
+					if( role.equals("2") && 
 							! request.getServletPath().contains( "dashboard.do" ) &&
 							! request.getServletPath().contains( "main.do" ) &&
 							! request.getServletPath().contains( "sub.do" )
 					){
-						response.sendRedirect("dashboard.do");
+						response.sendRedirect(request.getContextPath() + "/dashboard.do");
 						return false;
 					}
 				}
