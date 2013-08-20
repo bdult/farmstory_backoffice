@@ -205,36 +205,52 @@
 					'unselected-icon' : 'icon-remove'
 				});
 		
-				$('#cate-tree').on('loaded', function (evt, data) {
+				/* $('#cate-tree').on('loaded', function (evt, data) {
 					console.log("load");
-				});
+				}); */
 		
 				$('#cate-tree').on('opened', function (evt, data) {
-					console.log("opened");
-					$("#category-info").show();
-					$("#category-name").val(data.name);
-					$("#category-level").val(data.CATE_LEVEL);
-					$("#category-id").val(data.CATE_ID);
-					$("#parent-category-name").val(data.PARENT_NM);
+					cleanSelected();
+					cateInfoSet(data);
+					
 				});
 		
 				$('#cate-tree').on('closed', function (evt, data) {
-					console.log("closed");
-					$("#category-name").val(data.name);
-					$("#category-level").val(data.CATE_LEVEL);
-					$("#category-id").val(data.CATE_ID);
-					$("#parent-category-name").val(data.PARENT_NM);
+					cleanSelected();
+					cateInfoSet(data);
+					
 				});
 		
 				$('#cate-tree').on('selected', function (evt, data) {
 					selectedIdx = data.info.length -1;
-					$("#category-info").show();
-					$("#category-name").val(data.info[selectedIdx].name);
-					$("#category-level").val(data.info[selectedIdx].CATE_LEVEL);
-					$("#category-id").val(data.info[selectedIdx].CATE_ID);
-					$("#parent-category-name").val(data.info[selectedIdx].PARENT_NM);
+					categoryInfo = data.info[selectedIdx];
+					
+					$(".tree-item-name").each(function(){
+						if($(this).text() === categoryInfo.name ){
+							console.log("selected cate-name:"+$(this).text());
+						}else{
+							$(this).parent().attr("class", "tree-item")
+							$(this).parent().children(".icon-ok").attr("class", "icon-remove")
+						}
+					});
+					cateInfoSet(categoryInfo);
 				});
 			});
+
+			function cateInfoSet(data){
+				$("#category-info").show();
+				$("#category-name").val(data.name);
+				$("#category-level").val(data.CATE_LEVEL);
+				$("#category-id").val(data.CATE_ID);
+				$("#parent-category-name").val(data.PARENT_NM);
+			}
+				
+			function cleanSelected(){
+				$(".tree-item-name").each(function(){
+					$(this).parent().attr("class", "tree-item")
+					$(this).parent().children(".icon-ok").attr("class", "icon-remove")
+				});
+			}
 		</script>
 
 		
