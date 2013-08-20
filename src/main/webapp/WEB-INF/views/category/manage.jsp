@@ -304,6 +304,4 @@
 					$(this).parent().children(".icon-ok").attr("class", "icon-remove")
 				});
 			}
-		</script>
-
-		
+		</script>		
