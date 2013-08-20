@@ -202,7 +202,14 @@
 								}else{
 									$("#parent-category-list").show();
 									$.each(response.data, function(index, cate){
-										$("#parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+cate.CATE_NM+"</option>")
+										displayCateName="";
+										if(cate.PRE_PARENT_CATE_NM ===''){
+											displayCateName = cate.CATE_NM;
+										}else{
+											displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM;
+										}
+										
+										$("#parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+displayCateName+"</option>")
 									});
 								}
 							},

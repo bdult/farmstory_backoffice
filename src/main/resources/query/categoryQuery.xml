@@ -62,12 +62,13 @@
 	
 	<select id="parentCateList" resultType="hashmap">
 		SELECT 
-			CATE_ID,
-			CATE_NM
-		 FROM BG_CATE 
+			A.CATE_ID,
+			A.CATE_NM,
+			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID ) AS PRE_PARENT_CATE_NM
+		 FROM BG_CATE A 
 		WHERE 1=1
-		AND  CATE_LEVEL = #{cate_level,jdbcType=INTEGER}-1
-		AND CATE_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
+		AND  A.CATE_LEVEL = #{cate_level,jdbcType=INTEGER}-1
+		AND A.CATE_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
 	</select>
 	
 	<select id="lastOrderingNo" resultType="String">
