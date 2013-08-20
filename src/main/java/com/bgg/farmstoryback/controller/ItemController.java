@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.ItemService;
@@ -35,10 +36,28 @@ public class ItemController {
 	@Autowired
 	private ItemGroupService seriseService;
 	
-	@RequestMapping(value = "item/manage.do", method = RequestMethod.GET)
-	public String list(Model model) {
+	@RequestMapping(value = "item/list.do")
+	public ModelAndView list(Model model) {
 		
-		return "item/list";
+		ModelAndView mav = new ModelAndView();
+		List list = itemService.list();
+		System.out.println("list = " + list);
+		mav.addObject("list", list);
+		mav.setViewName("item/list");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "manager.do")
+	public ModelAndView manager(Model model) {
+		
+		ModelAndView mav = new ModelAndView();
+		List list = itemService.list();
+		System.out.println("list = " + list);
+		mav.addObject("list", list);
+		mav.setViewName("item/list");
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "contents/createItem.do", method = RequestMethod.POST)

@@ -50,8 +50,8 @@ public class ViewController {
 		ModelAndView mav = new ModelAndView();
 		
 		HashMap<String, String> sessionMap = (HashMap<String, String>)viewService.getOneRole(paramMap);
-	    
-		if(session == null || session.getAttribute("login_session") == null){
+		
+		if(session == null){
 			mav.setViewName("pure-view/login");
 		}else{
 			mav.setViewName("view/dashboard");
