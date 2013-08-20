@@ -1,6 +1,5 @@
 package com.bgg.farmstoryback.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.ItemService;
@@ -37,16 +35,10 @@ public class ItemController {
 	@Autowired
 	private ItemGroupService seriseService;
 	
-	@RequestMapping(value = "item/list.do")
-	public ModelAndView list(Model model) {
+	@RequestMapping(value = "item/manage.do", method = RequestMethod.GET)
+	public String list(Model model) {
 		
-		ModelAndView mav = new ModelAndView();
-		List list = itemService.list();
-		System.out.println("list = " + list);
-		mav.addObject("list", list);
-		mav.setViewName("item/list");
-		
-		return mav;
+		return "item/list";
 	}
 	
 	@RequestMapping(value = "contents/createItem.do", method = RequestMethod.POST)
@@ -61,6 +53,9 @@ public class ItemController {
 		contentsInfo.put("item_nm",item_nm );
 		contentsInfo.put("item_desc",item_desc );
 		contentsInfo.put("brand_nm",brand_nm );
+		
+		
+		
 		
 		itemService.createItem(contentsInfo);
 		

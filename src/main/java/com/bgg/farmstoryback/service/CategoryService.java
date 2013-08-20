@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.dao.CategoryDao;
 import com.bgg.farmstoryback.dao.UserDao;
+import com.mysql.jdbc.StringUtils;
 
 
 
@@ -40,17 +42,14 @@ public class CategoryService {
 	 * @return cate_id
 	 */
 	public String create(Map<String, String> cateInfo) {
-		
-		String cateId = cateDao.cateId(cateInfo);
-		// 중복 체크
-		if(cateId == null){
-			cateDao.create(cateInfo);
-			return ""+cateInfo.get("cate_id");
+		int parentCateId = cateDao.parentCateId(cateInfo);
+		if(StringUtils.isEmptyOrWhitespaceOnly(cateInfo.get("parent_cate_nm"))){
+			// skip;
 		}else{
-			return cateId;
+			cateInfo.put("parent_cate_id", ""+parentCateId);
 		}
-		
-		
+		cateDao.create(cateInfo);
+		return ""+cateInfo.get("CATE_ID");
 	}
 
 
@@ -66,7 +65,13 @@ public class CategoryService {
 	 * </pre>
 	 * @param cateInfo
 	 */
-	public void modify(Map<String, String> cateInfo) {
+	public void modify(Map cateInfo) {
+		int parentCateId = cateDao.parentCateId(cateInfo);
+		if(StringUtils.isEmptyOrWhitespaceOnly((String)cateInfo.get("parent_cate_nm"))){
+			// skip;
+		}else{
+			cateInfo.put("parent_cate_id", parentCateId);
+		}
 		cateDao.modify(cateInfo);
 	}
 
@@ -92,6 +97,10 @@ public class CategoryService {
 
 	public void delete(String cateId) {
 		cateDao.delete(cateId);
+	}
+
+	public List<Map> listOfChild(int parentId) {
+		return cateDao.listOfChild(parentId);
 	}
 
 }

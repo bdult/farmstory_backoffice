@@ -20,7 +20,7 @@ public class ItemGroupService {
 	private ItemService itemService;
 
 	/**
-	 * 시리즈 전체 조회
+	 * Item Group 전체 조회
 	 * @return
 	 */
 	public List<Map> list() {
@@ -28,7 +28,7 @@ public class ItemGroupService {
 	}
 	
 	/**
-	 * 브랜드 ID 로 시리즈 조회
+	 * BRAND_ID 로 Item Group 조회
 	 * @param barndId
 	 * @return
 	 */
@@ -37,7 +37,7 @@ public class ItemGroupService {
 	}
 
 	/**
-	 * 시리즈 생성
+	 * Group 생성
 	 * @param itemGroupInfo
 	 */
 	public String create(Map itemGroupInfo) {
@@ -45,14 +45,27 @@ public class ItemGroupService {
 		return ""+itemGroupInfo.get("item_group_id");
 	}
 
+	/**
+	 * Group 수정
+	 * @param seriseInfo
+	 */
 	public void modify(Map seriseInfo) {
 		groupDao.modify(seriseInfo);
 	}
 
+	/**
+	 * Group 상세
+	 * @param groupId
+	 * @return
+	 */
 	public Map detail(String groupId) {
 		return groupDao.detail(groupId);
 	}
 
+	/**
+	 * Group 삭제
+	 * @param groupId
+	 */
 	public void delete(String groupId) {
 		itemService.deleteByGroupId(groupId);
 		groupDao.delete(groupId);

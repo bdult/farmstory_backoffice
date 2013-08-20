@@ -12,7 +12,7 @@
 
     <select id="getOneRole" resultType="hashmap" parameterType="hashmap">
         SELECT
-        	MEMBER_ROLE, MEMBER_ID
+        	MEMBER_ROLE, MEMBER_ID, MEMBER_PW
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ id } and MEMBER_PW = #{ pw }
     </select>

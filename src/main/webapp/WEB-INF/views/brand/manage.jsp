@@ -19,7 +19,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">Sub</li>
+			<li class="active">브랜드 관리</li>
 		</ul><!--.breadcrumb-->
 
 		<div class="nav-search" id="nav-search">
@@ -32,48 +32,6 @@
 		</div><!--#nav-search-->
 	</div>
 
-	<div class="page-content">
-		<div class="page-header position-relative">
-			<h1>
-				Category
-				<small>
-					<i class="icon-double-angle-right"></i>
-					overview &amp; stats
-				</small>
-			</h1>
-		</div><!--/.page-header-->
-
-		<div class="row-fluid">
-			<div class="span5">
-				
-				<div class="alert alert-info">
-					<button type="button" class="close" data-dismiss="alert">
-						<i class="icon-remove"></i>
-					</button>
-					<strong>카테고리</strong>
-					<br>
-				</div>
-				
-				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>이름</th>
-							<th>생성일</th>
-						</tr>
-					</thead>				
-					<tbody>
-						<c:forEach items="${ cateList }" var="cate">
-							<tr>
-								<td>${ cate.CATE_ID }</td>
-								<td class="pointer">${ cate.CATE_NM }</td>
-								<td>${cate.REG_DT }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<button id="create-category" class="btn btn-info pull-right">카테고리 생성</button>
-			</div><!--/.span-->
 			<div class="span5">
 			
 				<div class="alert alert-info">
@@ -106,19 +64,19 @@
 </div>
 
 <div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 class="text-center">브랜드 등록</h3>
-	</div>
-	<div class="modal-body">
-		<form action="/brand/create.do">
-				브랜드 명  <input type="text" name="brand_nm">
-		</form>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
-		<button class="btn btn-primary btn-series-select">등록하기</button>
-	</div>
+	<form action="/storyfarm-admin/brand/create.do" method="post">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">브랜드 등록</h3>
+		</div>
+		<div class="modal-body">
+					브랜드 명  <input type="text" name="brand_nm">
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
+			<button type="submit" class="btn btn-primary btn-series-select">등록하기</button>
+		</div>
+	</form>
 </div>
 
 <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
@@ -130,10 +88,6 @@ $(function(){
 	$("#create-brand-btn").click(function(){
 			console.log("create-brand-btn click");
 			$("#creat-brand-modal").modal('toggle');
-	});
-	
-	$("#create-category").click(function(){
-			console.log("creat-category click");
 	});
 	
 });

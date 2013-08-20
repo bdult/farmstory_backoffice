@@ -19,7 +19,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">Sub</li>
+			<li class="active">Contents</li>
 		</ul><!--.breadcrumb-->
 
 		<div class="nav-search" id="nav-search">

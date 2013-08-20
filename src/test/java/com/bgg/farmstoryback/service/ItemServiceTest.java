@@ -46,9 +46,6 @@ public class ItemServiceTest {
 	@Test
 	public void testCreate() {
 		
-//		GROUP_ID
-//		ITEM_NM
-//		SRC_PATH
 		// given 
 		Map groupInfo = new HashMap();
 		List<Map> groupList = groupService.list();
