@@ -71,7 +71,7 @@
 	</select>
 	
 	<select id="lastOrderingNo" resultType="String">
-		SELECT MAX(ORDERING_NO)+1 FROM BG_CATE WHERE PARENT_CATE_ID = #{parent_cate_id}
+		SELECT ifnull(MAX(ORDERING_NO)+1, 0) FROM BG_CATE WHERE PARENT_CATE_ID = #{parent_cate_id}
 	</select>
 	
 	<insert id="create" parameterType="map"  keyProperty="cate_id">
