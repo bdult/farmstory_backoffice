@@ -86,11 +86,13 @@
 														<div class="control-group">
 															<label class="control-label">상위 카테고리 명</label>
 															<div class="controls">
-																<input id="parent-category-name" name="parent_cate_nm" type="text">
+																<input id="parent-category-id" name="parent_cate_id" type="hidden">
+																<input id="parent-category-name" name="parent_cate_nm" type="text" readonly>
+																<button id="modify-parent-category-btn" class="btn btn-info" type="button"> 상위 카테고리 변경</button>
 															</div>
 														</div>
 														<div class="form-actions">
-															<button class="btn btn-info" type="submit"> 수정</button>
+															<button class="btn btn-info" type="submit"> 수정완료</button>
 															<button id="delete-category-btn" class="btn" type="button"> 삭제</button>
 														</div>
 												</form>
@@ -122,17 +124,11 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 class="text-center">카테고리 등록</h3>
 		</div>
-		<div class="modal-body">
+		<div class="modal-body ">
 			<div class="control-group">
 				<label class="control-label">카테고리 명</label>
 				<div class="controls">
 					<input id="modal-category-name" name="cate_nm" type="text">															
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">카테고리 레벨 </label>
-				<div class="controls">
-					<input  id="modal-category-level" name="cate_level" type="text">															
 				</div>
 			</div>
 			<div  class="control-group">
@@ -151,10 +147,38 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">등록취소</button>
 			<button type="submit" class="btn btn-primary">등록하기</button>
 		</div>
 	</form>
+</div>
+		
+<!--  parent category modify modal -->			
+<div id="modify-parent-category-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">상위 카테고리 변경</h3>
+		</div>
+		<div class="modal-body">
+			<div  class="control-group row-fluid">
+				<label class="control-label ">상위 카테고리 명</label>
+				<div class="controls">
+					<input  id="modify-parent-category-name" name="parent_cate_nm" type="text">					
+					<button id="modify-parent-cate-search" type="button" class="btn btn-primary">검색</button>
+				</div>
+			</div>
+			<div id="modify-parent-category-list" class="control-group">
+				<label class="control-label">상위 카테고리 리스트</label>
+				<div class="controls">
+					<select id="modify-parent-category-select">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
+			<button id="modify-parent-category-modify-btn" type="button" class="btn btn-primary">변경</button>
+		</div>
 </div>		
 
 
@@ -165,6 +189,7 @@
 
 		<script type="text/javascript">
 				$(function() {
+					
 					// infomation layout hide
 					$("#category-info").hide();
 					$("#parent-category-list").hide();
@@ -179,15 +204,62 @@
 						$("#creat-category-modal").modal('toggle');
 					});
 					
+					// modify-parent-category in category information
+					$("#modify-parent-category-btn").click(function(){
+						$("#modify-parent-category-name").val('');
+						$("#modify-parent-category-select").empty();
+						$("#modify-parent-category-list").hide();
+						$("#modify-parent-category-modal").modal('toggle');
+						
+					}); // modify-parent-category-modal end
+					
+					$("#modify-parent-cate-search").click(function(){
+						param = {
+								parent_cate_nm : $("#modify-parent-category-name").val()
+							};
+							$.ajax({
+								url: "parentCateList.ajax",
+								data: param,
+								type: 'POST',
+								dataType: 'json',
+								success : function(response) {
+									if(response.data.length == 0){
+										alert("검색된 상위 카테고리가 없습니다.");
+										return false;
+									}else{
+										$("#modify-parent-category-list").show();
+										$.each(response.data, function(index, cate){
+											displayCateName="";
+											if(cate.CATE_LEVEL === 1){
+												displayCateName = cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨"+")";
+											}else{
+												displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨 "+")";
+											}
+											$("#modify-parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+displayCateName+"</option>")
+										});
+									}
+								},
+								error: function(xhr, status, error) {
+									console.log("error="+error);
+								}
+							}); // ajax end
+					}); // modify-parent-cate-search end
+					
+					$("#modify-parent-category-modify-btn").click(function(){
+						$("#parent-category-name").val($("#modify-parent-category-select option:selected").text());
+						$("#parent-category-id").val($("#modify-parent-category-select option:selected").val());
+						$("#modify-parent-category-modal").modal('toggle');
+					});
+					
+					
 					$("#delete-category-btn").click(function(){
 						$("#delete-cate-id").val($("#category-id").val());
 						$("#delete-category-form").submit();
-					});
+					}); // delete-category end
 					
 					$("#parent-cate-search").click(function(){
 						$("#parent-category-select").empty();
 						param = {
-							cate_level :	$("#modal-category-level").val(),
 							parent_cate_nm : $("#modal-parent-category-name").val()
 						};
 						$.ajax({
@@ -203,12 +275,11 @@
 									$("#parent-category-list").show();
 									$.each(response.data, function(index, cate){
 										displayCateName="";
-										if(cate.PRE_PARENT_CATE_NM ===''){
-											displayCateName = cate.CATE_NM;
+										if(cate.CATE_LEVEL === 1){
+											displayCateName = cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨"+")";
 										}else{
-											displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM;
+											displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨 "+")";
 										}
-										
 										$("#parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+displayCateName+"</option>")
 									});
 								}
@@ -216,10 +287,10 @@
 							error: function(xhr, status, error) {
 								console.log("error="+error);
 							}
-						});
-					})
+						}); // ajax end
+					}); // create-parent-category-search end
 					
-					
+					// Category Tree layout
 					var DataSourceTree = function(options) {
 						this.url = options.url;
 					}
@@ -303,7 +374,8 @@
 				$("#origin-category-ordering-no").val(data.ORDERING_NO);
 				$("#category-id").val(data.CATE_ID);
 				$("#parent-category-name").val(data.PARENT_NM);
-			}
+				$("#parent-category-id").val(data.PARENT_CATE_ID);
+			}// category information set end
 				
 			function cleanSelected(){
 				$(".tree-item-name").each(function(){

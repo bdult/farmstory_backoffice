@@ -75,14 +75,6 @@ public class CategoryDao extends SqlSessionDaoSupport {
 		getSqlSession().delete("categoryQuery.delete", cateId);
 	}
 
-	public int parentCateId(Map<String, String> cateInfo) {
-		try {
-			return (Integer)getSqlSession().selectOne("categoryQuery.parentCateId", cateInfo);
-		} catch (Exception e) {
-			return 0;
-		}
-	}
-
 	public void orderingModify(Map anotherCate) {
 		getSqlSession().update("categoryQuery.orderingModify", anotherCate);
 		
@@ -94,6 +86,9 @@ public class CategoryDao extends SqlSessionDaoSupport {
 
 	public String lastOrderingNo(Map<String, String> cateInfo) {
 		return (String)getSqlSession().selectOne("categoryQuery.lastOrderingNo", cateInfo);
+	}
+	public String cateLevelByParentCateId(Map<String, String> cateInfo) {
+		return (String)getSqlSession().selectOne("categoryQuery.cateLevelByParentCateId", cateInfo);
 	}
 
 

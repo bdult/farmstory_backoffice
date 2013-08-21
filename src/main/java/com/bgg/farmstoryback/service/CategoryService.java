@@ -42,6 +42,12 @@ public class CategoryService {
 	 * @return cate_id
 	 */
 	public String create(Map<String, String> cateInfo) {
+		if(StringUtils.isNullOrEmpty(cateInfo.get("parent_cate_nm"))){
+			cateInfo.put("parent_cate_id", "0");
+			cateInfo.put("cate_level", "1");
+		}else{
+			cateInfo.put("cate_level", cateDao.cateLevelByParentCateId(cateInfo));
+		}
 		cateInfo.put("ordering_no", cateDao.lastOrderingNo(cateInfo));
 		cateDao.create(cateInfo);
 		return ""+cateInfo.get("CATE_ID");
@@ -61,20 +67,12 @@ public class CategoryService {
 	 * @param cateInfo
 	 */
 	public void modify(Map cateInfo) {
-		int parentCateId =0;
-		if(StringUtils.isNullOrEmpty((String)cateInfo.get("parent_cate_nm"))){
-			// skip;
-		}else{
-			parentCateId = cateDao.parentCateId(cateInfo);
-		}
-		cateInfo.put("parent_cate_id", parentCateId);
-		
-		// 다른 캘린더 정렬 순서 변경
+		// 정렬 순서 변경
 		int originOrderingNo  = Integer.parseInt((String)cateInfo.get("origin-category-ordering-no"));
 		int convertOrderingNo = Integer.parseInt((String)cateInfo.get("category-ordering-no"));
 		
 		if(originOrderingNo != convertOrderingNo){
-			List<Map> anotherCateList = cateDao.listOfChild(parentCateId);
+			List<Map> anotherCateList = cateDao.listOfChild(Integer.parseInt((String)cateInfo.get("parent_cate_id")));
 			for(Map anotherCate : anotherCateList){
 				int anthoderOrderingNo = (Integer)anotherCate.get("ORDERING_NO");
 				if(anthoderOrderingNo >= convertOrderingNo && anthoderOrderingNo < originOrderingNo){
