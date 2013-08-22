@@ -22,7 +22,7 @@
 				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
 					<span class="menu-text"> Dashboard </span>
-				</a>
+				</a> 
 			</li>
 			
 			<li>
@@ -41,39 +41,23 @@
 			
 			<li>
 				<a href="${ contextPath }/user.do">
-					<i class="icon-key"></i>
+					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 회원관리 </span>
 				</a>
 			</li>
-			
 			<li>
-				<a href="#" class="dropdown-toggle">
+				<a href="${ contextPath }/contents/manage.do">
 					<i class="icon-file-alt"></i>
-	
-					<span class="menu-text">
-						컨텐츠 관리
-					</span>
-	
-					<b class="arrow icon-angle-down"></b>
+					<span class="menu-text"> 컨테츠 관리 </span>
 				</a>
-	
-				<ul class="submenu">
-					<li>
-						<a href="${ contextPath }/item/list.do">
-							<i class="icon-double-angle-right"></i>
-							컨테츠 관리
-						</a>
-					</li>
-	
-					<li>
-						<a href="${ contextPath }/cate/list.do">
-							<i class="icon-double-angle-right"></i>
-							카테고리 관리
-						</a>
-					</li>
-				</ul>
 			</li>
-	
+			<li>
+				<a href="${ contextPath }/category/manage.do">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 카테고리 관리 </span>
+				</a>
+			</li>
+			
 			<li>
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
