@@ -23,7 +23,6 @@ public class Interceptor extends HandlerInterceptorAdapter {
 		try {
 			if(	
 				//세션 체크 예외 리스트
-				! request.getServletPath().contains( "loginView.do" ) &&
 				! request.getServletPath().contains( "login.do" ) &&
 				! request.getServletPath().contains( "logout.do" )				
 			){

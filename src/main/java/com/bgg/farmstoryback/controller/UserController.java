@@ -38,7 +38,7 @@ public class UserController {
         return "pure-view/login";
 	}
 	
-	@RequestMapping(value = "user/login.do", method = RequestMethod.GET)
+	@RequestMapping(value = "user/login.do")
 	public String login(
 			@RequestParam Map<String,Object> paramMap, HttpServletRequest request, HttpSession session) {
 		

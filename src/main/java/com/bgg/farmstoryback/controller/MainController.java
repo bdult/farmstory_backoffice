@@ -17,7 +17,7 @@ public class MainController {
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
 		logger.info("into dashboard.do");
-		return "view/dashboard";
+		return "main/dashboard";
 	}
 	
 	@RequestMapping(value = "main.do", method = RequestMethod.GET)
