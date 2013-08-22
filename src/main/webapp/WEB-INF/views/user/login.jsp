@@ -32,7 +32,7 @@
 
 												<div class="space-6"></div>
 
-												<form  method="get" action="/storyfarm-admin/sessionstore.do">
+												<form  method="post" action="${rootContexts }/user/login.do">
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">

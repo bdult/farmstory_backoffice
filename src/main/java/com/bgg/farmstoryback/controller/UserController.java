@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.service.UserService;
+import com.mysql.jdbc.StringUtils;
 
 @Controller
 public class UserController {
@@ -25,12 +26,6 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
-	
-	
-	@RequestMapping(value = "user/loginView.do", method = RequestMethod.GET)
-	public String loginView(Model model) {
-		return "pure-view/login";
-	}
 	
 	@RequestMapping(value = "user/logout.do", method = RequestMethod.GET)
 	public String logout(Model model, HttpServletRequest request, HttpSession session) {
@@ -44,20 +39,22 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/login.do", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam Map<String,Object> paramMap, HttpServletRequest request, HttpSession session) {
-		logger.info("into sessionstore.do");
+	public String login(
+			@RequestParam Map<String,Object> paramMap, HttpServletRequest request, HttpSession session) {
 		
-		ModelAndView mav = new ModelAndView();
+		logger.info("login method");
 		
-		HashMap<String, String> sessionMap = (HashMap<String, String>)userService.getOneRole(paramMap);
-	    
-		if(session == null || session.getAttribute("login_session") == null){
-			mav.setViewName("pure-user/login");
+		if(StringUtils.isNullOrEmpty((String)paramMap.get("id"))){
+			return "pure-user/login";
 		}else{
-			mav.setViewName("main/dashboard");
-			session.setAttribute("login_session", sessionMap);
+			HashMap<String, String> sessionMap = (HashMap<String, String>)userService.getOneRole(paramMap);
+			if(sessionMap !=null){
+				session.setAttribute("login_session", sessionMap);
+				return "redirect:/dashboard.do";
+			}else{
+				return "pure-user/login";
+			}
 		}
-		return mav;
 	}
 	
 	/**
