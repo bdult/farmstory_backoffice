@@ -3,7 +3,6 @@ package com.bgg.farmstoryback.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.LogPrinter;
-import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.CategoryService;
-import com.mysql.jdbc.StringUtils;
 
 @Controller
 public class CategoryController {

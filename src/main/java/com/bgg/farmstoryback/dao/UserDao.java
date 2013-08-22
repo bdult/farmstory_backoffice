@@ -7,18 +7,21 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.stereotype.Repository;
 
 
 @Repository
 @SuppressWarnings("unchecked")
 public class UserDao extends SqlSessionDaoSupport {
 
+	
+	public List<HashMap<String, String>> memberList() {
+		return (List<HashMap<String, String>>)getSqlSession().selectList( "userQuery.memberList");
+	}
+
+	public Map<String, String> getOneRole(Map<String, Object> oneRoleMap){
+		return (Map<String, String>)getSqlSession().selectOne("userQuery.getOneRole", oneRoleMap);
+	}
 
 	/**
 	 * 리스트 하나보기

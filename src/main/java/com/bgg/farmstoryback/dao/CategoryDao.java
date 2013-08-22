@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-
-import com.mysql.jdbc.StringUtils;
 
 
 @Repository
 public class CategoryDao extends SqlSessionDaoSupport {
 
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * 카테고리 전체 리스트

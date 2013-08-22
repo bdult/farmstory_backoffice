@@ -1,6 +1,10 @@
 package com.bgg.farmstoryback.controller;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +27,39 @@ public class UserController {
 	private UserService userService;
 	
 	
+	@RequestMapping(value = "user/loginView.do", method = RequestMethod.GET)
+	public String loginView(Model model) {
+		return "pure-view/login";
+	}
+	
+	@RequestMapping(value = "user/logout.do", method = RequestMethod.GET)
+	public String logout(Model model, HttpServletRequest request, HttpSession session) {
+		logger.info("logout.do");
+
+		if(session != null){
+			session.invalidate();
+		}
+        
+        return "pure-view/login";
+	}
+	
+	@RequestMapping(value = "user/login.do", method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam Map<String,Object> paramMap, HttpServletRequest request, HttpSession session) {
+		logger.info("into sessionstore.do");
+		
+		ModelAndView mav = new ModelAndView();
+		
+		HashMap<String, String> sessionMap = (HashMap<String, String>)userService.getOneRole(paramMap);
+	    
+		if(session == null || session.getAttribute("login_session") == null){
+			mav.setViewName("pure-user/login");
+		}else{
+			mav.setViewName("main/dashboard");
+			session.setAttribute("login_session", sessionMap);
+		}
+		return mav;
+	}
+	
 	/**
 	 * 	Result
 			Key : MEMBER_ID -> Value : test
@@ -43,8 +80,8 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "userinsert.do", method = RequestMethod.POST)
-	public ModelAndView userInsert(Model model) {
+	@RequestMapping(value = "user/createView.do", method = RequestMethod.POST)
+	public ModelAndView createView(Model model) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -53,8 +90,8 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "usercreate.do", method = RequestMethod.POST)
-	public ModelAndView userCreate(@RequestParam Map<String,Object> paramMap) {
+	@RequestMapping(value = "user/create.do", method = RequestMethod.POST)
+	public ModelAndView create(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -66,8 +103,8 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "userdelete.do", method = RequestMethod.GET)
-	public ModelAndView userDelete(@RequestParam Map<String,Object> paramMap) {
+	@RequestMapping(value = "user/delete.do", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -78,8 +115,8 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "useredit.do", method = RequestMethod.GET)
-	public ModelAndView userEdit(@RequestParam Map<String,Object> paramMap) {
+	@RequestMapping(value = "user/modify.do", method = RequestMethod.GET)
+	public ModelAndView modify(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -92,17 +129,17 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "userupdate.do", method = RequestMethod.GET)
-	public ModelAndView userUpdate(@RequestParam Map<String,Object> paramMap) {
-
-		ModelAndView mav = new ModelAndView();
-
-		logger.info(paramMap.toString());
-		
-		mav.addObject("insertUserList",userService.updateUser(paramMap));
-
-		mav.addObject("positionList", userService.userList());
-		mav.setViewName("view/user");
-		return mav;
-	}
+//	@RequestMapping(value = "userupdate.do", method = RequestMethod.GET)
+//	public ModelAndView userUpdate(@RequestParam Map<String,Object> paramMap) {
+//
+//		ModelAndView mav = new ModelAndView();
+//
+//		logger.info(paramMap.toString());
+//		
+//		mav.addObject("insertUserList",userService.updateUser(paramMap));
+//
+//		mav.addObject("positionList", userService.userList());
+//		mav.setViewName("view/user");
+//		return mav;
+//	}
 }

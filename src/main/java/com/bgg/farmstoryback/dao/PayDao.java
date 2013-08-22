@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public class DisplayDao extends SqlSessionDaoSupport {
+public class PayDao extends SqlSessionDaoSupport {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	

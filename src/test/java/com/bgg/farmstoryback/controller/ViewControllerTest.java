@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class ViewControllerTest {
 	
 	@Autowired
-	ViewController viewController;
+	MainController viewController;
 
 	@Before
 	public void setUp() throws Exception {
