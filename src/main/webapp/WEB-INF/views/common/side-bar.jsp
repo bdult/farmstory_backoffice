@@ -39,7 +39,7 @@
 				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
 					<span class="menu-text"> Dashboard </span>
-				</a>
+				</a> 
 			</li>
 			
 			<li>

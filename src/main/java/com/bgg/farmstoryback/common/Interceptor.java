@@ -34,7 +34,6 @@ public class Interceptor extends HandlerInterceptorAdapter {
 					// 권한체크
 					//HashMap<String, String> sessionMap = (HashMap<String, String>)session.getAttribute("login_session");
 				}
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,43 +87,3 @@ public class Interceptor extends HandlerInterceptorAdapter {
 		}
 	}
 }
-
-//
-//					Object obj = session.getAttribute("login_session");
-//					String role = String.valueOf( sessionMap.get("MEMBER_ROLE") );
-//					
-////					HashMap<String, String> sessionMap = (HashMap<String, String>) session.getAttribute("loggin_session");
-////					String role = sessionMap.get("MEMBER_ROLE");
-//					
-//					logger.info("role: {}", role);
-//					
-//					// 권한 체크
-//					if( role.equals("1") && 
-//							! request.getServletPath().contains( "dashboard.do" ) &&
-//							! request.getServletPath().contains( "user.do" ) &&
-//							! request.getServletPath().contains( "userinsert.do" ) &&
-//							! request.getServletPath().contains( "userupdate.do" ) &&
-//							! request.getServletPath().contains( "usercreate.do" ) &&
-//							! request.getServletPath().contains( "useredit.do" ) &&
-//							! request.getServletPath().contains( "userdelete.do" ) &&
-//							! request.getServletPath().contains( "category.do" ) &&
-//							! request.getServletPath().contains( "main.do" ) &&
-//							! request.getServletPath().contains( "sub.do" )
-//					){
-//						response.sendRedirect("dashboard.do");
-//						return false;
-//					}else if( role.equals("2") && 
-//							! request.getServletPath().contains( "dashboard.do" ) &&
-//							! request.getServletPath().contains( "main.do" ) &&
-//							! request.getServletPath().contains( "sub.do" )
-//					){
-//						response.sendRedirect("dashboard.do");
-//						return false;
-//					}
-//				}
-//			}
-			
-			
-			
-		
-		
