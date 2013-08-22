@@ -23,11 +23,20 @@ public class BoardDao extends SqlSessionDaoSupport {
 		return (Map)getSqlSession().selectOne("boardQuery.detail", boardInfo);
 	}
 
-	public void deleteByName(Map boardInfo) {
-		getSqlSession().delete("boardQuery.delete", boardInfo);
+	public void deleteByName(String boardName) {
+		getSqlSession().update("boardQuery.deleteByName", boardName);
 	}
 
 	public List<Map> list() {
 		return (List<Map>)getSqlSession().selectList("boardQuery.list");
+	}
+
+	public Map boardInfoByName(String boardName) {
+		return (Map)getSqlSession().selectOne("boardQuery.boardInfoByName", boardName);
+	}
+
+	public void delete(Map boardInfo) {
+		getSqlSession().delete("boardQuery.delete", boardInfo);
+		
 	}
 }

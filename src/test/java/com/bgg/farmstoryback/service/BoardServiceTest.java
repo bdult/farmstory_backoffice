@@ -1,7 +1,9 @@
 package com.bgg.farmstoryback.service;
 
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
@@ -51,7 +53,7 @@ public class BoardServiceTest {
 		boardInfo.put("board_nm", "test");
 		boardInfo.put("reg_member_id", "test");
 		boardInfo.put("mod_member_id", "test");
-		boardService.deleteByName(boardInfo);
+		boardService.deleteByName((String)boardInfo.get("board_nm"));
 
 		// when
 		boardService.create(boardInfo);
@@ -73,6 +75,20 @@ public class BoardServiceTest {
 		// then
 		assertNotNull(boardList);
 		assertThat(boardList.size(), is(not(0)));
+	}
+	
+	@Test
+	public void testDelete() {
+
+		// given 
+		Map boardInfo = boardService.boardInfoByName("test");
+
+		// when
+		boardService.delete(boardInfo);
+
+		// then
+		Map boardDetailInfo = boardService.detail(boardInfo);
+		assertNull(boardDetailInfo);
 		
 	}
 	

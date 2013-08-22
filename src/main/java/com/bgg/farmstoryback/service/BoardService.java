@@ -28,11 +28,19 @@ public class BoardService {
 		return boardDao.detail(boardInfo);
 	}
 
-	public void deleteByName(Map boardInfo) {
-		boardDao.deleteByName(boardInfo);
+	public void deleteByName(String boardName) {
+		boardDao.deleteByName(boardName);
 	}
 
 	public List<Map> list() {
 		return boardDao.list();
+	}
+
+	public Map boardInfoByName(String boardName) {
+		return boardDao.boardInfoByName(boardName);
+	}
+
+	public void delete(Map boardInfo) {
+		boardDao.delete(boardInfo);
 	}
 }

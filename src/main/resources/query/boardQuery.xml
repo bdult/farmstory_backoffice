@@ -26,13 +26,29 @@
 		SELECT * FROM BG_BOARD_MASTER
 		WHERE 1=1
 		AND MASTER_ID = #{board_id}
+		AND USE_YN = 'Y'
+	</select>
+	
+	<select id="boardInfoByName" resultType="hashmap">
+		SELECT * FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND MASTER_ID = #{boardName}
+		AND USE_YN = 'Y'
 	</select>
 	
 	
-	<delete id="delete">
-		DELETE FROM BG_BOARD_MASTER
+	<update id="delete">
+		UPDATE BG_BOARD_MASTER 
+		SET USE_YN = 'N'
 		WHERE 1=1
-		AND BOARD_NM = #{board_nm}
-	</delete>
+		AND MASTER_ID = #{board_id}
+	</update>
+	
+	<update id="deleteByName">
+		UPDATE BG_BOARD_MASTER 
+		SET USE_YN = 'N'
+		WHERE 1=1
+		AND BOARD_NM = #{boardName}
+	</update>
 	
 </mapper>
