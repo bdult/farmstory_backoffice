@@ -1,96 +1,125 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>			
 
-<style>
-#editor {
-	overflow: scroll; 
-	max-height: 300px
-}
-</style>
+			<div class="main-content">
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="icon-home home-icon"></i>
+							<a href="#">Main</a>
 
-<div class="main-content">
-	<div class="breadcrumbs" id="breadcrumbs">
-		<ul class="breadcrumb">
-			<li>
-				<i class="icon-home home-icon"></i>
-				<a href="#">Home</a>
+							<span class="divider">
+								<i class="icon-angle-right arrow-icon"></i>
+							</span>
+						</li>
+						<li class="active">게시판 관리</li>
+					</ul><!--.breadcrumb-->
 
-				<span class="divider">
-					<i class="icon-angle-right arrow-icon"></i>
-				</span>
-			</li>
-			<li class="active">브랜드 관리</li>
-		</ul><!--.breadcrumb-->
-
-		<div class="nav-search" id="nav-search">
-			<form class="form-search">
-				<span class="input-icon">
-					<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
-	</div>
-
-			<div class="span5">
-			
-				<div class="alert alert-info">
-					<strong>브랜드</strong>
-					<br>
+					<div class="nav-search" id="nav-search">
+						<form class="form-search">
+							<span class="input-icon">
+								<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+								<i class="icon-search nav-search-icon"></i>
+							</span>
+						</form>
+					</div><!--#nav-search-->
 				</div>
+
+				<div class="page-content">
+
+					<div class="row-fluid">
+						<div class="row-fluid">
+								<h3 class="header smaller lighter blue">게시판 리스트</h3>
+
+								<table id="board_table" class="table table-striped table-bordered table-hover">
+									<thead>
+										<tr>
+											<th class="center">
+												<label>
+													<input type="checkbox" />
+													<span class="lbl"></span>
+												</label>
+											</th>
+											<th>게시판 ID</th>
+											<th>게시판명</th>
+											<th>생성자 ID</th>
+											<th>변경자 ID</th>
+											<th>댓글 사용여부</th>
+											<th>파일 업로드 사용여부</th>
+											<th>생성일자</th>
+										</tr>
+									</thead>
+
+									<tbody>
+									<c:forEach items="${boardList }" var="board">
+										<tr>
+											<td class="center">
+												<label>
+													<input type="checkbox" />
+													<span class="lbl"></span>
+												</label>
+											</td>
+
+											<td>${board.BOARD_ID }</td>
+											<td>${board.BOARD_NM }</td>
+											<td>${board.REG_MEMBER_ID }</td>
+											<td>${board.MOD_MEMBER_ID }</td>
+											<td>${board.COMMENT_USE_YN }</td>
+											<td>${board.FILEUPLOAD_USE_YN }</td>
+											<td>${board.REG_DT }</td>
+										</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+							</div>
+						</div><!--/.span-->
+					</div><!--/.row-fluid-->
+				</div><!--/.page-content-->
+
+
+		<!--page specific plugin scripts-->
+
+		<script src="${rootPath}/assets/js/jquery.dataTables.min.js"></script>
+		<script src="${rootPath}/assets/js/jquery.dataTables.bootstrap.js"></script>
+
+
+		<!--inline scripts related to this page-->
+
+		<script type="text/javascript">
+			$(function() {
+				/* var oTable1 = $('#sample-table-2').dataTable( {
+				"aoColumns": [
+			      { "bSortable": false },
+			      null, null,null, null, null,
+				  { "bSortable": false }
+				] } ); 
 				
-				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>이름</th>
-							<th>생성일</th>
-						</tr>
-					</thead>				
-					<tbody>
-						<c:forEach items="${brandList }" var="brand">
-						<tr>
-							<td>${brand.BRAND_ID }</td>
-							<td>${brand.BRAND_NM }</td>
-							<td>${brand.REG_DT }</td>
-						</tr>
-						</c:forEach>
-					</tbody>	
-				</table>
-				<button id="create-brand-btn" class="btn btn-info pull-right">브랜드 생성</button>
-			</div><!--/.span-->
-		</div><!--/.row-fluid-->
-	</div><!--/.page-content-->
-</div>
+				
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});
+			
+			
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table')
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					var w2 = $source.width();
+			
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+				*/
+			})
+		</script>
 
-<div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="/storyfarm-admin/brand/create.do" method="post">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 등록</h3>
-		</div>
-		<div class="modal-body">
-					브랜드 명  <input type="text" name="brand_nm">
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
-			<button type="submit" class="btn btn-primary btn-series-select">등록하기</button>
-		</div>
-	</form>
-</div>
-
-<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
-	<i class="icon-double-angle-up icon-only bigger-110"></i>
-</a>
-
-<script>
-$(function(){
-	$("#create-brand-btn").click(function(){
-			console.log("create-brand-btn click");
-			$("#creat-brand-modal").modal('toggle');
-	});
-	
-});
-</script>
-
-		
