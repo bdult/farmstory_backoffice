@@ -4,20 +4,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.dao.UserDao;
-import com.bgg.farmstoryback.dto.UserDto;
-
-
 
 @Service
 public class UserService {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private UserDao userDao;
 
+	
+	public List<HashMap<String, String>> memberList() {
+		return userDao.memberList();
+	}
+	
+
+	public Map<String, String> getOneRole(Map<String, Object> paramMap) {
+		return userDao.getOneRole(paramMap);
+	}
+	
 	
 	/**
 	 * 모든 유저 리스트

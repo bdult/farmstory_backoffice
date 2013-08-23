@@ -12,7 +12,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/**" />
-			<beans:bean class="com.bgg.farmstoryback.common.FarmstoryInterceptor" />
+			<beans:bean class="com.bgg.farmstoryback.common.Interceptor" />
 		</interceptor>
 	</interceptors>
    

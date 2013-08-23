@@ -1,24 +1,16 @@
 package com.bgg.farmstoryback.controller;
 
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.bgg.farmstoryback.service.BrandService;
-import com.bgg.farmstoryback.service.CategoryService;
 
 @Controller
 public class DisplayController {
@@ -27,7 +19,32 @@ public class DisplayController {
 	
 	@RequestMapping(value = "display/manage.do", method = RequestMethod.POST)
 	public String manage(Model model, @RequestParam Map<String,Object> parameter) {
-		return "display/manage";
+		return null;
+	}
+	
+	@RequestMapping(value = "display/create.do", method = RequestMethod.POST)
+	public String create(Model model, @RequestParam Map<String,Object> parameter){
+			return null;
+	}
+	
+	@RequestMapping(value = "display/list.do", method = RequestMethod.POST)
+	public String list(Model model, @RequestParam Map<String,Object> parameter){
+		return null;
+	}
+	
+	@RequestMapping(value = "display/detail.do", method = RequestMethod.POST)
+	public String detail(Model model, @RequestParam Map<String,Object> parameter){
+		return null;
+	}
+	
+	@RequestMapping(value = "display/modify.do", method = RequestMethod.POST)
+	public String modify(Model model, @RequestParam Map<String,Object> parameter){
+		return null;
+	}
+	
+	@RequestMapping(value = "display/delete.do", method = RequestMethod.POST)
+	public String delete(Model model, @RequestParam Map<String,Object> parameter){
+		return null;
 	}
 	
 }

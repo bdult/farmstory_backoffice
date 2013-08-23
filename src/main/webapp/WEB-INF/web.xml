@@ -14,6 +14,10 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+	
 	<filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -58,10 +62,6 @@
         <session-timeout>120</session-timeout> 
     </session-config>
     
-    <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-    </welcome-file-list>
-
 	<error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/404.jsp</location>
@@ -70,4 +70,5 @@
         <error-code>500</error-code>
         <location>/WEB-INF/views/500.jsp</location>
     </error-page>
+    
 </web-app>
