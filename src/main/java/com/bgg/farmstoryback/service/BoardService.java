@@ -43,4 +43,8 @@ public class BoardService {
 	public void delete(Map boardInfo) {
 		boardDao.delete(boardInfo);
 	}
+
+	public void modify(Map boardInfo) {
+		boardDao.modify(boardInfo);
+	}
 }

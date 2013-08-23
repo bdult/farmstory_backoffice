@@ -20,7 +20,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "board/manage.do", method = RequestMethod.GET)
 	public String manage(Model model, @RequestParam Map<String,Object> parameter) {
-		return null;
+		return "board/manage";
 	}
 	
 	@RequestMapping(value = "board/create.do", method = RequestMethod.POST)

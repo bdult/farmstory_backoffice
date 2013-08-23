@@ -25,14 +25,14 @@
 	<select id="detail" resultType="hashmap">
 		SELECT * FROM BG_BOARD_MASTER
 		WHERE 1=1
-		AND MASTER_ID = #{board_id}
+		AND BOARD_ID = #{board_id}
 		AND USE_YN = 'Y'
 	</select>
 	
 	<select id="boardInfoByName" resultType="hashmap">
 		SELECT * FROM BG_BOARD_MASTER
 		WHERE 1=1
-		AND MASTER_ID = #{boardName}
+		AND BOARD_ID = #{boardName}
 		AND USE_YN = 'Y'
 	</select>
 	
@@ -41,7 +41,7 @@
 		UPDATE BG_BOARD_MASTER 
 		SET USE_YN = 'N'
 		WHERE 1=1
-		AND MASTER_ID = #{board_id}
+		AND BOARD_ID = #{board_id}
 	</update>
 	
 	<update id="deleteByName">
@@ -49,6 +49,13 @@
 		SET USE_YN = 'N'
 		WHERE 1=1
 		AND BOARD_NM = #{boardName}
+	</update>
+	
+	<update id="modify">
+		UPDATE BG_BOARD_MASTER 
+		SET BOARD_NM = #{board_nm}
+		WHERE 1=1
+		AND BOARD_ID = #{board_id}
 	</update>
 	
 </mapper>

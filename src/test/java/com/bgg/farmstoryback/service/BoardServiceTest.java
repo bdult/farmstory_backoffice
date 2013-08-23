@@ -92,4 +92,34 @@ public class BoardServiceTest {
 		
 	}
 	
+	@Test
+	public void testModify() {
+
+		// given 
+		String boardMasterId = null;
+		List<Map> boardList = boardService.list();
+		Map boardModifyInfo = new HashMap();
+		if(boardList.size() > 0){
+			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
+		}else{
+			testCreate();
+			boardList = boardService.list();
+			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
+		}
+		
+		boardModifyInfo.put("board_id", boardMasterId);
+		boardModifyInfo.put("board_nm", "test_modify");
+		
+		// when
+		boardService.modify(boardModifyInfo);
+
+		// then
+		Map boardDetailInfo = boardService.detail(boardModifyInfo);
+		assertNotNull(boardDetailInfo);
+		assertEquals(boardModifyInfo.get("board_nm"), boardDetailInfo.get("BOARD_NM"));
+		
+	}
+	
+	
+	
 }

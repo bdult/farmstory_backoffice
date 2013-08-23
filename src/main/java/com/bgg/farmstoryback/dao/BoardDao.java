@@ -39,4 +39,8 @@ public class BoardDao extends SqlSessionDaoSupport {
 		getSqlSession().delete("boardQuery.delete", boardInfo);
 		
 	}
+
+	public void modify(Map boardInfo) {
+		getSqlSession().update("boardQuery.modify",boardInfo);
+	}
 }
