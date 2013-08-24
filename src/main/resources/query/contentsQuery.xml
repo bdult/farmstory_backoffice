@@ -8,57 +8,43 @@
 	<select id="list" resultType="hashmap">
 		SELECT
 			*
-		FROM  BG_ITEM
+		FROM  BG_CONTENTS
 	</select>
 	
 	<select id="detail" resultType="hashmap">
 		SELECT
 			*
-		FROM  BG_ITEM
-		WHERE ITEM_ID = #{itemId}
-	</select>
-	
-	<select id="listByGroupId" resultType="hashmap">
-		SELECT
-			BI.*
-		FROM BG_ITEM_GROUP BIG, BG_ITEM BI
-		WHERE 1=1
-		AND BI.GROUP_ID = BIG.GROUP_ID
-		AND BIG.GROUP_ID= #{groupId}
+		FROM  BG_CONTENTS
+		WHERE CONTENTS_ID = #{contentsID}
 	</select>
 	
 	
-	<insert id="create" parameterType="map"  keyProperty="item_id">
-   		INSERT BG_ITEM(
+	<insert id="create" parameterType="map"  keyProperty="contents_id">
+   		INSERT BG_CONTENTS(
 			ITEM_NM,
-			GROUP_ID,
+			CONTENTS_SERIES_ID,
 			SRC_PATH   		
    		)
    		VALUES(
    			#{item_nm},
-   			#{group_id},
+   			#{contents_series_id},
    			#{src_path}
    		)
    </insert>
    
    <update id="modify">
-   		UPDATE BG_ITEM SET
+   		UPDATE BG_CONTENTS SET
    			ITEM_NM = #{item_nm}
    			, SRC_PATH = #{src_path}
-   			, GROUP_ID = #{group_id}
+   			, CONTENTS_SERIES_ID = #{contents_series_id}
    			, MOD_DT = now()
    		WHERE 1=1
-   		AND ITEM_ID = #{item_id}
+   		AND CONTENTS_ID = #{contents_id}
    </update>
    
    <delete id="delete" >
-   		DELETE FROM BG_ITEM
-   		WHERE ITEM_ID = #{itemId}
-   </delete>
-   
-   <delete id="deleteByGroupId" >
-   		DELETE FROM BG_ITEM
-   		WHERE GROUP_ID = #{groupId}
+   		DELETE FROM BG_CONTENTS
+   		WHERE CONTENTS_ID = #{contentsID}
    </delete>
 	
 </mapper>
