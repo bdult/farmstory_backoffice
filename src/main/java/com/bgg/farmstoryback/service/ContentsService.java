@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.dao.ContentsDao;
-import com.bgg.farmstoryback.dto.ContentsDTO;
 import com.mysql.jdbc.StringUtils;
 
 @Service
@@ -31,7 +30,7 @@ public class ContentsService {
 	/**
 	 * 컨텐츠 상세
 	 */
-	public ContentsDTO detail(String contents_id) {
+	public Map detail(String contents_id) {
 		return conDao.detail(contents_id);
 	}
 	
@@ -47,8 +46,16 @@ public class ContentsService {
 	 * @param cateInfo
 	 * @return contents_id
 	 */
-	public String create(ContentsDTO contentsDTO) {
-		conDao.create(contentsDTO);
-		return contentsDTO.getContents_id();
+	public String create(Map parameter) {
+		conDao.create(parameter);
+		return null;
+	}
+
+	public void modify(Map<String, String> parameter) {
+		conDao.modify(parameter);
+	}
+
+	public List<Map> seriesList() {
+		return conDao.seriesList();
 	}
 }

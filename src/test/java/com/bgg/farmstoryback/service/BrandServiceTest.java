@@ -12,18 +12,18 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bgg.farmstoryback.common.LogPrinter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
 public class BrandServiceTest {
 
-	@Autowired
-	LogPrinter printer;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	BrandService brandService;
@@ -49,7 +49,7 @@ public class BrandServiceTest {
 		List<Map> brandList = brandService.list();
 
 		// then
-		printer.printMapList(brandList);
+		logger.info("list=", brandList);
 		assertThat(brandList, is(notNullValue()));
 		assertThat(brandList.size(), is(not(0)));
 		
@@ -93,7 +93,7 @@ public class BrandServiceTest {
 		Map resultInfo = brandService.detail(brandId);
 		assertThat(resultInfo, is(notNullValue()));
 		assertThat((String)resultInfo.get("BRAND_NM"), is("modify_brand"));
-		printer.printMap(resultInfo);
+		logger.info("detail=", resultInfo);
 	}
 	
 	

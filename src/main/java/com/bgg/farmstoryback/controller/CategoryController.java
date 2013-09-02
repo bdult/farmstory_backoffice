@@ -15,22 +15,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
-import com.bgg.farmstoryback.common.LogPrinter;
 import com.bgg.farmstoryback.service.CategoryService;
 
 @Controller
 public class CategoryController {
 	
-	private Logger logger = LoggerFactory.getLogger(CategoryController.class);
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	private CategoryService categoryService;
 	
 	@Autowired
 	private JsonResponseMaker jsonMaker;
-	
-	@Autowired
-	private LogPrinter logPrinter;
 	
 	/**
 	 * 	Result
@@ -53,21 +49,21 @@ public class CategoryController {
 	
 	@RequestMapping(value = "category/create.do", method = RequestMethod.POST)
 	public String create( @RequestParam Map<String,String> categoryInfo) {
-		logPrinter.printMap(categoryInfo);
+		logger.info("parameter=", categoryInfo);
 		categoryService.create(categoryInfo);
 		return "redirect:/category/manage.do";
 	}
 
 	@RequestMapping(value = "category/modify.do", method = RequestMethod.POST)
 	public String modify(@RequestParam Map<String,Object> categoryInfo) {
-		logPrinter.printMap(categoryInfo);
+		logger.info("parameter=", categoryInfo);
 		categoryService.modify(categoryInfo);
 		return "redirect:/category/manage.do";
 	}
 	
 	@RequestMapping(value = "category/delete.do", method = RequestMethod.POST)
 	public String delete(@RequestParam Map<String,Object> categoryInfo) {
-		logPrinter.printMap(categoryInfo);
+		logger.info("parameter=", categoryInfo);
 		categoryService.delete((String)categoryInfo.get("cate_id"));
 		return "redirect:/category/manage.do";
 	}
@@ -94,7 +90,7 @@ public class CategoryController {
 	}
 	@RequestMapping(value = "category/parentCateList.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String parentCateList(@RequestParam Map<String,String> categoryInfo) {
-		logPrinter.printMap(categoryInfo);
+		logger.info("parameter=", categoryInfo);
 		List<Map> parentList = categoryService.parentCateList(categoryInfo);
 		String cateJsonList = jsonMaker.generateMapList("data", parentList);
 		return cateJsonList;

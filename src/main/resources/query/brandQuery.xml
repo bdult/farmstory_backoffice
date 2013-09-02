@@ -5,7 +5,7 @@
 <mapper namespace="brandQuery">
 
 	<select id="list" resultType="hashmap">
-		SELECT * FROM BG_BRAND
+		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
 		WHERE DEL_YN = 'N'
 	</select>
 	

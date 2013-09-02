@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bgg.farmstoryback.common.LogPrinter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
@@ -30,8 +29,6 @@ public class BoardServiceTest {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	@Autowired
-	LogPrinter printer;
 	
 	@Autowired
 	BoardService boardService;

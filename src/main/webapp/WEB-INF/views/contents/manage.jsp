@@ -43,6 +43,7 @@
 								<div class="table-header">
 									<button id="create-contents-btn" class="btn btn-info">컨텐츠 추가</button>
 								</div>
+								
 
 								<table id="sample-table-2" class="table table-striped table-bordered table-hover">
 									<thead>
@@ -85,16 +86,16 @@
 											<td>${conlist.IMG_PATH}</td>
 											<td class="td-actions">
 												<div class="hidden-phone visible-desktop action-buttons">
-													<a class="blue" href="#">
-														<i class="icon-zoom-in bigger-130"></i>
+													<a class="blue" href="detail.do?contents_id=${conlist.CONTENTS_ID}">
+														<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
 													</a>
 
 													<a class="green" href="#">
-														<i class="icon-pencil bigger-130"></i>
+														<i id="modify_icon" class="icon-pencil bigger-130"></i>
 													</a>
 
 													<a class="red" href="#">
-														<i class="icon-trash bigger-130"></i>
+														<i id="delete_icon" class="icon-trash bigger-130"></i>
 													</a>
 												</div>
 
@@ -252,47 +253,6 @@
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
 
-				<div class="ace-settings-container" id="ace-settings-container">
-					<div class="btn btn-app btn-mini btn-warning ace-settings-btn" id="ace-settings-btn">
-						<i class="icon-cog bigger-150"></i>
-					</div>
-
-					<div class="ace-settings-box" id="ace-settings-box">
-						<div>
-							<div class="pull-left">
-								<select id="skin-colorpicker" class="hide">
-									<option data-class="default" value="#438EB9">#438EB9</option>
-									<option data-class="skin-1" value="#222A2D">#222A2D</option>
-									<option data-class="skin-2" value="#C6487E">#C6487E</option>
-									<option data-class="skin-3" value="#D0D0D0">#D0D0D0</option>
-								</select>
-							</div>
-							<span>&nbsp; Choose Skin</span>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-header" />
-							<label class="lbl" for="ace-settings-header"> Fixed Header</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-sidebar" />
-							<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-breadcrumbs" />
-							<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-rtl" />
-							<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
-						</div>
-					</div>
-				</div><!--/#ace-settings-container-->
-			</div><!--/.main-content-->
-
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
 		</a>
@@ -318,11 +278,6 @@
 		</script>
 		<script src="assets/js/bootstrap.min.js"></script>
 
-		<!--page specific plugin scripts-->
-
-		<script src="${contextPath}/assets/js/jquery.dataTables.min.js"></script>
-		<script src="${contextPath}/assets/js/jquery.dataTables.bootstrap.js"></script>
-
 		<!--ace scripts-->
 
 		<script src="assets/js/ace-elements.min.js"></script>
@@ -331,7 +286,19 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
-			$(function() {
+		
+		$("#detail_icon").click(function(){
+			
+		});
+		$("#modify_icon").click(function(){
+			
+		});
+		$("#detail_icon").click(function(){
+			
+		});
+		
+		
+			/* $(function() {
 				var oTable1 = $('#sample-table-2').dataTable( {
 				"aoColumns": [
 			      { "bSortable": false },
@@ -364,7 +331,7 @@
 					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
 					return 'left';
 				}
-			})
+			}) */
 		</script>
 		
 		<!-- add jquery -->

@@ -11,11 +11,17 @@
 		FROM  BG_CONTENTS
 	</select>
 	
-	<select id="detail" parameterType="com.bgg.farmstoryback.dto.ContentsDTO" resultType="com.bgg.farmstoryback.dto.ContentsDTO">
+	<select id="detail"  resultType="hashmap">
 		SELECT
-			*
-		FROM  BG_CONTENTS
+			A.*
+			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
+			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM
+		FROM  BG_CONTENTS A
 		WHERE CONTENTS_ID = #{contents_id}
+	</select>
+	
+	<select id="seriesList" resultType="hashmap">
+		SELECT CONTENTS_SERIES_NM, CONTENTS_SERIES_ID  FROM BG_CONTENTS_SERIES
 	</select>
 	
 	
@@ -38,10 +44,14 @@
    
    <update id="modify">
    		UPDATE BG_CONTENTS SET
-   			ITEM_NM = #{item_nm}
+   			CONTENTS_NM = #{contents_nm}
+   			, IMG_PATH = #{img_path}
    			, SRC_PATH = #{src_path}
    			, CONTENTS_SERIES_ID = #{contents_series_id}
+   			, BRAND_ID = #{brand_id}
+   			, STATUS = #{status}
    			, MOD_DT = now()
+   			
    		WHERE 1=1
    		AND CONTENTS_ID = #{contents_id}
    </update>

@@ -16,9 +16,9 @@ public class JsonResponseMaker {
 	
 	private final String STATUS = "status";
 	
-	private final String OK_STATUS = "200";
-	private final String FAIL_STATUS = "500";
-	private final String NOT_FOUND_STATUS = "500";
+	private final int OK_STATUS = 200;
+	private final int FAIL_STATUS = 500;
+	private final int NOT_FOUND_STATUS = 404;
 	
 	public String generateMapList(String jsonParentName, List<Map> map){
 		JSONObject json = new JSONObject();

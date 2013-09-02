@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.service.BrandService;
 
 @Controller
 public class BrandController {
 	
 	private Logger logger = LoggerFactory.getLogger(BrandController.class);
+	
+	@Autowired
+	private JsonResponseMaker jsonMaker;
 	
 	@Autowired
 	private BrandService brandService;
@@ -49,5 +53,14 @@ public class BrandController {
 	public @ResponseBody String createAjax(@RequestParam Map<String,Object> parameter) {
 		brandService.create(parameter);
 		return "{code:ok}";
+	}
+	
+	@RequestMapping(value = "brand/list.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String listAjax(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		List<Map> brandList = brandService.list();
+		String brandListJson = jsonMaker.generateMapList("data", brandList);
+		logger.info("response={}", brandListJson);
+		return brandListJson;
 	}
 }
