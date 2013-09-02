@@ -13,7 +13,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">Main</li>
+						<li class="active">컨텐츠 관리</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -29,10 +29,10 @@
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							Main
+							컨텐츠 관리
 							<small>
 								<i class="icon-double-angle-right"></i>
-								overview &amp; stats
+								컨텐츠 리스트
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -41,7 +41,7 @@
 						<div class="row-fluid">
 								<h3 class="header smaller lighter blue">컨텐츠 리스트</h3>
 								<div class="table-header">
-									리스트
+									<button id="create-contents-btn" class="btn btn-info">컨텐츠 추가</button>
 								</div>
 
 								<table id="sample-table-2" class="table table-striped table-bordered table-hover">
@@ -53,21 +53,19 @@
 													<span class="lbl"></span>
 												</label>
 											</th>
-											<th>컨텐츠ID</th>
+											<th>컨텐츠 ID</th>
 											<th>컨텐츠명</th>
-											<th class="hidden-480">그룹</th>
-
-											<th class="hidden-phone">
-												<i class="icon-time bigger-110 hidden-phone"></i>
-												브랜드
-											</th>
-											<th class="hidden-480">Status</th>
-
+											<th>상태</th>
+											<th>시리즈</th>
+											<th>브랜드</th>
+											<th>저장위치</th>
+											<th>섬네일 위치</th>
 											<th></th>
 										</tr>
 									</thead>
 
 									<tbody>
+									<c:forEach var="conlist" items="${list}" varStatus="status">
 										<tr>
 											<td class="center">
 												<label>
@@ -77,16 +75,14 @@
 											</td>
 
 											<td>
-												<a href="#">app.com</a>
+												<a href="${contextPath }/contents/update.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
 											</td>
-											<td>$45</td>
-											<td class="hidden-480">3,330</td>
-											<td class="hidden-phone">Feb 12</td>
-
-											<td class="hidden-480">
-												<span class="label label-warning">Expiring</span>
-											</td>
-
+											<td>${conlist.CONTENTS_NM}</td>
+											<td>${conlist.STATUS}</td>
+											<td>${conlist.CONTENTS_SERIES_ID}</td>											
+											<td>${conlist.BRAND_ID}</td>
+											<td>${conlist.SRC_PATH}</td>
+											<td>${conlist.IMG_PATH}</td>
 											<td class="td-actions">
 												<div class="hidden-phone visible-desktop action-buttons">
 													<a class="blue" href="#">
@@ -137,7 +133,7 @@
 												</div>
 											</td>
 										</tr>
-
+									</c:forEach>
 										
 									</tbody>
 								</table>
@@ -370,4 +366,10 @@
 				}
 			})
 		</script>
-
+		
+		<!-- add jquery -->
+		<script type="text/javascript">				
+			$("#create-contents-btn").click(function(){
+				location.href="${contextPath}/contents/create.do";
+			});
+		</script>

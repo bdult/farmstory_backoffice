@@ -11,24 +11,28 @@
 		FROM  BG_CONTENTS
 	</select>
 	
-	<select id="detail" resultType="hashmap">
+	<select id="detail" parameterType="com.bgg.farmstoryback.dto.ContentsDTO" resultType="com.bgg.farmstoryback.dto.ContentsDTO">
 		SELECT
 			*
 		FROM  BG_CONTENTS
-		WHERE CONTENTS_ID = #{contentsID}
+		WHERE CONTENTS_ID = #{contents_id}
 	</select>
 	
 	
 	<insert id="create" parameterType="map"  keyProperty="contents_id">
    		INSERT BG_CONTENTS(
-			ITEM_NM,
+			CONTENTS_NM,
 			CONTENTS_SERIES_ID,
-			SRC_PATH   		
+			BRAND_ID,
+			SRC_PATH,
+			REG_DT   		
    		)
    		VALUES(
-   			#{item_nm},
+   			#{contents_nm},
    			#{contents_series_id},
-   			#{src_path}
+   			#{brand_id},
+   			#{src_path},
+   			now()
    		)
    </insert>
    
