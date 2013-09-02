@@ -57,12 +57,6 @@
 					<span class="menu-text"> 카테고리 관리 </span>
 				</a>
 			</li>
-			<li>
-				<a href="${ contextPath }/board/manage.do">
-					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 게시판 관리 </span>
-				</a>
-			</li>
 			
 			<li>
 				<a href="#" class="dropdown-toggle">

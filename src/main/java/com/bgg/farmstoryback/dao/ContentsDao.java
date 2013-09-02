@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.bgg.farmstoryback.dto.ContentsDTO;
+
 
 @Repository
 public class ContentsDao extends SqlSessionDaoSupport {
@@ -18,13 +20,13 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return (List<Map>)getSqlSession().selectList("contentsQuery.list");
 	}
 
-	public void create(Map<String, Object> contentsInfo) {
-		getSqlSession().insert("contentsQuery.create", contentsInfo);
+	public void create(ContentsDTO contentsDTO) {
+		getSqlSession().insert("contentsQuery.create", contentsDTO);
 		
 	}
 	
-	public Map detail(String itemId) {
-		return (Map)getSqlSession().selectOne("contentsQuery.detail", itemId);
+	public ContentsDTO detail(String contents_id) {
+		return (ContentsDTO)getSqlSession().selectOne("contentsQuery.detail", contents_id);
 	}
 	
 	public void delete(String itemId) {

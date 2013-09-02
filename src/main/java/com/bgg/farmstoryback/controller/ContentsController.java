@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.dto.ContentsDTO;
 import com.bgg.farmstoryback.service.ContentsService;
 
 
@@ -34,24 +35,40 @@ public class ContentsController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
-	public String create(Model model, @RequestParam Map<String,Object> parameter){
-			return null;
+	@RequestMapping(value = "contents/create.do")
+	public ModelAndView create(Model model){
+		
+		ModelAndView mav = new ModelAndView();
+		
+		return mav;
 	}
 	
-	@RequestMapping(value = "contents/list.do")
-	public String list(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
+	@RequestMapping(value = "contents/update.do")
+	public ModelAndView create(Model model, String contents_id){
+		
+		ModelAndView mav = new ModelAndView();	
+		mav.addObject("mode", "update");
+		ContentsDTO data = contentsService.detail(contents_id);
+		mav.addObject("data", data );
+		mav.setViewName("contents/create");
+		return mav;
 	}
 	
-	@RequestMapping(value = "contents/detail.do", method = RequestMethod.POST)
-	public String detail(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
-	}
-	
-	@RequestMapping(value = "contents/modify.do", method = RequestMethod.POST)
-	public String modify(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
+	@RequestMapping(value = "contents/createdb.do", method = RequestMethod.POST)
+	public ModelAndView createdb(ContentsDTO contentsDTO) {
+
+		ModelAndView mav = new ModelAndView();	
+		
+		System.out.println("mode = " + contentsDTO.getMode());
+		
+		if(contentsDTO.getMode().equals("insert")) {
+			String contents_id = contentsService.create(contentsDTO);
+			System.out.println("create contents_id = " + contents_id);
+			mav.addObject("rslt_msg", "추가 되었습니다.");			
+		}
+		
+		mav.setViewName("contents/create");
+		return mav;
 	}
 	
 	@RequestMapping(value = "contents/delete.do", method = RequestMethod.POST)
