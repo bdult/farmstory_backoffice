@@ -58,4 +58,8 @@ public class ContentsService {
 	public List<Map> seriesList() {
 		return conDao.seriesList();
 	}
+
+	public void delete(Map<String, Object> parameter) {
+		conDao.delete((String)parameter.get("contents_id"));
+	}
 }

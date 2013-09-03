@@ -56,7 +56,7 @@
 									<label class="control-label" for="contents_id">컨텐츠 ID</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" id="contents_id" name="contents_id" value="${data.CONTENTS_ID == null? "자동입력" : data.CONTENTS_ID}" />
+										<input readonly="readonly" type="text" id="contents_id" name="contents_id" value="${data.CONTENTS_ID}" />
 									</div>
 								</div>
 
@@ -69,22 +69,10 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">STATUS</label>
-
-									<div class="controls">
-										<select id="contents_status" name="status">
-											<option value="0">사용</option>
-											<option value="1">사용않함</option>
-										</select>
-										<span class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
-									</div>
-								</div>
-								
-								<div class="control-group">
 									<label class="control-label" for="contents_series_id">시리즈 명</label>
 
 									<div class="controls">
-										<input  type="hidden" id="series-id" name="series_id" class="btn btn-primary" value="${data.SERIES_ID }" />
+										<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID }" />
 										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM== null? "" : data.SERIES_NM}" />
 										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
 									</div>
@@ -94,6 +82,7 @@
 									<label class="control-label" for="brand_id">브랜드 명</label>
 
 									<div class="controls">
+										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID}" />
 										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM== null? "" : data.BRAND_NM}" />
 										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 변경" />
 									</div>
@@ -180,10 +169,10 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input name="contents_id" value="${data.contents_id }">
+				<input name="contents_id" value="${data.CONTENTS_ID }">
 			</form>
 			
-<!-- category modify modal -->			
+<!-- series modify modal -->			
 <div id="modify-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -211,17 +200,17 @@
 			<h3 class="text-center">브랜드 변경</h3>
 		</div>
 		<div class="modal-body">
-			<div id="modify-parent-category-list" class="control-group">
+			<div id="modify-brand-list" class="control-group">
 				<label class="control-label">브랜드 리스트</label>
 				<div class="controls">
-					<select id="modify-parent-category-select">
+					<select id="modify-brand-select">
 					</select>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-parent-category-modify-btn" type="button" class="btn btn-primary">변경</button>
+			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
 		</div>
 </div>		
 			
@@ -237,18 +226,17 @@
 			$("#delete-form").submit();
 		});
 		
-		$("#brand-mod-btn").click(function(){
-			$("#modify-brand-modal").modal('toggle');
-		});
-		
-		
 		$("#modify-series-modal-btn").click(function(){
 			$("#modify-parent-category-select")
-				console.log($("#modify-series-select option:selected").text());
-				console.log($("#modify-series-select option:selected").val());
 				$("#contents_series_nm").val($("#modify-series-select option:selected").text());
-				$("#series-id").val($("#modify-series-select option:selected").val());
+				$("#contents_series_id").val($("#modify-series-select option:selected").val());
 				$("#modify-series-modal").modal('toggle');
+		});
+		$("#modify-brand-modal-btn").click(function(){
+			$("#modify-parent-category-select")
+				$("#brand_nm").val($("#modify-brand-select option:selected").text());
+				$("#brand_id").val($("#modify-brand-select option:selected").val());
+				$("#modify-brand-modal").modal('toggle');
 		});
 		
 		$("#series-mod-btn").click(function(){
@@ -258,7 +246,6 @@
 				dataType: 'json',
 				success : function(response) {
 						$.each(response.data, function(index, data){
-						console.log(data);
 							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
 						}); 
 					$("#modify-series-modal").modal('toggle');
@@ -276,16 +263,15 @@
 				dataType: 'json',
 				success : function(response) {
 						$.each(response.data, function(index, data){
-						console.log(data);
-//							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
+							$("#modify-brand-select").append("<option value=\""+data.BRAND_ID+"\">"+data.BRAND_NM+"</option>")
 						}); 
-//					$("#modify-series-modal").modal('toggle');
+						$("#modify-brand-modal").modal('toggle');
 				},
 				error: function(xhr, status, error) {
 					console.log("error="+error);
 				}
 			}); // ajax end
-		}); // <!-- series-mod-btn event end
+		}); // <!-- brand-mod-btn event end
 		
 	}); // <!-- function() end 
 	

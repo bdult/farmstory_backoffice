@@ -26,8 +26,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return (Map)getSqlSession().selectOne("contentsQuery.detail", contents_id);
 	}
 	
-	public void delete(String itemId) {
-		getSqlSession().delete("contentsQuery.delete", itemId);
+	public void delete(String contents_id) {
+		getSqlSession().delete("contentsQuery.delete", contents_id);
 	}
 	
 	public void modify(Map itemModInfo) {

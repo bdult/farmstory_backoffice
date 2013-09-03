@@ -56,7 +56,6 @@
 											</th>
 											<th>컨텐츠 ID</th>
 											<th>컨텐츠명</th>
-											<th>상태</th>
 											<th>시리즈</th>
 											<th>브랜드</th>
 											<th>저장위치</th>
@@ -76,12 +75,11 @@
 											</td>
 
 											<td>
-												<a href="${contextPath }/contents/update.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
+												<a href="${contextPath }detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
 											</td>
 											<td>${conlist.CONTENTS_NM}</td>
-											<td>${conlist.STATUS}</td>
-											<td>${conlist.CONTENTS_SERIES_ID}</td>											
-											<td>${conlist.BRAND_ID}</td>
+											<td>${conlist.SERIES_NM}</td>											
+											<td>${conlist.BRAND_NM}</td>
 											<td>${conlist.SRC_PATH}</td>
 											<td>${conlist.IMG_PATH}</td>
 											<td class="td-actions">
@@ -90,11 +88,11 @@
 														<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
 													</a>
 
-													<a class="green" href="#">
+													<a class="green" href="detail.do?contents_id=${conlist.CONTENTS_ID}">
 														<i id="modify_icon" class="icon-pencil bigger-130"></i>
 													</a>
 
-													<a class="red" href="#">
+													<a class="red" href="delete.do?contents_id=${conlist.CONTENTS_ID}">
 														<i id="delete_icon" class="icon-trash bigger-130"></i>
 													</a>
 												</div>
@@ -140,118 +138,9 @@
 								</table>
 							</div>
 
-							<div id="modal-table" class="modal hide fade" tabindex="-1">
-								<div class="modal-header no-padding">
-									<div class="table-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										Results for "Latest Registered Domains"
-									</div>
-								</div>
-
-								<div class="modal-body no-padding">
-									<div class="row-fluid">
-										<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-											<thead>
-												<tr>
-													<th>Domain</th>
-													<th>Price</th>
-													<th>Clicks</th>
-
-													<th>
-														<i class="icon-time bigger-110"></i>
-														Update
-													</th>
-												</tr>
-											</thead>
-
-											<tbody>
-												<tr>
-													<td>
-														<a href="#">ace.com</a>
-													</td>
-													<td>$45</td>
-													<td>3,330</td>
-													<td>Feb 12</td>
-												</tr>
-
-												<tr>
-													<td>
-														<a href="#">base.com</a>
-													</td>
-													<td>$35</td>
-													<td>2,595</td>
-													<td>Feb 18</td>
-												</tr>
-
-												<tr>
-													<td>
-														<a href="#">max.com</a>
-													</td>
-													<td>$60</td>
-													<td>4,400</td>
-													<td>Mar 11</td>
-												</tr>
-
-												<tr>
-													<td>
-														<a href="#">best.com</a>
-													</td>
-													<td>$75</td>
-													<td>6,500</td>
-													<td>Apr 03</td>
-												</tr>
-
-												<tr>
-													<td>
-														<a href="#">pro.com</a>
-													</td>
-													<td>$55</td>
-													<td>4,250</td>
-													<td>Jan 21</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-
-								<div class="modal-footer">
-									<button class="btn btn-small btn-danger pull-left" data-dismiss="modal">
-										<i class="icon-remove"></i>
-										Close
-									</button>
-
-									<div class="pagination pull-right no-margin">
-										<ul>
-											<li class="prev disabled">
-												<a href="#">
-													<i class="icon-double-angle-left"></i>
-												</a>
-											</li>
-
-											<li class="active">
-												<a href="#">1</a>
-											</li>
-
-											<li>
-												<a href="#">2</a>
-											</li>
-
-											<li>
-												<a href="#">3</a>
-											</li>
-
-											<li class="next">
-												<a href="#">
-													<i class="icon-double-angle-right"></i>
-												</a>
-											</li>
-										</ul>
-									</div>
-								</div>
 							</div><!--PAGE CONTENT ENDS-->
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
-				</div><!--/.page-content-->
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
@@ -287,9 +176,6 @@
 
 		<script type="text/javascript">
 		
-		$("#detail_icon").click(function(){
-			
-		});
 		$("#modify_icon").click(function(){
 			
 		});
@@ -297,41 +183,6 @@
 			
 		});
 		
-		
-			/* $(function() {
-				var oTable1 = $('#sample-table-2').dataTable( {
-				"aoColumns": [
-			      { "bSortable": false },
-			      null, null,null, null, null,
-				  { "bSortable": false }
-				] } );
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-			
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-			}) */
 		</script>
 		
 		<!-- add jquery -->

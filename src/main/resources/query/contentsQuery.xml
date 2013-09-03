@@ -7,8 +7,10 @@
 
 	<select id="list" resultType="hashmap">
 		SELECT
-			*
-		FROM  BG_CONTENTS
+			A.*
+			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
+			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM
+		FROM  BG_CONTENTS A
 	</select>
 	
 	<select id="detail"  resultType="hashmap">

@@ -49,7 +49,7 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form name="frm" method="post" action="${contextPath }/contents/createdb.do" class="form-horizontal" >
+							<form id="create-form" method="post" action="${contextPath }/contents/createdb.do" class="form-horizontal" >
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
@@ -69,23 +69,12 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">STATUS</label>
-
-									<div class="controls">
-										<select id="status" name="status">
-											<option value="">--</option>
-											<option value="1">사용</option>
-											<option value="0">사용않함</option>
-										</select>
-										<span class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="More details." title="Popover on hover">?</span>
-									</div>
-								</div>
-								
-								<div class="control-group">
 									<label class="control-label" for="contents_series_id">시리즈</label>
 
 									<div class="controls">
-										<input type="text" id="contents_series_id" name="contents_series_id" placeholder="series" value="${data.contents_series_id}"/>
+										<input  type="hidden" id="contents_series_id" name="contents_series_id" />
+										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" />
+										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 설정" />
 									</div>
 								</div>
 								
@@ -93,7 +82,9 @@
 									<label class="control-label" for="brand_id">브랜드</label>
 
 									<div class="controls">
-										<input type="text" id="brand_id" name="brand_id" placeholder="brand" value=""/>
+										<input type="hidden" id="brand_id" name="brand_id" />
+										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" />
+										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 설정" />
 									</div>
 								</div>
 								
@@ -117,48 +108,18 @@
 									</div>
 								</div>
 
-								<div class="control-group">
-									<label class="control-label" for="form-input-readonly">등록정보</label>
-
-									<div class="controls">
-										<span class="input-icon">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-
-										<span class="input-icon input-icon-right">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-									</div>
-								</div>
 								
-								<div class="control-group">
-									<label class="control-label" for="form-input-readonly">수정정보</label>
-
-									<div class="controls">
-										<span class="input-icon">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-
-										<span class="input-icon input-icon-right">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-									</div>
-								</div>
 
 								<div class="form-actions">
 									<button class="btn btn-info" type="button" id="btn_submit">
 										<i class="icon-ok bigger-110"></i>
-										Submit
+										등록
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
 									<button class="btn" type="reset">
 										<i class="icon-undo bigger-110"></i>
-										Reset
+										취소
 									</button>
 								</div>
 
@@ -172,16 +133,104 @@
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
 			</div><!--/.main-content-->
-			
+
+<!-- series modify modal -->			
+<div id="modify-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">시리즈 변경</h3>
+		</div>
+		<div class="modal-body">
+			<div id="modify-series-list" class="control-group">
+				<label class="control-label">시리즈 리스트</label>
+				<div class="controls">
+					<select id="modify-series-select">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
+			<button id="modify-series-modal-btn" type="button" class="btn btn-primary">변경</button>
+		</div>
+</div>		
+
+<!--  brand modify modal -->			
+<div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">브랜드 변경</h3>
+		</div>
+		<div class="modal-body">
+			<div id="modify-brand-list" class="control-group">
+				<label class="control-label">브랜드 리스트</label>
+				<div class="controls">
+					<select id="modify-brand-select">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
+			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
+		</div>
+</div>			
 
 <script type="text/javascript">
-	var fm = document.frm;
 
-	$("#btn_submit").click(function() {
-		if(confirm('저장 하시겠습니까?')) {
-			fm.submit();
-		}
+	$(function(){
+		$("#modify-series-modal-btn").click(function(){
+			$("#modify-parent-category-select")
+				$("#contents_series_nm").val($("#modify-series-select option:selected").text());
+				$("#contents_series_id").val($("#modify-series-select option:selected").val());
+				$("#modify-series-modal").modal('toggle');
+		});
+		$("#modify-brand-modal-btn").click(function(){
+			$("#modify-parent-category-select")
+				$("#brand_nm").val($("#modify-brand-select option:selected").text());
+				$("#brand_id").val($("#modify-brand-select option:selected").val());
+				$("#modify-brand-modal").modal('toggle');
+		});
+		
+		$("#series-mod-btn").click(function(){
+			$.ajax({
+				url: "seriesList.ajax",
+				type: 'GET',
+				dataType: 'json',
+				success : function(response) {
+						$.each(response.data, function(index, data){
+							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
+						}); 
+					$("#modify-series-modal").modal('toggle');
+				},
+				error: function(xhr, status, error) {
+					console.log("error="+error);
+				}
+			}); // seriesList ajax end
+		}); // <!-- series-mod-btn event end
+		
+		$("#brand-mod-btn").click(function(){
+			$.ajax({
+				url: "../brand/list.ajax",
+				type: 'GET',
+				dataType: 'json',
+				success : function(response) {
+						$.each(response.data, function(index, data){
+							$("#modify-brand-select").append("<option value=\""+data.BRAND_ID+"\">"+data.BRAND_NM+"</option>")
+						}); 
+						$("#modify-brand-modal").modal('toggle');
+				},
+				error: function(xhr, status, error) {
+					console.log("error="+error);
+				}
+			}); // ajax end
+		}); // <!-- brand-mod-btn event end
+		
+		$("#btn_submit").click(function() {
+			if(confirm('저장 하시겠습니까?')) {
+				$("#create-form").submit();
+			}
+		});
 	});
 	
-	$("#status").val("${data.status}");
 </script>

@@ -30,13 +30,10 @@ public class ContentsController {
 	private JsonResponseMaker jsonMaker;
 	
 	@RequestMapping(value = "contents/manage.do")
-	public ModelAndView manage(Model model, @RequestParam Map<String,Object> parameter) {
-		ModelAndView mav = new ModelAndView();
+	public String manage(Model model) {
 		List<Map> list = contentsService.list();
-		mav.addObject("list", list);
-		mav.setViewName("contents/manage");
-		
-		return mav;
+		model.addAttribute("list", list);
+		return "contents/manage";
 	}
 	
 	@RequestMapping(value = "contents/create.do")
@@ -78,16 +75,15 @@ public class ContentsController {
 	}
 	
 	@RequestMapping(value = "contents/createdb.do", method = RequestMethod.POST)
-	public ModelAndView createdb(Model model, @RequestParam Map<String,String> parameter) {
-
-		ModelAndView mav = new ModelAndView();	
-		
-		return mav;
+	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
+		contentsService.create(parameter);
+		return manage(model);
 	}
 	
-	@RequestMapping(value = "contents/delete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "contents/delete.do")
 	public String delete(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
+		contentsService.delete(parameter);
+		return manage(model);
 	}
 	
 	@RequestMapping(value = "contents/seriesList.ajax", produces = "application/json;charset=UTF-8")
