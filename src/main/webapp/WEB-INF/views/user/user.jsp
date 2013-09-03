@@ -72,14 +72,14 @@
 							<td>
 								<div class="hidden-phone visible-desktop btn-group">
 
-									<form method="get" action="/storyfarm-admin/useredit.do">
+									<form method="get" action="${ contextPath }/user/modify.do">
 										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">
 										<button class="btn btn-mini btn-info">
 											<i class="icon-edit bigger-120"></i>
 										</button>
 									</form>
 
-									<form method="get" action="/storyfarm-admin/userdelete.do">
+									<form method="get" action="${ contextPath }/user/delete.do">
 										<input type="hidden" name="id" value="${userlist.MEMBER_ID}">
 										<button class="btn btn-mini btn-danger">
 											<i class="icon-trash bigger-120"></i>
@@ -92,7 +92,7 @@
 				</tbody>
 			</table>
 
-			<form method="POST" action="/storyfarm-admin/userinsert.do">
+			<form method="POST" action="${ contextPath }/user/createView.do">
 				<button id="userCreatebtn" class="btn btn-info">
 					<i class="icon-ok bigger-110"></i> 회원추가
 				</button>

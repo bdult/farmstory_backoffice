@@ -39,13 +39,17 @@
 		MEMBER_ID,
 		MEMBER_NM,
 		MEMBER_PW,
-		MEMBER_ROLE
+		MEMBER_ROLE,
+		REG_DATE,
+		UPDATE_DATE
 		)
 		VALUES (
         #{ id },
         #{ name },
         #{ pwd },
-        #{ role }
+        #{ role },
+        NOW(),
+        NOW()
 		)
 	
 	</insert>
@@ -57,7 +61,8 @@
 		MEMBER_ID = #{ id },
 		MEMBER_NM = #{ name },
 		MEMBER_PW = #{ pwd },
-		MEMBER_ROLE = #{ role }
+		MEMBER_ROLE = #{ role },
+		UPDATE_DATE = NOW()
 		</set>
 		WHERE MEMBER_ID = #{ id }
 	</update>

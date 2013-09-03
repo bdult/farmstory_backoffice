@@ -57,7 +57,7 @@
 				<tbody>
 					<c:if test="${ type == 'create' }">
 						<tr>
-							<form method="post" action="/storyfarm-admin/usercreate.do">
+							<form method="post" action="${ contextPath }/user/create.do">
 								<td><input type="text" name="id" value=""></td>
 								<td><input type="text" name="name" value=""></td>
 								<td><input type="text" name="pwd" value=""></td>
@@ -76,7 +76,7 @@
 
 					<c:if test="${ type == 'edit' }">
 						<tr>
-							<form method="get" action="/storyfarm-admin/userupdate.do">
+							<form method="get" action="${ contextPath }/user/update.do">
 								<td><input type="text" name="id" value="${userListOne.MEMBER_ID}"></td>
 								<td><input type="text" name="name" value="${userListOne.MEMBER_NM}"></td>
 								<td><input type="text" name="pwd" value="${userListOne.MEMBER_PW}"></td>

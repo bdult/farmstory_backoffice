@@ -73,7 +73,7 @@ public class UserController {
 		
 		mav.addObject("positionList", userService.userList());
 		
-		mav.setViewName("view/user");
+		mav.setViewName("user/user");
 		return mav;
 	}
 	
@@ -83,7 +83,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("type", "create");
-		mav.setViewName("view/userinsert");
+		mav.setViewName("user/userinsert");
 		return mav;
 	}
 	
@@ -95,7 +95,7 @@ public class UserController {
 		mav.addObject("insertUserList", userService.insertUser(paramMap));
 
 		mav.addObject("positionList", userService.userList());
-		mav.setViewName("view/user");
+		mav.setViewName("user/user");
 		
 		return mav;
 	}
@@ -108,7 +108,7 @@ public class UserController {
 		mav.addObject("insertUserList", userService.deleteUser(paramMap));
 		mav.addObject("positionList", userService.userList());
 		
-		mav.setViewName("view/user");
+		mav.setViewName("user/user");
 		return mav;
 	}
 	
@@ -121,22 +121,22 @@ public class UserController {
 		
 		mav.addObject("userListOne",userService.getUserOne(paramMap));
 		mav.addObject("type", "edit");
-		mav.setViewName("view/userinsert");
+		mav.setViewName("user/userinsert");
 		
 		return mav;
 	}
 	
-//	@RequestMapping(value = "userupdate.do", method = RequestMethod.GET)
-//	public ModelAndView userUpdate(@RequestParam Map<String,Object> paramMap) {
-//
-//		ModelAndView mav = new ModelAndView();
-//
-//		logger.info(paramMap.toString());
-//		
-//		mav.addObject("insertUserList",userService.updateUser(paramMap));
-//
-//		mav.addObject("positionList", userService.userList());
-//		mav.setViewName("view/user");
-//		return mav;
-//	}
+	@RequestMapping(value = "user/update.do", method = RequestMethod.GET)
+	public ModelAndView userUpdate(@RequestParam Map<String,Object> paramMap) {
+
+		ModelAndView mav = new ModelAndView();
+
+		logger.info(paramMap.toString());
+		
+		mav.addObject("insertUserList",userService.updateUser(paramMap));
+
+		mav.addObject("positionList", userService.userList());
+		mav.setViewName("user/user");
+		return mav;
+	}
 }
