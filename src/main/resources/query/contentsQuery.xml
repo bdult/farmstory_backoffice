@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="contentsQuery">
+
+
+	<select id="list" resultType="hashmap">
+		SELECT
+			A.*
+			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
+			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM
+		FROM  BG_CONTENTS A
+	</select>
+	
+	<select id="detail"  resultType="hashmap">
+		SELECT
+			A.*
+			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
+			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM
+		FROM  BG_CONTENTS A
+		WHERE CONTENTS_ID = #{contents_id}
+	</select>
+	
+	<insert id="create" parameterType="map"  keyProperty="contents_id">
+   		INSERT BG_CONTENTS(
+			CONTENTS_NM,
+			CONTENTS_SERIES_ID,
+			BRAND_ID,
+			SRC_PATH,
+			MOD_DT   		
+   		)
+   		VALUES(
+   			#{contents_nm},
+   			#{contents_series_id},
+   			#{brand_id},
+   			#{src_path},
+   			now()
+   		)
+   </insert>
+   
+   <update id="modify">
+   		UPDATE BG_CONTENTS SET
+   			CONTENTS_NM = #{contents_nm}
+   			, IMG_PATH = #{img_path}
+   			, SRC_PATH = #{src_path}
+   			, CONTENTS_SERIES_ID = #{contents_series_id}
+   			, BRAND_ID = #{brand_id}
+   			, STATUS = #{status}
+   			, MOD_DT = now()
+   			
+   		WHERE 1=1
+   		AND CONTENTS_ID = #{contents_id}
+   </update>
+   
+   <delete id="delete" >
+   		DELETE FROM BG_CONTENTS
+   		WHERE CONTENTS_ID = #{contentsID}
+   </delete>
+	
+</mapper>

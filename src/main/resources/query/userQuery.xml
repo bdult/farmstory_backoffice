@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userQuery">
+
+	<select id="memberList" resultType="hashmap">
+		SELECT *
+		FROM BG_MEMBER
+		WHERE 1=1
+	</select>
+
+    <select id="getOneRole" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        	MEMBER_ROLE, MEMBER_ID, MEMBER_PW
+        FROM BG_MEMBER
+        WHERE MEMBER_ID = #{ id } and MEMBER_PW = #{ pw }
+    </select>
+
+    <select id="getUserOne" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        	*
+        FROM BG_MEMBER
+        WHERE MEMBER_ID = #{ id }
+    </select>
+
+	<select id="userList" resultType="hashmap" >
+		SELECT
+		MEMBER_ID,
+		MEMBER_NM,
+		MEMBER_PW,
+		MEMBER_ROLE
+		FROM BG_MEMBER
+	</select>
+	
+	<!-- insert -->
+	<insert id="insertUser"  parameterType="hashmap">
+		INSERT INTO BG_MEMBER (
+		MEMBER_ID,
+		MEMBER_NM,
+		MEMBER_PW,
+		MEMBER_ROLE
+		)
+		VALUES (
+        #{ id },
+        #{ name },
+        #{ pwd },
+        #{ role }
+		)
+	
+	</insert>
+	
+	<!-- UPDATE USER -->
+	<update id="updateUser" parameterType="hashmap">
+		UPDATE BG_MEMBER
+		<set>
+		MEMBER_ID = #{ id },
+		MEMBER_NM = #{ name },
+		MEMBER_PW = #{ pwd },
+		MEMBER_ROLE = #{ role }
+		</set>
+		WHERE MEMBER_ID = #{ id }
+	</update>
+	
+	<!-- DELETE USER -->
+	<delete id="deleteUser" parameterType="hashmap">
+    	DELETE from BG_MEMBER
+    	WHERE MEMBER_ID = #{ id }
+	</delete>
+</mapper>

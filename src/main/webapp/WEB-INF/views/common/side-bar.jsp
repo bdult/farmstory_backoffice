@@ -5,23 +5,6 @@
 	
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-			<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-				<button class="btn btn-small btn-success">
-					<i class="icon-signal"></i>
-				</button>
-	
-				<button class="btn btn-small btn-info">
-					<i class="icon-pencil"></i>
-				</button>
-	
-				<button class="btn btn-small btn-warning">
-					<i class="icon-group"></i>
-				</button>
-	
-				<button class="btn btn-small btn-danger">
-					<i class="icon-cogs"></i>
-				</button>
-			</div>
 	
 			<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 				<span class="btn btn-success"></span>
@@ -39,7 +22,7 @@
 				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
 					<span class="menu-text"> Dashboard </span>
-				</a>
+				</a> 
 			</li>
 			
 			<li>
@@ -58,18 +41,49 @@
 			
 			<li>
 				<a href="${ contextPath }/user.do">
-					<i class="icon-key"></i>
+					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 회원관리 </span>
 				</a>
 			</li>
-			
 			<li>
-				<a href="${ contextPath }/category.do">
-					<i class="icon-apple"></i>
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 컨텐츠 관리
+						<span class="badge badge-primary ">3</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+					
+				</a>
+				<ul class="submenu">
+					<li>
+						<a href="${contextPath }/contents/manage.do">
+							<i class="icon-double-angle-right"></i>
+							컨텐츠 관리
+						</a>
+					</li>
+	
+					<li>
+						<a href="${contextPath }/series/manage.do">
+							<i class="icon-double-angle-right"></i>
+							시리즈 관리
+						</a>
+					</li>
+	
+					<li>
+						<a href="${contextPath }/brand/manage.do">
+							<i class="icon-double-angle-right"></i>
+							브랜드 관리
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="${ contextPath }/category/manage.do">
+					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 카테고리 관리 </span>
 				</a>
 			</li>
-	
+			
 			<li>
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seriesQuery">
+
+
+	<select id="list" resultType="hashmap">
+		SELECT /* seriesQuery.list 2013.08.21 최지순 */
+			CONTENTS_SERIES_ID
+			, CONTENTS_SERIES_NM
+			, IMG_PATH   
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT  
+			, DATE_FORMAT(MOD_DT,'%Y-%m-%d') AS MOD_DT  
+		FROM BG_CONTENTS_SERIES
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT /* seriesQuery.detail 2013.08.21 최지순 */ 
+			CONTENTS_SERIES_NM, CONTENTS_SERIES_ID  
+		FROM BG_CONTENTS_SERIES
+		WHERE CONTENTS_SERIES_ID = #{series_id}
+	</select>
+	
+	<select id="hasCount" resultType="int">
+		SELECT /* seriesQuery.hasCount 2013.08.21 최지순 */ 
+			count(*)  
+		FROM BG_CONTENTS_SERIES
+		WHERE CONTENTS_SERIES_NM = #{series_nm}
+	</select>
+	
+	<select id="seriesByName" resultType="int">
+		SELECT /* seriesQuery.seriesByName 2013.08.21 최지순 */ 
+			CONTENTS_SERIES_ID  
+		FROM BG_CONTENTS_SERIES
+		WHERE CONTENTS_SERIES_NM = #{series_nm}
+	</select>
+	
+	<insert id="create" parameterType="map"  keyProperty="series_id">
+   		INSERT /* seriesQuery.create 2013.08.21 최지순 */ 
+   		BG_CONTENTS_SERIES(
+			CONTENTS_SERIES_NM,
+			IMG_PATH,
+			MOD_DT   		
+   		)
+   		VALUES(
+   			#{series_nm},
+   			#{img_path},
+   			now()
+   		)
+   </insert>
+   
+   <update id="modify">
+   		UPDATE /* seriesQuery.modify 2013.08.21 최지순 */ 
+   		BG_CONTENTS_SERIES SET
+   			CONTENTS_SERIES_NM = #{series_nm}
+   			, IMG_PATH = #{img_path}
+   			, MOD_DT = now()
+   		WHERE 1=1
+   		AND CONTENTS_SERIES_ID = #{series_id}
+   </update>
+   
+   <delete id="delete" >
+   		DELETE /* seriesQuery.delete 2013.08.21 최지순 */ 
+   		FROM BG_CONTENTS_SERIES
+   		WHERE CONTENTS_SERIES_ID = #{series_id}
+   </delete>
+	
+</mapper>
