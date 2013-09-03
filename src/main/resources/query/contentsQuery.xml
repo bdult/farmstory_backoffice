@@ -22,18 +22,13 @@
 		WHERE CONTENTS_ID = #{contents_id}
 	</select>
 	
-	<select id="seriesList" resultType="hashmap">
-		SELECT CONTENTS_SERIES_NM, CONTENTS_SERIES_ID  FROM BG_CONTENTS_SERIES
-	</select>
-	
-	
 	<insert id="create" parameterType="map"  keyProperty="contents_id">
    		INSERT BG_CONTENTS(
 			CONTENTS_NM,
 			CONTENTS_SERIES_ID,
 			BRAND_ID,
 			SRC_PATH,
-			REG_DT   		
+			MOD_DT   		
    		)
    		VALUES(
    			#{contents_nm},

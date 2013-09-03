@@ -59,8 +59,8 @@ public class BrandService {
 		brandDao.modify(parameterMap);
 	}
 
-	public Map detail(String brandId) {
-		return brandDao.detail(brandId);
+	public Map detail(Map<String,Object> parameter) {
+		return brandDao.detail((String)parameter.get("brand_id"));
 	}
 
 	public void delete(Map brandInfo) {

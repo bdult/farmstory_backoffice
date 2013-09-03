@@ -35,8 +35,4 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		
 	}
 
-	public List<Map> seriesList() {
-		return (List<Map>)getSqlSession().selectList("contentsQuery.seriesList");
-	}
-	
 }

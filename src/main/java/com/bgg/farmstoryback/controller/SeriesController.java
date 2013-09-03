@@ -16,55 +16,56 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.service.BrandService;
+import com.bgg.farmstoryback.service.SeriesService;
 
 @Controller
-public class BrandController {
+public class SeriesController {
 	
-	private Logger logger = LoggerFactory.getLogger(BrandController.class);
+	private Logger logger = LoggerFactory.getLogger(SeriesController.class);
 	
 	@Autowired
 	private JsonResponseMaker jsonMaker;
 	
 	@Autowired
-	private BrandService brandService;
+	private SeriesService seriesService;
 	
-	@RequestMapping(value = "brand/manage.do", method = RequestMethod.GET)
+	@RequestMapping(value = "series/manage.do", method = RequestMethod.GET)
 	public String manage(Model model) {
 		
-		List<Map> brandList = brandService.list();
-		model.addAttribute("brandList", brandList);
+		List<Map> brandList = seriesService.list();
+		model.addAttribute("seriesList", brandList);
 		
-		return "brand/manage";
+		return "series/manage";
 	}
 	
-	@RequestMapping(value = "brand/create.do", method = RequestMethod.POST)
+	@RequestMapping(value = "series/create.do", method = RequestMethod.POST)
 	public String create(Model model, @RequestParam Map<String,Object> parameter) {
-		brandService.create(parameter);
+		seriesService.create(parameter);
 		return manage(model);
 	}
 	
-	@RequestMapping(value = "brand/detail.do")
+	@RequestMapping(value = "series/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
-		brandService.detail(parameter);
-		return "brand/info";
+		seriesService.detail(parameter);
+		return "series/detail";
 	}
 	
-	@RequestMapping(value = "brand/delete.do")
+	@RequestMapping(value = "series/delete.do")
 	public String delete(Model model, @RequestParam Map<String,Object> parameter) {
-		brandService.delete(parameter);
+		seriesService.delete(parameter);
 		return manage(model);
 	}
 	
-	@RequestMapping(value = "brand/create.ajax", method = RequestMethod.POST)
+	@RequestMapping(value = "series/create.ajax", method = RequestMethod.POST)
 	public @ResponseBody String createAjax(@RequestParam Map<String,Object> parameter) {
-		brandService.create(parameter);
+		seriesService.create(parameter);
 		return "{code:ok}";
 	}
 	
-	@RequestMapping(value = "brand/list.ajax",  produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String listAjax(Model model, @RequestParam Map<String,Object> parameter) {
 		
-		List<Map> brandList = brandService.list();
+		List<Map> brandList = seriesService.list();
 		String brandListJson = jsonMaker.generateMapList("data", brandList);
 		logger.info("response={}", brandListJson);
 		return brandListJson;

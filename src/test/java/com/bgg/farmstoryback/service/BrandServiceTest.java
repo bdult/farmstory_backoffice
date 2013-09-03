@@ -66,7 +66,7 @@ public class BrandServiceTest {
 		String brandId = brandService.create(brandInfo);
 		
 		// then
-		Map brandDetail = brandService.detail(brandId);
+		Map brandDetail = brandService.detail(brandInfo);
 		assertThat(brandDetail, is(notNullValue()));
 		assertThat((String)brandDetail.get("BRAND_NM"), is(brandNm));
 	}
@@ -90,7 +90,7 @@ public class BrandServiceTest {
 		brandService.modify(modifyInfo);
 
 		// then
-		Map resultInfo = brandService.detail(brandId);
+		Map resultInfo = brandService.detail(modifyInfo);
 		assertThat(resultInfo, is(notNullValue()));
 		assertThat((String)resultInfo.get("BRAND_NM"), is("modify_brand"));
 		logger.info("detail=", resultInfo);
@@ -117,7 +117,7 @@ public class BrandServiceTest {
 		brandService.delete(brandInfo);
 
 		// then
-		Map resultInfo = brandService.detail(brandId);
+		Map resultInfo = brandService.detail(brandInfo);
 		assertThat(resultInfo, is(nullValue()));
 		
 	}

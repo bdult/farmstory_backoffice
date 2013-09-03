@@ -19,8 +19,13 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
+			<li>컨텐츠 관리
+				<span class="divider">
+					<i class="icon-angle-right arrow-icon"></i>
+				</span>
+			</li>
 			<li class="active">브랜드 관리</li>
-		</ul><!--.breadcrumb-->
+		</ul>
 
 		<div class="nav-search" id="nav-search">
 			<form class="form-search">
@@ -30,38 +35,49 @@
 				</span>
 			</form>
 		</div><!--#nav-search-->
-	</div>
+	</div><!--.breadcrumb-->
 
-			<div class="span5">
-			
-				<div class="alert alert-info">
-					<strong>브랜드</strong>
-					<br>
-				</div>
-				
-				<table id="sample-table-1" class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>이름</th>
-							<th>생성일</th>
-						</tr>
-					</thead>				
-					<tbody>
-						<c:forEach items="${brandList }" var="brand">
-						<tr>
-							<td>${brand.BRAND_ID }</td>
-							<td>${brand.BRAND_NM }</td>
-							<td>${brand.REG_DT }</td>
-						</tr>
-						</c:forEach>
-					</tbody>	
-				</table>
-				<button id="create-brand-btn" class="btn btn-info pull-right">브랜드 생성</button>
-			</div><!--/.span-->
-		</div><!--/.row-fluid-->
-	</div><!--/.page-content-->
-</div>
+	<div class="span7">
+			<h3 class="header smaller lighter blue">브랜드 리스트</h3>
+			<div class="table-header">
+				<button id="create-brand-btn" class="btn btn-info">브랜드 추가</button>
+			</div>
+			<table  class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>이름</th>
+						<th>생성일</th>
+						<th></th>
+					</tr>
+				</thead>				
+				<tbody>
+					<c:forEach items="${brandList }" var="brand">
+					<tr>
+						<td>${brand.BRAND_ID }</td>
+						<td>${brand.BRAND_NM }</td>
+						<td>${brand.REG_DT }</td>
+						<td class="td-actions">
+								<div class="hidden-phone visible-desktop action-buttons">
+									<a class="blue" href="detail.do?brand_id=${brand.BRAND_ID}">
+										<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
+									</a>
+
+									<a class="green" href="detail.do?brand_id=${brand.BRAND_ID}">
+										<i id="modify_icon" class="icon-pencil bigger-130"></i>
+									</a>
+
+									<a class="red" href="delete.do?brand_id=${brand.BRAND_ID}">
+										<i id="delete_icon" class="icon-trash bigger-130"></i>
+									</a>
+								</div>
+						</td>
+					</tr>
+					</c:forEach>
+				</tbody>	
+			</table>
+	</div><!--/.row-fluid-->
+</div><!--/. main-content-->
 
 <div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<form action="/storyfarm-admin/brand/create.do" method="post">

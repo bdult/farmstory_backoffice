@@ -46,10 +46,36 @@
 				</a>
 			</li>
 			<li>
-				<a href="${ contextPath }/contents/manage.do">
+				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 컨테츠 관리 </span>
+					<span class="menu-text"> 컨텐츠 관리
+						<span class="badge badge-primary ">3</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+					
 				</a>
+				<ul class="submenu">
+					<li>
+						<a href="${contextPath }/contents/manage.do">
+							<i class="icon-double-angle-right"></i>
+							컨텐츠 관리
+						</a>
+					</li>
+	
+					<li>
+						<a href="${contextPath }/series/manage.do">
+							<i class="icon-double-angle-right"></i>
+							시리즈 관리
+						</a>
+					</li>
+	
+					<li>
+						<a href="${contextPath }/brand/manage.do">
+							<i class="icon-double-angle-right"></i>
+							브랜드 관리
+						</a>
+					</li>
+				</ul>
 			</li>
 			<li>
 				<a href="${ contextPath }/category/manage.do">
