@@ -324,7 +324,6 @@
 				
 				$('#cate-tree').ace_tree({
 					dataSource: new DataSourceTree({url: 'list.ajax'}),
-					multiSelect:true,
 					loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
 					'open-icon' : 'icon-minus',
 					'close-icon' : 'icon-plus',
@@ -345,7 +344,7 @@
 				});
 		
 				$('#cate-tree').on('closed', function (evt, data) {
-					cleanSelected();
+					//cleanSelected();
 					cateInfoSet(data);
 					
 				});
@@ -382,5 +381,5 @@
 					$(this).parent().attr("class", "tree-item")
 					$(this).parent().children(".icon-ok").attr("class", "icon-remove")
 				});
-			}
+			} 
 		</script>		

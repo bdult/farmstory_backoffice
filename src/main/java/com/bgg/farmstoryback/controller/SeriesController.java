@@ -29,6 +29,12 @@ public class SeriesController {
 	@Autowired
 	private SeriesService seriesService;
 	
+	@RequestMapping(value = "series/sample.do", method = RequestMethod.GET)
+	public String sample(Model model) {
+		
+		return "series/seriesSample";
+	}
+	
 	@RequestMapping(value = "series/manage.do", method = RequestMethod.GET)
 	public String manage(Model model) {
 		
@@ -63,11 +69,19 @@ public class SeriesController {
 	}
 	
 	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody String listAjax(Model model, @RequestParam Map<String,Object> parameter) {
-		
-		List<Map> brandList = seriesService.list();
-		String brandListJson = jsonMaker.generateMapList("data", brandList);
-		logger.info("response={}", brandListJson);
-		return brandListJson;
+	public @ResponseBody String listAjax(Model model, int id) {
+		logger.info("{}",id);
+		List<Map> seriesList = seriesService.list();
+		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
+		logger.info(seriesListJson);
+		return seriesListJson;
+	}
+	
+	@RequestMapping(value = "series/parentSeriesList.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String parentSeriesListAjax(Model model, String search_name) {
+		List<Map> seriesList = seriesService.searchByName(search_name);
+		String seriesListJson = jsonMaker.generateMapList("data", seriesList);
+		logger.info(seriesListJson);
+		return seriesListJson;
 	}
 }

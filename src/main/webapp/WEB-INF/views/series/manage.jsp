@@ -59,15 +59,15 @@
 					<td>${series.REG_DT }</td>
 					<td class="td-actions">
 							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="blue" href="detail.do?series_id=${brand.BRAND_ID}">
+								<a class="blue" href="detail.do?series_id=${series.CONTENTS_SERIES_ID}">
 									<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
 								</a>
 
-								<a class="green" href="detail.do?series_id=${brand.BRAND_ID}">
+								<a class="green" href="detail.do?series_id=${series.CONTENTS_SERIES_ID}">
 									<i id="modify_icon" class="icon-pencil bigger-130"></i>
 								</a>
 
-								<a class="red" href="delete.do?series_id=${brand.BRAND_ID}">
+								<a class="red" href="delete.do?series_id=${series.CONTENTS_SERIES_ID}">
 									<i id="delete_icon" class="icon-trash bigger-130"></i>
 								</a>
 							</div>

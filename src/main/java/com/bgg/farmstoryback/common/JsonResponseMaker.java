@@ -38,13 +38,28 @@ public class JsonResponseMaker {
 	}
 	
 //	"{\"status\":\"200\",\"data\":{\"test\":{\"name\":\"test\",\"type\":\"item\"}}}";
-	public String generateCateListForTree(String string, List<Map> cateList) {
+	public String generateCateListForTree(List<Map> cateList) {
 		JSONObject json = new JSONObject();
 		if (cateList != null) {
 			setSucessCode(json);
 			Map cateMap = new LinkedHashMap();
 			for(Map parameter : cateList){
 				cateMap.put("cate_"+parameter.get("CATE_ID"), parameter);
+			}
+			json.put("data", cateMap);
+		}else{
+			setFailCode(json);
+		}
+		return json.toJSONString();
+	}
+	
+	public String generateSeriesListForTree(List<Map> cateList) {
+		JSONObject json = new JSONObject();
+		if (cateList != null) {
+			setSucessCode(json);
+			Map cateMap = new LinkedHashMap();
+			for(Map parameter : cateList){
+				cateMap.put("series_"+parameter.get("CONTENTS_SERIES_ID"), parameter);
 			}
 			json.put("data", cateMap);
 		}else{
