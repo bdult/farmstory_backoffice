@@ -94,7 +94,7 @@
 
 			<form method="POST" action="${ contextPath }/user/createView.do">
 				<button id="userCreatebtn" class="btn btn-info">
-					<i class="icon-ok bigger-110"></i> 회원추가
+					<i class="icon-ok bigger-110"></i> 회원추가-
 				</button>
 			</form>
 		</div>
