@@ -35,4 +35,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		
 	}
 
+	public List<Map> searchByName(String search) {
+		return getSqlSession().selectList("contentsQuery.searchByName", search);
+	}
+
 }

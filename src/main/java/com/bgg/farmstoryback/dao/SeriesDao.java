@@ -18,7 +18,6 @@ public class SeriesDao extends SqlSessionDaoSupport {
 	}
 
 	public Map detail(String series_id) {
-		logger.info("{}", series_id);
 		return (Map)getSqlSession().selectOne("seriesQuery.detail", series_id);
 	}
 
@@ -40,8 +39,20 @@ public class SeriesDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("seriesQuery.hasCount", parameter);
 	}
 
-	public int seriesByName(Map parameter) {
-		return (Integer)getSqlSession().selectOne("seriesQuery.seriesByName", parameter);
+	public int searchIdByName(Map parameter) {
+		return (Integer)getSqlSession().selectOne("seriesQuery.searchIdByName", parameter);
+	}
+
+	public List<Map> searchByName(String seriesName) {
+		return (List<Map>)getSqlSession().selectList("seriesQuery.searchByName", seriesName);
+	}
+
+	public List<Map> listOfTop() {
+		return (List<Map>)getSqlSession().selectList("seriesQuery.listOfTop");
+	}
+
+	public List<Map> listOfChild(int parentSeriesId) {
+		return (List<Map>)getSqlSession().selectList("seriesQuery.listOfChild", parentSeriesId);
 	}
 	
 }

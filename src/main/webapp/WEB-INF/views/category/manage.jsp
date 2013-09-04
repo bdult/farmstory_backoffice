@@ -13,17 +13,8 @@
 							</span>
 						</li>
 						<li class="active">카테고리 관리</li>
-					</ul><!--.breadcrumb-->
-
-					<div class="nav-search" id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-								<i class="icon-search nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!--#nav-search-->
-				</div>
+					</ul>
+				</div><!--.breadcrumb-->
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
@@ -214,7 +205,7 @@
 					}); // modify-parent-category-modal end
 					
 					$("#modify-parent-cate-search").click(function(){
-						param = {
+							param = {
 								parent_cate_nm : $("#modify-parent-category-name").val()
 							};
 							$.ajax({
@@ -324,7 +315,6 @@
 				
 				$('#cate-tree').ace_tree({
 					dataSource: new DataSourceTree({url: 'list.ajax'}),
-					multiSelect:true,
 					loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
 					'open-icon' : 'icon-minus',
 					'close-icon' : 'icon-plus',
@@ -339,13 +329,12 @@
 		
 				$('#cate-tree').on('opened', function (evt, data) {
 					console.log(data);
-					cleanSelected();
 					cateInfoSet(data);
 					
 				});
 		
 				$('#cate-tree').on('closed', function (evt, data) {
-					cleanSelected();
+					//cleanSelected();
 					cateInfoSet(data);
 					
 				});
@@ -358,8 +347,8 @@
 						if($(this).text() === categoryInfo.name ){
 							console.log("selected cate-name:"+$(this).text());
 						}else{
-							$(this).parent().attr("class", "tree-item")
-							$(this).parent().children(".icon-ok").attr("class", "icon-remove")
+							$(this).parent().attr("class", "tree-item");
+							$(this).parent().children(".icon-ok").attr("class", "icon-remove");
 						}
 					});
 					cateInfoSet(categoryInfo);
@@ -382,5 +371,5 @@
 					$(this).parent().attr("class", "tree-item")
 					$(this).parent().children(".icon-ok").attr("class", "icon-remove")
 				});
-			}
+			} 
 		</script>		
