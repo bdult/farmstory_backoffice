@@ -140,7 +140,7 @@
 				<option value="">이름</option>
 				<option value="">ROLE</option>
 			</select>
-			<input type="text" id="serchText" name="" value="">
+			<input type="text" id="serchText" name="id" value="">
 			<button class="btn btn-info">조건 검색</button>
 			</form>
 		</div>
@@ -201,28 +201,7 @@
 	class="icon-double-angle-up icon-only bigger-110"></i>
 </a>
 
-<button class="btn btn-default" id="test">test</button>
-
 <script>
-$(document).ready(function() {
-	switch ($("#selectBox option:selected").text()) {
-	case ('아이디'):
-		$("#serchText").attr({
-			name: "id"
-		})
-		break;
-	case ('이름'):
-		$("#serchText").attr({
-			name: "name"
-		})
-		break;
-	case ('ROLE'):
-		$("#serchText").attr({
-			name: "role"
-		})
-		break;
-	}
-});
 $("#selectBox").change(function(){
 	switch ($("#selectBox option:selected").text()) {
 	case ('아이디'):
