@@ -40,6 +40,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (List<HashMap<String, String>>)getSqlSession().selectList("userQuery.userList");
 	}
 	
+	public List<HashMap<String, Object>> userSearch(Map<String, Object> userListMap) {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userSearch", userListMap);
+	}
+	
 	/**
 	 * 유저리스트 생성
 	 * @param userListMap
@@ -66,4 +70,6 @@ public class UserDao extends SqlSessionDaoSupport {
 	public int deleteUser(Map<String, String> userListMap){
 		return getSqlSession().delete("userQuery.deleteUser", userListMap);
 	}
+	
+	
 }

@@ -62,6 +62,8 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:choose>
+					<c:when test="${ type == 'userView' }">
 					<c:forEach var="userlist" items="${positionList}"
 						varStatus="status">
 						<tr>
@@ -89,16 +91,59 @@
 							</td>
 						</tr>
 					</c:forEach>
+					</c:when>
+					<c:when test="${ type == 'search' }">
+					<c:forEach var="searchlist" items="${searchList}">
+						<tr>
+							<td>${ searchlist.MEMBER_ID }</td>
+							<td>${ searchlist.MEMBER_NM }</td>
+							<td>${ searchlist.MEMBER_PW }</td>
+							<td>${ searchlist.MEMBER_ROLE }</td>
+							<td>
+								<div class="hidden-phone visible-desktop btn-group">
+
+									<form method="get" action="${ contextPath }/user/modify.do">
+										<input type="hidden" name="id" value="${searchlist.MEMBER_ID}">
+										<button class="btn btn-mini btn-info">
+											<i class="icon-edit bigger-120"></i>
+										</button>
+									</form>
+
+									<form method="get" action="${ contextPath }/user/delete.do">
+										<input type="hidden" name="id" value="${searchlist.MEMBER_ID}">
+										<button class="btn btn-mini btn-danger">
+											<i class="icon-trash bigger-120"></i>
+										</button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					</c:forEach>
+					</c:when>
+				</c:choose>
 				</tbody>
 			</table>
-
+		</div>
+		
+		<div class="span12">
 			<form method="POST" action="${ contextPath }/user/createView.do">
 				<button id="userCreatebtn" class="btn btn-info">
 					<i class="icon-ok bigger-110"></i> 회원추가-
 				</button>
 			</form>
 		</div>
-
+		
+		<div class="span12 text-center">
+			<form method="GET" action="${ contextPath }/user/search.do">
+			<select name="" id="selectBox">
+				<option value="">아이디</option>
+				<option value="">이름</option>
+				<option value="">ROLE</option>
+			</select>
+			<input type="text" id="serchText" name="id" value="">
+			<button class="btn btn-info">조건 검색</button>
+			</form>
+		</div>
 
 	</div>
 	<!--/.page-content-->
@@ -155,3 +200,28 @@
 	class="btn-scroll-up btn btn-small btn-inverse"> <i
 	class="icon-double-angle-up icon-only bigger-110"></i>
 </a>
+
+<button class="btn btn-default" id="test">test</button>
+
+<script>
+$("#selectBox").change(function(){
+	switch ($("#selectBox option:selected").text()) {
+	case ('아이디'):
+		$("#serchText").attr({
+			name: "id"
+		})
+		break;
+	case ('이름'):
+		$("#serchText").attr({
+			name: "name"
+		})
+		break;
+	case ('ROLE'):
+		$("#serchText").attr({
+			name: "role"
+		})
+		break;
+	}
+});
+
+</script>

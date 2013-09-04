@@ -47,6 +47,16 @@ public class UserService {
 		return userDao.getUserOne(paramMap);
 	}
 	
+	public List<HashMap<String, Object>> userSearch(Map<String, Object> paramMap) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", paramMap.get("id"));
+		map.put("name", paramMap.get("name"));
+		map.put("role", paramMap.get("role"));
+		
+		return userDao.userSearch(map);
+	}
+	
 	/**
 	 * 유저리스트 생성
 	 * <pre>

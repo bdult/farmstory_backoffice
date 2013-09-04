@@ -72,6 +72,20 @@ public class UserController {
 		logger.info("into user.do");
 		
 		mav.addObject("positionList", userService.userList());
+		mav.addObject("type", "userView");
+		
+		mav.setViewName("user/user");
+		return mav;
+	}
+
+	@RequestMapping(value = "user/search.do", method = RequestMethod.GET)
+	public ModelAndView userSearch(@RequestParam Map<String,Object> paramMap) {
+		
+		ModelAndView mav = new ModelAndView();
+		logger.info("into userSearch.do");
+		
+		mav.addObject("searchList", userService.userSearch(paramMap));
+		mav.addObject("type", "search");
 		
 		mav.setViewName("user/user");
 		return mav;

@@ -58,6 +58,20 @@ public class UserDaoTest {
 	}
 	
 	@Test
+	public void testUserSerch(){
+		logger.info("유저검색 테스트 입니다.");
+		logger.info(userDao.toString());
+		
+		Map<String, Object> userListMap = new HashMap<String, Object>();
+		userListMap.put("id", "test");
+		
+		List<HashMap<String, Object>> userList = userDao.userSearch(userListMap);
+		logger.info("Result : {}", userList.toString());
+		logger.info("Result set 갯수 : {}", userList.size());
+		
+	}
+	
+	@Test
 	public void testGetUserList(){
 		logger.info("asf");
 		logger.info(userDao.toString());

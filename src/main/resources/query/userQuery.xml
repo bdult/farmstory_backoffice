@@ -33,6 +33,16 @@
 		FROM BG_MEMBER
 	</select>
 	
+	<select id="userSearch" resultType="hashmap">
+		SELECT
+			*
+		FROM BG_MEMBER
+		WHERE
+		MEMBER_ID = #{ id } or
+		MEMBER_NM = #{ name } or
+		MEMBER_ROLE = #{ role }
+	</select>
+	
 	<!-- insert -->
 	<insert id="insertUser"  parameterType="hashmap">
 		INSERT INTO BG_MEMBER (
