@@ -35,7 +35,7 @@ public class UserController {
 			session.invalidate();
 		}
         
-        return "pure-view/login";
+        return "pure-user/login";
 	}
 	
 	@RequestMapping(value = "user/login.do")
