@@ -29,12 +29,6 @@ public class SeriesController {
 	@Autowired
 	private SeriesService seriesService;
 	
-	@RequestMapping(value = "series/sample.do", method = RequestMethod.GET)
-	public String sample(Model model) {
-		
-		return "series/seriesSample";
-	}
-	
 	@RequestMapping(value = "series/manage.do", method = RequestMethod.GET)
 	public String manage(Model model) {
 		
