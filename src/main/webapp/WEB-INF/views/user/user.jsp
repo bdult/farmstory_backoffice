@@ -44,11 +44,8 @@
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">유저정보 리스트</h3>
 			<div class="table-header">
-			<form method="POST" action="${ contextPath }/user/createView.do" style="margin:0">
-				<button id="create-contents-btn" class="btn btn-info">
-					회원추가
-				</button>
-			</form>
+				<a class="btn btn-info" href="${ contextPath }/user/createView.do">회원추가</a>
+				<a class="btn btn-info" href="${ contextPath }/user/">자녀추가</a>
 			</div><!-- /. table-header -->
 		<!--/.page-header-->
 		
@@ -65,6 +62,7 @@
 						<th>유저 이름</th>
 						<th>유저 비밀번호</th>
 						<th>유저 권한</th>
+						<th>자녀 수</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -86,6 +84,7 @@
 								<td>${userlist.MEMBER_NM}</td>
 								<td>${userlist.MEMBER_PW}</td>
 								<td>${userlist.MEMBER_ROLE}</td>
+								<td>?</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
 	

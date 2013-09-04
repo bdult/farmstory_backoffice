@@ -58,6 +58,17 @@ public class UserDaoTest {
 	}
 	
 	@Test
+	public void testChildList(){
+		logger.info("userList를 가져오는 테스트 입니다.");
+		logger.info(userDao.toString());
+		
+		List<HashMap<String, Object>> childList = userDao.childList();
+		logger.info("Result : {}", childList.toString());
+		logger.info("Result set 갯수 : {}", childList.size());
+		
+	}
+	
+	@Test
 	public void testUserSerch(){
 		logger.info("유저검색 테스트 입니다.");
 		logger.info(userDao.toString());
@@ -101,6 +112,26 @@ public class UserDaoTest {
 		assertNotNull(userDTO);
 		assertThat(result, is(not(0)));
 		logger.info("{}", userDTO);
+	}
+	
+	@Test
+	public void testInsertChild(){
+		logger.info("childList추가 테스트 입니다.");
+		logger.info(userDao.toString());
+		
+		Map<String, Object> childList = new HashMap<String, Object>();
+		childList.put("parent_member_id", "test");
+		childList.put("child_nm", "testchild");
+		childList.put("photo", null);
+		childList.put("gender", "여");
+		childList.put("birth_year", "00");
+		childList.put("birth_month", "00");
+		childList.put("birth_day", "00");
+
+		int result = userDao.insertChild(childList);
+		assertNotNull(childList);
+		assertThat(result, is(not(0)));
+		logger.info("{}", childList);
 	}
 
 	@Test

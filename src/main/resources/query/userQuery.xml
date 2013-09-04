@@ -33,6 +33,18 @@
 		FROM BG_MEMBER
 	</select>
 	
+	<select id="childList" resultType="hashmap">
+		SELECT
+		PARENT_MEMBER_ID,
+		CHILD_NM,
+		PHOTO,
+		GENDER,
+		BIRTH_YEAR,
+		BIRTH_MONTH,
+		BIRTH_DAY
+		FROM BG_CHILDREN
+	</select>
+	
 	<select id="userSearch" resultType="hashmap">
 		SELECT
 			*
@@ -62,6 +74,27 @@
         NOW()
 		)
 	
+	</insert>
+	
+	<insert id="insertChild" parameterType="hashmap">
+		INSERT INTO BG_CHILDREN (
+		PARENT_MEMBER_ID,
+		CHILD_NM,
+		PHOTO,
+		GENDER,
+		BIRTH_YEAR,
+		BIRTH_MONTH,
+		BIRTH_DAY
+		)
+		VALUES (
+		#{ parent_member_id },
+		#{ child_nm },
+		#{ photo },
+		#{ gender },
+		#{ birth_year },
+		#{ birth_month },
+		#{ birth_day }
+		)
 	</insert>
 	
 	<!-- UPDATE USER -->

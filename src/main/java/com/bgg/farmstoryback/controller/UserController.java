@@ -91,7 +91,7 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "user/createView.do", method = RequestMethod.POST)
+	@RequestMapping(value = "user/createView.do", method = RequestMethod.GET)
 	public ModelAndView createView(Model model) {
 		
 		ModelAndView mav = new ModelAndView();

@@ -19,6 +19,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (List<HashMap<String, String>>)getSqlSession().selectList( "userQuery.memberList");
 	}
 
+	/** 아이디와 비밀번호로 유저정보(id, pwd, role)가져오기
+	 * @param oneRoleMap
+	 * @return
+	 */
 	public Map<String, String> getOneRole(Map<String, Object> oneRoleMap){
 		return (Map<String, String>)getSqlSession().selectOne("userQuery.getOneRole", oneRoleMap);
 	}
@@ -40,6 +44,14 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (List<HashMap<String, String>>)getSqlSession().selectList("userQuery.userList");
 	}
 	
+	public List<HashMap<String, Object>> childList() {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.childList");
+	}
+	
+	/**유저리스트 검색
+	 * @param userListMap
+	 * @return
+	 */
 	public List<HashMap<String, Object>> userSearch(Map<String, Object> userListMap) {
 		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userSearch", userListMap);
 	}
@@ -52,6 +64,11 @@ public class UserDao extends SqlSessionDaoSupport {
 	public int insertUser(Map<String, String> userListMap){
 		return getSqlSession().insert("userQuery.insertUser",userListMap);
 	}
+	
+	public int insertChild(Map<String, Object> childListMap){
+		return getSqlSession().insert("userQuery.insertChild", childListMap);
+	}
+	
 	
 	/**
 	 * 유저리스트 수정
