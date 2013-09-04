@@ -102,7 +102,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/create.do", method = RequestMethod.POST)
-	public ModelAndView create(@RequestParam Map<String,Object> paramMap) {
+	public String create(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -111,11 +111,11 @@ public class UserController {
 		mav.addObject("positionList", userService.userList());
 		mav.setViewName("user/user");
 		
-		return mav;
+		return "redirect:/user.do";
 	}
 	
 	@RequestMapping(value = "user/delete.do", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam Map<String,Object> paramMap) {
+	public String delete(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
 		
@@ -123,7 +123,8 @@ public class UserController {
 		mav.addObject("positionList", userService.userList());
 		
 		mav.setViewName("user/user");
-		return mav;
+		
+		return "redirect:/user.do";
 	}
 	
 	@RequestMapping(value = "user/modify.do", method = RequestMethod.GET)
@@ -141,7 +142,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/update.do", method = RequestMethod.GET)
-	public ModelAndView userUpdate(@RequestParam Map<String,Object> paramMap) {
+	public String userUpdate(@RequestParam Map<String,Object> paramMap) {
 
 		ModelAndView mav = new ModelAndView();
 
@@ -150,7 +151,6 @@ public class UserController {
 		mav.addObject("insertUserList",userService.updateUser(paramMap));
 
 		mav.addObject("positionList", userService.userList());
-		mav.setViewName("user/user");
-		return mav;
+		return "redirect:/user.do";
 	}
 }
