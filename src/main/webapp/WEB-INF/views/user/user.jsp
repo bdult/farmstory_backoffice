@@ -212,7 +212,7 @@ $("#selectBox").change(function(){
 		})
 		break;
 	case ('이름'):
-		$("#serchText").attr({
+		$("#serchText").attr({`
 			name: "name"
 		})
 		break;
