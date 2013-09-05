@@ -62,7 +62,11 @@ public class UserDaoTest {
 		logger.info("userList를 가져오는 테스트 입니다.");
 		logger.info(userDao.toString());
 		
-		List<HashMap<String, Object>> childList = userDao.childList();
+
+		Map<String, Object> childListMap = new HashMap<String, Object>();
+		childListMap.put("member_id", "test");
+		
+		List<HashMap<String, Object>> childList = userDao.childList(childListMap);
 		logger.info("Result : {}", childList.toString());
 		logger.info("Result set 갯수 : {}", childList.size());
 		
@@ -151,6 +155,24 @@ public class UserDaoTest {
 	}
 
 	@Test
+	public void testUpdateChild() {
+		String IDX = "1";
+		
+		Map<String, Object> childList = new HashMap<String, Object>();
+		childList.put("parent_member_id", "test");
+		childList.put("child_nm", "testchild");
+		childList.put("photo", null);
+		childList.put("gender", "여");
+		childList.put("birth_year", "00");
+		childList.put("birth_month", "00");
+		childList.put("birth_day", "00");
+
+		int result = userDao.updateChild(childList);
+		assertNotNull(childList);
+		logger.info("{}", childList);
+	}
+	
+	@Test
 	public void testDeleteUser(){
 		String id = "asf";
 		
@@ -161,5 +183,18 @@ public class UserDaoTest {
 		assertNotNull(userDTO);
 		assertThat(result, is(not(0)));
 		logger.info("{}", userDTO);
+	}
+	
+	@Test
+	public void testDeleteChild(){
+		int idx = 1;
+		
+		Map<String, Object> childList = new HashMap<String, Object>();
+		childList.put("idx", idx);
+
+		int result = userDao.deleteChild(childList);
+		assertNotNull(childList);
+		assertThat(result, is(not(0)));
+		logger.info("{}", childList);
 	}
 }

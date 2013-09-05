@@ -35,14 +35,17 @@
 	
 	<select id="childList" resultType="hashmap">
 		SELECT
-		PARENT_MEMBER_ID,
-		CHILD_NM,
-		PHOTO,
-		GENDER,
-		BIRTH_YEAR,
-		BIRTH_MONTH,
-		BIRTH_DAY
-		FROM BG_CHILDREN
+		CD.IDX,
+		CD.PARENT_MEMBER_ID,
+		CD.CHILD_NM,
+		CD.PHOTO,
+		CD.GENDER,
+		CD.BIRTH_YEAR,
+		CD.BIRTH_MONTH,
+		CD.BIRTH_DAY
+		FROM BG_CHILDREN CD LEFT OUTER JOIN BG_MEMBER MB 
+		ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		WHERE MB.MEMBER_ID = #{ member_id }
 	</select>
 	
 	<select id="userSearch" resultType="hashmap">
@@ -110,9 +113,28 @@
 		WHERE MEMBER_ID = #{ id }
 	</update>
 	
+	<update id="updateChild" parameterType="hashmap">
+		UPDATE BG_CHILDREN
+		<set>
+		PARENT_MEMBER_ID = #{ parent_member_id },
+		CHILD_NM = #{ child_nm },
+		PHOTO = #{ photo },
+		GENDER = #{ gender },
+		BIRTH_YEAR = #{ birth_year },
+		BIRTH_MONTH = #{ birth_month },
+		BIRTH_DAY = #{ birth_day }
+		</set>
+		WHERE IDX = #{ idx }
+	</update>
+	
 	<!-- DELETE USER -->
 	<delete id="deleteUser" parameterType="hashmap">
     	DELETE from BG_MEMBER
     	WHERE MEMBER_ID = #{ id }
+	</delete>
+	
+	<delete id="deleteChild" parameterType="hashmap">
+		DELETE from BG_CHILDREN
+		WHERE IDX = #{ idx }
 	</delete>
 </mapper>

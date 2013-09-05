@@ -44,8 +44,8 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (List<HashMap<String, String>>)getSqlSession().selectList("userQuery.userList");
 	}
 	
-	public List<HashMap<String, Object>> childList() {
-		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.childList");
+	public List<HashMap<String, Object>> childList(Map<String, Object> childListMap) {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.childList", childListMap);
 	}
 	
 	/**유저리스트 검색
@@ -79,6 +79,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		return getSqlSession().update("userQuery.updateUser", userListMap);
 	}
 	
+	public int updateChild(Map<String, Object> childListMap){
+		return getSqlSession().update("userQuery.updateChild", childListMap);
+	}
+	
 	/**
 	 * 유저리스트 삭제
 	 * @param userListMap
@@ -88,5 +92,8 @@ public class UserDao extends SqlSessionDaoSupport {
 		return getSqlSession().delete("userQuery.deleteUser", userListMap);
 	}
 	
+	public int deleteChild(Map<String, Object> childListMap){
+		return getSqlSession().delete("userQuery.deleteChild", childListMap);
+	}
 	
 }

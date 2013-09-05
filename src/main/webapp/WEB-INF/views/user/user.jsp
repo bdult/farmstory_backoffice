@@ -45,7 +45,7 @@
 			<h3 class="header smaller lighter blue">유저정보 리스트</h3>
 			<div class="table-header">
 				<a class="btn btn-info" href="${ contextPath }/user/createView.do">회원추가</a>
-				<a class="btn btn-info" href="${ contextPath }/user/">자녀추가</a>
+				<a class="btn btn-info" href="${ contextPath }/user/childCreateView.do">자녀추가</a>
 			</div><!-- /. table-header -->
 		<!--/.page-header-->
 		
@@ -115,7 +115,7 @@
 								<td>${searchlist.MEMBER_ROLE}</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
-	
+	치
 										<a class="green" href="${ contextPath }/user/modify.do?id=${searchlist.MEMBER_ID}">
 											<i id="modify_icon" class="icon-pencil bigger-130"></i>
 										</a>

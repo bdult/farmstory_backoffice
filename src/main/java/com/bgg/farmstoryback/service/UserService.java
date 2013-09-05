@@ -38,6 +38,14 @@ public class UserService {
 		return userDao.userList();
 	}
 	
+	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("member_id", paramMap.get("id"));
+		
+		return userDao.childList(map);
+	}
+	
 	/**
 	 * 한개의 유저 리스트
 	 * @param paramMap
@@ -118,5 +126,12 @@ public class UserService {
 		map.put("id", (String)paramMap.get("id"));
 		
 		return userDao.deleteUser(map);
+	}
+	
+	public int deleteChild(Map<String, Object> paramMap){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idx", paramMap.get("idx"));
+		
+		return userDao.deleteChild(map);
 	}
 }
