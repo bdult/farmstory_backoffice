@@ -33,21 +33,68 @@
 		FROM BG_MEMBER
 	</select>
 	
+	<select id="childList" resultType="hashmap">
+		SELECT
+		PARENT_MEMBER_ID,
+		CHILD_NM,
+		PHOTO,
+		GENDER,
+		BIRTH_YEAR,
+		BIRTH_MONTH,
+		BIRTH_DAY
+		FROM BG_CHILDREN
+	</select>
+	
+	<select id="userSearch" resultType="hashmap">
+		SELECT
+			*
+		FROM BG_MEMBER
+		WHERE
+		MEMBER_ID = #{ id } or
+		MEMBER_NM = #{ name } or
+		MEMBER_ROLE = #{ role }
+	</select>
+	
 	<!-- insert -->
 	<insert id="insertUser"  parameterType="hashmap">
 		INSERT INTO BG_MEMBER (
 		MEMBER_ID,
 		MEMBER_NM,
 		MEMBER_PW,
-		MEMBER_ROLE
+		MEMBER_ROLE,
+		REG_DATE,
+		UPDATE_DATE
 		)
 		VALUES (
         #{ id },
         #{ name },
         #{ pwd },
-        #{ role }
+        #{ role },
+        NOW(),
+        NOW()
 		)
 	
+	</insert>
+	
+	<insert id="insertChild" parameterType="hashmap">
+		INSERT INTO BG_CHILDREN (
+		PARENT_MEMBER_ID,
+		CHILD_NM,
+		PHOTO,
+		GENDER,
+		BIRTH_YEAR,
+		BIRTH_MONTH,
+		BIRTH_DAY
+		)
+		VALUES (
+		#{ parent_member_id },
+		#{ child_nm },
+		#{ photo },
+		#{ gender },
+		#{ birth_year },
+		#{ birth_month },
+		#{ birth_day }
+		)
 	</insert>
 	
 	<!-- UPDATE USER -->
@@ -57,7 +104,8 @@
 		MEMBER_ID = #{ id },
 		MEMBER_NM = #{ name },
 		MEMBER_PW = #{ pwd },
-		MEMBER_ROLE = #{ role }
+		MEMBER_ROLE = #{ role },
+		UPDATE_DATE = NOW()
 		</set>
 		WHERE MEMBER_ID = #{ id }
 	</update>
