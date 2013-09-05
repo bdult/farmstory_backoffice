@@ -45,19 +45,12 @@
 			<h3 class="header smaller lighter blue">유저정보 리스트</h3>
 			<div class="table-header">
 				<a class="btn btn-info" href="${ contextPath }/user/createView.do">회원추가</a>
-				<a class="btn btn-info" href="${ contextPath }/user/childCreateView.do">자녀추가</a>
 			</div><!-- /. table-header -->
 		<!--/.page-header-->
 		
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th class="center">
-							<label>
-								<input type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</th>
 						<th>유저 ID</th>
 						<th>유저 이름</th>
 						<th>유저 비밀번호</th>
@@ -73,14 +66,7 @@
 						<c:forEach var="userlist" items="${positionList}"
 							varStatus="status">
 							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-							
-								<td>${userlist.MEMBER_ID}</td>
+								<td><a href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
 								<td>${userlist.MEMBER_NM}</td>
 								<td>${userlist.MEMBER_PW}</td>
 								<td>${userlist.MEMBER_ROLE}</td>
@@ -88,9 +74,6 @@
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
 	
-										<a class="green" href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
 										<a class="red" href="${ contextPath }/user/delete.do?id=${userlist.MEMBER_ID}">
 											<i id="delete_icon" class="icon-trash bigger-130"></i>
 										</a>
@@ -102,23 +85,14 @@
 					<c:when test="${ type == 'search' }">
 						<c:forEach var="searchlist" items="${searchList}">
 							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-							
-								<td>${searchlist.MEMBER_ID}</td>
+								<td><a href="${ contextPath }/user/modify.do?id=${searchlist.MEMBER_ID}">${searchlist.MEMBER_ID}</a></td>
 								<td>${searchlist.MEMBER_NM}</td>
 								<td>${searchlist.MEMBER_PW}</td>
 								<td>${searchlist.MEMBER_ROLE}</td>
 								<td>${userlist.CHILD_COUNT}</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
-										<a class="green" href="${ contextPath }/user/modify.do?id=${searchlist.MEMBER_ID}">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
+									
 										<a class="red" href="${ contextPath }/user/delete.do?id=${searchlist.MEMBER_ID}">
 											<i id="delete_icon" class="icon-trash bigger-130"></i>
 										</a>
@@ -181,7 +155,7 @@ $("#selectBox").change(function(){
 			name: "name"
 		});
 		break;
-	case ('ROLE'):
+	case ('권한'):
 		$("#serchText").attr({
 			name: "role"
 		});

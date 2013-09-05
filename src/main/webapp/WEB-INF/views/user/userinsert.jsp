@@ -169,6 +169,7 @@
 				
 					<c:if test="${ type == 'childCreate' }">
 							<form id="create-form" method="post" action="${ contextPath }/user/childCreate.do" class="form-horizontal" >
+								<input type="hidden" name="id" value="${ userListOne.MEMBER_ID }">
 								
 								<div class="control-group">
 									<label class="control-label">부모 ID</label>
@@ -306,16 +307,14 @@
 				</c:if>
 				
 				<c:if test="${ type == 'edit' }">
+				
+			<div class="table-header">
+				<a class="btn btn-info" href="${ contextPath }/user/childCreateView.do?id=${ userListOne.MEMBER_ID }">자녀추가</a>
+			</div><!-- /. table-header -->
+		<!--/.page-header-->
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th class="center">
-							<label>
-								<input type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</th>
-						<th>부모 ID</th>
 						<th>자녀 이름</th>
 						<th>자녀 사진경로</th>
 						<th>지녀 성별</th>
@@ -328,23 +327,13 @@
 						<c:forEach var="childList" items="${childList}"
 							varStatus="status">
 							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-								<td>${ childList.PARENT_MEMBER_ID }</td>
-								<td>${ childList.CHILD_NM }</td>
+								<td><a href="${ contextPath }/user/childModify.do?idx=${ childList.IDX }&id=${ userListOne.MEMBER_ID }">${ childList.CHILD_NM }</a></td>
 								<td>${ childList.PHOTO }</td>
 								<td>${ childList.GENDER }</td>
 								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
 	
-										<a class="green" href="${ contextPath }/user/childModify.do?idx=${ childList.IDX }&id=${ userListOne.MEMBER_ID }">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
 										<a class="red" href="${ contextPath }/user/childDelete.do?idx=${ childList.IDX }&id=${ userListOne.MEMBER_ID }">
 											<i id="delete_icon" class="icon-trash bigger-130"></i>
 										</a>

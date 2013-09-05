@@ -102,10 +102,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "user/childCreateView.do", method = RequestMethod.GET)
-	public ModelAndView childCreateView(Model model) {
+	public ModelAndView childCreateView(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
 
+		mav.addObject("userListOne",userService.getUserOne(paramMap));
 		mav.addObject("type", "childCreate");
 		mav.setViewName("user/userinsert");
 		return mav;
@@ -128,13 +129,13 @@ public class UserController {
 	public String childCreate(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("insertUserList", userService.insertChild(paramMap));
 
 		mav.addObject("positionList", userService.userList());
 		mav.setViewName("user/user");
-		
-		return "redirect:/user.do";
+
+		return "redirect:/user/modify.do?id=" + paramMap.get("id").toString();
 	}
 	
 	@RequestMapping(value = "user/delete.do", method = RequestMethod.GET)
@@ -162,8 +163,6 @@ public class UserController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		logger.info(paramMap.toString());
-		
 		mav.addObject("userListOne",userService.getUserOne(paramMap));
 		mav.addObject("childList", userService.childList(paramMap));
 		mav.addObject("type", "edit");
@@ -177,8 +176,6 @@ public class UserController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		logger.info(paramMap.toString());
-
 		mav.addObject("userListOne",userService.getUserOne(paramMap));
 		mav.addObject("childListOne",userService.getChildOne(paramMap));
 		mav.addObject("type", "childEdit");
@@ -191,8 +188,6 @@ public class UserController {
 	public String userUpdate(@RequestParam Map<String,Object> paramMap) {
 
 		ModelAndView mav = new ModelAndView();
-
-		logger.info(paramMap.toString());
 		
 		mav.addObject("insertUserList",userService.updateUser(paramMap));
 
@@ -203,8 +198,6 @@ public class UserController {
 	public String childUpdate(@RequestParam Map<String,Object> paramMap) {
 
 		ModelAndView mav = new ModelAndView();
-
-		logger.info(paramMap.toString());
 
 		mav.addObject("insertUserList",userService.updateChild(paramMap));
 		
