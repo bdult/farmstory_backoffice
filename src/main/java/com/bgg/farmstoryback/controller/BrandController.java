@@ -37,6 +37,15 @@ public class BrandController {
 		return "brand/manage";
 	}
 	
+	@RequestMapping(value = "brand/search.do")
+	public String search(Model model, String search) {
+		
+		List<Map> brandList = brandService.search(search);
+		model.addAttribute("brandList", brandList);
+		
+		return "brand/manage";
+	}
+	
 	@RequestMapping(value = "brand/create.do", method = RequestMethod.POST)
 	public String create(Model model, @RequestParam Map<String,Object> parameter) {
 		brandService.create(parameter);

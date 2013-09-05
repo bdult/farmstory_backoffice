@@ -65,6 +65,10 @@ public class BrandService {
 
 	public void delete(Map brandInfo) {
 		brandDao.delete(brandInfo);
+	}
+
+	public List<Map> search(String search) {
+		return brandDao.search(search);
 	}	
 	
 }

@@ -9,6 +9,12 @@
 		WHERE DEL_YN = 'N'
 	</select>
 	
+	<select id="search" resultType="hashmap">
+		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+		AND BRAND_NM LIKE CONCAT('%', #{search}, '%')
+	</select>
+	
 	<select id="detail" resultType="hashmap">
 		SELECT * FROM BG_BRAND
 		WHERE BRAND_ID = #{brandId}

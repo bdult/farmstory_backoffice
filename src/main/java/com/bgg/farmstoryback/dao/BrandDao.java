@@ -33,4 +33,8 @@ public class BrandDao extends SqlSessionDaoSupport {
 	public void delete(Map brandInfo) {
 		getSqlSession().update("brandQuery.delete", brandInfo);
 	}
+
+	public List<Map> search(String search) {
+		return getSqlSession().selectList("brandQuery.search", search);
+	}
 }
