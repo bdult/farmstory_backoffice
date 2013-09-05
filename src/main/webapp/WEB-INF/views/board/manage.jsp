@@ -16,9 +16,9 @@
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+						<form class="form-search" action="search.do" method="post">
+							<span class="input-icon" >
+								<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input"  autocomplete="off" />
 								<i class="icon-search nav-search-icon"></i>
 							</span>
 						</form>
@@ -30,7 +30,9 @@
 					<div class="row-fluid">
 						<div class="row-fluid">
 								<h3 class="header smaller lighter blue">게시판 리스트</h3>
-
+								<div class="table-header">
+									<button id="create-board-btn" class="btn btn-info">게시판 추가</button>
+								</div><!-- /. table-header -->
 								<table id="board_table" class="table table-striped table-bordered table-hover">
 									<thead>
 										<tr>
@@ -47,6 +49,7 @@
 											<th>댓글 사용여부</th>
 											<th>파일 업로드 사용여부</th>
 											<th>생성일자</th>
+											<th></th>
 										</tr>
 									</thead>
 
@@ -67,6 +70,21 @@
 											<td>${board.COMMENT_USE_YN }</td>
 											<td>${board.FILEUPLOAD_USE_YN }</td>
 											<td>${board.REG_DT }</td>
+											<td class="td-actions">
+												<div class="hidden-phone visible-desktop action-buttons">
+													<a class="blue" href="detail.do?board_id=${board.BOARD_ID }">
+														<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
+													</a>
+					
+													<a class="green" href="detail.do?board_id=${board.BOARD_ID }">
+														<i id="modify_icon" class="icon-pencil bigger-130"></i>
+													</a>
+					
+													<a class="red" href="delete.do?board_id=${board.BOARD_ID }">
+														<i id="delete_icon" class="icon-trash bigger-130"></i>
+													</a>
+												</div>
+											</td>
 										</tr>
 									</c:forEach>
 									</tbody>
@@ -76,50 +94,11 @@
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
 
-
-		<!--page specific plugin scripts-->
-
-		<script src="${rootPath}/assets/js/jquery.dataTables.min.js"></script>
-		<script src="${rootPath}/assets/js/jquery.dataTables.bootstrap.js"></script>
-
-
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
 			$(function() {
-				/* var oTable1 = $('#sample-table-2').dataTable( {
-				"aoColumns": [
-			      { "bSortable": false },
-			      null, null,null, null, null,
-				  { "bSortable": false }
-				] } ); 
-				
-				
-				$('table th input:checkbox').on('click' , function(){
-					var that = this;
-					$(this).closest('table').find('tr > td:first-child input:checkbox')
-					.each(function(){
-						this.checked = that.checked;
-						$(this).closest('tr').toggleClass('selected');
-					});
-						
-				});
-			
-			
-				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
-				function tooltip_placement(context, source) {
-					var $source = $(source);
-					var $parent = $source.closest('table')
-					var off1 = $parent.offset();
-					var w1 = $parent.width();
-			
-					var off2 = $source.offset();
-					var w2 = $source.width();
-			
-					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
-					return 'left';
-				}
-				*/
-			})
+				create-board-btn
+			});
 		</script>
 

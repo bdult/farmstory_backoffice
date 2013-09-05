@@ -41,7 +41,7 @@
 								<div class="widget-box span6">
 									<div class="widget-header header-color-blue2">
 										<h4 class="lighter smaller">Choose Series</h4>
-									<button id="create-series-btn" class="btn btn-info">시리즈 생성</button>
+									<button id="create-series-btn" type="button" class="btn btn-info">시리즈 생성</button>
 									</div>
 
 									<div class="widget-body">

@@ -62,6 +62,11 @@ public class ContentsController {
 		return "contents/info";
 	}
 	
+	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
+	public String createView(Model model) {
+		return "contents/create";
+	}
+	
 	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
 	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
 		contentsService.create(parameter);

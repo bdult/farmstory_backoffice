@@ -147,6 +147,6 @@
 		<!-- add jquery -->
 		<script type="text/javascript">				
 			$("#create-contents-btn").click(function(){
-				location.href="${contextPath}/contents/create.do";
+				location.href="${contextPath}/contents/createView.do";
 			});
 		</script>

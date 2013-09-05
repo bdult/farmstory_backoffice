@@ -15,13 +15,20 @@
 						</li>
 
 						<li>
-							<a href="#">컨텐츠</a>
+							<a href="#">컨텐츠 관리</a>
 
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">컨텐츠 상세</li>
+						<li>
+							<a href="#">게시판 관리</a>
+
+							<span class="divider">
+								<i class="icon-angle-right arrow-icon"></i>
+							</span>
+						</li>
+						<li class="active">게시판 상세</li>
 					</ul><!--.breadcrumb-->
 
 				</div>
@@ -29,10 +36,10 @@
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							컨텐츠 상세
+							게시판 상세
 							<small>
 								<i class="icon-double-angle-right"></i>
-								컨텐츠에 대한 상세한 정보를 입력한다
+								게시판에 대한 상세한 정보를 입력한다
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -41,77 +48,105 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form id="create-form" method="post" action="${contextPath }/contents/create.do" class="form-horizontal" >
+							<form name="frm" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_id">컨텐츠 ID</label>
+									<label class="control-label" for="board_id">게시판 ID</label>
 
 									<div class="controls">
-										<input readonly="" type="text" id="contents_id" name="contents_id" value="${data.contents_id == null? "자동입력" : data.contents_id}" />
+										<input readonly="readonly" type="text" id="board_id" name="board_id" value="${data.BOARD_ID}" />
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">컨텐츠 명</label>
+									<label class="control-label" for="board_nm">게시판 명</label>
 
 									<div class="controls">
-										<input type="text" id="form-field-1" id="contents_nm" name="contents_nm" placeholder="contents name" value="${data.contents_nm}"/>
+										<input type="text" id="board_nm" name="board_nm" value="${data.BOARD_NM == null? "게시판 명" : data.BOARD_NM}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_series_id">시리즈</label>
+									<label class="control-label" for="reg_member_id">생성자 ID</label>
 
 									<div class="controls">
-										<input  type="hidden" id="contents_series_id" name="contents_series_id" />
-										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" />
-										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 설정" />
+										<input readonly="readonly" type="text" value="${data.REG_MEMBER_ID== null? "" : data.REG_MEMBER_ID}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="brand_id">브랜드</label>
+									<label class="control-label" for="mod_member_id">변경자 ID</label>
 
 									<div class="controls">
-										<input type="hidden" id="brand_id" name="brand_id" />
-										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" />
-										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 설정" />
+										<input readonly="readonly" type="text" value="${data.MOD_MEMBER_ID== null? "" : data.MOD_MEMBER_ID}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="src_path">동영상</label>
+									<label class="control-label" for="src_path">댓글 사용여부</label>
 
 									<div class="controls">
-										<input class="span1" type="text" id="src_path" name="src_path" placeholder="file name" />
-										<input class="span11" type="text" id="src_path2" name="src_path2" placeholder="file path" />
-										<div class="help-block" id="input-span-slider"></div>
+										<input type="text" value="${data.COMMENT_USE_YN== null? "" : data.COMMENT_USE_YN}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">썸네일 이미지</label>
+									<label class="control-label" for="form-field-2">파일 업로드 사용여부</label>
 
 									<div class="controls">
-										<input class="span1" type="text" id="form-field-5" placeholder="file name" />
-										<input class="span11" type="text" placeholder="file path" />
-										<div class="help-block" id="input-span-slider"></div>
+										<input type="text" value="${data.FILEUPLOAD_USE_YN== null? "" : data.FILEUPLOAD_USE_YN}" />
 									</div>
 								</div>
+<!-- 
+								<div class="control-group">
+									<label class="control-label" for="form-input-readonly">등록정보</label>
 
+									<div class="controls">
+										<span class="input-icon">
+											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
+											<i class="icon-leaf"></i>
+										</span>
+
+										<span class="input-icon input-icon-right">
+											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
+											<i class="icon-leaf"></i>
+										</span>
+									</div>
+								</div>
 								
+								<div class="control-group">
+									<label class="control-label" for="form-input-readonly">수정정보</label>
+
+									<div class="controls">
+										<span class="input-icon">
+											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
+											<i class="icon-leaf"></i>
+										</span>
+
+										<span class="input-icon input-icon-right">
+											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
+											<i class="icon-leaf"></i>
+										</span>
+									</div>
+								</div>
+ -->
 
 								<div class="form-actions">
-									<button class="btn btn-info" type="button" id="btn_submit">
+									<button class="btn btn-primary" type="submit">
 										<i class="icon-ok bigger-110"></i>
-										등록
+										수정
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button class="btn" type="reset">
+									<button id="cancel-btn" class="btn btn-inverse" type="button">
 										<i class="icon-undo bigger-110"></i>
 										취소
+									</button>
+									&nbsp; &nbsp; &nbsp;
+									<button id="delete-btn" class="btn btn-danger" type="button">
+										<i class="icon-remove-sign bigger-110"></i>
+										삭제
 									</button>
 								</div>
 
@@ -125,7 +160,11 @@
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
 			</div><!--/.main-content-->
-
+			
+			<form id="delete-form" method="post" action="delete.do">
+				<input name="contents_id" value="${data.CONTENTS_ID }">
+			</form>
+			
 <!-- series modify modal -->			
 <div id="modify-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
@@ -147,38 +186,11 @@
 		</div>
 </div>		
 
-<div id="search-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">시리즈 설정</h3>
-		</div>
-		<div class="modal-body ">
-			<div  class="control-group">
-				<label class="control-label">시리즈 명</label>
-				<div class="controls">
-					<input  id="search-series-name" name="series_nm" type="text">					
-					<button id="search-series-btn" type="button" class="btn btn-primary">검색</button>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label">시리즈 리스트</label>
-				<div class="controls">
-					<select id="series-select">
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">등록취소</button>
-			<button type="button" id="submit-series" class="btn btn-primary">등록하기</button>
-		</div>
-</div>
-
 <!--  brand modify modal -->			
 <div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 설정</h3>
+			<h3 class="text-center">브랜드 변경</h3>
 		</div>
 		<div class="modal-body">
 			<div id="modify-brand-list" class="control-group">
@@ -193,11 +205,20 @@
 			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
 		</div>
-</div>			
+</div>		
+			
 
 <script type="text/javascript">
-
 	$(function(){
+		$("#cancel-btn").click(function(){
+			window.location.href="manage.do";
+		});
+		
+		$("#delete-btn").click(function(){
+			console.log("delete_btn");
+			$("#delete-form").submit();
+		});
+		
 		$("#modify-series-modal-btn").click(function(){
 			$("#modify-parent-category-select")
 				$("#contents_series_nm").val($("#modify-series-select option:selected").text());
@@ -212,43 +233,21 @@
 		});
 		
 		$("#series-mod-btn").click(function(){
-			$("#series-select").empty();
-			$("#search-series-modal").modal('toggle');
-		});
-		
-		$("#search-series-btn").click(function(){
-			$("#series-select").empty();
-			param = {
-					series_nm: $("#search-series-name").val()
-			};
 			$.ajax({
-				url: "${contextPath}/series/search.ajax",
-				type: 'POST',
-				data:param,
+				url: "seriesList.ajax",
+				type: 'GET',
 				dataType: 'json',
 				success : function(response) {
 						$.each(response.data, function(index, data){
-							displaySeriesName="";
-							if(data.SERIES_LEVEL === 1){
-								displaySeriesName = data.CONTENTS_SERIES_NM+"("+data.SERIES_LEVEL+"-depth"+")";
-							}else{
-								displaySeriesName = data.PARENT_NM+" >> "+data.CONTENTS_SERIES_NM+"("+data.SERIES_LEVEL+"-depth "+")";
-							}
-							$("#series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+displaySeriesName+"</option>")
-							$("#search-series-name").val("");
+							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
 						}); 
+					$("#modify-series-modal").modal('toggle');
 				},
 				error: function(xhr, status, error) {
 					console.log("error="+error);
 				}
 			}); // seriesList ajax end
 		}); // <!-- series-mod-btn event end
-		
-		$("#submit-series").click(function(){
-			$("#contents_series_nm").val($("#series-select option:selected").text());
-			$("#contents_series_id").val($("#series-select option:selected").val());
-			$("#search-series-modal").modal('toggle');
-		});
 		
 		$("#brand-mod-btn").click(function(){
 			$.ajax({
@@ -267,11 +266,7 @@
 			}); // ajax end
 		}); // <!-- brand-mod-btn event end
 		
-		$("#btn_submit").click(function() {
-			if(confirm('저장 하시겠습니까?')) {
-				$("#create-form").submit();
-			}
-		});
-	});
+	}); // <!-- function() end 
+	
 	
 </script>

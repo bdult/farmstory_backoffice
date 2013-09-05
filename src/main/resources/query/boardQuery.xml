@@ -12,7 +12,7 @@
 		VALUES(
 			#{board_nm},
 			#{reg_member_id},
-			#{mod_member_id}
+			#{reg_member_id}
 		)
 	</insert>
 	

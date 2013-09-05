@@ -25,6 +25,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 				//세션 체크 예외 리스트
 				! request.getServletPath().contains( "login.do" ) &&
 				! request.getServletPath().contains( "series" ) &&
+				! request.getServletPath().contains( "board" ) &&
 				! request.getServletPath().contains( "logout.do" )				
 			){
 				HttpSession session = request.getSession(false);

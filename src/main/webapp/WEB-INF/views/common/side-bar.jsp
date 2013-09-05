@@ -58,27 +58,58 @@
 					<li>
 						<a href="${contextPath }/contents/manage.do">
 							<i class="icon-double-angle-right"></i>
-							컨텐츠 관리
+							컨텐츠
 						</a>
 					</li>
 	
 					<li>
 						<a href="${contextPath }/series/manage.do">
 							<i class="icon-double-angle-right"></i>
-							시리즈 관리
+							시리즈
 						</a>
 					</li>
 	
 					<li>
 						<a href="${contextPath }/brand/manage.do">
 							<i class="icon-double-angle-right"></i>
-							브랜드 관리
+							브랜드
 						</a>
 					</li>
 					<li>
 						<a href="${ contextPath }/category/manage.do">
 							<i class="icon-double-angle-right"></i>
-							카테고리 관리
+							카테고리
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 게시판 관리
+						<span class="badge badge-primary ">3</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li>
+						<a href="${contextPath }/board/manage.do">
+							<i class="icon-double-angle-right"></i>
+							게시판
+						</a>
+					</li>
+	
+					<li>
+						<a href="${contextPath }/board/contents/manage.do">
+							<i class="icon-double-angle-right"></i>
+							게시글
+						</a>
+					</li>
+	
+					<li>
+						<a href="${contextPath }/board/comments/manage.do">
+							<i class="icon-double-angle-right"></i>
+							댓글
 						</a>
 					</li>
 				</ul>
