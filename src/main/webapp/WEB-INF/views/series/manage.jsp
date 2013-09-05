@@ -178,6 +178,10 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+		
+		$("#side-contents-series").attr("class", "active");
+		$("#side-contents").attr("class", "open active");
+		
 				$(function() {
 					
 					// infomation layout hide

@@ -48,30 +48,14 @@
 						<th>ID</th>
 						<th>이름</th>
 						<th>생성일</th>
-						<th></th>
 					</tr>
 				</thead>				
 				<tbody>
 					<c:forEach items="${brandList }" var="brand">
 					<tr>
-						<td>${brand.BRAND_ID }</td>
-						<td>${brand.BRAND_NM }</td>
+						<td><a href="${contenxtPath }/brand/detail.do?brand_id=${brand.BRAND_ID }">${brand.BRAND_ID }</a></td>
+						<td><a href="${contenxtPath }/brand/detail.do?brand_id=${brand.BRAND_ID }">${brand.BRAND_NM }</a></td>
 						<td>${brand.REG_DT }</td>
-						<td class="td-actions">
-								<div class="hidden-phone visible-desktop action-buttons">
-									<a class="blue" href="detail.do?brand_id=${brand.BRAND_ID}">
-										<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
-									</a>
-
-									<a class="green" href="detail.do?brand_id=${brand.BRAND_ID}">
-										<i id="modify_icon" class="icon-pencil bigger-130"></i>
-									</a>
-
-									<a class="red" href="delete.do?brand_id=${brand.BRAND_ID}">
-										<i id="delete_icon" class="icon-trash bigger-130"></i>
-									</a>
-								</div>
-						</td>
 					</tr>
 					</c:forEach>
 				</tbody>	
@@ -121,7 +105,13 @@
 </div>
 
 <script>
+$("#side-contents-brand").attr("class", "active");
+$("#side-contents").attr("class", "open active");
+
+	
 $(function(){
+	
+	
 	$("#create-brand-btn").click(function(){
 			console.log("create-brand-btn click");
 			$("#creat-brand-modal").modal('toggle');

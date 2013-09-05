@@ -41,7 +41,7 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form name="frm" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
+							<form id="modify-form" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
@@ -132,7 +132,7 @@
  -->
 
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit">
+									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
 										수정
 									</button>
@@ -161,7 +161,7 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input name="contents_id" value="${data.CONTENTS_ID }">
+				<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">
 			</form>
 			
 <!-- series modify modal -->			
@@ -208,14 +208,29 @@
 			
 
 <script type="text/javascript">
+
+$("#side-contents-contents").attr("class", "active");
+$("#side-contents").attr("class", "open active");
+
 	$(function(){
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do";
+			window.location.href="manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){
-			console.log("delete_btn");
-			$("#delete-form").submit();
+			if(confirm("삭제 하시겠습니까?")){
+				$("#delete-form").submit();
+			}else{
+				return false;
+			}
+		});
+		
+		$("#submit-btn").click(function(){
+			if(confirm("저장 하시겠습니까?")){
+				$("#modify-form").submit();
+			}else{
+				return false;
+			}
 		});
 		
 		$("#modify-series-modal-btn").click(function(){

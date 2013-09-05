@@ -40,55 +40,30 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th class="center">
-							<label>
-								<input type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</th>
 						<th>컨텐츠 ID</th>
 						<th>컨텐츠명</th>
 						<th>시리즈</th>
 						<th>브랜드</th>
 						<th>저장위치</th>
 						<th>섬네일 위치</th>
-						<th></th>
 					</tr>
 				</thead>
 
 				<tbody>
 				<c:forEach var="conlist" items="${list}" varStatus="status">
 					<tr>
-						<td class="center">
-							<label>
-								<input type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</td>
 
 						<td>
 							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
 						</td>
-						<td>${conlist.CONTENTS_NM}</td>
+						<td>
+							
+							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_NM}</a>
+						</td>
 						<td>${conlist.SERIES_NM}</td>											
 						<td>${conlist.BRAND_NM}</td>
 						<td>${conlist.SRC_PATH}</td>
 						<td>${conlist.IMG_PATH}</td>
-						<td class="td-actions">
-							<div class="hidden-phone visible-desktop action-buttons">
-								<a class="blue" href="detail.do?contents_id=${conlist.CONTENTS_ID}">
-									<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
-								</a>
-
-								<a class="green" href="detail.do?contents_id=${conlist.CONTENTS_ID}">
-									<i id="modify_icon" class="icon-pencil bigger-130"></i>
-								</a>
-
-								<a class="red" href="delete.do?contents_id=${conlist.CONTENTS_ID}">
-									<i id="delete_icon" class="icon-trash bigger-130"></i>
-								</a>
-							</div>
-						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -154,6 +129,9 @@
 		
 		<!-- add jquery -->
 		<script type="text/javascript">				
+		$("#side-contents-contents").attr("class", "active");
+		$("#side-contents").attr("class", "open active");
+		
 			$("#create-contents-btn").click(function(){
 				location.href="${contextPath}/contents/createView.do";
 			});

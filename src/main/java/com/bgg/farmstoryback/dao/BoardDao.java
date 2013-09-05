@@ -55,4 +55,8 @@ public class BoardDao extends SqlSessionDaoSupport {
 	public List<Map> searchByName(String search) {
 		return getSqlSession().selectList("boardQuery.searchByName", search);
 	}
+
+	public List top5() {
+		return getSqlSession().selectList("boardQuery.top5");
+	}
 }

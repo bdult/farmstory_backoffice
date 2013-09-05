@@ -66,4 +66,8 @@ public class ContentsService {
 	public int totalCount() {
 		return conDao.totalCount();
 	}
+
+	public List top5() {
+		return conDao.top5();
+	}
 }

@@ -70,4 +70,8 @@ public class SeriesService {
 	public List<Map> listOfChild(int parentSeriesId) {
 		return seriesDao.listOfChild(parentSeriesId);
 	}
+
+	public List top5() {
+		return seriesDao.top5();
+	}
 }

@@ -111,6 +111,8 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+		$("#side-board-master").attr("class", "active");
+		$("#side-board-board").attr("class", "open active");
 			$(function() {
 				$("#create-board-btn").click(function(){
 					window.location.href="${contextPath}/board/createView.do";

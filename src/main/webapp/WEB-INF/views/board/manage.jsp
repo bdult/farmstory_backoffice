@@ -35,12 +35,6 @@
 					<table id="board_table" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-								<th class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</th>
 								<th>게시판 ID</th>
 								<th>게시판명</th>
 								<th>생성자 ID</th>
@@ -48,42 +42,19 @@
 								<th>댓글 사용여부</th>
 								<th>파일 업로드 사용여부</th>
 								<th>생성일자</th>
-								<th></th>
 							</tr>
 						</thead>
 
 						<tbody>
 						<c:forEach items="${boardList }" var="board">
 							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-
-								<td>${board.BOARD_ID }</td>
-								<td>${board.BOARD_NM }</td>
+								<td><a href="${contextPath}/board/detail.do?board_id=${board.BOARD_ID }">${board.BOARD_ID }</a></td>
+								<td><a href="${contextPath}/board/detail.do?board_id=${board.BOARD_ID }">${board.BOARD_NM }</a></td>
 								<td>${board.REG_MEMBER_ID }</td>
 								<td>${board.MOD_MEMBER_ID }</td>
 								<td>${board.COMMENT_USE_YN }</td>
 								<td>${board.FILEUPLOAD_USE_YN }</td>
 								<td>${board.REG_DT }</td>
-								<td class="td-actions">
-									<div class="hidden-phone visible-desktop action-buttons">
-										<a class="blue" href="detail.do?board_id=${board.BOARD_ID }">
-											<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
-										</a>
-		
-										<a class="green" href="detail.do?board_id=${board.BOARD_ID }">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
-		
-										<a class="red" href="delete.do?board_id=${board.BOARD_ID }">
-											<i id="delete_icon" class="icon-trash bigger-130"></i>
-										</a>
-									</div>
-								</td>
 							</tr>
 						</c:forEach>
 						</tbody>
@@ -137,6 +108,9 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+			$("#side-board-master").attr("class", "active");
+			$("#side-board").attr("class", "open active");
+		
 			$(function() {
 				$("#create-board-btn").click(function(){
 					window.location.href="${contextPath}/board/createView.do";

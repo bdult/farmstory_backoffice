@@ -68,5 +68,9 @@ public class BoardService {
 		return boardDao.searchByName(search);
 	}
 
+	public List top5() {
+		return boardDao.top5();
+	}
+
 	
 }

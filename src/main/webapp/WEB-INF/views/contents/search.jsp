@@ -127,6 +127,9 @@
 		
 		<!-- add jquery -->
 		<script type="text/javascript">				
+		$("#side-contents-contents").attr("class", "active");
+		$("#side-contents").attr("class", "open active");
+		
 			$("#create-contents-btn").click(function(){
 				location.href="${contextPath}/contents/createView.do";
 			});

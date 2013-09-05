@@ -54,7 +54,7 @@ public class SeriesController {
 	@RequestMapping(value = "series/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
 		seriesService.detail(parameter);
-		return "series/detail";
+		return "series/info";
 	}
 	
 	@RequestMapping(value = "series/delete.do")

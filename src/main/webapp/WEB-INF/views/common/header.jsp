@@ -4,10 +4,10 @@
 <div class="navbar">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<a href="#" class="brand">
+			<a href="${ contextPath }/dashboard.do" class="brand">
 				<small>
-					<i class="icon-leaf"></i>
-					스토리팜 백오피스
+						<i class="icon-leaf"></i>
+						Story-Farm Backoffice
 				</small>
 			</a><!--/.brand-->
 

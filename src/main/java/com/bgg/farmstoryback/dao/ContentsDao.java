@@ -47,4 +47,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("contentsQuery.totalCount");
 	}
 
+	public List top5() {
+		return getSqlSession().selectList("contentsQuery.top5");
+	}
+
 }

@@ -196,7 +196,10 @@
 </div>			
 
 <script type="text/javascript">
-
+	
+	$("#side-contents-contents").attr("class", "active");
+	$("#side-contents").attr("class", "open active");
+	
 	$(function(){
 		$("#modify-series-modal-btn").click(function(){
 			$("#modify-parent-category-select")

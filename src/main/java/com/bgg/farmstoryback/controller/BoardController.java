@@ -45,8 +45,6 @@ public class BoardController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
-		logger.info("{}", pageInfo);
-		
 		return "board/manage";
 	}
 	
@@ -76,7 +74,7 @@ public class BoardController {
 		return "board/search";
 	}
 	
-	@RequestMapping(value = "board/detail.do", method = RequestMethod.GET)
+	@RequestMapping(value = "board/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
 		Map boardDetail = boardService.detail(parameter);
 		model.addAttribute("data", boardDetail);
@@ -85,12 +83,14 @@ public class BoardController {
 	
 	
 	@RequestMapping(value = "board/modify.do", method = RequestMethod.POST)
-	public @ResponseBody String modify(@RequestParam Map<String,Object> parameter) {
-		return null;
+	public String modify(@RequestParam Map<String,Object> parameter) {
+		boardService.modify(parameter);
+		return "redirect:detail.do?board_id="+parameter.get("board_id");
 	}
 	
 	@RequestMapping(value = "board/delete.do", method = RequestMethod.POST)
-	public @ResponseBody String delete(@RequestParam Map<String,Object> parameter) {
-		return null;
+	public String delete(@RequestParam Map<String,Object> parameter) {
+		boardService.delete(parameter);
+		return "redirect:manage.do?pageNum=1";
 	}
 }

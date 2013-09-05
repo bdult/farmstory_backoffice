@@ -17,6 +17,16 @@
 		 ORDER BY  A.ORDERING_NO
 	</select>
 	
+	<select id="top5" resultType="hashmap">
+		SELECT /* categoryQuery.top5 2013.08.21 최지순 */  
+			A.CATE_ID,
+			A.CATE_NM,
+			DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		 FROM BG_CATE A
+		 ORDER BY  A.CATE_ID DESC
+		 LIMIT 0,5
+	</select>
+	
 	<select id="listByLevel" resultType="hashmap">
 		SELECT /* categoryQuery.listByLevel 2013.08.21 최지순 */
 			A.CATE_ID,

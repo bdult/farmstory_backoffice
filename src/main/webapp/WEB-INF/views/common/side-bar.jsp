@@ -18,34 +18,20 @@
 		</div><!--#sidebar-shortcuts-->
 	
 		<ul class="nav nav-list">
-			<li>
+			<li id="side-home">
 				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
-					<span class="menu-text"> Dashboard </span>
+					<span class="menu-text"> Home </span>
 				</a> 
 			</li>
 			
-			<li>
-				<a href="${ contextPath }/main.do">
-					<i class="icon-thumbs-up-alt"></i>
-					<span class="menu-text"> 스토리팜 메인 </span>
-				</a>
-			</li>
-			
-			<li>
-				<a href="${ contextPath }/sub.do">
-					<i class="icon-thumbs-down-alt"></i>
-					<span class="menu-text"> 스토리팜 서브 </span>
-				</a>
-			</li>
-			
-			<li>
+			<li id="side-user">
 				<a href="${ contextPath }/user.do">
 					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 회원관리 </span>
 				</a>
 			</li>
-			<li>
+			<li id="side-contents">
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 컨텐츠 관리
@@ -55,27 +41,27 @@
 					
 				</a>
 				<ul class="submenu">
-					<li>
+					<li id="side-contents-contents">
 						<a href="${contextPath }/contents/manage.do?pageNum=1">
 							<i class="icon-double-angle-right"></i>
 							컨텐츠
 						</a>
 					</li>
 	
-					<li>
+					<li id="side-contents-series">
 						<a href="${contextPath }/series/manage.do">
 							<i class="icon-double-angle-right"></i>
 							시리즈
 						</a>
 					</li>
 	
-					<li>
+					<li id="side-contents-brand">
 						<a href="${contextPath }/brand/manage.do?pageNum=1">
 							<i class="icon-double-angle-right"></i>
 							브랜드
 						</a>
 					</li>
-					<li>
+					<li id="side-contents-category">
 						<a href="${ contextPath }/category/manage.do">
 							<i class="icon-double-angle-right"></i>
 							카테고리
@@ -83,75 +69,26 @@
 					</li>
 				</ul>
 			</li>
-			<li>
+			<li id="side-board">
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 게시판 관리
-						<span class="badge badge-primary ">3</span> 
+						<span class="badge badge-primary ">2</span> 
 					</span>
 					<b class="arrow icon-angle-down"></b>
 				</a>
 				<ul class="submenu">
-					<li>
+					<li id="side-board-master" >
 						<a href="${contextPath }/board/manage.do?pageNum=1">
 							<i class="icon-double-angle-right"></i>
-							게시판
+							마스터
 						</a>
 					</li> 
 	
-					<li>
+					<li id="side-board-board" >
 						<a href="${contextPath }/board/contents/manage.do">
 							<i class="icon-double-angle-right"></i>
-							게시글
-						</a>
-					</li>
-	
-					<li>
-						<a href="${contextPath }/board/comments/manage.do">
-							<i class="icon-double-angle-right"></i>
-							댓글
-						</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#" class="dropdown-toggle">
-					<i class="icon-file-alt"></i>
-	
-					<span class="menu-text">
-						Other Pages
-						<span class="badge badge-primary ">4</span>
-					</span>
-	
-					<b class="arrow icon-angle-down"></b>
-				</a>
-	
-				<ul class="submenu">
-					<li>
-						<a href="error-404.html">
-							<i class="icon-double-angle-right"></i>
-							Error 404
-						</a>
-					</li>
-	
-					<li>
-						<a href="error-500.html">
-							<i class="icon-double-angle-right"></i>
-							Error 500
-						</a>
-					</li>
-	
-					<li>
-						<a href="grid.html">
-							<i class="icon-double-angle-right"></i>
-							Grid
-						</a>
-					</li>
-	
-					<li>
-						<a href="blank.html">
-							<i class="icon-double-angle-right"></i>
-							Blank Page
+							게시판 조회
 						</a>
 					</li>
 				</ul>
@@ -165,7 +102,5 @@
 
 <script>
 $(function(){
-	
-	
 });
 </script>

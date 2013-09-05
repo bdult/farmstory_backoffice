@@ -5,12 +5,31 @@
 <mapper namespace="brandQuery">
 
 	<select id="list" resultType="hashmap">
-		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
+		SELECT 
+			BRAND_NM
+			, BRAND_ID
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
 		WHERE DEL_YN = 'N'
 	</select>
 	
+	<select id="top5" resultType="hashmap">
+		SELECT 
+			BRAND_NM
+			, BRAND_ID
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+		ORDER BY BRAND_ID DESC
+		LIMIT 0,5
+	</select>
+	
 	<select id="listByPageNum" resultType="hashmap">
-		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
+		SELECT
+			 BRAND_NM
+			 , BRAND_ID
+			 , DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
 		WHERE DEL_YN = 'N'
 		LIMIT #{startNo}, #{perPage}
 	</select>
@@ -21,7 +40,11 @@
 	</select>
 	
 	<select id="search" resultType="hashmap">
-		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
+		SELECT 
+			BRAND_NM
+			, BRAND_ID
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
 		WHERE DEL_YN = 'N'
 		AND BRAND_NM LIKE CONCAT('%', #{search}, '%')
 	</select>

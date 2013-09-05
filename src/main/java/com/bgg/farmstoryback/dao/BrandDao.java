@@ -45,4 +45,8 @@ public class BrandDao extends SqlSessionDaoSupport {
 	public int totalCount() {
 		return (Integer)getSqlSession().selectOne("brandQuery.totalCount");
 	}
+
+	public List top5() {
+		return getSqlSession().selectList("brandQuery.top5");
+	}
 }

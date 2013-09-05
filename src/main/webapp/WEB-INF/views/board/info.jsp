@@ -48,7 +48,7 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form name="frm" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
+							<form id="modify-form" method="post" action="${contextPath }/board/modify.do" class="form-horizontal" >
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
@@ -98,42 +98,9 @@
 										<input type="text" value="${data.FILEUPLOAD_USE_YN== null? "" : data.FILEUPLOAD_USE_YN}" />
 									</div>
 								</div>
-<!-- 
-								<div class="control-group">
-									<label class="control-label" for="form-input-readonly">등록정보</label>
-
-									<div class="controls">
-										<span class="input-icon">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-
-										<span class="input-icon input-icon-right">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-input-readonly">수정정보</label>
-
-									<div class="controls">
-										<span class="input-icon">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-
-										<span class="input-icon input-icon-right">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-									</div>
-								</div>
- -->
 
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit">
+									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
 										수정
 									</button>
@@ -162,109 +129,36 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input name="contents_id" value="${data.CONTENTS_ID }">
+				<input name="board_id" value="${data.BOARD_ID }">
 			</form>
-			
-<!-- series modify modal -->			
-<div id="modify-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">시리즈 변경</h3>
-		</div>
-		<div class="modal-body">
-			<div id="modify-series-list" class="control-group">
-				<label class="control-label">시리즈 리스트</label>
-				<div class="controls">
-					<select id="modify-series-select">
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-series-modal-btn" type="button" class="btn btn-primary">변경</button>
-		</div>
-</div>		
-
-<!--  brand modify modal -->			
-<div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 변경</h3>
-		</div>
-		<div class="modal-body">
-			<div id="modify-brand-list" class="control-group">
-				<label class="control-label">브랜드 리스트</label>
-				<div class="controls">
-					<select id="modify-brand-select">
-					</select>
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
-		</div>
-</div>		
 			
 
 <script type="text/javascript">
+$("#side-board-master").attr("class", "active");
+$("#side-board-board").attr("class", "open active");
 	$(function(){
+		
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do";
+			window.location.href="manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){
 			console.log("delete_btn");
-			$("#delete-form").submit();
+			if(confirm("삭제 하시겠습니까?")){
+				$("#delete-form").submit();
+			}else{
+				return false;				
+			}
 		});
 		
-		$("#modify-series-modal-btn").click(function(){
-			$("#modify-parent-category-select")
-				$("#contents_series_nm").val($("#modify-series-select option:selected").text());
-				$("#contents_series_id").val($("#modify-series-select option:selected").val());
-				$("#modify-series-modal").modal('toggle');
+		$("#submit-btn").click(function(){
+			console.log("delete_btn");
+			if(confirm("저장 하시겠습니까?")){
+				$("#modify-form").submit();
+			}else{
+				return false;				
+			}
 		});
-		$("#modify-brand-modal-btn").click(function(){
-			$("#modify-parent-category-select")
-				$("#brand_nm").val($("#modify-brand-select option:selected").text());
-				$("#brand_id").val($("#modify-brand-select option:selected").val());
-				$("#modify-brand-modal").modal('toggle');
-		});
-		
-		$("#series-mod-btn").click(function(){
-			$.ajax({
-				url: "seriesList.ajax",
-				type: 'GET',
-				dataType: 'json',
-				success : function(response) {
-						$.each(response.data, function(index, data){
-							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
-						}); 
-					$("#modify-series-modal").modal('toggle');
-				},
-				error: function(xhr, status, error) {
-					console.log("error="+error);
-				}
-			}); // seriesList ajax end
-		}); // <!-- series-mod-btn event end
-		
-		$("#brand-mod-btn").click(function(){
-			$.ajax({
-				url: "../brand/list.ajax",
-				type: 'GET',
-				dataType: 'json',
-				success : function(response) {
-						$.each(response.data, function(index, data){
-							$("#modify-brand-select").append("<option value=\""+data.BRAND_ID+"\">"+data.BRAND_NM+"</option>")
-						}); 
-						$("#modify-brand-modal").modal('toggle');
-				},
-				error: function(xhr, status, error) {
-					console.log("error="+error);
-				}
-			}); // ajax end
-		}); // <!-- brand-mod-btn event end
 		
 	}); // <!-- function() end 
 	

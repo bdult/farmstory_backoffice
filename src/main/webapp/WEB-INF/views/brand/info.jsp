@@ -7,7 +7,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home home-icon"></i>
-							<a href="#">Home</a>
+							<a href="${contextPath }/">Home</a>
 			
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
@@ -29,10 +29,10 @@
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							컨텐츠 상세
+							브랜드 상세
 							<small>
 								<i class="icon-double-angle-right"></i>
-								컨텐츠에 대한 상세한 정보를 입력한다
+								브랜드에 대한 상세한 정보
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -208,6 +208,9 @@
 			
 
 <script type="text/javascript">
+	$("#side-contents-brand").attr("class", "active");
+	$("#side-contents").attr("class", "open active");
+
 	$(function(){
 		$("#cancel-btn").click(function(){
 			window.location.href="manage.do";

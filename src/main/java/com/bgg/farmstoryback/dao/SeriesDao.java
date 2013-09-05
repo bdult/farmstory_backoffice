@@ -43,16 +43,20 @@ public class SeriesDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("seriesQuery.searchIdByName", parameter);
 	}
 
-	public List<Map> searchByName(String seriesName) {
-		return (List<Map>)getSqlSession().selectList("seriesQuery.searchByName", seriesName);
+	public List searchByName(String seriesName) {
+		return getSqlSession().selectList("seriesQuery.searchByName", seriesName);
 	}
 
-	public List<Map> listOfTop() {
-		return (List<Map>)getSqlSession().selectList("seriesQuery.listOfTop");
+	public List listOfTop() {
+		return getSqlSession().selectList("seriesQuery.listOfTop");
 	}
 
-	public List<Map> listOfChild(int parentSeriesId) {
-		return (List<Map>)getSqlSession().selectList("seriesQuery.listOfChild", parentSeriesId);
+	public List listOfChild(int parentSeriesId) {
+		return getSqlSession().selectList("seriesQuery.listOfChild", parentSeriesId);
+	}
+
+	public List top5() {
+		return getSqlSession().selectList("seriesQuery.top5");
 	}
 	
 }

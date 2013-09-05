@@ -92,6 +92,10 @@ public class CategoryDao extends SqlSessionDaoSupport {
 		return (String)getSqlSession().selectOne("categoryQuery.cateLevelByParentCateId", cateInfo);
 	}
 
+	public List top5() {
+		return getSqlSession().selectList("categoryQuery.top5");
+	}
+
 
 
 }

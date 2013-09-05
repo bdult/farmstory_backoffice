@@ -96,6 +96,10 @@
 </div>
 
 <script>
+
+$("#side-contents-brand").attr("class", "active");
+$("#side-contents").attr("class", "open active");
+
 $(function(){
 	$("#create-brand-btn").click(function(){
 			console.log("create-brand-btn click");

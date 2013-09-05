@@ -24,6 +24,18 @@
 		AND USE_YN = 'Y'		
 	</select>
 	
+	<select id="top5" resultType="hashmap">
+		SELECT 
+			BOARD_ID
+			, BOARD_NM
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		ORDER BY BOARD_ID DESC
+		LIMIT 0,5		
+	</select>
+	
 	<select id="searchByName" resultType="hashmap">
 		SELECT * FROM BG_BOARD_MASTER
 		WHERE 1=1

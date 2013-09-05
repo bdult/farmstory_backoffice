@@ -72,6 +72,10 @@ public class BrandService {
 
 	public int totalCount() {
 		return brandDao.totalCount();
+	}
+
+	public List top5() {
+		return brandDao.top5();
 	}	
 	
 }
