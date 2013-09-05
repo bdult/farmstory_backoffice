@@ -36,6 +36,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (Map<String, String>)getSqlSession().selectOne("userQuery.getUserOne", userListMap);
 	}
 	
+	public Map<String, Object> getChildOne(Map<String, Object> childListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getChildOne", childListMap);
+	}
+	
 	/**
 	 * 리스트 전체보기
 	 * @return

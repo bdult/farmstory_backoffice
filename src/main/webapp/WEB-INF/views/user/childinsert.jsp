@@ -125,39 +125,50 @@
 							<form id="create-form" method="get" action="${ contextPath }/user/update.do" class="form-horizontal" >
 								
 								<div class="control-group">
-									<label class="control-label">유저 ID</label>
+									<label class="control-label">자녀 ID</label>
 
 									<div class="controls">
-										<input type="text" name="id" value="${userListOne.MEMBER_ID}" />
+										<input type="text" name="parent_member_id" value="">
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label class="control-label">유저 이름</label>
+									<label class="control-label">자녀 이름</label>
 
 									<div class="controls">
-										<input type="text" name="name" value="${userListOne.MEMBER_NM}" />
+										<input type="text" name="child_nm" value="" />
 									</div>
 								</div>
 
 
 								<div class="control-group">
-									<label class="control-label">유저 비밀번호</label>
+									<label class="control-label">자녀 사진</label>
 
 									<div class="controls">
-										<input type="text" name="pwd" value="${userListOne.MEMBER_PW}" />
+										<input class="span1" type="text" id="form-field-5" placeholder="file name" />
+										<input class="span11" type="text" placeholder="file path" />
+										<div class="help-block" id="input-span-slider"></div>
 									</div>
 								</div>
 
 								
 								<div class="control-group">
-									<label class="control-label">유저 권한</label>
+									<label class="control-label">자녀 성별</label>
 
 									<div class="controls">
-										<input type="text" name="role" value="${userListOne.MEMBER_ROLE}" />
+										<input type="text" name="gender" value="" />
 									</div>
 								</div>
 								
+								<div class="control-group">
+									<label class="control-label">자녀 생년월일</label>
+
+									<div class="controls">
+										<input class="span2" type="text" name="birth_year" value="" /> 년
+										<input class="span2" type="text" name="birth_year" value="" /> 월
+										<input class="span2" type="text" name="birth_year" value="" /> 일
+									</div>
+								</div>
 
 								<div class="form-actions">
 									<button class="btn btn-info">
@@ -177,61 +188,6 @@
 							</form>
 					
 				</c:if>
-				<c:if test="${ type == 'childEdit' }">
-			<table class="table table-striped table-bordered table-hover">
-				<thead>
-					<tr>
-						<th class="center">
-							<label>
-								<input type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</th>
-						<th>유저 ID</th>
-						<th>유저 이름</th>
-						<th>유저 비밀번호</th>
-						<th>유저 권한</th>
-						<th>자녀 수</th>
-						<th></th>
-					</tr>
-				</thead>
-				
-				<tbody>
-				<c:choose>
-					<c:when test="">
-						<c:forEach var="userlist" items="${positionList}"
-							varStatus="status">
-							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-							
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>1</td>
-								<td>?</td>
-								<td class="td-actions">
-									<div class="hidden-phone visible-desktop action-buttons">
-	
-										<a class="green" href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
-										<a class="red" href="${ contextPath }/user/delete.do?id=${userlist.MEMBER_ID}">
-											<i id="delete_icon" class="icon-trash bigger-130"></i>
-										</a>
-									</div>
-								</td>
-							</tr>
-						</c:forEach>
-					</c:when>
-				</c:choose>
-				</tbody>
-			</table>
-			</c:if>
 		</div>
 	</div>
 

@@ -24,6 +24,13 @@
         WHERE MEMBER_ID = #{ id }
     </select>
 
+    <select id="getChildOne" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        	*
+        FROM BG_CHILDREN
+        WHERE IDX = #{ idx }
+    </select>
+    
 	<select id="userList" resultType="hashmap" >
 		SELECT
 		MEMBER_ID,

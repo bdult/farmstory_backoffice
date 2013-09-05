@@ -55,6 +55,12 @@ public class UserService {
 		return userDao.getUserOne(paramMap);
 	}
 	
+	public Map<String, Object> getChildOne(Map<String, Object> paramMap) {
+		return userDao.getChildOne(paramMap);
+	}
+	
+	
+	
 	public List<HashMap<String, Object>> userSearch(Map<String, Object> paramMap) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -88,6 +94,20 @@ public class UserService {
 		return userDao.insertUser(map);
 	}
 	
+	public int insertChild(Map<String, Object> paramMap){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("parent_member_id", paramMap.get("parent_member_id"));
+		map.put("child_nm", paramMap.get("child_nm"));
+		map.put("photo", paramMap.get("photo"));
+		map.put("gender", paramMap.get("gender"));
+		map.put("birth_year", paramMap.get("birth_year"));
+		map.put("birth_month", paramMap.get("birth_month"));
+		map.put("birth_day", paramMap.get("birth_day"));
+		
+		return userDao.insertChild(map);
+	}
+	
 	/**
 	 * 유저리스트 수정
 	 * <pre>
@@ -109,6 +129,21 @@ public class UserService {
 		map.put("role", (String)paramMap.get("role"));
 		
 		return userDao.updateUser(map);
+	}
+	
+	public int updateChild(Map<String, Object> paramMap){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("idx", paramMap.get("idx"));
+		map.put("parent_member_id", paramMap.get("parent_member_id"));
+		map.put("child_nm", paramMap.get("child_nm"));
+		map.put("photo", paramMap.get("photo"));
+		map.put("gender", paramMap.get("gender"));
+		map.put("birth_year", paramMap.get("birth_year"));
+		map.put("birth_month", paramMap.get("birth_month"));
+		map.put("birth_day", paramMap.get("birth_day"));
+		
+		return userDao.updateChild(map);
 	}
 	
 	/**

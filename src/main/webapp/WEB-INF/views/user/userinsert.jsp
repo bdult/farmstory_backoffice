@@ -166,6 +166,145 @@
 					
 				</c:if>
 				
+				
+					<c:if test="${ type == 'childCreate' }">
+							<form id="create-form" method="post" action="${ contextPath }/user/childCreate.do" class="form-horizontal" >
+								
+								<div class="control-group">
+									<label class="control-label">부모 ID</label>
+
+									<div class="controls">
+										<input type="text" name="parent_member_id" value="">
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label">자녀 이름</label>
+
+									<div class="controls">
+										<input type="text" name="child_nm" value="" />
+									</div>
+								</div>
+
+
+								<div class="control-group">
+									<label class="control-label">자녀 사진</label>
+
+									<div class="controls">
+										<input class="span1" type="text" id="form-field-5" placeholder="file name" />
+										<input class="span11" type="text" placeholder="file path" />
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+
+								
+								<div class="control-group">
+									<label class="control-label">자녀 성별</label>
+
+									<div class="controls">
+										<input type="text" name="gender" value="" />
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label">자녀 생년월일</label>
+
+									<div class="controls">
+										<input class="span2" type="text" name="birth_year" value="" /> 년
+										<input class="span2" type="text" name="birth_month" value="" /> 월
+										<input class="span2" type="text" name="birth_day" value="" /> 일
+									</div>
+								</div>
+
+								<div class="form-actions">
+									<button class="btn btn-info">
+										<i class="icon-ok bigger-110"></i>
+										등록
+									</button>
+
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn" type="reset">
+										<i class="icon-undo bigger-110"></i>
+										취소
+									</button>
+								</div>
+
+								<div class="hr"></div>
+
+								
+							</form>
+				</c:if>
+				
+				<c:if test="${ type == 'childEdit' }">
+							<form id="create-form" method="get" action="${ contextPath }/user/childUpdate.do" class="form-horizontal" >
+								<input type="hidden" name="id" value="${ userListOne.MEMBER_ID }">
+								<input type="hidden" name="idx" value="${ childListOne.IDX }">
+								
+								<div class="control-group">
+									<label class="control-label">부모 ID</label>
+
+									<div class="controls">
+										<input type="text" name="parent_member_id" value="${ childListOne.PARENT_MEMBER_ID }">
+									</div>
+								</div>
+
+								<div class="control-group">
+									<label class="control-label">자녀 이름</label>
+
+									<div class="controls">
+										<input type="text" name="child_nm" value="${ childListOne.CHILD_NM }" />
+									</div>
+								</div>
+
+
+								<div class="control-group">
+									<label class="control-label">자녀 사진</label>
+
+									<div class="controls">
+										<input class="span1" type="text" id="form-field-5" placeholder="file name" />
+										<input class="span11" type="text" name="photo" placeholder="file path" />
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+
+								
+								<div class="control-group">
+									<label class="control-label">자녀 성별</label>
+
+									<div class="controls">
+										<input type="text" name="gender" value="${ childListOne.GENDER }" />
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label">자녀 생년월일</label>
+
+									<div class="controls">
+										<input class="span2" type="text" name="birth_year" value="${ childListOne.BIRTH_YEAR }" /> 년
+										<input class="span2" type="text" name="birth_month" value="${ childListOne.BIRTH_MONTH }" /> 월
+										<input class="span2" type="text" name="birth_day" value="${ childListOne.BIRTH_DAY }" /> 일
+									</div>
+								</div>
+
+								<div class="form-actions">
+									<button class="btn btn-info">
+										<i class="icon-ok bigger-110"></i>
+										등록
+									</button>
+
+									&nbsp; &nbsp; &nbsp;
+									<button class="btn" type="reset">
+										<i class="icon-undo bigger-110"></i>
+										취소
+									</button>
+								</div>
+
+								<div class="hr"></div>
+
+							</form>
+					
+				</c:if>
+				
 				<c:if test="${ type == 'edit' }">
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
@@ -203,10 +342,10 @@
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
 	
-										<a class="green" href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">
+										<a class="green" href="${ contextPath }/user/childModify.do?idx=${ childList.IDX }&id=${ userListOne.MEMBER_ID }">
 											<i id="modify_icon" class="icon-pencil bigger-130"></i>
 										</a>
-										<a class="red" href="${ contextPath }/user/childDelete.do?idx=${ childList.IDX }">
+										<a class="red" href="${ contextPath }/user/childDelete.do?idx=${ childList.IDX }&id=${ userListOne.MEMBER_ID }">
 											<i id="delete_icon" class="icon-trash bigger-130"></i>
 										</a>
 									</div>
