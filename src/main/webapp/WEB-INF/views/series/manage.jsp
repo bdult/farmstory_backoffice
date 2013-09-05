@@ -70,7 +70,6 @@
 											<div id="series-info" >
 												<form action="modify.do" class="form-horizontal" method="post">
 														<input type="hidden" id="series-id" name="series_id">
-														<input type="hidden" id="origin-series-id" name="origin_series_id" >		
 														<div class="control-group">
 															<label class="control-label">시리즈 명</label>
 															<div class="controls">
@@ -114,7 +113,7 @@
 			
 <!-- delete form -->
 <form id="delete-series-form" action="${contextPath }/series/delete.do"method="post">
-	<input id="delete-cate-id" type="hidden" name="cate_id">
+	<input id="delete-series-id" type="hidden" name="series_id">
 </form>
 
 <!--  create modal -->			
@@ -128,13 +127,13 @@
 			<div class="control-group">
 				<label class="control-label">시리즈 명</label>
 				<div class="controls">
-					<input id="create-modal-series-name" name="cate_nm" type="text">															
+					<input id="create-modal-series-name" name="series_nm" type="text">															
 				</div>
 			</div>
 			<div  class="control-group">
 				<label class="control-label">상위 시리즈 명</label>
 				<div class="controls">
-					<input  id="modal-parent-series-name" name="parent_cate_nm" type="text">					
+					<input  id="modal-parent-series-name" name="parent_series_nm" type="text">					
 					<button id="parent-cate-search" type="button" class="btn btn-primary">검색</button>
 				</div>
 			</div>
@@ -220,12 +219,12 @@
 					
 					
 					$("#delete-series-btn").click(function(){
-						$("#delete-cate-id").val($("#series-id").val());
+						$("#delete-series-id").val($("#series-id").val());
 						$("#delete-series-form").submit();
 					}); // delete-series end
 					
 					$("#modify-parent-series-search-btn").click(function(){
-						$("#parent-series-list").empty();
+						$("#modify-parent-series-select").empty();
 						param = {
 							search_name : $("#modify-parent-series-name").val()
 						};
@@ -306,14 +305,13 @@
 		
 				$('#series-tree').on('opened', function (evt, data) {
 					console.log(data);
-					cleanSelected();
-					cateInfoSet(data);
+					seriesInfoSet(data);
 					
 				});
 		
 				$('#series-tree').on('closed', function (evt, data) {
 					cleanSelected();
-					cateInfoSet(data);
+					seriesInfoSet(data);
 					
 				});
 		

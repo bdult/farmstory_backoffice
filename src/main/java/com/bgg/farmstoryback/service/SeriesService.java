@@ -51,7 +51,7 @@ public class SeriesService {
 		}
 	}
 
-	public void modify(Map<String, String> parameter) {
+	public void modify(Map parameter) {
 		seriesDao.modify(parameter);
 	}
 
@@ -61,5 +61,13 @@ public class SeriesService {
 
 	public List<Map> searchByName(String searchName) {
 		return seriesDao.searchByName(searchName);
+	}
+
+	public List<Map> listOfTop() {
+		return seriesDao.listOfTop();
+	}
+
+	public List<Map> listOfChild(int parentSeriesId) {
+		return seriesDao.listOfChild(parentSeriesId);
 	}
 }

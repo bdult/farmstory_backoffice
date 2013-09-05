@@ -338,7 +338,6 @@
 		
 				$('#cate-tree').on('opened', function (evt, data) {
 					console.log(data);
-					cleanSelected();
 					cateInfoSet(data);
 					
 				});
@@ -357,8 +356,8 @@
 						if($(this).text() === categoryInfo.name ){
 							console.log("selected cate-name:"+$(this).text());
 						}else{
-							$(this).parent().attr("class", "tree-item")
-							$(this).parent().children(".icon-ok").attr("class", "icon-remove")
+							$(this).parent().attr("class", "tree-item");
+							$(this).parent().children(".icon-ok").attr("class", "icon-remove");
 						}
 					});
 					cateInfoSet(categoryInfo);

@@ -86,6 +86,7 @@ public class CategoryController {
 			cateList = categoryService.listOfChild(id);
 		}
 		String cateJsonList = jsonMaker.generateCateListForTree(cateList);
+		logger.info("{}", cateJsonList);
 		return cateJsonList;
 	}
 	@RequestMapping(value = "category/parentCateList.ajax",  produces = "application/json;charset=UTF-8")
