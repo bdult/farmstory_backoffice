@@ -97,7 +97,7 @@
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button class="btn" type="reset">
+									<button class="btn" type="reset" onclick="history.back(-1)">
 										<i class="icon-undo bigger-110"></i>
 										취소
 									</button>
@@ -154,7 +154,7 @@
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button class="btn" type="reset">
+									<button class="btn" type="reset" onclick="history.back(-1)">
 										<i class="icon-undo bigger-110"></i>
 										취소
 									</button>
@@ -203,7 +203,10 @@
 									<label class="control-label">자녀 성별</label>
 
 									<div class="controls">
-										<input type="text" name="gender" value="" />
+										<select class="span2" name="gender">
+											<option value="남">남</option>
+											<option value="여">여</option>
+										</select>
 									</div>
 								</div>
 								
@@ -211,9 +214,14 @@
 									<label class="control-label">자녀 생년월일</label>
 
 									<div class="controls">
-										<input class="span2" type="text" name="birth_year" value="" /> 년
-										<input class="span2" type="text" name="birth_month" value="" /> 월
-										<input class="span2" type="text" name="birth_day" value="" /> 일
+										<select class="span2" id="yearBox" name="birth_year">
+										</select>년&nbsp;
+										
+										<select class="span2" id="monthBox" name="birth_month">
+										</select>월&nbsp;
+										
+										<select class="span2" id="dayBox" name="birth_day">
+										</select>일&nbsp;
 									</div>
 								</div>
 
@@ -224,7 +232,7 @@
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button class="btn" type="reset">
+									<button class="btn" type="reset" onclick="history.back(-1)">
 										<i class="icon-undo bigger-110"></i>
 										취소
 									</button>
@@ -273,7 +281,10 @@
 									<label class="control-label">자녀 성별</label>
 
 									<div class="controls">
-										<input type="text" name="gender" value="${ childListOne.GENDER }" />
+										<select class="span2" name="gender">
+											<option value="남">남</option>
+											<option value="여">여</option>
+										</select>
 									</div>
 								</div>
 								
@@ -281,9 +292,14 @@
 									<label class="control-label">자녀 생년월일</label>
 
 									<div class="controls">
-										<input class="span2" type="text" name="birth_year" value="${ childListOne.BIRTH_YEAR }" /> 년
-										<input class="span2" type="text" name="birth_month" value="${ childListOne.BIRTH_MONTH }" /> 월
-										<input class="span2" type="text" name="birth_day" value="${ childListOne.BIRTH_DAY }" /> 일
+										<select class="span2" id="yearBox" name="birth_year">
+										</select>년&nbsp;
+										
+										<select class="span2" id="monthBox" name="birth_month">
+										</select>월&nbsp;
+										
+										<select class="span2" id="dayBox" name="birth_day">
+										</select>일&nbsp;
 									</div>
 								</div>
 
@@ -294,7 +310,7 @@
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button class="btn" type="reset">
+									<button class="btn" type="reset" onclick="history.back(-1)">
 										<i class="icon-undo bigger-110"></i>
 										취소
 									</button>
@@ -352,3 +368,21 @@
 
 </div>
 <!--/.main-content-->
+
+
+<script>
+$(document).ready(function(){
+	for(var i=1995; i <= 2014; i++){
+		$("#yearBox").append("<option value=" + i +">" + i + "</option>");
+		$("#yearBox").val(${childListOne.BIRTH_YEAR});
+	}
+	for(var i=1; i <= 12; i++){
+		$("#monthBox").append("<option value=" + i +">" + i + "</option>");
+		$("#monthBox").val(${childListOne.BIRTH_MONTH});
+	}
+	for(var i=1; i <= 31; i++){
+		$("#dayBox").append("<option value=" + i +">" + i + "</option>");
+		$("#dayBox").val(${childListOne.BIRTH_DAY});
+	}
+});
+</script>
