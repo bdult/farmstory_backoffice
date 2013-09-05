@@ -41,7 +41,14 @@ public class SeriesController {
 	@RequestMapping(value = "series/create.do", method = RequestMethod.POST)
 	public String create(Model model, @RequestParam Map<String,Object> parameter) {
 		seriesService.create(parameter);
-		return manage(model);
+		return "redirect:manage.do";
+	}
+	
+	@RequestMapping(value = "series/modify.do", method = RequestMethod.POST)
+	public String modify(Model model, @RequestParam Map<String,Object> parameter) {
+		logger.info("{}", parameter);
+		seriesService.modify(parameter);
+		return "redirect:manage.do";
 	}
 	
 	@RequestMapping(value = "series/detail.do")
@@ -53,7 +60,7 @@ public class SeriesController {
 	@RequestMapping(value = "series/delete.do")
 	public String delete(Model model, @RequestParam Map<String,Object> parameter) {
 		seriesService.delete(parameter);
-		return manage(model);
+		return "redirect:manage.do";
 	}
 	
 	@RequestMapping(value = "series/create.ajax", method = RequestMethod.POST)
@@ -63,11 +70,23 @@ public class SeriesController {
 	}
 	
 	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody String listAjax(Model model, @RequestParam Map<String,Object> parameter) {
-		
-		List<Map> brandList = seriesService.list();
-		String brandListJson = jsonMaker.generateMapList("data", brandList);
-		logger.info("response={}", brandListJson);
-		return brandListJson;
+	public @ResponseBody String listAjax(Model model, int id) {
+		logger.info("{}",id);
+		List<Map> seriesList = null;
+		if(id == 0){
+			seriesList = seriesService.listOfTop();
+		}else{
+			seriesList = seriesService.listOfChild(id);
+		}
+		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
+		logger.info(seriesListJson);
+		return seriesListJson;
+	}
+	
+	@RequestMapping(value = "series/parentSeriesList.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String parentSeriesListAjax(Model model, String search_name) {
+		List<Map> seriesList = seriesService.searchByName(search_name);
+		String seriesListJson = jsonMaker.generateMapList("data", seriesList);
+		return seriesListJson;
 	}
 }

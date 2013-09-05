@@ -39,7 +39,7 @@ public class SeriesService {
 	}
 
 	public int seriesIdByName(Map parameter) {
-		return seriesDao.seriesByName(parameter);
+		return seriesDao.searchIdByName(parameter);
 	}
 
 	public boolean hasSeries(Map parameter) {
@@ -51,11 +51,23 @@ public class SeriesService {
 		}
 	}
 
-	public void modify(Map<String, String> parameter) {
+	public void modify(Map parameter) {
 		seriesDao.modify(parameter);
 	}
 
 	public void delete(Map<String, Object> parameter) {
 		seriesDao.delete(parameter);
+	}
+
+	public List<Map> searchByName(String searchName) {
+		return seriesDao.searchByName(searchName);
+	}
+
+	public List<Map> listOfTop() {
+		return seriesDao.listOfTop();
+	}
+
+	public List<Map> listOfChild(int parentSeriesId) {
+		return seriesDao.listOfChild(parentSeriesId);
 	}
 }

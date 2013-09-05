@@ -324,7 +324,6 @@
 				
 				$('#cate-tree').ace_tree({
 					dataSource: new DataSourceTree({url: 'list.ajax'}),
-					multiSelect:true,
 					loadingHTML:'<div class="tree-loading"><i class="icon-refresh icon-spin blue"></i></div>',
 					'open-icon' : 'icon-minus',
 					'close-icon' : 'icon-plus',
@@ -339,13 +338,12 @@
 		
 				$('#cate-tree').on('opened', function (evt, data) {
 					console.log(data);
-					cleanSelected();
 					cateInfoSet(data);
 					
 				});
 		
 				$('#cate-tree').on('closed', function (evt, data) {
-					cleanSelected();
+					//cleanSelected();
 					cateInfoSet(data);
 					
 				});
@@ -358,8 +356,8 @@
 						if($(this).text() === categoryInfo.name ){
 							console.log("selected cate-name:"+$(this).text());
 						}else{
-							$(this).parent().attr("class", "tree-item")
-							$(this).parent().children(".icon-ok").attr("class", "icon-remove")
+							$(this).parent().attr("class", "tree-item");
+							$(this).parent().children(".icon-ok").attr("class", "icon-remove");
 						}
 					});
 					cateInfoSet(categoryInfo);
@@ -382,5 +380,5 @@
 					$(this).parent().attr("class", "tree-item")
 					$(this).parent().children(".icon-ok").attr("class", "icon-remove")
 				});
-			}
+			} 
 		</script>		
