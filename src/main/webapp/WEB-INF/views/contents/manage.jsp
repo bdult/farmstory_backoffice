@@ -22,9 +22,9 @@
 		</ul>
 
 		<div class="nav-search" id="nav-search">
-			<form class="form-search">
+			<form class="form-search" action="search.do" method="post">
 				<span class="input-icon">
-					<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" id="search-input" autocomplete="off" />
 					<i class="icon-search nav-search-icon"></i>
 				</span>
 			</form>
@@ -67,7 +67,7 @@
 						</td>
 
 						<td>
-							<a href="${contextPath }detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
+							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
 						</td>
 						<td>${conlist.CONTENTS_NM}</td>
 						<td>${conlist.SERIES_NM}</td>											
