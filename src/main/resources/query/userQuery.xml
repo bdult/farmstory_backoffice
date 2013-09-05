@@ -33,11 +33,14 @@
     
 	<select id="userList" resultType="hashmap" >
 		SELECT
-		MEMBER_ID,
-		MEMBER_NM,
-		MEMBER_PW,
-		MEMBER_ROLE
-		FROM BG_MEMBER
+		MB.MEMBER_ID,
+		MB.MEMBER_NM,
+		MB.MEMBER_PW,
+		MB.MEMBER_ROLE,
+		CD.CHILD_NM,
+		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
+		FROM BG_MEMBER MB left JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		GROUP BY CD.PARENT_MEMBER_ID
 	</select>
 	
 	<select id="childList" resultType="hashmap">

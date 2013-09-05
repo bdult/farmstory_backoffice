@@ -84,7 +84,7 @@
 								<td>${userlist.MEMBER_NM}</td>
 								<td>${userlist.MEMBER_PW}</td>
 								<td>${userlist.MEMBER_ROLE}</td>
-								<td>?</td>
+								<td>${userlist.CHILD_COUNT}</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
 	
@@ -113,9 +113,9 @@
 								<td>${searchlist.MEMBER_NM}</td>
 								<td>${searchlist.MEMBER_PW}</td>
 								<td>${searchlist.MEMBER_ROLE}</td>
+								<td>${userlist.CHILD_COUNT}</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
-	치
 										<a class="green" href="${ contextPath }/user/modify.do?id=${searchlist.MEMBER_ID}">
 											<i id="modify_icon" class="icon-pencil bigger-130"></i>
 										</a>
@@ -139,6 +139,7 @@
 				<option value="">아이디</option>
 				<option value="">이름</option>
 				<option value="">ROLE</option>
+				<option value="">자녀명</option>
 			</select>
 			<input type="text" id="serchText" name="id" value="">
 			<button class="btn btn-info">조건 검색</button>
@@ -173,17 +174,22 @@ $("#selectBox").change(function(){
 	case ('아이디'):
 		$("#serchText").attr({
 			name: "id"
-		})
+		});
 		break;
 	case ('이름'):
 		$("#serchText").attr({
 			name: "name"
-		})
+		});
 		break;
 	case ('ROLE'):
 		$("#serchText").attr({
 			name: "role"
-		})
+		});
+		break;
+	case ('자녀명'):
+		$("#serchText").attr({
+			name: "child_nm"
+		});
 		break;
 	}
 });
