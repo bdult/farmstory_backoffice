@@ -19,9 +19,6 @@ public class ContentsService {
 	@Autowired
 	private ContentsDao conDao;
 	
-	@Autowired
-	private SeriesService seriesService;
-	
 	/**
 	 * 컨텐츠 리스트
 	 * @return
@@ -58,11 +55,11 @@ public class ContentsService {
 		conDao.modify(parameter);
 	}
 
-	public List<Map> seriesList() {
-		return seriesService.list();
-	}
-
 	public void delete(Map<String, Object> parameter) {
 		conDao.delete((String)parameter.get("contents_id"));
+	}
+
+	public List<Map> searchByName(String search) {
+		return conDao.searchByName(search);
 	}
 }

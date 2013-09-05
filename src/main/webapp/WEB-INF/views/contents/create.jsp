@@ -24,14 +24,6 @@
 						<li class="active">컨텐츠 상세</li>
 					</ul><!--.breadcrumb-->
 
-					<div class="nav-search" id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-								<i class="icon-search nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!--#nav-search-->
 				</div>
 
 				<div class="page-content">
@@ -49,7 +41,7 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form id="create-form" method="post" action="${contextPath }/contents/createdb.do" class="form-horizontal" >
+							<form id="create-form" method="post" action="${contextPath }/contents/create.do" class="form-horizontal" >
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
@@ -155,6 +147,33 @@
 		</div>
 </div>		
 
+<div id="search-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">시리즈 등록</h3>
+		</div>
+		<div class="modal-body ">
+			<div  class="control-group">
+				<label class="control-label">시리즈 명</label>
+				<div class="controls">
+					<input  id="search-series-name" name="series_nm" type="text">					
+					<button id="search-series-btn" type="button" class="btn btn-primary">검색</button>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">시리즈 리스트</label>
+				<div class="controls">
+					<select id="series-select">
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">등록취소</button>
+			<button type="button" id="submit-series" class="btn btn-primary">등록하기</button>
+		</div>
+</div>
+
 <!--  brand modify modal -->			
 <div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
@@ -193,21 +212,43 @@
 		});
 		
 		$("#series-mod-btn").click(function(){
+			$("#series-select").empty();
+			$("#search-series-modal").modal('toggle');
+		});
+		
+		$("#search-series-btn").click(function(){
+			$("#series-select").empty();
+			$("#search-series-name").val("");
+			param = {
+					series_nm: $("#search-series-name").val()
+			};
 			$.ajax({
-				url: "seriesList.ajax",
-				type: 'GET',
+				url: "${contextPath}/series/search.ajax",
+				type: 'POST',
+				data:param,
 				dataType: 'json',
 				success : function(response) {
 						$.each(response.data, function(index, data){
-							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
+							displaySeriesName="";
+							if(data.SERIES_LEVEL === 1){
+								displaySeriesName = data.CONTENTS_SERIES_NM+"("+data.SERIES_LEVEL+"레벨"+")";
+							}else{
+								displaySeriesName = data.PARENT_NM+" >> "+data.CONTENTS_SERIES_NM+"("+data.SERIES_LEVEL+"-depth "+")";
+							}
+							$("#series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+displaySeriesName+"</option>")
 						}); 
-					$("#modify-series-modal").modal('toggle');
 				},
 				error: function(xhr, status, error) {
 					console.log("error="+error);
 				}
 			}); // seriesList ajax end
 		}); // <!-- series-mod-btn event end
+		
+		$("#submit-series").click(function(){
+			$("#contents_series_nm").val($("#series-select option:selected").text());
+			$("#contents_series_id").val($("#series-select option:selected").val());
+			$("#search-series-modal").modal('toggle');
+		});
 		
 		$("#brand-mod-btn").click(function(){
 			$.ajax({

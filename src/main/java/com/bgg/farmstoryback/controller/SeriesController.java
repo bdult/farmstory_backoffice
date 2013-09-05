@@ -83,6 +83,15 @@ public class SeriesController {
 		return seriesListJson;
 	}
 	
+	@RequestMapping(value = "series/search.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String listAjax(Model model, String series_nm) {
+		List<Map> seriesList = null;
+		seriesList = seriesService.searchByName(series_nm);
+		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
+		logger.info(seriesListJson);
+		return seriesListJson;
+	}
+	
 	@RequestMapping(value = "series/parentSeriesList.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String parentSeriesListAjax(Model model, String search_name) {
 		List<Map> seriesList = seriesService.searchByName(search_name);

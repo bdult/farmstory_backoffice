@@ -49,7 +49,7 @@
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 컨텐츠 관리
-						<span class="badge badge-primary ">3</span> 
+						<span class="badge badge-primary ">4</span> 
 					</span>
 					<b class="arrow icon-angle-down"></b>
 					
@@ -75,15 +75,14 @@
 							브랜드 관리
 						</a>
 					</li>
+					<li>
+						<a href="${ contextPath }/category/manage.do">
+							<i class="icon-double-angle-right"></i>
+							카테고리 관리
+						</a>
+					</li>
 				</ul>
 			</li>
-			<li>
-				<a href="${ contextPath }/category/manage.do">
-					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 카테고리 관리 </span>
-				</a>
-			</li>
-			
 			<li>
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
