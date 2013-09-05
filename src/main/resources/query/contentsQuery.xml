@@ -13,6 +13,21 @@
 		FROM  BG_CONTENTS A
 	</select>
 	
+	<select id="totalCount" resultType="int">
+		SELECT
+			count(*)
+		FROM  BG_CONTENTS
+	</select>
+	
+	<select id="listByPageNum" resultType="hashmap">
+		SELECT
+			A.*
+			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
+			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM
+		FROM  BG_CONTENTS A
+		LIMIT #{startNo}, #{perPage}
+	</select>
+	
 	<select id="searchByName" resultType="hashmap">
 		SELECT
 			A.*

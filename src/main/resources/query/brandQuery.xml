@@ -9,6 +9,17 @@
 		WHERE DEL_YN = 'N'
 	</select>
 	
+	<select id="listByPageNum" resultType="hashmap">
+		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+		LIMIT #{startNo}, #{perPage}
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		SELECT count(*) FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+	</select>
+	
 	<select id="search" resultType="hashmap">
 		SELECT BRAND_NM, BRAND_ID, DATE_FORMAT(REG_DT,'%Y-%m-%d') AS REG_DT FROM BG_BRAND
 		WHERE DEL_YN = 'N'

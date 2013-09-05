@@ -56,7 +56,7 @@
 				</a>
 				<ul class="submenu">
 					<li>
-						<a href="${contextPath }/contents/manage.do">
+						<a href="${contextPath }/contents/manage.do?pageNum=1">
 							<i class="icon-double-angle-right"></i>
 							컨텐츠
 						</a>
@@ -70,7 +70,7 @@
 					</li>
 	
 					<li>
-						<a href="${contextPath }/brand/manage.do">
+						<a href="${contextPath }/brand/manage.do?pageNum=1">
 							<i class="icon-double-angle-right"></i>
 							브랜드
 						</a>
@@ -93,11 +93,11 @@
 				</a>
 				<ul class="submenu">
 					<li>
-						<a href="${contextPath }/board/manage.do">
+						<a href="${contextPath }/board/manage.do?pageNum=1">
 							<i class="icon-double-angle-right"></i>
 							게시판
 						</a>
-					</li>
+					</li> 
 	
 					<li>
 						<a href="${contextPath }/board/contents/manage.do">

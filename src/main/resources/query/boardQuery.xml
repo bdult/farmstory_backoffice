@@ -7,19 +7,41 @@
 		INSERT INTO BG_BOARD_MASTER( 
 			BOARD_NM,
 			REG_MEMBER_ID,
-			MOD_MEMBER_ID
+			MOD_MEMBER_ID,
+			MOD_DT
 			)
 		VALUES(
 			#{board_nm},
 			#{reg_member_id},
-			#{reg_member_id}
+			#{reg_member_id},
+			now()
 		)
 	</insert>
 	
 	<select id="list" resultType="hashmap">
 		SELECT * FROM BG_BOARD_MASTER
 		WHERE 1=1
+		AND USE_YN = 'Y'		
+	</select>
+	
+	<select id="searchByName" resultType="hashmap">
+		SELECT * FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'		
+		AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
+	</select>
+	
+	<select id="listByPageNum" resultType="hashmap">
+		SELECT * FROM BG_BOARD_MASTER
+		WHERE 1=1
 		AND USE_YN = 'Y'
+		LIMIT #{startNo}, #{perPage}	
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		SELECT count(*) FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'		
 	</select>
 	
 	<select id="detail" resultType="hashmap">

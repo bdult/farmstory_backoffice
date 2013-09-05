@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
+import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.ContentsService;
+import com.mysql.jdbc.StringUtils;
 
 
 @Controller
@@ -29,18 +31,33 @@ public class ContentsController {
 	@Autowired
 	private JsonResponseMaker jsonMaker;
 	
+	@Autowired
+	private PageUtil pageUtil;
+	
 	@RequestMapping(value = "contents/manage.do")
-	public String manage(Model model) {
-		List<Map> list = contentsService.list();
+	public String manage(Model model,  @RequestParam int pageNum) {
+		
+		if(pageNum == 0) pageNum =1;
+		List<Map> list = contentsService.listByPageNum(pageNum);
+		int totalCount = contentsService.totalCount();
+		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
+		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
 		model.addAttribute("list", list);
 		return "contents/manage";
 	}
 	
 	@RequestMapping(value = "contents/search.do")
 	public String search(Model model, String search) {
+		
+		if(StringUtils.isNullOrEmpty(search)){
+			return "redirect:manage.do?pageNum=1";
+		}
 		List<Map> list = contentsService.searchByName(search);
 		model.addAttribute("list", list);
-		return "contents/manage";
+		return "contents/search";
 	}
 	
 	@RequestMapping(value = "contents/detail.do")
@@ -70,12 +87,12 @@ public class ContentsController {
 	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
 	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
 		contentsService.create(parameter);
-		return "redirect:manage.do";
+		return "redirect:manage.do?pageNum=1";
 	}
 	
 	@RequestMapping(value = "contents/delete.do")
 	public String delete(Model model, @RequestParam Map<String,Object> parameter){
 		contentsService.delete(parameter);
-		return "redirect:manage.do";
+		return "redirect:manage.do?pageNum=1";
 	}
 }

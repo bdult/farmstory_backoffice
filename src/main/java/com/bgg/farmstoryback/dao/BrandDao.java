@@ -17,6 +17,10 @@ public class BrandDao extends SqlSessionDaoSupport {
 	public List<Map> list() {
 		return (List<Map>)getSqlSession().selectList("brandQuery.list");
 	}
+	
+	public List<Map> listByPageNum(Map pageInfo) {
+		return (List<Map>)getSqlSession().selectList("brandQuery.listByPageNum", pageInfo);
+	}
 
 	public void create(Map parameterMap) {
 		getSqlSession().insert("brandQuery.create", parameterMap);
@@ -36,5 +40,9 @@ public class BrandDao extends SqlSessionDaoSupport {
 
 	public List<Map> search(String search) {
 		return getSqlSession().selectList("brandQuery.search", search);
+	}
+
+	public int totalCount() {
+		return (Integer)getSqlSession().selectOne("brandQuery.totalCount");
 	}
 }

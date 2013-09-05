@@ -39,4 +39,12 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("contentsQuery.searchByName", search);
 	}
 
+	public List<Map> listByPageNum(Map pageInfo) {
+		return getSqlSession().selectList("contentsQuery.listByPageNum", pageInfo);
+	}
+
+	public int totalCount() {
+		return (Integer)getSqlSession().selectOne("contentsQuery.totalCount");
+	}
+
 }

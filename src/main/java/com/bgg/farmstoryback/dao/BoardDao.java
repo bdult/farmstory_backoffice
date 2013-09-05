@@ -43,4 +43,16 @@ public class BoardDao extends SqlSessionDaoSupport {
 	public void modify(Map boardInfo) {
 		getSqlSession().update("boardQuery.modify",boardInfo);
 	}
+
+	public int totalCount() {
+		return (Integer)getSqlSession().selectOne("boardQuery.totalCount");
+	}
+
+	public List listByPageNum(Map pageInfo) {
+		return getSqlSession().selectList("boardQuery.listByPageNum", pageInfo);
+	}
+
+	public List<Map> searchByName(String search) {
+		return getSqlSession().selectList("boardQuery.searchByName", search);
+	}
 }
