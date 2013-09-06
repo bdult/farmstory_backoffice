@@ -136,8 +136,9 @@ public class UserController {
 		if(type.equals("2")){
 			logger.info(typeCheck.get("MEMBER_TYPE").toString());
 			return "redirect:/user.do";
+		}else {
+			return "redirect:/adminUser.do";	
 		}
-		return "redirect:/adminUser.do";
 	}
 	
 	@RequestMapping(value = "user/childCreate.do", method = RequestMethod.POST)
@@ -211,8 +212,9 @@ public class UserController {
 		if(type.equals("2")){
 			logger.info(typeCheck.get("MEMBER_TYPE").toString());
 			return "redirect:/user.do";
+		}else {
+			return "redirect:/adminUser.do";	
 		}
-		return "redirect:/adminUser.do";
 	}
 	
 	@RequestMapping(value = "user/childUpdate.do", method = RequestMethod.POST)

@@ -29,6 +29,11 @@ public class UserService {
 		return userDao.getOneRole(paramMap);
 	}
 	
+	/**
+	 * member_type 체크 ( 1:admin, 2:user )
+	 * @param paramMap
+	 * @return
+	 */
 	public Map<String, Object> typeCheck(Map<String, Object> paramMap) {
 		
 		
@@ -43,10 +48,19 @@ public class UserService {
 		return userDao.userList();
 	}
 	
+	/**
+	 * admin 유저 리스트
+	 * @return
+	 */
 	public List<HashMap<String, Object>> adminUserList() {
 		return userDao.adminUserList();
 	}
 	
+	/**
+	 * 상세 자녀 정보
+	 * @param paramMap
+	 * @return
+	 */
 	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -64,12 +78,22 @@ public class UserService {
 		return userDao.getUserOne(paramMap);
 	}
 	
+	/**
+	 * 한개의 자녀 리스트
+	 * @param paramMap
+	 * @return
+	 */
 	public Map<String, Object> getChildOne(Map<String, Object> paramMap) {
 		return userDao.getChildOne(paramMap);
 	}
 	
 	
 	
+	/**
+	 * 유저 검색기능 (아이디, 이름, 권한, 자녀수)
+	 * @param paramMap
+	 * @return
+	 */
 	public List<HashMap<String, Object>> userSearch(Map<String, Object> paramMap) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -81,7 +105,7 @@ public class UserService {
 	}
 	
 	/**
-	 * 유저리스트 생성
+	 * 유저 생성
 	 * <pre>
 	 * Param sample
 	 * Map<String, String> map = new HashMap<String, String>();
@@ -104,6 +128,11 @@ public class UserService {
 		return userDao.insertUser(map);
 	}
 	
+	/**
+	 * 자녀 생성
+	 * @param paramMap
+	 * @return
+	 */
 	public int insertChild(Map<String, Object> paramMap){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -142,6 +171,11 @@ public class UserService {
 		return userDao.updateUser(map);
 	}
 	
+	/**
+	 * 자녀리스트 수정
+	 * @param paramMap
+	 * @return
+	 */
 	public int updateChild(Map<String, Object> paramMap){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -174,6 +208,11 @@ public class UserService {
 		return userDao.deleteUser(map);
 	}
 	
+	/**
+	 * 자녀리스트 삭제
+	 * @param paramMap
+	 * @return
+	 */
 	public int deleteChild(Map<String, Object> paramMap){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("idx", paramMap.get("idx"));
