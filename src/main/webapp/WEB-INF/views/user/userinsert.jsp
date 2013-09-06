@@ -90,6 +90,14 @@
 									</div>
 								</div>
 
+								<div class="control-group">
+									<label class="control-label">유저 타입 1:admin 2:user</label>
+
+									<div class="controls">
+										<input type="text" name="member_type" value="" />
+									</div>
+								</div>
+
 								<div class="form-actions">
 									<button class="btn btn-info">
 										<i class="icon-ok bigger-110"></i>
@@ -146,6 +154,13 @@
 									</div>
 								</div>
 								
+								<div class="control-group">
+									<label class="control-label">유저 타입 1:admin 2:user</label>
+
+									<div class="controls">
+										<input type="text" name="member_type" value="${userListOne.MEMBER_TYPE}" />
+									</div>
+								</div>
 
 								<div class="form-actions">
 									<button class="btn btn-info">
@@ -161,7 +176,7 @@
 								</div>
 
 								<div class="hr"></div>
-
+								
 							</form>
 					
 				</c:if>
@@ -203,7 +218,7 @@
 									<label class="control-label">자녀 성별</label>
 
 									<div class="controls">
-										<select class="span2" name="gender">
+										<select class="span2" id="genderBox" name="gender">
 											<option value="남">남</option>
 											<option value="여">여</option>
 										</select>
@@ -245,7 +260,7 @@
 				</c:if>
 				
 				<c:if test="${ type == 'childEdit' }">
-							<form id="create-form" method="get" action="${ contextPath }/user/childUpdate.do" class="form-horizontal" >
+							<form id="create-form" method="post" action="${ contextPath }/user/childUpdate.do" class="form-horizontal" >
 								<input type="hidden" name="id" value="${ userListOne.MEMBER_ID }">
 								<input type="hidden" name="idx" value="${ childListOne.IDX }">
 								
@@ -281,7 +296,7 @@
 									<label class="control-label">자녀 성별</label>
 
 									<div class="controls">
-										<select class="span2" name="gender">
+										<select class="span2" id="genderBox" name="gender" data-gender_value="${childListOne.GENDER}">
 											<option value="남">남</option>
 											<option value="여">여</option>
 										</select>
@@ -372,6 +387,20 @@
 
 <script>
 $(document).ready(function(){
+	
+	var $genderBox = $("#genderBox");
+	var genderData = $genderBox.data("gender_value");
+	$genderBox.find("option").each(function(){
+		
+		var $this = $(this);
+		
+		if( genderData == $this.val() ) {
+			$this.prop("selected", true);
+		}
+		
+	});
+	
+	
 	for(var i=1995; i <= 2014; i++){
 		$("#yearBox").append("<option value=" + i +">" + i + "</option>");
 		$("#yearBox").val(${childListOne.BIRTH_YEAR});
@@ -384,5 +413,6 @@ $(document).ready(function(){
 		$("#dayBox").append("<option value=" + i +">" + i + "</option>");
 		$("#dayBox").val(${childListOne.BIRTH_DAY});
 	}
+		
 });
 </script>

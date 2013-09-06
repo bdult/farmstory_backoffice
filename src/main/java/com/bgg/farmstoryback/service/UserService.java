@@ -29,6 +29,11 @@ public class UserService {
 		return userDao.getOneRole(paramMap);
 	}
 	
+	public Map<String, Object> typeCheck(Map<String, Object> paramMap) {
+		
+		
+		return userDao.typeCheck(paramMap);
+	}
 	
 	/**
 	 * 모든 유저 리스트
@@ -36,6 +41,10 @@ public class UserService {
 	 */
 	public List<HashMap<String,String>> userList() {
 		return userDao.userList();
+	}
+	
+	public List<HashMap<String, Object>> adminUserList() {
+		return userDao.adminUserList();
 	}
 	
 	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
@@ -90,6 +99,7 @@ public class UserService {
 		map.put("name", (String)paramMap.get("name"));
 		map.put("pwd", (String)paramMap.get("pwd"));
 		map.put("role", (String)paramMap.get("role"));
+		map.put("member_type", (String)paramMap.get("member_type"));
 		
 		return userDao.insertUser(map);
 	}
@@ -122,11 +132,12 @@ public class UserService {
 	 */
 	public int updateUser(Map<String, Object> paramMap){
 		
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("id", (String)paramMap.get("id"));
-		map.put("name", (String)paramMap.get("name"));
-		map.put("pwd", (String)paramMap.get("pwd"));
-		map.put("role", (String)paramMap.get("role"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", paramMap.get("id"));
+		map.put("name", paramMap.get("name"));
+		map.put("pwd", paramMap.get("pwd"));
+		map.put("role", paramMap.get("role"));
+		map.put("member_type", paramMap.get("member_type"));
 		
 		return userDao.updateUser(map);
 	}

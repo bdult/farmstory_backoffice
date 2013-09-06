@@ -27,6 +27,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (Map<String, String>)getSqlSession().selectOne("userQuery.getOneRole", oneRoleMap);
 	}
 
+	public Map<String, Object> typeCheck(Map<String, Object> userListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.typeCheck", userListMap);
+	}
+	
 	/**
 	 * 리스트 하나보기
 	 * @param userListMap
@@ -46,6 +50,10 @@ public class UserDao extends SqlSessionDaoSupport {
 	 */
 	public List<HashMap<String, String>> userList() {
 		return (List<HashMap<String, String>>)getSqlSession().selectList("userQuery.userList");
+	}
+	
+	public List<HashMap<String, Object>> adminUserList() {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.adminUserList");
 	}
 	
 	public List<HashMap<String, Object>> childList(Map<String, Object> childListMap) {
@@ -79,7 +87,7 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int updateUser(Map<String, String> userListMap){
+	public int updateUser(Map<String, Object> userListMap){
 		return getSqlSession().update("userQuery.updateUser", userListMap);
 	}
 	

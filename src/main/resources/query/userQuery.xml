@@ -31,16 +31,40 @@
         WHERE IDX = #{ idx }
     </select>
     
+    <select id="typeCheck" resultType="hashmap" parameterType="hashmap">
+    	SELECT
+    	MEMBER_TYPE
+    	FROM
+    	BG_MEMBER
+        WHERE MEMBER_ID = #{ id }
+    </select>
+    
 	<select id="userList" resultType="hashmap" >
 		SELECT
 		MB.MEMBER_ID,
 		MB.MEMBER_NM,
 		MB.MEMBER_PW,
 		MB.MEMBER_ROLE,
+		MB.MEMBER_TYPE,
 		CD.CHILD_NM,
 		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
-		FROM BG_MEMBER MB left JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
-		GROUP BY CD.PARENT_MEMBER_ID
+		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		GROUP BY MB.MEMBER_ID
+		HAVING MB.MEMBER_TYPE = 2
+	</select>
+    
+	<select id="adminUserList" resultType="hashmap" >
+		SELECT
+		MB.MEMBER_ID,
+		MB.MEMBER_NM,
+		MB.MEMBER_PW,
+		MB.MEMBER_ROLE,
+		MB.MEMBER_TYPE,
+		CD.CHILD_NM,
+		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
+		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		GROUP BY MB.MEMBER_ID
+		HAVING MB.MEMBER_TYPE = 1
 	</select>
 	
 	<select id="childList" resultType="hashmap">
@@ -75,6 +99,7 @@
 		MEMBER_NM,
 		MEMBER_PW,
 		MEMBER_ROLE,
+		MEMBER_TYPE,
 		REG_DATE,
 		UPDATE_DATE
 		)
@@ -83,6 +108,7 @@
         #{ name },
         #{ pwd },
         #{ role },
+        #{ member_type },
         NOW(),
         NOW()
 		)
@@ -118,6 +144,7 @@
 		MEMBER_NM = #{ name },
 		MEMBER_PW = #{ pwd },
 		MEMBER_ROLE = #{ role },
+		MEMBER_TYPE = #{ member_type },
 		UPDATE_DATE = NOW()
 		</set>
 		WHERE MEMBER_ID = #{ id }

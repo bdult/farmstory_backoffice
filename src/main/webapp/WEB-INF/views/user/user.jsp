@@ -24,7 +24,8 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">회원 관리</li>
+			<c:if test="${ type == 'userView' }"><li class="active">회원 관리</li></c:if>
+			<c:if test="${ type == 'adminView' }"><li class="active">admin회원 관리</li></c:if>
 		</ul>
 		<!--.breadcrumb-->
 
@@ -42,10 +43,16 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">유저정보 리스트</h3>
+			<c:if test="${ type == 'userView' }">
+				<h3 class="header smaller lighter blue">유저정보 리스트</h3></li>
+			</c:if>
+			<c:if test="${ type == 'adminView' }">
+				<h3 class="header smaller lighter blue">admin유저정보 리스트</h3></li>
+			</c:if>
 			<div class="table-header">
 				<a class="btn btn-info" href="${ contextPath }/user/createView.do">회원추가</a>
-			</div><!-- /. table-header -->
+			</div>
+			<!-- /. table-header -->
 		<!--/.page-header-->
 		
 			<table class="table table-striped table-bordered table-hover">
@@ -62,7 +69,7 @@
 				
 				<tbody>
 				<c:choose>
-					<c:when test="${ type == 'userView' }">
+					<c:when test="${ type == 'userView' || type == 'adminView' }">
 						<c:forEach var="userlist" items="${positionList}"
 							varStatus="status">
 							<tr>
@@ -112,7 +119,7 @@
 			<select name="" id="selectBox">
 				<option value="">아이디</option>
 				<option value="">이름</option>
-				<option value="">ROLE</option>
+				<option value="">권한</option>
 				<option value="">자녀명</option>
 			</select>
 			<input type="text" id="serchText" name="id" value="">
@@ -141,7 +148,7 @@
 		</div>	
 	</div>
 	<!--/.page-content-->
-
+</div>
 <script>
 $("#selectBox").change(function(){
 	switch ($("#selectBox option:selected").text()) {
