@@ -17,7 +17,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">시리즈 관리</li>
+						<li class="active">시리즈</li>
 					</ul>
 				</div><!--/ .breadcrumb-->
 				
@@ -41,7 +41,7 @@
 								<div class="widget-box span6">
 									<div class="widget-header header-color-blue2">
 										<h4 class="lighter smaller">Choose Series</h4>
-									<button id="create-series-btn" type="button" class="btn btn-info">시리즈 생성</button>
+									<button id="create-series-btn" type="button" class="btn btn-success">추가</button>
 									</div>
 
 									<div class="widget-body">

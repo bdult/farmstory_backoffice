@@ -13,12 +13,8 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>컨텐츠 관리
-				<span class="divider">
-					<i class="icon-angle-right arrow-icon"></i>
-				</span>
+			<li class="active">코드 관리
 			</li>
-			<li class="active">컨텐츠</li>
 		</ul>
 
 		<div class="nav-search" id="nav-search">
@@ -33,38 +29,35 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">컨텐츠 리스트
+			<h3 class="header smaller lighter blue">코드 리스트
 			</h3>
 			<div class="table-header" align="right">
-				<button id="create-contents-btn" class="btn btn-success">추가</button>
+				<button id="create-code-btn" class="btn btn-success">추가</button>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>컨텐츠 ID</th>
-						<th>컨텐츠명</th>
-						<th>시리즈</th>
-						<th>브랜드</th>
-						<th>저장위치</th>
-						<th>섬네일 위치</th>
+						<th>인덱스</th>
+						<th>코드</th>
+						<th>코드 설명</th>
+						<th>상위 코드</th>
+						<th><i class="icon-time bigger-110 hidden-phone"></i>생성일</th>
 					</tr>
 				</thead>
 
 				<tbody>
-				<c:forEach var="conlist" items="${list}" varStatus="status">
+				<c:forEach var="code" items="${list}" varStatus="status">
 					<tr>
 
 						<td>
-							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
+							<a href="${contextPath }/code/detail.do?code_idx=${code.IDX}">${code.IDX}</a>
 						</td>
 						<td>
-							
-							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_NM}</a>
+							<a href="${contextPath }/code/detail.do?code_idx=${code.IDX}">${code.CODE}</a>
 						</td>
-						<td>${conlist.SERIES_NM}</td>											
-						<td>${conlist.BRAND_NM}</td>
-						<td>${conlist.SRC_PATH}</td>
-						<td>${conlist.IMG_PATH}</td>
+						<td>${code.CODE_DETAIL}</td>
+						<td>${code.PARENT_CODE}</td>											
+						<td>${code.REG_DT}</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -83,10 +76,10 @@
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -120,20 +113,20 @@
 
 		<script type="text/javascript">
 		
-		$("#modify_icon").click(function(){
-			
-		});
-		$("#detail_icon").click(function(){
-			
-		});
+			$(function(){
+				$("#side-code-code").attr("class", "active");
+				
+					$("#create-code-btn").click(function(){
+						location.href="${contextPath}/code/createView.do";
+					});
+				
+				$("#modify_icon").click(function(){
+					
+				});
+				$("#detail_icon").click(function(){
+				
+				});
+			});
 		</script>
 		
-		<!-- add jquery -->
-		<script type="text/javascript">				
-		$("#side-contents-contents").attr("class", "active");
-		$("#side-contents").attr("class", "open active");
-		
-			$("#create-contents-btn").click(function(){
-				location.href="${contextPath}/contents/createView.do";
-			});
 		</script>

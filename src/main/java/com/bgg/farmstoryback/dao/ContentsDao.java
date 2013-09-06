@@ -13,8 +13,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public List<Map> list() {
-		return (List<Map>)getSqlSession().selectList("contentsQuery.list");
+	public List<Map> list(Map parameter) {
+		return (List<Map>)getSqlSession().selectList("contentsQuery.list", parameter);
 	}
 
 	public void create(Map parameter) {
@@ -34,17 +34,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		getSqlSession().update("contentsQuery.modify", itemModInfo);
 		
 	}
-
-	public List<Map> searchByName(String search) {
-		return getSqlSession().selectList("contentsQuery.searchByName", search);
-	}
-
-	public List<Map> listByPageNum(Map pageInfo) {
-		return getSqlSession().selectList("contentsQuery.listByPageNum", pageInfo);
-	}
-
-	public int totalCount() {
-		return (Integer)getSqlSession().selectOne("contentsQuery.totalCount");
+	public int totalCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("contentsQuery.totalCount", parameter);
 	}
 
 	public List top5() {

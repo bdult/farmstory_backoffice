@@ -6,19 +6,24 @@
 		<ul class="breadcrumb">
 			<li>
 				<i class="icon-home home-icon"></i>
-				<a href="#">Main</a>
+				<a href="#">Home</a>
 
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">게시판 관리</li>
+			<li>게시판 관리
+				<span class="divider">
+					<i class="icon-angle-right arrow-icon"></i>
+				</span>
+			</li>
+			<li class="active">마스터</li>
 		</ul><!--.breadcrumb-->
 
 		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="search.do" method="post">
+			<form class="form-search" action="manage.do" method="post">
 				<span class="input-icon" >
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input"  autocomplete="off" />
+					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input"  autocomplete="off" value="${search }"/>
 					<i class="icon-search nav-search-icon"></i>
 				</span>
 			</form>
@@ -29,19 +34,19 @@
 		<div class="row-fluid">
 			<div class="row-fluid">
 					<h3 class="header smaller lighter blue">게시판 리스트</h3>
-					<div class="table-header">
-						<button id="create-board-btn" class="btn btn-info">게시판 추가</button>
+					<div class="table-header" align="right">
+						<button id="create-board-btn" class="btn btn-success">추가</button>
 					</div><!-- /. table-header -->
 					<table id="board_table" class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
 								<th>게시판 ID</th>
 								<th>게시판명</th>
-								<th>생성자 ID</th>
-								<th>변경자 ID</th>
+								<th>생성자 명</th>
+								<th>변경자 명</th>
 								<th>댓글 사용여부</th>
 								<th>파일 업로드 사용여부</th>
-								<th>생성일자</th>
+								<th><i class="icon-time bigger-110 hidden-phone"></i>생성일자</th>
 							</tr>
 						</thead>
 
@@ -50,8 +55,8 @@
 							<tr>
 								<td><a href="${contextPath}/board/detail.do?board_id=${board.BOARD_ID }">${board.BOARD_ID }</a></td>
 								<td><a href="${contextPath}/board/detail.do?board_id=${board.BOARD_ID }">${board.BOARD_NM }</a></td>
-								<td>${board.REG_MEMBER_ID }</td>
-								<td>${board.MOD_MEMBER_ID }</td>
+								<td>${board.REG_MEMBER_NM }</td>
+								<td>${board.MOD_MEMBER_NM }</td>
 								<td>${board.COMMENT_USE_YN }</td>
 								<td>${board.FILEUPLOAD_USE_YN }</td>
 								<td>${board.REG_DT }</td>
@@ -74,10 +79,10 @@
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

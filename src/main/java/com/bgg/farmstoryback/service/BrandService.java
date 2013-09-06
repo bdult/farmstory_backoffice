@@ -33,15 +33,8 @@ public class BrandService {
 	private PageUtil pageUtil;
 	
 
-	public List<Map> list() {
-		return brandDao.list();
-	}
-	
-	public List<Map> listByPageNum(int pageNum) {
-		Map pageInfo = new HashMap();
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		return brandDao.listByPageNum(pageInfo);
+	public List<Map> list(Map parameter) {
+		return brandDao.list(parameter);
 	}
 	
 	/**
@@ -58,24 +51,24 @@ public class BrandService {
 		brandDao.modify(parameterMap);
 	}
 
-	public Map detail(Map<String,Object> parameter) {
-		return brandDao.detail((String)parameter.get("brand_id"));
+	public Map detail(Map parameter) {
+		return brandDao.detail(parameter);
 	}
 
 	public void delete(Map brandInfo) {
 		brandDao.delete(brandInfo);
 	}
 
-	public List<Map> search(String search) {
-		return brandDao.search(search);
-	}
-
-	public int totalCount() {
-		return brandDao.totalCount();
+	public int totalCount(Map parameter) {
+		return brandDao.totalCount(parameter);
 	}
 
 	public List top5() {
 		return brandDao.top5();
+	}
+
+	public List<Map> listAll() {
+		return brandDao.listAll();
 	}	
 	
 }

@@ -7,7 +7,7 @@
 			<a href="${ contextPath }/dashboard.do" class="brand">
 				<small>
 						<i class="icon-leaf"></i>
-						Story-Farm Backoffice
+						Oz World Backoffice
 				</small>
 			</a><!--/.brand-->
 

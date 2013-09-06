@@ -14,29 +14,22 @@
 							</span>
 						</li>
 						<li>
-							게시판 관리
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li>
-							마스터
+							코드 관리
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
 						<li class="active">상세</li>
 					</ul><!--.breadcrumb-->
-
 				</div>
 
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							게시판 상세
+							코드 상세
 							<small>
 								<i class="icon-double-angle-right"></i>
-								게시판에 대한 상세한 정보를 입력한다
+								코드에 대한 상세 정보
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -45,56 +38,40 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form id="modify-form" method="post" action="${contextPath }/board/modify.do" class="form-horizontal" >
-								<input type="hidden" name="mode" value="${mode}" />
-								
+							<form id="modify-form" method="post" action="${contextPath }/code/modify.do" class="form-horizontal" >
 								<div class="control-group">
-									<label class="control-label" for="board_id">게시판 ID</label>
+									<label class="control-label" for="code_idx">코드 IDX</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" id="board_id" name="board_id" value="${data.BOARD_ID}" />
+										<input readonly="readonly" type="text" id="code_idx" name="code_idx" value="${data.IDX}" />
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="board_nm">게시판 명</label>
+									<label class="control-label" for="code">코드</label>
 
 									<div class="controls">
-										<input type="text" id="board_nm" name="board_nm" value="${data.BOARD_NM == null? "게시판 명" : data.BOARD_NM}" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="reg_member_id">생성자 ID</label>
-
-									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.REG_MEMBER_ID== null? "" : data.REG_MEMBER_ID}" />
+										<input type="text" id="code" name="code" value="${data.CODE == null? "코드" : data.CODE}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="mod_member_id">변경자 ID</label>
+									<label class="control-label" for="code_detail">코드 설명</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.MOD_MEMBER_ID== null? "" : data.MOD_MEMBER_ID}" />
+										<input type="text" id="code_detail" name="code_detail" value="${data.CODE_DETAIL== null? "" : data.CODE_DETAIL}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="src_path">댓글 사용여부</label>
+									<label class="control-label" for="PARENT_CODE">상위 코드</label>
 
 									<div class="controls">
-										<input type="text" value="${data.COMMENT_USE_YN== null? "" : data.COMMENT_USE_YN}" />
+										<input type="text" id="PARENT_CODE" name="PARENT_CODE" value="${data.PARENT_CODE== null? "" : data.PARENT_CODE}" />
 									</div>
 								</div>
 								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">파일 업로드 사용여부</label>
-
-									<div class="controls">
-										<input type="text" value="${data.FILEUPLOAD_USE_YN== null? "" : data.FILEUPLOAD_USE_YN}" />
-									</div>
-								</div>
+								
 
 								<div class="form-actions">
 									<button id="submit-btn" class="btn btn-primary" type="button">
@@ -113,6 +90,7 @@
 										삭제
 									</button>
 								</div>
+
 							</form>
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
@@ -120,36 +98,35 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input name="board_id" value="${data.BOARD_ID }">
+				<input type="hidden" name="code_idx" value="${data.IDX }">
 			</form>
 			
 
 <script type="text/javascript">
-$("#side-board-master").attr("class", "active");
-$("#side-board-board").attr("class", "open active");
+
+	$("#side-code-code").attr("class", "active");
+
 	$(function(){
-		
 		$("#cancel-btn").click(function(){
 			window.location.href="manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){
-			console.log("delete_btn");
-			if(confirm("삭제 하시겠습니까?")){
+			if(confirm("하위 코드도 삭제 됩니다. 삭제 하시겠습니까?")){
 				$("#delete-form").submit();
 			}else{
-				return false;				
+				return false;
 			}
 		});
 		
 		$("#submit-btn").click(function(){
-			console.log("delete_btn");
 			if(confirm("저장 하시겠습니까?")){
 				$("#modify-form").submit();
 			}else{
-				return false;				
+				return false;
 			}
 		});
+		
 		
 	}); // <!-- function() end 
 	

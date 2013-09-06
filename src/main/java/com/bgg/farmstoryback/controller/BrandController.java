@@ -6,6 +6,7 @@ import java.util.Map;
 
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,34 +37,31 @@ public class BrandController {
 	private PageUtil pageUtil;
 	
 	@RequestMapping(value = "brand/manage.do")
-	public String manage(Model model, @RequestParam int pageNum) {
+	public String manage(Model model, @RequestParam Map parameter) {
 
-		if(pageNum == 0) pageNum =1;
-		
-		List<Map> brandList = brandService.listByPageNum(pageNum);
-		int totalCount = brandService.totalCount();
+		int pageNum=0;
+		if(parameter.get("pageNum") == null){
+			pageNum=1;
+		}else{
+			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
+		}
+		int totalCount = brandService.totalCount(parameter);
 		
 		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
+		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
+		pageInfo.put("perPage", pageUtil.PER_PAGE);
+		pageInfo.put("search", parameter.get("search"));
 		
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
+		model.addAttribute("search", parameter.get("search"));
+		
+		List<Map> brandList = brandService.list(pageInfo);
+		
 		model.addAttribute("brandList", brandList);
 		
 		return "brand/manage";
-	}
-	
-	@RequestMapping(value = "brand/search.do")
-	public String search(Model model, String search) {
-		
-		if(StringUtils.isNullOrEmpty(search)){
-			return "redirect:manage.do?pageNum=1";
-		}
-		
-		List<Map> brandList = brandService.search(search);
-		model.addAttribute("brandList", brandList);
-		model.addAttribute("search", search);
-		return "brand/search";
 	}
 	
 	@RequestMapping(value = "brand/create.do", method = RequestMethod.POST)
@@ -74,8 +72,15 @@ public class BrandController {
 	
 	@RequestMapping(value = "brand/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
-		brandService.detail(parameter);
+		Map detailInfo = brandService.detail(parameter);
+		model.addAttribute("data", detailInfo);
 		return "brand/info";
+	}
+	
+	@RequestMapping(value = "brand/modify.do")
+	public String modify(Model model, @RequestParam Map<String,Object> parameter) {
+		brandService.modify(parameter);
+		return "redirect:detail.do?brand_id="+parameter.get("brand_id");
 	}
 	
 	@RequestMapping(value = "brand/delete.do")
@@ -93,7 +98,7 @@ public class BrandController {
 	@RequestMapping(value = "brand/list.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String listAjax(Model model, @RequestParam Map<String,Object> parameter) {
 		
-		List<Map> brandList = brandService.list();
+		List<Map> brandList = brandService.listAll();
 		String brandListJson = jsonMaker.generateMapList("data", brandList);
 		logger.info("response={}", brandListJson);
 		return brandListJson;

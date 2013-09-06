@@ -37,17 +37,10 @@ public class BoardService {
 		boardDao.deleteByName(boardName);
 	}
 
-	public List<Map> list(int pageNum) {
-		return boardDao.list();
+	public List<Map> list(Map pageInfo) {
+		return boardDao.list(pageInfo);
 	}
 	
-	public List listByPageNum(int pageNum) {
-		Map pageInfo = new HashMap();
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		return boardDao.listByPageNum(pageInfo);
-	}
-
 	public Map boardInfoByName(String boardName) {
 		return boardDao.boardInfoByName(boardName);
 	}
@@ -60,12 +53,8 @@ public class BoardService {
 		boardDao.modify(boardInfo);
 	}
 
-	public int totalCount() {
-		return boardDao.totalCount();
-	}
-
-	public List<Map> searchByName(String search) {
-		return boardDao.searchByName(search);
+	public int totalCount(Map parameter) {
+		return boardDao.totalCount(parameter);
 	}
 
 	public List top5() {

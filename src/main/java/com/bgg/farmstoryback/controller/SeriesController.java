@@ -70,14 +70,10 @@ public class SeriesController {
 	}
 	
 	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody String listAjax(Model model, int id) {
-		logger.info("{}",id);
+	public @ResponseBody String listAjax(Model model) {
 		List<Map> seriesList = null;
-		if(id == 0){
 			seriesList = seriesService.listOfTop();
-		}else{
-			seriesList = seriesService.listOfChild(id);
-		}
+//			seriesList = seriesService.listOfChild(id);
 		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
 		logger.info(seriesListJson);
 		return seriesListJson;

@@ -42,7 +42,7 @@
 				</a>
 				<ul class="submenu">
 					<li id="side-contents-contents">
-						<a href="${contextPath }/contents/manage.do?pageNum=1">
+						<a href="${contextPath }/contents/manage.do">
 							<i class="icon-double-angle-right"></i>
 							컨텐츠
 						</a>
@@ -56,7 +56,7 @@
 					</li>
 	
 					<li id="side-contents-brand">
-						<a href="${contextPath }/brand/manage.do?pageNum=1">
+						<a href="${contextPath }/brand/manage.do">
 							<i class="icon-double-angle-right"></i>
 							브랜드
 						</a>
@@ -79,19 +79,26 @@
 				</a>
 				<ul class="submenu">
 					<li id="side-board-master" >
-						<a href="${contextPath }/board/manage.do?pageNum=1">
+						<a href="${contextPath }/board/manage.do">
 							<i class="icon-double-angle-right"></i>
 							마스터
 						</a>
 					</li> 
-	
+	<!-- 추후
 					<li id="side-board-board" >
 						<a href="${contextPath }/board/contents/manage.do">
 							<i class="icon-double-angle-right"></i>
 							게시판 조회
 						</a>
 					</li>
+	 -->
 				</ul>
+			</li>
+			<li id="side-code-code">
+				<a href="${contextPath }/code/manage.do">
+					<i class="icon-file-alt"></i>
+					코드 관리
+				</a>
 			</li>
 		</ul><!--/.nav-list-->
 	

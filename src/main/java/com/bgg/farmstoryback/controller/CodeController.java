@@ -17,17 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
+import com.bgg.farmstoryback.service.CodeService;
 import com.bgg.farmstoryback.service.ContentsService;
 import com.mysql.jdbc.StringUtils;
 
 
 @Controller
-public class ContentsController {
+public class CodeController {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private ContentsService contentsService;
+	private CodeService codeService;
 	
 	@Autowired
 	private JsonResponseMaker jsonMaker;
@@ -35,8 +36,10 @@ public class ContentsController {
 	@Autowired
 	private PageUtil pageUtil;
 	
-	@RequestMapping(value = "contents/manage.do")
+	@RequestMapping(value = "code/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
+		
+		logger.info("{}", parameter);
 		
 		int pageNum=0;
 		if(parameter.get("pageNum") == null){
@@ -44,57 +47,57 @@ public class ContentsController {
 		}else{
 			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
 		}
-		int totalCount = contentsService.totalCount(parameter);
+		int totalCount = codeService.totalCount(parameter);
 		
 		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
 		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
 		pageInfo.put("perPage", pageUtil.PER_PAGE);
 		pageInfo.put("search", parameter.get("search"));
+		
+		List<Map> list = codeService.list(pageInfo);
+		
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
 		model.addAttribute("search", parameter.get("search"));
-		
-		List<Map> list = contentsService.list(pageInfo);
-		
 		model.addAttribute("list", list);
-		return "contents/manage";
+		return "code/manage";
 	}
 	
-	
-	@RequestMapping(value = "contents/detail.do")
+	@RequestMapping(value = "code/detail.do")
 	public String detail(Model model, @RequestParam Map<String,String> parameter) {
-		logger.info("detail = {}", parameter);
-		Map contentsDetail =  contentsService.detail(parameter.get("contents_id"));
-		
-		model.addAttribute("data", contentsDetail);
-		
-		return "contents/info";
+		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
+		model.addAttribute("data", codeDetail);
+		return "code/info";
 	}
 	
-	@RequestMapping(value = "contents/modify.do")
+	@RequestMapping(value = "code/delete.do")
+	public String delete(Model model, @RequestParam Map<String,Object> parameter){
+		codeService.delete(parameter);
+		return "redirect:manage.do";
+	}
+	
+	@RequestMapping(value = "code/modify.do")
 	public String modify(Model model, @RequestParam Map<String,String> parameter) {
 		logger.info("modify = {}", parameter);
-		contentsService.modify(parameter);
-		Map contentsDetail =  contentsService.detail(parameter.get("contents_id"));
-		model.addAttribute("data", contentsDetail);
-		return "contents/info";
+		codeService.modify(parameter);
+		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
+		model.addAttribute("data", codeDetail);
+		return "code/info";
 	}
-	
-	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
-	public String createView(Model model) {
-		return "contents/create";
-	}
-	
-	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
-	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
-		contentsService.create(parameter);
-		return "redirect:manage.do?pageNum=1";
-	}
-	
-	@RequestMapping(value = "contents/delete.do")
-	public String delete(Model model, @RequestParam Map<String,Object> parameter){
-		contentsService.delete(parameter);
-		return "redirect:manage.do?pageNum=1";
-	}
+//	
+//	
+//	
+//	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
+//	public String createView(Model model) {
+//		return "contents/create";
+//	}
+//	
+//	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
+//	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
+//		contentsService.create(parameter);
+//		return "redirect:manage.do?pageNum=1";
+//	}
+//	
+
 }

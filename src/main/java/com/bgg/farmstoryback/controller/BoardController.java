@@ -31,20 +31,29 @@ public class BoardController {
 	@Autowired
 	private PageUtil pageUtil;
 	
-	@RequestMapping(value = "board/manage.do", method = RequestMethod.GET)
-	public String manage(Model model,  @RequestParam int pageNum) {
+	@RequestMapping(value = "board/manage.do")
+	public String manage(Model model,  @RequestParam Map parameter) {
 		
-		if(pageNum ==0) pageNum=1;
-
-		List boardList = boardService.listByPageNum(pageNum);
-		int totalCount = boardService.totalCount();
+		int pageNum=0;
+		if(parameter.get("pageNum") == null){
+			pageNum=1;
+		}else{
+			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
+		}
+		int totalCount = boardService.totalCount(parameter);
+		
 		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
+		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
+		pageInfo.put("perPage", pageUtil.PER_PAGE);
+		pageInfo.put("search", parameter.get("search"));
 		
-		logger.info("{}", boardList);
-		model.addAttribute("boardList", boardList);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
+		model.addAttribute("search", parameter.get("search"));
+		
+		model.addAttribute("boardList", boardService.list(pageInfo));
+		
 		return "board/manage";
 	}
 	
@@ -61,17 +70,6 @@ public class BoardController {
 		parameter.put("reg_member_id", userInfo.get("MEMBER_ID"));
 		boardService.create(parameter);
 		return "redirect:manage.do?pageNum=1";
-	}
-	
-	@RequestMapping(value = "board/search.do", method = RequestMethod.POST)
-	public String search(Model model, @RequestParam String search) {
-		if(StringUtils.isNullOrEmpty(search)){
-			return "redirect:manage.do?pageNum=1";
-		}
-		List<Map> list = boardService.searchByName(search);
-		model.addAttribute("boardList", list);
-		model.addAttribute("search", search);
-		return "board/search";
 	}
 	
 	@RequestMapping(value = "board/detail.do")

@@ -28,8 +28,8 @@ public class ContentsService {
 	 * 컨텐츠 리스트
 	 * @return
 	 */
-	public List<Map> list() {
-		return conDao.list();
+	public List<Map> list(Map parameter) {
+		return conDao.list(parameter);
 	}
 	
 	/**
@@ -52,19 +52,8 @@ public class ContentsService {
 		conDao.delete((String)parameter.get("contents_id"));
 	}
 
-	public List<Map> searchByName(String search) {
-		return conDao.searchByName(search);
-	}
-
-	public List<Map> listByPageNum(int pageNum) {
-		Map pageInfo = new HashMap();
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		return conDao.listByPageNum(pageInfo);
-	}
-
-	public int totalCount() {
-		return conDao.totalCount();
+	public int totalCount(Map parameter) {
+		return conDao.totalCount(parameter);
 	}
 
 	public List top5() {
