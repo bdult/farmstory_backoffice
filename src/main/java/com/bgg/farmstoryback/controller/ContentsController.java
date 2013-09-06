@@ -64,26 +64,25 @@ public class ContentsController {
 	
 	@RequestMapping(value = "contents/detail.do")
 	public String detail(Model model, @RequestParam Map<String,String> parameter) {
-		logger.info("detail = {}", parameter);
 		Map contentsDetail =  contentsService.detail(parameter.get("contents_id"));
-		
 		model.addAttribute("data", contentsDetail);
-		
 		return "contents/info";
 	}
 	
 	@RequestMapping(value = "contents/modify.do")
 	public String modify(Model model, @RequestParam Map<String,String> parameter) {
-		logger.info("modify = {}", parameter);
-		contentsService.modify(parameter);
-		Map contentsDetail =  contentsService.detail(parameter.get("contents_id"));
-		model.addAttribute("data", contentsDetail);
-		return "contents/info";
+		if(parameter.get("contents_id") == null || parameter.get("contents_id").equals("")){
+			contentsService.create(parameter);
+			return "redirect:manage.do";
+		}else{
+			contentsService.modify(parameter);
+			return "redirect:detail.do?contents_id="+parameter.get("contents_id");
+		}
 	}
 	
 	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
 	public String createView(Model model) {
-		return "contents/create";
+		return "contents/info";
 	}
 	
 	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)

@@ -57,21 +57,6 @@ public class BoardController {
 		return "board/manage";
 	}
 	
-	@RequestMapping(value = "board/createView.do")
-	public String createView(Model model, @RequestParam Map<String,Object> parameter, HttpSession session) {
-		Map userInfo = (Map)session.getAttribute("login_session");
-		logger.info("{}",userInfo);
-		return "board/create";
-	}
-	
-	@RequestMapping(value = "board/create.do")
-	public String create(Model model, @RequestParam Map<String,Object> parameter, HttpSession session) {
-		Map userInfo = (Map)session.getAttribute("login_session");
-		parameter.put("reg_member_id", userInfo.get("MEMBER_ID"));
-		boardService.create(parameter);
-		return "redirect:manage.do?pageNum=1";
-	}
-	
 	@RequestMapping(value = "board/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
 		Map boardDetail = boardService.detail(parameter);
@@ -79,11 +64,24 @@ public class BoardController {
 		return "board/info";
 	}
 	
+	@RequestMapping(value = "board/createView.do")
+	public String createView(Model model, HttpSession session) {
+		logger.info("{}", session.getAttribute("login_session"));
+		return "board/info";
+	}
+	
 	
 	@RequestMapping(value = "board/modify.do", method = RequestMethod.POST)
-	public String modify(@RequestParam Map<String,Object> parameter) {
-		boardService.modify(parameter);
-		return "redirect:detail.do?board_id="+parameter.get("board_id");
+	public String modify(@RequestParam Map<String,Object> parameter, HttpSession session) {
+		Map sessionInfo = (Map)session.getAttribute("login_session");
+		if(parameter.get("board_id") == null || parameter.get("board_id").equals("")){
+			parameter.put("reg_member_id", sessionInfo.get("MEMBER_ID"));
+			boardService.create(parameter);
+			return "redirect:manage.do";
+		}else{
+			boardService.modify(parameter);
+			return "redirect:detail.do?board_id="+parameter.get("board_id");
+		}
 	}
 	
 	@RequestMapping(value = "board/delete.do", method = RequestMethod.POST)

@@ -57,11 +57,13 @@
 	<insert id="create"  keyProperty="brand_id">
 		INSERT BG_BRAND(
 			BRAND_NM,
-			IMG_PATH
+			IMG_PATH,
+			BRAND_DESC
    		)
    		VALUES(
    			#{brand_nm},
-   			#{img_path}
+   			#{img_path},
+   			#{brand_desc}
    		)
 	</insert>
 	

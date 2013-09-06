@@ -8,11 +8,13 @@
 		INTO BG_BOARD_MASTER( 
 			BOARD_NM,
 			REG_MEMBER_ID,
+			BOARD_DESC,
 			MOD_DT
 			)
 		VALUES(
 			#{board_nm},
 			#{reg_member_id},
+			#{board_desc},
 			now()
 		)
 	</insert>
@@ -124,6 +126,7 @@
 			BG_BOARD_MASTER 
 		SET 
 			BOARD_NM = #{board_nm}
+			, BOARD_DESC = #{board_desc}
 		WHERE 1=1
 		AND BOARD_ID = #{board_id}
 	</update>

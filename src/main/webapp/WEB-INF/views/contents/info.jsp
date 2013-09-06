@@ -59,7 +59,7 @@
 									<label class="control-label" for="contents_nm">컨텐츠 명</label>
 
 									<div class="controls">
-										<input type="text" id="contents_nm" name="contents_nm" value="${data.CONTENTS_NM == null? "컨텐츠 명" : data.CONTENTS_NM}" />
+										<input type="text" id="contents_nm" name="contents_nm" placeholder="컨텐츠 명" value="${data.CONTENTS_NM}" />
 									</div>
 								</div>
 								
@@ -67,8 +67,8 @@
 									<label class="control-label" for="contents_series_id">시리즈 명</label>
 
 									<div class="controls">
-										<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID }" />
-										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM== null? "" : data.SERIES_NM}" />
+										<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID == null? 0 : data.CONTENTS_SERIES_ID}" />
+										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM}" />
 										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
 									</div>
 								</div>
@@ -77,8 +77,8 @@
 									<label class="control-label" for="brand_id">브랜드 명</label>
 
 									<div class="controls">
-										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID}" />
-										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM== null? "" : data.BRAND_NM}" />
+										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID == null? 0 : data.BRAND_ID}" />
+										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM}" />
 										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 변경" />
 									</div>
 								</div>
@@ -105,15 +105,21 @@
 									<label class="control-label" for="form-field-2">컨텐츠 설명</label>
 
 									<div class="controls">
-										<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc">${data.CONTENTS_DESC }
-										</textarea>
+										<c:choose>
+											<c:when test="${data.CONTENTS_DESC != null}">
+												<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc">${data.CONTENTS_DESC }</textarea>
+											</c:when>
+											<c:otherwise>
+												<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 								
 								<div class="form-actions">
 									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
-										수정
+										저장
 									</button>
 
 									&nbsp; &nbsp; &nbsp;

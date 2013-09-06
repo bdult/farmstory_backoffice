@@ -68,6 +68,7 @@
 			CONTENTS_SERIES_ID,
 			BRAND_ID,
 			SRC_PATH,
+			CONTENTS_DESC,
 			MOD_DT   		
    		)
    		VALUES(
@@ -75,6 +76,7 @@
    			#{contents_series_id},
    			#{brand_id},
    			#{src_path},
+   			#{contents_desc},
    			now()
    		)
    </insert>
@@ -91,6 +93,7 @@
    			, BRAND_ID = #{brand_id}
    			</if>
    			, STATUS = #{status}
+   			, CONTENTS_DESC = #{contents_desc}
    			, MOD_DT = now()
    			
    		WHERE 1=1

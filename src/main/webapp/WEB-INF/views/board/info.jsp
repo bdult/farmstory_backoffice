@@ -60,31 +60,35 @@
 									<label class="control-label" for="board_nm">게시판 명</label>
 
 									<div class="controls">
-										<input type="text" id="board_nm" name="board_nm" value="${data.BOARD_NM == null? "게시판 명" : data.BOARD_NM}" />
+										<input type="text" id="board_nm" name="board_nm" placeholder="게시판 명" value="${data.BOARD_NM}" />
 									</div>
 								</div>
 								
+								<c:if test="${data.REG_MEMBER_ID != null}">
 								<div class="control-group">
 									<label class="control-label" for="reg_member_id">생성자 ID</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.REG_MEMBER_ID== null? "" : data.REG_MEMBER_ID}" />
+										<input readonly="readonly" type="text" value="${data.REG_MEMBER_ID}" />
 									</div>
 								</div>
+								</c:if>
 								
+								<c:if test="${data.MOD_MEMBER_ID != null}">
 								<div class="control-group">
 									<label class="control-label" for="mod_member_id">변경자 ID</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.MOD_MEMBER_ID== null? "" : data.MOD_MEMBER_ID}" />
+										<input readonly="readonly" type="text" value="${data.MOD_MEMBER_ID}" />
 									</div>
 								</div>
+								</c:if>
 								
 								<div class="control-group">
 									<label class="control-label" for="src_path">댓글 사용여부</label>
 
 									<div class="controls">
-										<input type="text" value="${data.COMMENT_USE_YN== null? "" : data.COMMENT_USE_YN}" />
+										<input type="text" value="${data.COMMENT_USE_YN== null? "Y" : data.COMMENT_USE_YN}" />
 									</div>
 								</div>
 								
@@ -92,14 +96,29 @@
 									<label class="control-label" for="form-field-2">파일 업로드 사용여부</label>
 
 									<div class="controls">
-										<input type="text" value="${data.FILEUPLOAD_USE_YN== null? "" : data.FILEUPLOAD_USE_YN}" />
+										<input type="text" value="${data.FILEUPLOAD_USE_YN== null? "Y" : data.FILEUPLOAD_USE_YN}" />
 									</div>
 								</div>
+								
+								<div class="control-group">
+									<label class="control-label" for="form-field-2">브랜드 설명</label>
+									<div class="controls">
+										<c:choose>
+											<c:when test="${data.BOARD_DESC != null}">
+												<textarea rows="20" class="autosize-transition span12" id="board_desc" name="board_desc">${data.BOARD_DESC }</textarea>
+											</c:when>
+											<c:otherwise>
+												<textarea rows="20" class="autosize-transition span12" id="board_desc" name="board_desc" ></textarea>
+											</c:otherwise>
+										</c:choose>
+									</div>
+								</div>
+								
 
 								<div class="form-actions">
 									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
-										수정
+										저장
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
@@ -120,7 +139,7 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input name="board_id" value="${data.BOARD_ID }">
+				<input type="hidden" name="board_id" value="${data.BOARD_ID }">
 			</form>
 			
 

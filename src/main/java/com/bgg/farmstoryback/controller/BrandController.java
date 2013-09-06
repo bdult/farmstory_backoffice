@@ -70,6 +70,11 @@ public class BrandController {
 		return "redirect:manage.do?pageNum=1";
 	}
 	
+	@RequestMapping(value = "brand/createView.do")
+	public String createView(Model model) {
+		return "brand/info";
+	}
+	
 	@RequestMapping(value = "brand/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
 		Map detailInfo = brandService.detail(parameter);
@@ -79,8 +84,13 @@ public class BrandController {
 	
 	@RequestMapping(value = "brand/modify.do")
 	public String modify(Model model, @RequestParam Map<String,Object> parameter) {
-		brandService.modify(parameter);
-		return "redirect:detail.do?brand_id="+parameter.get("brand_id");
+		if(parameter.get("brand_id") == null || parameter.get("brand_id").equals("")){
+			brandService.create(parameter);
+			return "redirect:manage.do";
+		}else{
+			brandService.modify(parameter);
+			return "redirect:detail.do?brand_id="+parameter.get("brand_id");
+		}
 	}
 	
 	@RequestMapping(value = "brand/delete.do")
