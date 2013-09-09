@@ -23,8 +23,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param oneRoleMap
 	 * @return
 	 */
-	public Map<String, String> getOneRole(Map<String, Object> oneRoleMap){
-		return (Map<String, String>)getSqlSession().selectOne("userQuery.getOneRole", oneRoleMap);
+	public Map<String, Object> getOneRole(Map<String, Object> oneRoleMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getOneRole", oneRoleMap);
 	}
 
 	/**
@@ -41,8 +41,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public Map<String, String> getUserOne(Map<String, Object> userListMap){
-		return (Map<String, String>)getSqlSession().selectOne("userQuery.getUserOne", userListMap);
+	public Map<String, Object> getUserOne(Map<String, Object> userListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getUserOne", userListMap);
 	}
 	
 	/**
@@ -58,8 +58,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * 유저리스트 보기
 	 * @return
 	 */
-	public List<HashMap<String, String>> userList() {
-		return (List<HashMap<String, String>>)getSqlSession().selectList("userQuery.userList");
+	public List<HashMap<String, Object>> userList() {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userList");
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int insertUser(Map<String, String> userListMap){
+	public int insertUser(Map<String, Object> userListMap){
 		return getSqlSession().insert("userQuery.insertUser",userListMap);
 	}
 	
@@ -129,7 +129,7 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int deleteUser(Map<String, String> userListMap){
+	public int deleteUser(Map<String, Object> userListMap){
 		return getSqlSession().delete("userQuery.deleteUser", userListMap);
 	}
 	

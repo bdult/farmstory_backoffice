@@ -25,7 +25,7 @@ public class UserService {
 	}
 	
 
-	public Map<String, String> getOneRole(Map<String, Object> paramMap) {
+	public Map<String, Object> getOneRole(Map<String, Object> paramMap) {
 		return userDao.getOneRole(paramMap);
 	}
 	
@@ -44,7 +44,7 @@ public class UserService {
 	 * 모든 유저 리스트
 	 * @return
 	 */
-	public List<HashMap<String,String>> userList() {
+	public List<HashMap<String,Object>> userList() {
 		return userDao.userList();
 	}
 	
@@ -74,7 +74,7 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public Map<String, String> getUserOne(Map<String, Object> paramMap) {
+	public Map<String, Object> getUserOne(Map<String, Object> paramMap) {
 		return userDao.getUserOne(paramMap);
 	}
 	
@@ -118,7 +118,7 @@ public class UserService {
 	 */
 	public int insertUser(Map<String, Object> paramMap){
 		
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", (String)paramMap.get("id"));
 		map.put("name", (String)paramMap.get("name"));
 		map.put("pwd", (String)paramMap.get("pwd"));
@@ -202,7 +202,7 @@ public class UserService {
 	 * @return
 	 */
 	public int deleteUser(Map<String, Object> paramMap){
-		Map<String, String> map = new HashMap<String, String>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", (String)paramMap.get("id"));
 		
 		return userDao.deleteUser(map);

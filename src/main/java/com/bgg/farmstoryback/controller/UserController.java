@@ -47,7 +47,7 @@ public class UserController {
 		if(StringUtils.isNullOrEmpty((String)paramMap.get("id"))){
 			return "pure-user/login";
 		}else{
-			HashMap<String, String> sessionMap = (HashMap<String, String>)userService.getOneRole(paramMap);
+			HashMap<String, Object> sessionMap = (HashMap<String, Object>)userService.getOneRole(paramMap);
 			if(sessionMap !=null){
 				session.setAttribute("login_session", sessionMap);
 				return "redirect:/dashboard.do";
