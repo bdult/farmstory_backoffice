@@ -31,6 +31,14 @@
 					<span class="menu-text"> 회원관리 </span>
 				</a>
 			</li>
+			
+			<li>
+				<a href="${ contextPath }/adminUser.do">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> admin회원관리 </span>
+				</a>
+			</li>
+			
 			<li id="side-contents">
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
