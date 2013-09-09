@@ -24,7 +24,8 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">회원 관리</li>
+			<c:if test="${ type == 'userView' }"><li class="active">회원 관리</li></c:if>
+			<c:if test="${ type == 'adminView' }"><li class="active">admin회원 관리</li></c:if>
 		</ul>
 		<!--.breadcrumb-->
 
@@ -42,22 +43,21 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">유저정보 리스트</h3>
+			<c:if test="${ type == 'userView' }">
+				<h3 class="header smaller lighter blue">유저정보 리스트</h3></li>
+			</c:if>
+			<c:if test="${ type == 'adminView' }">
+				<h3 class="header smaller lighter blue">admin유저정보 리스트</h3></li>
+			</c:if>
 			<div class="table-header">
 				<a class="btn btn-info" href="${ contextPath }/user/createView.do">회원추가</a>
-				<a class="btn btn-info" href="${ contextPath }/user/">자녀추가</a>
-			</div><!-- /. table-header -->
+			</div>
+			<!-- /. table-header -->
 		<!--/.page-header-->
 		
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th class="center">
-							<label>
-								<input type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</th>
 						<th>유저 ID</th>
 						<th>유저 이름</th>
 						<th>유저 비밀번호</th>
@@ -69,28 +69,18 @@
 				
 				<tbody>
 				<c:choose>
-					<c:when test="${ type == 'userView' }">
+					<c:when test="${ type == 'userView' || type == 'adminView' }">
 						<c:forEach var="userlist" items="${positionList}"
 							varStatus="status">
 							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-							
-								<td>${userlist.MEMBER_ID}</td>
+								<td><a href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
 								<td>${userlist.MEMBER_NM}</td>
 								<td>${userlist.MEMBER_PW}</td>
 								<td>${userlist.MEMBER_ROLE}</td>
-								<td>?</td>
+								<td>${userlist.CHILD_COUNT}</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
 	
-										<a class="green" href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
 										<a class="red" href="${ contextPath }/user/delete.do?id=${userlist.MEMBER_ID}">
 											<i id="delete_icon" class="icon-trash bigger-130"></i>
 										</a>
@@ -102,23 +92,14 @@
 					<c:when test="${ type == 'search' }">
 						<c:forEach var="searchlist" items="${searchList}">
 							<tr>
-								<td class="center">
-									<label>
-										<input type="checkbox" />
-										<span class="lbl"></span>
-									</label>
-								</td>
-							
-								<td>${searchlist.MEMBER_ID}</td>
+								<td><a href="${ contextPath }/user/modify.do?id=${searchlist.MEMBER_ID}">${searchlist.MEMBER_ID}</a></td>
 								<td>${searchlist.MEMBER_NM}</td>
 								<td>${searchlist.MEMBER_PW}</td>
 								<td>${searchlist.MEMBER_ROLE}</td>
+								<td>${userlist.CHILD_COUNT}</td>
 								<td class="td-actions">
 									<div class="hidden-phone visible-desktop action-buttons">
-	
-										<a class="green" href="${ contextPath }/user/modify.do?id=${searchlist.MEMBER_ID}">
-											<i id="modify_icon" class="icon-pencil bigger-130"></i>
-										</a>
+									
 										<a class="red" href="${ contextPath }/user/delete.do?id=${searchlist.MEMBER_ID}">
 											<i id="delete_icon" class="icon-trash bigger-130"></i>
 										</a>
@@ -138,7 +119,8 @@
 			<select name="" id="selectBox">
 				<option value="">아이디</option>
 				<option value="">이름</option>
-				<option value="">ROLE</option>
+				<option value="">권한</option>
+				<option value="">자녀명</option>
 			</select>
 			<input type="text" id="serchText" name="id" value="">
 			<button class="btn btn-info">조건 검색</button>
@@ -166,24 +148,29 @@
 		</div>	
 	</div>
 	<!--/.page-content-->
-
+</div>
 <script>
 $("#selectBox").change(function(){
 	switch ($("#selectBox option:selected").text()) {
 	case ('아이디'):
 		$("#serchText").attr({
 			name: "id"
-		})
+		});
 		break;
 	case ('이름'):
 		$("#serchText").attr({
 			name: "name"
-		})
+		});
 		break;
-	case ('ROLE'):
+	case ('권한'):
 		$("#serchText").attr({
 			name: "role"
-		})
+		});
+		break;
+	case ('자녀명'):
+		$("#serchText").attr({
+			name: "child_nm"
+		});
 		break;
 	}
 });

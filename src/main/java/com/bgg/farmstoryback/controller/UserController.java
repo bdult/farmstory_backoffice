@@ -47,7 +47,7 @@ public class UserController {
 		if(StringUtils.isNullOrEmpty((String)paramMap.get("id"))){
 			return "pure-user/login";
 		}else{
-			HashMap<String, String> sessionMap = (HashMap<String, String>)userService.getOneRole(paramMap);
+			HashMap<String, Object> sessionMap = (HashMap<String, Object>)userService.getOneRole(paramMap);
 			if(sessionMap !=null){
 				session.setAttribute("login_session", sessionMap);
 				return "redirect:/dashboard.do";
@@ -69,10 +69,21 @@ public class UserController {
 	public ModelAndView user(Model model) {
 		
 		ModelAndView mav = new ModelAndView();
-		logger.info("into user.do");
 		
 		mav.addObject("positionList", userService.userList());
 		mav.addObject("type", "userView");
+		
+		mav.setViewName("user/user");
+		return mav;
+	}
+	
+	@RequestMapping(value = "adminUser.do", method = RequestMethod.GET)
+	public ModelAndView adminUser(Model model) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("positionList", userService.adminUserList());
+		mav.addObject("type", "adminView");
 		
 		mav.setViewName("user/user");
 		return mav;
@@ -82,7 +93,6 @@ public class UserController {
 	public ModelAndView userSearch(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
-		logger.info("into userSearch.do");
 		
 		mav.addObject("searchList", userService.userSearch(paramMap));
 		mav.addObject("type", "search");
@@ -101,17 +111,45 @@ public class UserController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "user/childCreateView.do", method = RequestMethod.GET)
+	public ModelAndView childCreateView(@RequestParam Map<String,Object> paramMap) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("userListOne",userService.getUserOne(paramMap));
+		mav.addObject("type", "childCreate");
+		mav.setViewName("user/userinsert");
+		return mav;
+	}
+	
 	@RequestMapping(value = "user/create.do", method = RequestMethod.POST)
 	public String create(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("insertUserList", userService.insertUser(paramMap));
 
-		mav.addObject("positionList", userService.userList());
-		mav.setViewName("user/user");
+
+		Map<String, Object> typeCheck = userService.typeCheck(paramMap);
+		String type = typeCheck.get("MEMBER_TYPE").toString();
 		
-		return "redirect:/user.do";
+		if(type.equals("2")){
+			logger.info(typeCheck.get("MEMBER_TYPE").toString());
+			return "redirect:/user.do";
+		}else {
+			return "redirect:/adminUser.do";	
+		}
+	}
+	
+	@RequestMapping(value = "user/childCreate.do", method = RequestMethod.POST)
+	public String childCreate(@RequestParam Map<String,Object> paramMap) {
+		
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("insertUserList", userService.insertChild(paramMap));
+
+
+		return "redirect:/user/modify.do?id=" + paramMap.get("id").toString();
 	}
 	
 	@RequestMapping(value = "user/delete.do", method = RequestMethod.GET)
@@ -120,22 +158,42 @@ public class UserController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("insertUserList", userService.deleteUser(paramMap));
-		mav.addObject("positionList", userService.userList());
-		
-		mav.setViewName("user/user");
 		
 		return "redirect:/user.do";
+	}
+
+	@RequestMapping(value = "user/childDelete.do", method = RequestMethod.GET)
+	public String childDelete(@RequestParam Map<String,Object> paramMap) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("insertUserList", userService.deleteChild(paramMap));
+
+		return "redirect:/user/modify.do?id=" + paramMap.get("id").toString();
 	}
 	
 	@RequestMapping(value = "user/modify.do", method = RequestMethod.GET)
 	public ModelAndView modify(@RequestParam Map<String,Object> paramMap) {
 		
 		ModelAndView mav = new ModelAndView();
-		
-		logger.info(paramMap.toString());
+
 		
 		mav.addObject("userListOne",userService.getUserOne(paramMap));
+		mav.addObject("childList", userService.childList(paramMap));
 		mav.addObject("type", "edit");
+		mav.setViewName("user/userinsert");
+		
+		return mav;
+	}
+
+	@RequestMapping(value = "user/childModify.do", method = RequestMethod.GET)
+	public ModelAndView childModify(@RequestParam Map<String,Object> paramMap) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("userListOne",userService.getUserOne(paramMap));
+		mav.addObject("childListOne",userService.getChildOne(paramMap));
+		mav.addObject("type", "childEdit");
 		mav.setViewName("user/userinsert");
 		
 		return mav;
@@ -146,11 +204,26 @@ public class UserController {
 
 		ModelAndView mav = new ModelAndView();
 
-		logger.info(paramMap.toString());
-		
 		mav.addObject("insertUserList",userService.updateUser(paramMap));
 
-		mav.addObject("positionList", userService.userList());
-		return "redirect:/user.do";
+		Map<String, Object> typeCheck = userService.typeCheck(paramMap);
+		String type = typeCheck.get("MEMBER_TYPE").toString();
+		
+		if(type.equals("2")){
+			logger.info(typeCheck.get("MEMBER_TYPE").toString());
+			return "redirect:/user.do";
+		}else {
+			return "redirect:/adminUser.do";	
+		}
+	}
+	
+	@RequestMapping(value = "user/childUpdate.do", method = RequestMethod.POST)
+	public String childUpdate(@RequestParam Map<String,Object> paramMap) {
+
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("insertUserList",userService.updateChild(paramMap));
+		
+		return "redirect:/user/modify.do?id=" + paramMap.get("id").toString();
 	}
 }
