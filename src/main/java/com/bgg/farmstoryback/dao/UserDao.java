@@ -7,34 +7,84 @@ import org.springframework.stereotype.Repository;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.stereotype.Repository;
 
 
 @Repository
 @SuppressWarnings("unchecked")
 public class UserDao extends SqlSessionDaoSupport {
 
+	
+	public List<HashMap<String, String>> memberList() {
+		return (List<HashMap<String, String>>)getSqlSession().selectList( "userQuery.memberList");
+	}
 
+	/** 아이디와 비밀번호로 유저정보(id, pwd, role)가져오기
+	 * @param oneRoleMap
+	 * @return
+	 */
+	public Map<String, Object> getOneRole(Map<String, Object> oneRoleMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getOneRole", oneRoleMap);
+	}
+
+	/**
+	 * member_type 체크 (1:admin, 2:user)
+	 * @param userListMap
+	 * @return
+	 */
+	public Map<String, Object> typeCheck(Map<String, Object> userListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.typeCheck", userListMap);
+	}
+	
 	/**
 	 * 리스트 하나보기
 	 * @param userListMap
 	 * @return
 	 */
-	public Map<String, String> getUserOne(Map<String, Object> userListMap){
-		return (Map<String, String>)getSqlSession().selectOne("userQuery.getUserOne", userListMap);
+	public Map<String, Object> getUserOne(Map<String, Object> userListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getUserOne", userListMap);
 	}
 	
 	/**
-	 * 리스트 전체보기
+	 * 자녀 리스트 하나 보기
+	 * @param childListMap
 	 * @return
 	 */
-	public List<HashMap<String, String>> userList() {
-		return (List<HashMap<String, String>>)getSqlSession().selectList("userQuery.userList");
+	public Map<String, Object> getChildOne(Map<String, Object> childListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getChildOne", childListMap);
+	}
+	
+	/**
+	 * 유저리스트 보기
+	 * @return
+	 */
+	public List<HashMap<String, Object>> userList() {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userList");
+	}
+	
+	/**
+	 * admin 유저 리스트 보기
+	 * @return
+	 */
+	public List<HashMap<String, Object>> adminUserList() {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.adminUserList");
+	}
+	
+	/**
+	 * 자녀리스트 보기
+	 * @param childListMap
+	 * @return
+	 */
+	public List<HashMap<String, Object>> childList(Map<String, Object> childListMap) {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.childList", childListMap);
+	}
+	
+	/**유저리스트 검색
+	 * @param userListMap
+	 * @return
+	 */
+	public List<HashMap<String, Object>> userSearch(Map<String, Object> userListMap) {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userSearch", userListMap);
 	}
 	
 	/**
@@ -42,17 +92,36 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int insertUser(Map<String, String> userListMap){
+	public int insertUser(Map<String, Object> userListMap){
 		return getSqlSession().insert("userQuery.insertUser",userListMap);
 	}
+	
+	/**
+	 * 자녀리스트 생성
+	 * @param childListMap
+	 * @return
+	 */
+	public int insertChild(Map<String, Object> childListMap){
+		return getSqlSession().insert("userQuery.insertChild", childListMap);
+	}
+	
 	
 	/**
 	 * 유저리스트 수정
 	 * @param userListMap
 	 * @return
 	 */
-	public int updateUser(Map<String, String> userListMap){
+	public int updateUser(Map<String, Object> userListMap){
 		return getSqlSession().update("userQuery.updateUser", userListMap);
+	}
+	
+	/**
+	 * 자녀리스트 수정
+	 * @param childListMap
+	 * @return
+	 */
+	public int updateChild(Map<String, Object> childListMap){
+		return getSqlSession().update("userQuery.updateChild", childListMap);
 	}
 	
 	/**
@@ -60,7 +129,17 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int deleteUser(Map<String, String> userListMap){
+	public int deleteUser(Map<String, Object> userListMap){
 		return getSqlSession().delete("userQuery.deleteUser", userListMap);
 	}
+	
+	/**
+	 * 자녀리스트 삭제
+	 * @param childListMap
+	 * @return
+	 */
+	public int deleteChild(Map<String, Object> childListMap){
+		return getSqlSession().delete("userQuery.deleteChild", childListMap);
+	}
+	
 }

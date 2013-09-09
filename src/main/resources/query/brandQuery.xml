@@ -5,30 +5,73 @@
 <mapper namespace="brandQuery">
 
 	<select id="list" resultType="hashmap">
-		SELECT * FROM BG_BRAND
+		SELECT 
+			BRAND_NM
+			, BRAND_ID
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
 		WHERE DEL_YN = 'N'
+		<if test="search != null and search != ''">
+			AND BRAND_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+		ORDER BY BRAND_ID DESC
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
+		</if>
+	</select>
+	
+	<select id="listAll" resultType="hashmap">
+		SELECT 
+			BRAND_NM
+			, BRAND_ID
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+	</select>
+	
+	<select id="top5" resultType="hashmap">
+		SELECT 
+			BRAND_NM
+			, BRAND_ID
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+		ORDER BY BRAND_ID DESC
+		LIMIT 0,5
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		SELECT count(*) FROM BG_BRAND
+		WHERE DEL_YN = 'N'
+		<if test="search != null and search != ''">
+			AND BRAND_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
 	</select>
 	
 	<select id="detail" resultType="hashmap">
 		SELECT * FROM BG_BRAND
-		WHERE BRAND_ID = #{brandId}
+		WHERE BRAND_ID = #{brand_id}
 		AND DEL_YN = 'N'
 	</select>
 	
 	<insert id="create"  keyProperty="brand_id">
 		INSERT BG_BRAND(
 			BRAND_NM,
-			IMG_PATH
+			IMG_PATH,
+			BRAND_DESC
    		)
    		VALUES(
    			#{brand_nm},
-   			#{img_path}
+   			#{img_path},
+   			#{brand_desc}
    		)
 	</insert>
 	
 	<update id="modify">
 		UPDATE BG_BRAND SET
 			BRAND_NM = #{brand_nm}
+			, BRAND_DESC = #{brand_desc}
+			, IMG_PATH = #{img_path}
 			, MOD_DT = now()
 		WHERE 1=1
 		AND BRAND_ID = #{brand_id}

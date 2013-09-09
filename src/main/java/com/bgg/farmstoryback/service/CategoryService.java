@@ -1,19 +1,22 @@
 package com.bgg.farmstoryback.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.dao.CategoryDao;
-import com.bgg.farmstoryback.dao.UserDao;
+import com.mysql.jdbc.StringUtils;
 
 
 
 @Service
 public class CategoryService {
+	
+	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	private CategoryDao cateDao;
@@ -24,7 +27,7 @@ public class CategoryService {
 	 * @return
 	 */
 	public List<Map> list() {
-		return cateDao.list();
+		return cateDao.listByLevel(1);
 	}
 	
 	/**
@@ -40,17 +43,15 @@ public class CategoryService {
 	 * @return cate_id
 	 */
 	public String create(Map<String, String> cateInfo) {
-		
-		String cateId = cateDao.cateId(cateInfo);
-		// 중복 체크
-		if(cateId == null){
-			cateDao.create(cateInfo);
-			return ""+cateInfo.get("cate_id");
+		if(StringUtils.isNullOrEmpty(cateInfo.get("parent_cate_nm"))){
+			cateInfo.put("parent_cate_id", "0");
+			cateInfo.put("cate_level", "1");
 		}else{
-			return cateId;
+			cateInfo.put("cate_level", cateDao.cateLevelByParentCateId(cateInfo));
 		}
-		
-		
+		cateInfo.put("ordering_no", cateDao.lastOrderingNo(cateInfo));
+		cateDao.create(cateInfo);
+		return ""+cateInfo.get("CATE_ID");
 	}
 
 
@@ -66,7 +67,21 @@ public class CategoryService {
 	 * </pre>
 	 * @param cateInfo
 	 */
-	public void modify(Map<String, String> cateInfo) {
+	public void modify(Map cateInfo) {
+		// 정렬 순서 변경
+		int originOrderingNo  = Integer.parseInt((String)cateInfo.get("origin-category-ordering-no"));
+		int convertOrderingNo = Integer.parseInt((String)cateInfo.get("category-ordering-no"));
+		
+		if(originOrderingNo != convertOrderingNo){
+			List<Map> anotherCateList = cateDao.listOfChild(Integer.parseInt((String)cateInfo.get("parent_cate_id")));
+			for(Map anotherCate : anotherCateList){
+				int anthoderOrderingNo = (Integer)anotherCate.get("ORDERING_NO");
+				if(anthoderOrderingNo >= convertOrderingNo && anthoderOrderingNo < originOrderingNo){
+					anotherCate.put("ordering_no", anthoderOrderingNo+1);
+					cateDao.orderingModify(anotherCate);
+				}
+			}
+		}
 		cateDao.modify(cateInfo);
 	}
 
@@ -92,6 +107,18 @@ public class CategoryService {
 
 	public void delete(String cateId) {
 		cateDao.delete(cateId);
+	}
+
+	public List<Map> listOfChild(int parentId) {
+		return cateDao.listOfChild(parentId);
+	}
+
+	public List<Map> parentCateList(Map<String, String> categoryInfo) {
+		return cateDao.parentCateList(categoryInfo);
+	}
+
+	public List top5() {
+		return cateDao.top5();
 	}
 
 }

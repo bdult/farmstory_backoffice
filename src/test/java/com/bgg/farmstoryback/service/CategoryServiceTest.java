@@ -11,21 +11,22 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bgg.farmstoryback.common.LogPrinter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
 public class CategoryServiceTest {
 	
+	private Logger logger = LoggerFactory.getLogger(getClass());
+	
 	@Autowired
 	CategoryService cateService;
 	
-	@Autowired
-	LogPrinter logPrinter;
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,7 +48,7 @@ public class CategoryServiceTest {
 		// then
 		assertThat(cateList, is(notNullValue()));
 		assertThat(cateList.size(), is(not(0)));
-		logPrinter.printMapList(cateList);
+		logger.info("parameter=", cateList);
 	}
 	
 	@Test
@@ -65,7 +66,7 @@ public class CategoryServiceTest {
 		// then
 		Map detailInfo =cateService.detail(cateId);
 		assertThat(detailInfo, is(notNullValue()));
-		logPrinter.printMap(detailInfo);
+		logger.info("detail=", detailInfo);
 		
 	}
 	
@@ -107,7 +108,7 @@ public class CategoryServiceTest {
 		Map detailInfo =cateService.detail(""+cateList.get(0).get("CATE_ID"));
 		assertThat(detailInfo, is(notNullValue()));
 		assertThat((String)detailInfo.get("CATE_NM"), is("수학"));
-		logPrinter.printMap(detailInfo);
+		logger.info("detail=", detailInfo);
 		
 	}
 	

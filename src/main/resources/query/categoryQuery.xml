@@ -4,71 +4,156 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="categoryQuery">
 
-	<select id="connCheck" resultType="int">
-		SELECT 1 FROM DUAL
+	<select id="listAll" resultType="hashmap">
+		SELECT /* categoryQuery.listAll 2013.08.21 최지순 */  
+			A.CATE_ID,
+			A.CATE_NM AS name,
+			A.CATE_LEVEL,
+			A.ORDERING_NO,
+			A.PARENT_CATE_ID,
+			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID) as PARENT_NM,
+			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
+		 FROM BG_CATE A
+		 ORDER BY  A.ORDERING_NO
 	</select>
 	
-	<select id="listAll" resultType="hashmap">
-		SELECT * FROM BG_CATE
+	<select id="top5" resultType="hashmap">
+		SELECT /* categoryQuery.top5 2013.08.21 최지순 */  
+			A.CATE_ID,
+			A.CATE_NM,
+			DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		 FROM BG_CATE A
+		 ORDER BY  A.CATE_ID DESC
+		 LIMIT 0,5
 	</select>
 	
 	<select id="listByLevel" resultType="hashmap">
-		SELECT * FROM BG_CATE
+		SELECT /* categoryQuery.listByLevel 2013.08.21 최지순 */
+			A.CATE_ID,
+			A.CATE_NM AS name,
+			A.ORDERING_NO,
+			A.CATE_LEVEL,
+			A.PARENT_CATE_ID,
+			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
+		 FROM BG_CATE A
 		 WHERE CATE_LEVEL = #{cateLevel}
+		 ORDER BY A.ORDERING_NO
+	</select>
+	
+	<select id="listOfChild" resultType="hashmap">
+		SELECT /* categoryQuery.listOfChild 2013.08.21 최지순 */
+			A.CATE_ID,
+			A.CATE_NM AS name,
+			A.CATE_LEVEL,
+			A.ORDERING_NO,
+			A.PARENT_CATE_ID,
+			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID) as PARENT_NM,
+			if((SELECT COUNT(*) FROM BG_CATE WHERE PARENT_CATE_ID = A.CATE_ID) > 0, 'folder', 'item') as type 
+		 FROM BG_CATE A
+		 WHERE PARENT_CATE_ID = #{parentId}
+		 ORDER BY  A.ORDERING_NO
 	</select>
 	
 	<select id="detail" resultType="hashmap">
-		SELECT * FROM BG_CATE
-		 WHERE CATE_ID = #{cate_id}
+		SELECT  /* categoryQuery.detail 2013.08.21 최지순 */ 
+			* ,
+		FROM BG_CATE
+		WHERE CATE_ID = #{cate_id}
 	</select>
 	
 	<select id="cateId" resultType="String">
-		SELECT CATE_ID FROM BG_CATE
-		 WHERE 1=1
-		 AND CATE_LEVEL = ${cate_level}
-		 AND CATE_NM like '%${cate_nm}%'
+		SELECT /* categoryQuery.cateId 2013.08.21 최지순 */  
+			CATE_ID 
+		FROM BG_CATE
+		WHERE 1=1
+		AND CATE_LEVEL = ${cate_level}
+		AND CATE_NM like '%${cate_nm}%'
+	</select>
+	
+	<select id="parentCateList" resultType="hashmap">
+		SELECT /* categoryQuery.parentCateList 2013.08.21 최지순 */  
+			A.CATE_ID,
+			A.CATE_NM,
+			A.CATE_LEVEL,
+			(SELECT CATE_NM FROM BG_CATE WHERE CATE_ID = A.PARENT_CATE_ID ) AS PRE_PARENT_CATE_NM
+		 FROM BG_CATE A 
+		WHERE 1=1		
+		AND A.CATE_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
+	</select>
+	
+	<select id="lastOrderingNo" resultType="String">
+		SELECT /* categoryQuery.lastOrderingNo 2013.08.21 최지순 */  
+			ifnull(MAX(ORDERING_NO)+1, 1) 
+		FROM BG_CATE 
+		WHERE PARENT_CATE_ID = #{parent_cate_id}
+	</select>
+	
+	<select id="cateLevelByParentCateId" resultType="String">
+		SELECT /* categoryQuery.cateLevelByParentCateId 2013.08.21 최지순 */  
+			CATE_LEVEL +1 
+		FROM BG_CATE 
+		WHERE CATE_ID = #{parent_cate_id}
 	</select>
 	
 	<insert id="create" parameterType="map"  keyProperty="cate_id">
 		
-		INSERT /* cateQuery.create 2013.08.07 최지순*/  INTO BG_CATE 
-			(CATE_ID,
+		INSERT  /* categoryQuery.create 2013.08.21 최지순 */    INTO BG_CATE 
+			(
 			CATE_LEVEL,
 			CATE_NM,
+			PARENT_CATE_ID,
+			ORDERING_NO,
 			MOD_DT)
 			VALUES
 			(
-			#{cate_id},
-			#{cate_level},
+			#{cate_level,jdbcType=INTEGER},
 			#{cate_nm},
+			#{parent_cate_id,jdbcType=INTEGER},
+			#{ordering_no},
 			now()
 			)
 	</insert>
 	
-	<update id="modyfy">
-		UPDATE BG_CATE SET
-			<if test="cate_level != null">
+	
+	<update id="modify"  parameterType="map">
+		UPDATE /* categoryQuery.modify 2013.08.21 최지순 */  BG_CATE SET
 			CATE_LEVEL= #{cate_level},
-			</if>
 			CATE_NM = #{cate_nm},
-			<if test="cate_level != null">
+			ORDERING_NO= #{category-ordering-no},
 			PARENT_CATE_ID = #{parent_cate_id},
-			</if>
 			MOD_DT = now()
 		WHERE 1=1
 		AND CATE_ID = #{cate_id}
 	</update>
+	
+	
+	<update id="orderingModify"  parameterType="map">
+		UPDATE  /* categoryQuery.orderingModify 2013.08.21 최지순 */ BG_CATE SET
+			ORDERING_NO= #{ordering_no},
+			MOD_DT = now()
+		WHERE 1=1
+		AND CATE_ID = #{CATE_ID}
+	</update>
 
 	<delete id="deleteCateItemRelation">
-		DELETE FROM BG_CATE_ITEM_RELATIONSHIPS
+		DELETE /* categoryQuery.deleteCateItemRelation 2013.08.21 최지순 */ 
+		FROM BG_CATE_ITEM_RELATIONSHIPS
 		WHERE 1=1
 		AND CATE_ID = #{cateId}
 	</delete>
 		
 	<delete id="delete">
-		DELETE FROM BG_CATE
+		DELETE  /* categoryQuery.delete 2013.08.21 최지순 */  
+		FROM BG_CATE
 		WHERE 1=1
 		AND CATE_ID = #{cateId}
+	</delete>
+		
+	<delete id="deleteChildCate">
+		DELETE	/* categoryQuery.deleteChildCate 2013.08.21 최지순 */   
+		FROM BG_CATE
+		WHERE 1=1
+		AND PARENT_CATE_ID = #{cateId}
 	</delete>	
 	
 </mapper>

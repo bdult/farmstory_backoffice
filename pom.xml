@@ -177,6 +177,13 @@
 	        <artifactId>commons-dbcp</artifactId>
 	        <version>1.2.2</version>
 	    </dependency>
+	    
+	    <!-- Json -->
+	    <dependency>
+	        <groupId>com.googlecode.json-simple</groupId>
+	        <artifactId>json-simple</artifactId>
+	        <version>1.1.1</version>
+	    </dependency>
        
 	</dependencies>
     <build>
@@ -202,6 +209,7 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
+                    <encoding>UTF-8</encoding>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>

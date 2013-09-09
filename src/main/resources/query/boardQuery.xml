@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardQuery">
+	<insert id="create" useGeneratedKeys="true"  keyProperty="board_id">
+		INSERT /* boardQuery.create 2013.08.21 최지순 */ 
+		INTO BG_BOARD_MASTER( 
+			BOARD_NM,
+			REG_MEMBER_ID,
+			BOARD_DESC,
+			MOD_DT
+			)
+		VALUES(
+			#{board_nm},
+			#{reg_member_id},
+			#{board_desc},
+			now()
+		)
+	</insert>
+	
+	<select id="list" resultType="hashmap">
+		SELECT /* boardQuery.list 2013.08.21 최지순 */
+			A.*
+			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.REG_MEMBER_ID) AS REG_MEMBER_NM
+			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.MOD_MEMBER_ID) AS MOD_MEMBER_NM
+		FROM BG_BOARD_MASTER A
+		WHERE 1=1
+		AND USE_YN = 'Y'		
+		<if test="search != null and search != ''">
+			AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+		ORDER BY BOARD_ID DESC
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
+		</if>
+	</select>
+	
+	<select id="top5" resultType="hashmap">
+		SELECT /* boardQuery.top5 2013.08.21 최지순 */
+			BOARD_ID
+			, BOARD_NM
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		ORDER BY BOARD_ID DESC
+		LIMIT 0,5		
+	</select>
+	
+	<select id="searchByName" resultType="hashmap">
+		SELECT /* boardQuery.searchByName 2013.08.21 최지순 */ 
+			A.*
+			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.REG_MEMBER_ID) AS REG_MEMBER_NM
+			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.MOD_MEMBER_ID) AS MOD_MEMBER_NM
+		FROM BG_BOARD_MASTER A
+		WHERE 1=1
+		AND USE_YN = 'Y'		
+		AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
+		ORDER BY BOARD_ID DESC
+	</select>
+	
+	<select id="listByPageNum" resultType="hashmap">
+		SELECT  /* boardQuery.listByPageNum 2013.08.21 최지순 */ 
+			A.*
+			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.REG_MEMBER_ID) AS REG_MEMBER_NM
+			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.MOD_MEMBER_ID) AS MOD_MEMBER_NM 
+		FROM BG_BOARD_MASTER A
+		WHERE 1=1
+		AND USE_YN = 'Y'
+		ORDER BY BOARD_ID DESC
+		LIMIT #{startNo}, #{perPage}	
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		SELECT  /* boardQuery.totalCount 2013.08.21 최지순 */  
+			count(*) 
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'		
+		<if test="search != null and search != ''">
+			AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT  /* boardQuery.detail 2013.08.21 최지순 */  
+			* 
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND BOARD_ID = #{board_id}
+		AND USE_YN = 'Y'
+	</select>
+	
+	<select id="boardInfoByName" resultType="hashmap">
+		SELECT  /* boardQuery.boardInfoByName 2013.08.21 최지순 */  
+			* 
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND BOARD_ID = #{boardName}
+		AND USE_YN = 'Y'
+		ORDER BY BOARD_ID DESC
+	</select>
+	
+	
+	<update id="delete">
+		UPDATE  /* boardQuery.delete 2013.08.21 최지순 */  
+			BG_BOARD_MASTER 
+		SET 
+			USE_YN = 'N'
+		WHERE 1=1
+		AND BOARD_ID = #{board_id}
+	</update>
+	
+	<update id="deleteByName">
+		UPDATE  /* boardQuery.deleteByName 2013.08.21 최지순 */  
+			BG_BOARD_MASTER 
+		SET 
+			USE_YN = 'N'
+		WHERE 1=1
+		AND BOARD_NM = #{boardName}
+	</update>
+	
+	<update id="modify">
+		UPDATE  /* boardQuery.modify 2013.08.21 최지순 */  
+			BG_BOARD_MASTER 
+		SET 
+			BOARD_NM = #{board_nm}
+			, BOARD_DESC = #{board_desc}
+		WHERE 1=1
+		AND BOARD_ID = #{board_id}
+	</update>
+	
+</mapper>

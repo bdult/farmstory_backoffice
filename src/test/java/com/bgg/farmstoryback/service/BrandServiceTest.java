@@ -12,18 +12,18 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bgg.farmstoryback.common.LogPrinter;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
 public class BrandServiceTest {
 
-	@Autowired
-	LogPrinter printer;
+	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	BrandService brandService;
@@ -49,7 +49,7 @@ public class BrandServiceTest {
 		List<Map> brandList = brandService.list();
 
 		// then
-		printer.printMapList(brandList);
+		logger.info("list=", brandList);
 		assertThat(brandList, is(notNullValue()));
 		assertThat(brandList.size(), is(not(0)));
 		
@@ -66,7 +66,7 @@ public class BrandServiceTest {
 		String brandId = brandService.create(brandInfo);
 		
 		// then
-		Map brandDetail = brandService.detail(brandId);
+		Map brandDetail = brandService.detail(brandInfo);
 		assertThat(brandDetail, is(notNullValue()));
 		assertThat((String)brandDetail.get("BRAND_NM"), is(brandNm));
 	}
@@ -90,10 +90,10 @@ public class BrandServiceTest {
 		brandService.modify(modifyInfo);
 
 		// then
-		Map resultInfo = brandService.detail(brandId);
+		Map resultInfo = brandService.detail(modifyInfo);
 		assertThat(resultInfo, is(notNullValue()));
 		assertThat((String)resultInfo.get("BRAND_NM"), is("modify_brand"));
-		printer.printMap(resultInfo);
+		logger.info("detail=", resultInfo);
 	}
 	
 	
@@ -117,7 +117,7 @@ public class BrandServiceTest {
 		brandService.delete(brandInfo);
 
 		// then
-		Map resultInfo = brandService.detail(brandId);
+		Map resultInfo = brandService.detail(brandInfo);
 		assertThat(resultInfo, is(nullValue()));
 		
 	}

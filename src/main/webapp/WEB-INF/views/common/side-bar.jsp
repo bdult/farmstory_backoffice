@@ -5,23 +5,6 @@
 	
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-			<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-				<button class="btn btn-small btn-success">
-					<i class="icon-signal"></i>
-				</button>
-	
-				<button class="btn btn-small btn-info">
-					<i class="icon-pencil"></i>
-				</button>
-	
-				<button class="btn btn-small btn-warning">
-					<i class="icon-group"></i>
-				</button>
-	
-				<button class="btn btn-small btn-danger">
-					<i class="icon-cogs"></i>
-				</button>
-			</div>
 	
 			<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 				<span class="btn btn-success"></span>
@@ -35,82 +18,95 @@
 		</div><!--#sidebar-shortcuts-->
 	
 		<ul class="nav nav-list">
-			<li>
+			<li id="side-home">
 				<a href="${ contextPath }/dashboard.do">
 					<i class="icon-dashboard"></i>
-					<span class="menu-text"> Dashboard </span>
-				</a>
+					<span class="menu-text"> Home </span>
+				</a> 
 			</li>
 			
-			<li>
-				<a href="${ contextPath }/main.do">
-					<i class="icon-thumbs-up-alt"></i>
-					<span class="menu-text"> 스토리팜 메인 </span>
-				</a>
-			</li>
-			
-			<li>
-				<a href="${ contextPath }/sub.do">
-					<i class="icon-thumbs-down-alt"></i>
-					<span class="menu-text"> 스토리팜 서브 </span>
-				</a>
-			</li>
-			
-			<li>
+			<li id="side-user">
 				<a href="${ contextPath }/user.do">
-					<i class="icon-key"></i>
+					<i class="icon-file-alt"></i>
 					<span class="menu-text"> 회원관리 </span>
 				</a>
 			</li>
 			
 			<li>
-				<a href="${ contextPath }/cate/list.do">
-					<i class="icon-apple"></i>
-					<span class="menu-text"> 카테고리 관리 </span>
+				<a href="${ contextPath }/adminUser.do">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> admin회원관리 </span>
 				</a>
 			</li>
-	
-			<li>
+			
+			<li id="side-contents">
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
-	
-					<span class="menu-text">
-						Other Pages
-						<span class="badge badge-primary ">4</span>
+					<span class="menu-text"> 컨텐츠 관리
+						<span class="badge badge-primary ">4</span> 
 					</span>
-	
 					<b class="arrow icon-angle-down"></b>
+					
 				</a>
-	
 				<ul class="submenu">
-					<li>
-						<a href="error-404.html">
+					<li id="side-contents-contents">
+						<a href="${contextPath }/contents/manage.do">
 							<i class="icon-double-angle-right"></i>
-							Error 404
+							컨텐츠
 						</a>
 					</li>
 	
-					<li>
-						<a href="error-500.html">
+					<li id="side-contents-series">
+						<a href="${contextPath }/series/manage.do">
 							<i class="icon-double-angle-right"></i>
-							Error 500
+							시리즈
 						</a>
 					</li>
 	
-					<li>
-						<a href="grid.html">
+					<li id="side-contents-brand">
+						<a href="${contextPath }/brand/manage.do">
 							<i class="icon-double-angle-right"></i>
-							Grid
+							브랜드
 						</a>
 					</li>
-	
-					<li>
-						<a href="blank.html">
+					<li id="side-contents-category">
+						<a href="${ contextPath }/category/manage.do">
 							<i class="icon-double-angle-right"></i>
-							Blank Page
+							카테고리
 						</a>
 					</li>
 				</ul>
+			</li>
+			<li id="side-board">
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 게시판 관리
+						<span class="badge badge-primary ">2</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li id="side-board-master" >
+						<a href="${contextPath }/board/manage.do">
+							<i class="icon-double-angle-right"></i>
+							마스터
+						</a>
+					</li> 
+	<!-- 추후
+					<li id="side-board-board" >
+						<a href="${contextPath }/board/contents/manage.do">
+							<i class="icon-double-angle-right"></i>
+							게시판 조회
+						</a>
+					</li>
+	 -->
+				</ul>
+			</li>
+			<li id="side-code-code">
+				<a href="${contextPath }/code/manage.do">
+					<i class="icon-file-alt"></i>
+					코드 관리
+				</a>
 			</li>
 		</ul><!--/.nav-list-->
 	
@@ -121,7 +117,5 @@
 
 <script>
 $(function(){
-	
-	
 });
 </script>

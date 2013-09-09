@@ -3,6 +3,20 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userQuery">
+
+	<select id="memberList" resultType="hashmap">
+		SELECT *
+		FROM BG_MEMBER
+		WHERE 1=1
+	</select>
+
+    <select id="getOneRole" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        	MEMBER_ROLE, MEMBER_ID, MEMBER_PW
+        FROM BG_MEMBER
+        WHERE MEMBER_ID = #{ id } and MEMBER_PW = #{ pw }
+    </select>
+
     <select id="getUserOne" resultType="hashmap" parameterType="hashmap">
         SELECT
         	*
@@ -10,13 +24,72 @@
         WHERE MEMBER_ID = #{ id }
     </select>
 
+    <select id="getChildOne" resultType="hashmap" parameterType="hashmap">
+        SELECT
+        	*
+        FROM BG_CHILDREN
+        WHERE IDX = #{ idx }
+    </select>
+    
+    <select id="typeCheck" resultType="hashmap" parameterType="hashmap">
+    	SELECT
+    	MEMBER_TYPE
+    	FROM
+    	BG_MEMBER
+        WHERE MEMBER_ID = #{ id }
+    </select>
+    
 	<select id="userList" resultType="hashmap" >
 		SELECT
-		MEMBER_ID,
-		MEMBER_NM,
-		MEMBER_PW,
-		MEMBER_ROLE
+		MB.MEMBER_ID,
+		MB.MEMBER_NM,
+		MB.MEMBER_PW,
+		MB.MEMBER_ROLE,
+		MB.MEMBER_TYPE,
+		CD.CHILD_NM,
+		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
+		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		GROUP BY MB.MEMBER_ID
+		HAVING MB.MEMBER_TYPE = 2
+	</select>
+    
+	<select id="adminUserList" resultType="hashmap" >
+		SELECT
+		MB.MEMBER_ID,
+		MB.MEMBER_NM,
+		MB.MEMBER_PW,
+		MB.MEMBER_ROLE,
+		MB.MEMBER_TYPE,
+		CD.CHILD_NM,
+		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
+		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		GROUP BY MB.MEMBER_ID
+		HAVING MB.MEMBER_TYPE = 1
+	</select>
+	
+	<select id="childList" resultType="hashmap">
+		SELECT
+		CD.IDX,
+		CD.PARENT_MEMBER_ID,
+		CD.CHILD_NM,
+		CD.PHOTO,
+		CD.GENDER,
+		CD.BIRTH_YEAR,
+		CD.BIRTH_MONTH,
+		CD.BIRTH_DAY
+		FROM BG_CHILDREN CD LEFT OUTER JOIN BG_MEMBER MB 
+		ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+		WHERE MB.MEMBER_ID = #{ member_id }
+	</select>
+	
+	<select id="userSearch" resultType="hashmap">
+		SELECT
+			*
 		FROM BG_MEMBER
+		WHERE
+		MEMBER_ID = #{ id } or
+		MEMBER_NM = #{ name } or
+		MEMBER_ROLE = #{ role }
 	</select>
 	
 	<!-- insert -->
@@ -25,15 +98,42 @@
 		MEMBER_ID,
 		MEMBER_NM,
 		MEMBER_PW,
-		MEMBER_ROLE
+		MEMBER_ROLE,
+		MEMBER_TYPE,
+		REG_DATE,
+		UPDATE_DATE
 		)
 		VALUES (
         #{ id },
         #{ name },
         #{ pwd },
-        #{ role }
+        #{ role },
+        #{ member_type },
+        NOW(),
+        NOW()
 		)
 	
+	</insert>
+	
+	<insert id="insertChild" parameterType="hashmap">
+		INSERT INTO BG_CHILDREN (
+		PARENT_MEMBER_ID,
+		CHILD_NM,
+		PHOTO,
+		GENDER,
+		BIRTH_YEAR,
+		BIRTH_MONTH,
+		BIRTH_DAY
+		)
+		VALUES (
+		#{ parent_member_id },
+		#{ child_nm },
+		#{ photo },
+		#{ gender },
+		#{ birth_year },
+		#{ birth_month },
+		#{ birth_day }
+		)
 	</insert>
 	
 	<!-- UPDATE USER -->
@@ -43,14 +143,35 @@
 		MEMBER_ID = #{ id },
 		MEMBER_NM = #{ name },
 		MEMBER_PW = #{ pwd },
-		MEMBER_ROLE = #{ role }
+		MEMBER_ROLE = #{ role },
+		MEMBER_TYPE = #{ member_type },
+		UPDATE_DATE = NOW()
 		</set>
 		WHERE MEMBER_ID = #{ id }
+	</update>
+	
+	<update id="updateChild" parameterType="hashmap">
+		UPDATE BG_CHILDREN
+		<set>
+		PARENT_MEMBER_ID = #{ parent_member_id },
+		CHILD_NM = #{ child_nm },
+		PHOTO = #{ photo },
+		GENDER = #{ gender },
+		BIRTH_YEAR = #{ birth_year },
+		BIRTH_MONTH = #{ birth_month },
+		BIRTH_DAY = #{ birth_day }
+		</set>
+		WHERE IDX = #{ idx }
 	</update>
 	
 	<!-- DELETE USER -->
 	<delete id="deleteUser" parameterType="hashmap">
     	DELETE from BG_MEMBER
     	WHERE MEMBER_ID = #{ id }
+	</delete>
+	
+	<delete id="deleteChild" parameterType="hashmap">
+		DELETE from BG_CHILDREN
+		WHERE IDX = #{ idx }
 	</delete>
 </mapper>

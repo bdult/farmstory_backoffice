@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seriesQuery">
+
+
+	<select id="list" resultType="hashmap">
+		SELECT /* seriesQuery.list 2013.08.21 최지순 */
+			A.CONTENTS_SERIES_ID
+			, A.CONTENTS_SERIES_NM
+			, A.SERIES_LEVEL
+			, A.CONTENTS_SERIES_NM AS name
+			, (SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.PARENT_SERIES_ID) as PARENT_NM
+			, if((SELECT COUNT(*) FROM BG_CONTENTS_SERIES WHERE PARENT_SERIES_ID = A.CONTENTS_SERIES_ID) > 0, 'folder', 'item') as type
+			, if(A.PARENT_SERIES_ID > 0, A.PARENT_SERIES_ID, 0) as PARENT_SERIES_ID
+			, A.IMG_PATH   
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
+			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
+		FROM BG_CONTENTS_SERIES A
+	</select>
+	
+	<select id="top5" resultType="hashmap">
+		SELECT /* seriesQuery.list 2013.08.21 최지순 */
+			A.CONTENTS_SERIES_ID
+			, A.CONTENTS_SERIES_NM
+			, A.SERIES_LEVEL
+			, A.CONTENTS_SERIES_NM AS name
+			, (SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.PARENT_SERIES_ID) as PARENT_NM
+			, if((SELECT COUNT(*) FROM BG_CONTENTS_SERIES WHERE PARENT_SERIES_ID = A.CONTENTS_SERIES_ID) > 0, 'folder', 'item') as type
+			, if(A.PARENT_SERIES_ID > 0, A.PARENT_SERIES_ID, 0) as PARENT_SERIES_ID
+			, A.IMG_PATH   
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
+			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
+		FROM BG_CONTENTS_SERIES A
+		ORDER BY CONTENTS_SERIES_ID DESC
+		LIMIT 0,5
+	</select>
+	
+	<select id="listOfTop" resultType="hashmap">
+		SELECT /* seriesQuery.listOfTop 2013.08.21 최지순 */
+			A.CONTENTS_SERIES_ID
+			, A.CONTENTS_SERIES_NM
+			, A.SERIES_LEVEL
+			, A.CONTENTS_SERIES_NM AS name
+			, (SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.PARENT_SERIES_ID) as PARENT_NM
+			, if((SELECT COUNT(*) FROM BG_CONTENTS_SERIES WHERE PARENT_SERIES_ID = A.CONTENTS_SERIES_ID) > 0, 'folder', 'item') as type
+			, if(A.PARENT_SERIES_ID > 0, A.PARENT_SERIES_ID, 0) as PARENT_SERIES_ID
+			, A.IMG_PATH   
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
+			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
+		FROM BG_CONTENTS_SERIES A
+		WHERE A.SERIES_LEVEL = 1
+	</select>
+	
+	<select id="listOfChild" resultType="hashmap">
+		SELECT /* seriesQuery.listOfChild 2013.08.21 최지순 */
+			A.CONTENTS_SERIES_ID
+			, A.CONTENTS_SERIES_NM
+			, A.SERIES_LEVEL
+			, A.CONTENTS_SERIES_NM AS name
+			, (SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.PARENT_SERIES_ID) as PARENT_NM
+			, if((SELECT COUNT(*) FROM BG_CONTENTS_SERIES WHERE PARENT_SERIES_ID = A.CONTENTS_SERIES_ID) > 0, 'folder', 'item') as type
+			, if(A.PARENT_SERIES_ID > 0, A.PARENT_SERIES_ID, 0) as PARENT_SERIES_ID
+			, A.IMG_PATH   
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
+			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
+		FROM BG_CONTENTS_SERIES A
+		WHERE A.PARENT_SERIES_ID = #{parentSeriesId}
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT /* seriesQuery.detail 2013.08.21 최지순 */ 
+			CONTENTS_SERIES_NM, CONTENTS_SERIES_ID  
+		FROM BG_CONTENTS_SERIES
+		WHERE CONTENTS_SERIES_ID = #{series_id}
+	</select>
+	
+	<select id="hasCount" resultType="int">
+		SELECT /* seriesQuery.hasCount 2013.08.21 최지순 */ 
+			count(*)  
+		FROM BG_CONTENTS_SERIES
+		WHERE CONTENTS_SERIES_NM = #{series_nm}
+	</select>
+	
+	<select id="searchIdByName" resultType="int">
+		SELECT /* seriesQuery.searchIdByName 2013.08.21 최지순 */ 
+			CONTENTS_SERIES_ID  
+		FROM BG_CONTENTS_SERIES
+		WHERE CONTENTS_SERIES_NM = #{series_nm}
+	</select>
+	
+	<select id="searchByName" resultType="hashmap">
+		SELECT /* seriesQuery.seriesByName 2013.08.21 최지순 */
+			A.CONTENTS_SERIES_ID
+			, A.CONTENTS_SERIES_NM
+			, A.SERIES_LEVEL
+			, A.CONTENTS_SERIES_NM AS name
+			, (SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.PARENT_SERIES_ID) as PARENT_NM
+			, if((SELECT COUNT(*) FROM BG_CONTENTS_SERIES WHERE PARENT_SERIES_ID = A.CONTENTS_SERIES_ID) > 0, 'folder', 'item') as type
+			, A.IMG_PATH   
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
+			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT 
+		FROM BG_CONTENTS_SERIES A
+		WHERE CONTENTS_SERIES_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
+	</select>
+	
+	<insert id="create" parameterType="map"  keyProperty="series_id">
+   		INSERT /* seriesQuery.create 2013.08.21 최지순 */ 
+   		BG_CONTENTS_SERIES(
+			CONTENTS_SERIES_NM,
+			IMG_PATH,
+			MOD_DT   		
+   		)
+   		VALUES(
+   			#{series_nm},
+   			#{img_path},
+   			now()
+   		)
+   </insert>
+   
+   <update id="modify">
+   		UPDATE /* seriesQuery.modify 2013.08.21 최지순 */ 
+   		BG_CONTENTS_SERIES SET
+   			CONTENTS_SERIES_NM = #{series_nm}
+   			, IMG_PATH = #{img_path}
+   			, SERIES_LEVEL = #{series_level}
+   			, PARENT_SERIES_ID = #{parent_series_id}
+   			, MOD_DT = now()
+   		WHERE 1=1
+   		AND CONTENTS_SERIES_ID = #{series_id}
+   </update>
+   
+   <delete id="delete" >
+   		DELETE /* seriesQuery.delete 2013.08.21 최지순 */ 
+   		FROM BG_CONTENTS_SERIES
+   		WHERE CONTENTS_SERIES_ID = #{series_id}
+   </delete>
+	
+</mapper>
