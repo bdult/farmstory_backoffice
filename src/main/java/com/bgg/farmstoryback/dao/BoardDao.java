@@ -27,8 +27,8 @@ public class BoardDao extends SqlSessionDaoSupport {
 		getSqlSession().update("boardQuery.deleteByName", boardName);
 	}
 
-	public List<Map> list() {
-		return (List<Map>)getSqlSession().selectList("boardQuery.list");
+	public List<Map> list(Map pageInfo) {
+		return (List<Map>)getSqlSession().selectList("boardQuery.list", pageInfo);
 	}
 
 	public Map boardInfoByName(String boardName) {
@@ -42,5 +42,13 @@ public class BoardDao extends SqlSessionDaoSupport {
 
 	public void modify(Map boardInfo) {
 		getSqlSession().update("boardQuery.modify",boardInfo);
+	}
+
+	public int totalCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("boardQuery.totalCount", parameter);
+	}
+
+	public List top5() {
+		return getSqlSession().selectList("boardQuery.top5");
 	}
 }

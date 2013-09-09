@@ -7,12 +7,17 @@
 						<li>
 							<i class="icon-home home-icon"></i>
 							<a href="#">Home</a>
-
+			
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">카테고리 관리</li>
+						<li>컨텐츠 관리
+							<span class="divider">
+								<i class="icon-angle-right arrow-icon"></i>
+							</span>
+						</li>
+						<li class="active">카테고리</li>
 					</ul>
 				</div><!--.breadcrumb-->
 				<div class="page-content">
@@ -35,7 +40,7 @@
 								<div class="widget-box span6">
 									<div class="widget-header header-color-blue2">
 										<h4 class="lighter smaller">Choose Categories</h4>
-									<button id="create-category-btn" class="btn btn-info">카테고리 생성</button>
+										<button id="create-category-btn" class="btn btn-success">생성</button>
 									</div>
 
 									<div class="widget-body">
@@ -179,6 +184,10 @@
 		<!--inline scripts related to this page-->
 
 		<script type="text/javascript">
+		
+				$("#side-contents-category").attr("class", "active");
+				$("#side-contents").attr("class", "open active");
+			
 				$(function() {
 					
 					// infomation layout hide

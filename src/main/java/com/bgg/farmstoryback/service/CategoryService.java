@@ -117,4 +117,8 @@ public class CategoryService {
 		return cateDao.parentCateList(categoryInfo);
 	}
 
+	public List top5() {
+		return cateDao.top5();
+	}
+
 }

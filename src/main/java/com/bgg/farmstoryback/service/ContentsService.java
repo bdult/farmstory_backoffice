@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.dao.ContentsDao;
 import com.mysql.jdbc.StringUtils;
 
@@ -19,12 +21,15 @@ public class ContentsService {
 	@Autowired
 	private ContentsDao conDao;
 	
+	@Autowired
+	private PageUtil pageUtil;
+	
 	/**
 	 * 컨텐츠 리스트
 	 * @return
 	 */
-	public List<Map> list() {
-		return conDao.list();
+	public List<Map> list(Map parameter) {
+		return conDao.list(parameter);
 	}
 	
 	/**
@@ -34,18 +39,6 @@ public class ContentsService {
 		return conDao.detail(contents_id);
 	}
 	
-	/**
-	 * 컨텐츠 생성
-	 * <pre>
-	 * Param sample
-	 * Map<String, String> cateInfo = new HashMap<String, String>();
-	 * cateInfo.put("cate_level", "1");
-	 * cateInfo.put("cate_nm", "test_modify2");
-	 * cateInfo.put("parent_cate_id", "C_954682af87414cca86c18a70754b5b58");
-	 * </pre>
-	 * @param cateInfo
-	 * @return contents_id
-	 */
 	public String create(Map parameter) {
 		conDao.create(parameter);
 		return null;
@@ -59,7 +52,11 @@ public class ContentsService {
 		conDao.delete((String)parameter.get("contents_id"));
 	}
 
-	public List<Map> searchByName(String search) {
-		return conDao.searchByName(search);
+	public int totalCount(Map parameter) {
+		return conDao.totalCount(parameter);
+	}
+
+	public List top5() {
+		return conDao.top5();
 	}
 }

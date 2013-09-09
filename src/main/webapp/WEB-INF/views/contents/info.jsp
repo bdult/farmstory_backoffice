@@ -7,23 +7,26 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="icon-home home-icon"></i>
-							<a href="#">Home</a>
+							<a href="${contextPath }/">Home</a>
 
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-
 						<li>
-							<a href="#">컨텐츠</a>
-
+							컨텐츠 관리
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">컨텐츠 상세</li>
+						<li>
+							컨텐츠
+							<span class="divider">
+								<i class="icon-angle-right arrow-icon"></i>
+							</span>
+						</li>
+						<li class="active">상세</li>
 					</ul><!--.breadcrumb-->
-
 				</div>
 
 				<div class="page-content">
@@ -41,7 +44,7 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form name="frm" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
+							<form id="modify-form" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
@@ -56,7 +59,7 @@
 									<label class="control-label" for="contents_nm">컨텐츠 명</label>
 
 									<div class="controls">
-										<input type="text" id="contents_nm" name="contents_nm" value="${data.CONTENTS_NM == null? "컨텐츠 명" : data.CONTENTS_NM}" />
+										<input type="text" id="contents_nm" name="contents_nm" placeholder="컨텐츠 명" value="${data.CONTENTS_NM}" />
 									</div>
 								</div>
 								
@@ -64,8 +67,8 @@
 									<label class="control-label" for="contents_series_id">시리즈 명</label>
 
 									<div class="controls">
-										<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID }" />
-										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM== null? "" : data.SERIES_NM}" />
+										<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID == null? 0 : data.CONTENTS_SERIES_ID}" />
+										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM}" />
 										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
 									</div>
 								</div>
@@ -74,8 +77,8 @@
 									<label class="control-label" for="brand_id">브랜드 명</label>
 
 									<div class="controls">
-										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID}" />
-										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM== null? "" : data.BRAND_NM}" />
+										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID == null? 0 : data.BRAND_ID}" />
+										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM}" />
 										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 변경" />
 									</div>
 								</div>
@@ -93,48 +96,30 @@
 									<label class="control-label" for="form-field-2">썸네일 이미지 경로</label>
 
 									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" placeholder="/" />
+										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" value="${img_path }" />
 										<div class="help-block" id="input-span-slider"></div>
-									</div>
-								</div>
-<!-- 
-								<div class="control-group">
-									<label class="control-label" for="form-input-readonly">등록정보</label>
-
-									<div class="controls">
-										<span class="input-icon">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-
-										<span class="input-icon input-icon-right">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-input-readonly">수정정보</label>
+									<label class="control-label" for="form-field-2">컨텐츠 설명</label>
 
 									<div class="controls">
-										<span class="input-icon">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
-
-										<span class="input-icon input-icon-right">
-											<input readonly="" type="text" id="form-input-readonly" value="자동생성" />
-											<i class="icon-leaf"></i>
-										</span>
+										<c:choose>
+											<c:when test="${data.CONTENTS_DESC != null}">
+												<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc">${data.CONTENTS_DESC }</textarea>
+											</c:when>
+											<c:otherwise>
+												<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
- -->
-
+								
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit">
+									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
-										수정
+										저장
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
@@ -148,30 +133,31 @@
 										삭제
 									</button>
 								</div>
-
-								<div class="hr"></div>
-
-								
 							</form>
-
-							<div class="hr hr-18 dotted hr-double"></div>
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input name="contents_id" value="${data.CONTENTS_ID }">
+				<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">
 			</form>
 			
-<!-- series modify modal -->			
+
 <div id="modify-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">시리즈 변경</h3>
+			<h3 class="text-center">시리즈 설정</h3>
 		</div>
 		<div class="modal-body">
-			<div id="modify-series-list" class="control-group">
+			<div  class="control-group row-fluid">
+				<label class="control-label ">시리즈 명</label>
+				<div class="controls">
+					<input  id="modify-series-name" name="parent_series_nm" type="text">					
+					<button id="modify-series-search-btn" type="button" class="btn btn-primary">검색</button>
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label">시리즈 리스트</label>
 				<div class="controls">
 					<select id="modify-series-select">
@@ -181,7 +167,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-series-modal-btn" type="button" class="btn btn-primary">변경</button>
+			<button id="modify-series-submit-btn" type="button" class="btn btn-primary">등록</button>
 		</div>
 </div>		
 
@@ -208,22 +194,37 @@
 			
 
 <script type="text/javascript">
+
+$("#side-contents-contents").attr("class", "active");
+$("#side-contents").attr("class", "open active");
+
 	$(function(){
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do";
+			window.location.href="manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){
-			console.log("delete_btn");
-			$("#delete-form").submit();
+			if(confirm("삭제 하시겠습니까?")){
+				$("#delete-form").submit();
+			}else{
+				return false;
+			}
 		});
 		
-		$("#modify-series-modal-btn").click(function(){
-			$("#modify-parent-category-select")
+		$("#submit-btn").click(function(){
+			if(confirm("저장 하시겠습니까?")){
+				$("#modify-form").submit();
+			}else{
+				return false;
+			}
+		});
+		
+		$("#modify-series-submit-btn").click(function(){
 				$("#contents_series_nm").val($("#modify-series-select option:selected").text());
 				$("#contents_series_id").val($("#modify-series-select option:selected").val());
 				$("#modify-series-modal").modal('toggle');
 		});
+		
 		$("#modify-brand-modal-btn").click(function(){
 			$("#modify-parent-category-select")
 				$("#brand_nm").val($("#modify-brand-select option:selected").text());
@@ -232,25 +233,46 @@
 		});
 		
 		$("#series-mod-btn").click(function(){
-			$.ajax({
-				url: "seriesList.ajax",
-				type: 'GET',
-				dataType: 'json',
-				success : function(response) {
-						$.each(response.data, function(index, data){
-							$("#modify-series-select").append("<option value=\""+data.CONTENTS_SERIES_ID+"\">"+data.CONTENTS_SERIES_NM+"</option>")
-						}); 
-					$("#modify-series-modal").modal('toggle');
-				},
-				error: function(xhr, status, error) {
-					console.log("error="+error);
-				}
-			}); // seriesList ajax end
+			$("#modify-series-modal").modal('toggle');
 		}); // <!-- series-mod-btn event end
+		
+		$("#modify-series-search-btn").click(function(){
+			$("#modify-series-select").empty();
+				param = {
+					search_name : $("#modify-series-name").val()
+				};
+				
+				$.ajax({
+					url: "${contextPath}/series/parentSeriesList.ajax",
+					data: param,
+					type: 'POST',
+					dataType: 'json',
+					success : function(response) {
+						if(response.data.length == 0){
+							alert("검색된 시리즈가 없습니다.");
+							return false;
+						}else{
+							$("#modify-series-list").show();
+							$.each(response.data, function(index, series){
+								displaySeriesName="";
+								if(series.SERIES_LEVEL === 1){
+									displaySeriesName = series.CONTENTS_SERIES_NM+"("+series.SERIES_LEVEL+"-depth"+")";
+								}else{
+									displaySeriesName = series.PARENT_NM+" >> "+series.CONTENTS_SERIES_NM+"("+series.SERIES_LEVEL+"-depth "+")";
+								}
+								$("#modify-series-select").append("<option value=\""+series.CONTENTS_SERIES_ID+"\">"+displaySeriesName+"</option>")
+							});
+						}
+					},
+					error: function(xhr, status, error) {
+						console.log("error="+error);
+					}
+				}); // ajax end
+		});
 		
 		$("#brand-mod-btn").click(function(){
 			$.ajax({
-				url: "../brand/list.ajax",
+				url: "${contextPath}/brand/list.ajax",
 				type: 'GET',
 				dataType: 'json',
 				success : function(response) {

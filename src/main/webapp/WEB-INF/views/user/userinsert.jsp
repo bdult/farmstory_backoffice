@@ -383,6 +383,7 @@
 
 </div>
 <!--/.main-content-->
+<<<<<<< HEAD
 
 
 <script>
@@ -416,3 +417,5 @@ $(document).ready(function(){
 		
 });
 </script>
+=======
+>>>>>>> jisoon

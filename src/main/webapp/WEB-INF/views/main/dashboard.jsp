@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 			<div class="main-content">
 				<div class="breadcrumbs" id="breadcrumbs">
 					<ul class="breadcrumb">
@@ -13,15 +13,6 @@
 						</li>
 						<li class="active">메인화면</li>
 					</ul><!--.breadcrumb-->
-
-					<div class="nav-search" id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-								<i class="icon-search nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!--#nav-search-->
 				</div>
 
 				<div class="page-content">
@@ -35,12 +26,12 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 							<div class="row-fluid">
-								<div class="span5">
+								<div class="span6">
 									<div class="widget-box transparent">
 										<div class="widget-header widget-header-flat">
 											<h4 class="lighter">
 												<i class="icon-star orange"></i>
-												최근 등록 컨텐츠
+												<a href="${contextPath }/contents/manage.do?pageNum=1"> 컨텐츠</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -57,98 +48,29 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																name
+																컨텐츠 ID
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																price
+																컨텐츠 명
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-caret-right blue"></i>
-																status
+																생성일
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-														<tr>
-															<td>internet.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$29.99</s>
-																</small>
-																<b class="green">$19.99</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-info arrowed-right arrowed-in">on sale</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>online.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$16.45</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-success arrowed-in arrowed-in-right">approved</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>newnet.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$15.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-important arrowed">pending</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>web.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$24.99</s>
-																</small>
-																<b class="green">$19.95</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label arrowed">
-																	<s>out of stock</s>
-																</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>domain.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$12.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-warning arrowed arrowed-right">SOLD</span>
-															</td>
-														</tr>
+														<c:forEach items="${contentsTop5 }" var="contents">
+															<tr>
+																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_ID}</a> </td>
+																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_NM}</a> </td>
+																<td>${contents.REG_DT}</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div><!--/widget-main-->
@@ -156,12 +78,12 @@
 									</div><!--/widget-box-->
 								</div>
 
-								<div class="span7">
+								<div class="span6">
 									<div class="widget-box transparent">
 										<div class="widget-header widget-header-flat">
 											<h4 class="lighter">
 												<i class="icon-signal"></i>
-												최근 등록 회원
+												<a href="${contextPath }/user.do?pageNum=1"> 회원</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -178,98 +100,29 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																name
+																아이디
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																price
+																이름
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-caret-right blue"></i>
-																status
+																이메일
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-														<tr>
-															<td>internet.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$29.99</s>
-																</small>
-																<b class="green">$19.99</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-info arrowed-right arrowed-in">on sale</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>online.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$16.45</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-success arrowed-in arrowed-in-right">approved</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>newnet.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$15.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-important arrowed">pending</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>web.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$24.99</s>
-																</small>
-																<b class="green">$19.95</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label arrowed">
-																	<s>out of stock</s>
-																</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>domain.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$12.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-warning arrowed arrowed-right">SOLD</span>
-															</td>
-														</tr>
+														<c:forEach items="${contentsTop5 }" var="contents">
+															<tr>
+																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_ID}</a> </td>
+																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_NM}</a> </td>
+																<td>${contents.REG_DT}</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div><!--/widget-main-->
@@ -286,7 +139,7 @@
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
-												학습 순위
+												<a href="${contextPath }/brand/manage.do?pageNum=1"> 브랜드</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -303,98 +156,29 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																name
+																브랜드 ID
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																price
+																브랜드 명
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-caret-right blue"></i>
-																status
+																생성일
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-														<tr>
-															<td>internet.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$29.99</s>
-																</small>
-																<b class="green">$19.99</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-info arrowed-right arrowed-in">on sale</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>online.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$16.45</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-success arrowed-in arrowed-in-right">approved</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>newnet.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$15.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-important arrowed">pending</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>web.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$24.99</s>
-																</small>
-																<b class="green">$19.95</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label arrowed">
-																	<s>out of stock</s>
-																</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>domain.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$12.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-warning arrowed arrowed-right">SOLD</span>
-															</td>
-														</tr>
+														<c:forEach items="${brandTop5 }" var="brand">
+															<tr>
+																<td><a href="${contextPath }/brand/detail.do?contents_id=${brand.BRAND_ID}">${brand.BRAND_ID}</a> </td>
+																<td><a href="${contextPath }/brand/detail.do?contents_id=${brand.BRAND_ID}">${brand.BRAND_NM}</a> </td>
+																<td>${brand.REG_DT}</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div><!--/widget-main-->
@@ -402,137 +186,175 @@
 									</div><!--/widget-box-->
 								</div><!--/span-->
 
-								<div class="span6">
-									<div class="widget-box ">
-										<div class="widget-header">
-											<h4 class="lighter smaller">
-												<i class="icon-rss orange"></i>
-												결제 리스트
-											</h4>
-
-											<div class="widget-toolbar">
-												<a href="#" data-action="collapse">
-													<i class="icon-chevron-up"></i>
-												</a>
+								<div class="row-fluid">
+									<div class="span6">
+										<div class="widget-box transparent" id="recent-box">
+											<div class="widget-header">
+												<h4 class="lighter smaller">
+													<i class="icon-rss orange"></i>
+													<a href="${contextPath }/series/manage.do"> 시리즈 </a>
+												</h4>
+	
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="icon-chevron-up"></i>
+													</a>
+												</div>
 											</div>
-										</div>
 
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																<i class="icon-caret-right blue"></i>
-																name
-															</th>
-
-															<th>
-																<i class="icon-caret-right blue"></i>
-																price
-															</th>
-
-															<th class="hidden-phone">
-																<i class="icon-caret-right blue"></i>
-																status
-															</th>
-														</tr>
-													</thead>
-
-													<tbody>
-														<tr>
-															<td>internet.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$29.99</s>
-																</small>
-																<b class="green">$19.99</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-info arrowed-right arrowed-in">on sale</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>online.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$16.45</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-success arrowed-in arrowed-in-right">approved</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>newnet.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$15.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-important arrowed">pending</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>web.com</td>
-
-															<td>
-																<small>
-																	<s class="red">$24.99</s>
-																</small>
-																<b class="green">$19.95</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label arrowed">
-																	<s>out of stock</s>
-																</span>
-															</td>
-														</tr>
-
-														<tr>
-															<td>domain.com</td>
-
-															<td>
-																<small>
-																	<s class="red"></s>
-																</small>
-																<b class="green">$12.00</b>
-															</td>
-
-															<td class="hidden-phone">
-																<span class="label label-warning arrowed arrowed-right">SOLD</span>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-											</div><!--/widget-main-->
-										</div><!--/widget-body-->
+											<div class="widget-body">
+												<div class="widget-main no-padding">
+													<table class="table table-bordered table-striped">
+														<thead>
+															<tr>
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	시리즈 ID
+																</th>
+	
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	시리즈 명
+																</th>
+	
+																<th class="hidden-phone">
+																	<i class="icon-caret-right blue"></i>
+																	생성일
+																</th>
+															</tr>
+														</thead>
+	
+														<tbody>
+															<c:forEach items="${seriesTop5 }" var="series">
+																<tr>
+																	<td>${series.CONTENTS_SERIES_ID}</td>
+																	<td>${series.CONTENTS_SERIES_NM}</td>
+																	<td>${series.REG_DT}</td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div><!--/widget-main-->
+											</div><!--/widget-body-->
 									</div><!--/widget-box-->
 								</div><!--/span-->
 							</div><!--/row-->
-
-							<!--PAGE CONTENT ENDS-->
 						</div><!--/.span-->
+						
+						<div class="hr hr32 hr-dotted"></div>
+						
+						<div class="row-fluid">
+								<div class="span6">
+									<div class="widget-box transparent" id="recent-box">
+										<div class="widget-header">
+											<h4 class="lighter smaller">
+												<i class="icon-rss orange"></i>
+												
+												<a href="${contextPath }/board/manage.do?pageNum=1"> 게시판</a>
+											</h4>
+
+											<div class="widget-toolbar">
+												<a href="#" data-action="collapse">
+													<i class="icon-chevron-up"></i>
+												</a>
+											</div>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main no-padding">
+												<table class="table table-bordered table-striped">
+													<thead>
+														<tr>
+															<th>
+																<i class="icon-caret-right blue"></i>
+																게시판 ID
+															</th>
+
+															<th>
+																<i class="icon-caret-right blue"></i>
+																게시판 명
+															</th>
+
+															<th class="hidden-phone">
+																<i class="icon-caret-right blue"></i>
+																생성일
+															</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														<c:forEach items="${boardTop5 }" var="board">
+															<tr>
+																<td><a href="${contextPath }/board/detail.do?contents_id=${board.BOARD_ID}">${board.BOARD_ID}</a> </td>
+																<td><a href="${contextPath }/board/detail.do?contents_id=${board.BOARD_ID}">${board.BOARD_NM}</a> </td>
+																<td>${board.REG_DT}</td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div><!--/widget-main-->
+										</div><!--/widget-body-->
+									</div><!--/widget-box-->
+								</div><!--/span-->
+								<div class="span6">
+									<div class="widget-box transparent" id="recent-box">
+										<div class="widget-header">
+											<h4 class="lighter smaller">
+												<i class="icon-rss orange"></i>
+												<a href="${contextPath }/category/manage.do"> 카테고리</a>
+											</h4>
+
+											<div class="widget-toolbar">
+												<a href="#" data-action="collapse">
+													<i class="icon-chevron-up"></i>
+												</a>
+											</div>
+										</div>
+
+										<div class="widget-body">
+											<div class="widget-main no-padding">
+												<table class="table table-bordered table-striped">
+													<thead>
+														<tr>
+															<th>
+																<i class="icon-caret-right blue"></i>
+																카테고리 ID
+															</th>
+
+															<th>
+																<i class="icon-caret-right blue"></i>
+																카테고리 명
+															</th>
+
+															<th class="hidden-phone">
+																<i class="icon-caret-right blue"></i>
+																생성일
+															</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														<c:forEach items="${categoryTop5 }" var="category">
+															<tr>
+																<td>${category.CATE_ID}</td>
+																<td>${category.CATE_NM}</td>
+																<td>${category.REG_DT}</td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+											</div><!--/widget-main-->
+										</div><!--/widget-body-->
+									</div><!--/widget-box-->
+								</div><!--/span-->
+						</div><!--/.span-->
+							<!--PAGE CONTENT ENDS-->
+						
+						
 					</div><!--/.row-fluid-->
 				</div><!--/.page-content-->
 
 				<div class="ace-settings-container" id="ace-settings-container">
-					<div class="btn btn-app btn-mini btn-warning ace-settings-btn" id="ace-settings-btn">
-						<i class="icon-cog bigger-150"></i>
-					</div>
 
 					<div class="ace-settings-box" id="ace-settings-box">
 						<div>

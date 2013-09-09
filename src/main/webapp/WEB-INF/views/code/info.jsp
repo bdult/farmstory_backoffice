@@ -14,29 +14,22 @@
 							</span>
 						</li>
 						<li>
-							컨텐츠 관리
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li>
-							브랜드
+							코드 관리
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
 						<li class="active">상세</li>
 					</ul><!--.breadcrumb-->
-			
-				</div><!-- #breadcrumbs -->
+				</div>
 
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							브랜드 상세
+							코드 상세
 							<small>
 								<i class="icon-double-angle-right"></i>
-								브랜드에 대한 상세한 정보
+								코드에 대한 상세 정보
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -45,52 +38,45 @@
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
 
-							<form name="frm" method="post" action="${contextPath }/brand/modify.do" class="form-horizontal" >
-								<input type="hidden" name="mode" value="${mode}" />
-								
+							<form id="modify-form" method="post" action="${contextPath }/code/modify.do" class="form-horizontal" >
 								<div class="control-group">
-									<label class="control-label" for="contents_id">브랜드 ID</label>
+									<label class="control-label" for="code_idx">코드 IDX</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" id="brand_id" name="brand_id" value="${data.BRAND_ID}" />
+										<input readonly="readonly" type="text" id="code_idx" name="code_idx" value="${data.IDX}" />
 									</div>
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">브랜드 명</label>
+									<label class="control-label" for="code">코드</label>
 
 									<div class="controls">
-										<input type="text" id="brand_nm" name="brand_nm" placeholder="브랜드 명" value="${data.BRAND_NM}" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">썸네일 이미지 경로</label>
-
-									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
-										<div class="help-block" id="input-span-slider"></div>
+										<input type="text" id="code" name="code" value="${data.CODE == null? "코드" : data.CODE}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">브랜드 설명</label>
+									<label class="control-label" for="code_detail">코드 설명</label>
+
 									<div class="controls">
-										<c:choose>
-											<c:when test="${data.BRAND_DESC != null}">
-												<textarea rows="20" class="autosize-transition span12" id="brand_desc" name="brand_desc">${data.BRAND_DESC }</textarea>
-											</c:when>
-											<c:otherwise>
-												<textarea rows="20" class="autosize-transition span12" id="brand_desc" name="brand_desc" ></textarea>
-											</c:otherwise>
-										</c:choose>
+										<input type="text" id="code_detail" name="code_detail" value="${data.CODE_DETAIL== null? "" : data.CODE_DETAIL}" />
 									</div>
 								</div>
+								
+								<div class="control-group">
+									<label class="control-label" for="PARENT_CODE">상위 코드</label>
+
+									<div class="controls">
+										<input type="text" id="PARENT_CODE" name="PARENT_CODE" value="${data.PARENT_CODE== null? "" : data.PARENT_CODE}" />
+									</div>
+								</div>
+								
+								
 
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit">
+									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
-										저장
+										수정
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
@@ -104,6 +90,7 @@
 										삭제
 									</button>
 								</div>
+
 							</form>
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
@@ -111,22 +98,35 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">
+				<input type="hidden" name="code_idx" value="${data.IDX }">
 			</form>
 			
 
 <script type="text/javascript">
-	$("#side-contents-brand").attr("class", "active");
-	$("#side-contents").attr("class", "open active");
+
+	$("#side-code-code").attr("class", "active");
 
 	$(function(){
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do";
+			window.location.href="manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){
-			$("#delete-form").submit();
+			if(confirm("하위 코드도 삭제 됩니다. 삭제 하시겠습니까?")){
+				$("#delete-form").submit();
+			}else{
+				return false;
+			}
 		});
+		
+		$("#submit-btn").click(function(){
+			if(confirm("저장 하시겠습니까?")){
+				$("#modify-form").submit();
+			}else{
+				return false;
+			}
+		});
+		
 		
 	}); // <!-- function() end 
 	

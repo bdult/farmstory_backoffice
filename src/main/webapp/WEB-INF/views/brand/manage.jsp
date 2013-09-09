@@ -24,86 +24,81 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">브랜드 관리</li>
+			<li class="active">브랜드</li>
 		</ul>
 
 		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="search.do" method="post">
+			<form class="form-search" action="manage.do" method="post">
 				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off" />
+					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
 					<i class="icon-search nav-search-icon"></i>
 				</span>
 			</form>
 		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 
-	<div class="span7">
+	<div class="row-fluid">
 			<h3 class="header smaller lighter blue">브랜드 리스트</h3>
-			<div class="table-header">
-				<button id="create-brand-btn" class="btn btn-info">브랜드 추가</button>
+			<div class="table-header" align="right">
+				<button id="create-brand-btn" class="btn btn-success">추가</button>
 			</div>
 			<table  class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
 						<th>ID</th>
 						<th>이름</th>
-						<th>생성일</th>
-						<th></th>
+						<th><i class="icon-time bigger-110 hidden-phone"></i>생성일</th>
 					</tr>
 				</thead>				
 				<tbody>
 					<c:forEach items="${brandList }" var="brand">
 					<tr>
-						<td>${brand.BRAND_ID }</td>
-						<td>${brand.BRAND_NM }</td>
+						<td><a href="${contextPath }/brand/detail.do?brand_id=${brand.BRAND_ID }">${brand.BRAND_ID }</a></td>
+						<td><a href="${contextPath }/brand/detail.do?brand_id=${brand.BRAND_ID }">${brand.BRAND_NM }</a></td>
 						<td>${brand.REG_DT }</td>
-						<td class="td-actions">
-								<div class="hidden-phone visible-desktop action-buttons">
-									<a class="blue" href="detail.do?brand_id=${brand.BRAND_ID}">
-										<i id="detail_icon" class="icon-zoom-in bigger-130"></i>
-									</a>
-
-									<a class="green" href="detail.do?brand_id=${brand.BRAND_ID}">
-										<i id="modify_icon" class="icon-pencil bigger-130"></i>
-									</a>
-
-									<a class="red" href="delete.do?brand_id=${brand.BRAND_ID}">
-										<i id="delete_icon" class="icon-trash bigger-130"></i>
-									</a>
-								</div>
-						</td>
 					</tr>
 					</c:forEach>
 				</tbody>	
 			</table>
 	</div><!--/.row-fluid-->
+	<div class="row-fluid">
+				<div class="span6">
+					<div class="dataTables_info">Total ${totalCount } entries</div>
+				</div>
+				<div class="span6">
+					<div class="dataTables_paginate paging_bootstrap pagination">
+						<ul>
+							<li class="prev disabled"><a href="#null"><i
+									class="icon-double-angle-left"></i></a></li>
+							<c:forEach items="${pageList }" var="page">
+								<c:choose>
+									<c:when test="${pageNum == page.pageNum}">
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<li class="next"><a href="#"><i
+									class="icon-double-angle-right"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div><!--  page-link -->
 </div><!--/. main-content-->
 
-<div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="/storyfarm-admin/brand/create.do" method="post">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 등록</h3>
-		</div>
-		<div class="modal-body">
-					브랜드 명  <input type="text" name="brand_nm">
-		</div>
-		<div class="modal-footer">
-			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>
-			<button type="submit" class="btn btn-primary btn-series-select">등록하기</button>
-		</div>
-	</form>
-</div>
-
-<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
-	<i class="icon-double-angle-up icon-only bigger-110"></i>
-</a>
 
 <script>
+$("#side-contents-brand").attr("class", "active");
+$("#side-contents").attr("class", "open active");
+
+	
 $(function(){
+	
+	
 	$("#create-brand-btn").click(function(){
-			console.log("create-brand-btn click");
-			$("#creat-brand-modal").modal('toggle');
+			location.href="${contextPath}/brand/createView.do";
 	});
 	
 });

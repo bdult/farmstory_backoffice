@@ -14,10 +14,10 @@ public class BrandDao extends SqlSessionDaoSupport {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public List<Map> list() {
-		return (List<Map>)getSqlSession().selectList("brandQuery.list");
+	public List<Map> list(Map parameter) {
+		return (List<Map>)getSqlSession().selectList("brandQuery.list", parameter);
 	}
-
+	
 	public void create(Map parameterMap) {
 		getSqlSession().insert("brandQuery.create", parameterMap);
 	}
@@ -26,15 +26,23 @@ public class BrandDao extends SqlSessionDaoSupport {
 		getSqlSession().update("brandQuery.modify", parameterMap);
 	}
 
-	public Map detail(String brandId) {
-		return (Map)getSqlSession().selectOne("brandQuery.detail", brandId);
+	public Map detail(Map parameter) {
+		return (Map)getSqlSession().selectOne("brandQuery.detail", parameter);
 	}
 
 	public void delete(Map brandInfo) {
 		getSqlSession().update("brandQuery.delete", brandInfo);
 	}
 
-	public List<Map> search(String search) {
-		return getSqlSession().selectList("brandQuery.search", search);
+	public int totalCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("brandQuery.totalCount", parameter);
+	}
+
+	public List top5() {
+		return getSqlSession().selectList("brandQuery.top5");
+	}
+
+	public List<Map> listAll() {
+		return getSqlSession().selectList("brandQuery.listAll");
 	}
 }
