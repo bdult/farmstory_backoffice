@@ -26,18 +26,31 @@
 			</li>
 			
 			<li id="side-user">
-				<a href="${ contextPath }/user.do">
-					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 회원관리 </span>
-				</a>
-			</li>
-			
-			<li>
-				<a href="${ contextPath }/adminUser.do">
-					<i class="icon-file-alt"></i>
-					<span class="menu-text"> admin회원관리 </span>
-				</a>
-			</li>
+				<a href="#null" class="dropdown-toggle">
+						<i class="icon-file-alt"></i>
+						<span class="menu-text">  회원관리 
+							<span class="badge badge-primary ">2</span> 
+						</span>
+						<b class="arrow icon-angle-down"></b>
+						
+					</a>
+					<ul class="submenu">
+		
+						<li id="side-user-user">
+							<a href="${ contextPath }/user/user/manage.do">
+								<i class="icon-double-angle-right"></i>
+								일반 회원
+							</a>
+						</li>
+		
+						<li id="side-user-admin">
+							<a href="${ contextPath }/user/admin/manage.do">
+								<i class="icon-double-angle-right"></i>
+								Admin 회원
+							</a>
+						</li>
+					</ul>
+				</li>
 			
 			<li id="side-contents">
 				<a href="#" class="dropdown-toggle">

@@ -93,7 +93,7 @@ public class UserServiceTest {
 		paramMap.put("id", "test");
 		
 		//when
-		Map<String, Object> userList = userService.getUserOne(paramMap);
+		Map<String, Object> userList = userService.detail(paramMap);
 		
 		//than
 		logger.info("userList : {}", userList.toString());
@@ -194,7 +194,7 @@ public class UserServiceTest {
 		paramMap.put("pw", "123");
 		
 		//when
-		int result = userService.insertUser(paramMap);
+		int result = userService.addAdminUser(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
