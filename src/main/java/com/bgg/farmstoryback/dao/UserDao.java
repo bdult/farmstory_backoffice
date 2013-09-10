@@ -102,5 +102,13 @@ public class UserDao extends SqlSessionDaoSupport {
 	public int totalCount(Map parameter) {
 		return (Integer)getSqlSession().selectOne("userQuery.totalCount", parameter);
 	}
+
+	public int adminUserCheckCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("userQuery.adminUserCheckCount", parameter);
+	}
+
+	public int userIdCheckCount(Map paramMap) {
+		return (Integer)getSqlSession().selectOne("userQuery.userIdCheckCount", paramMap);
+	}
 	
 }

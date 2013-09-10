@@ -59,7 +59,7 @@
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>INDEX</th>
+						<th>IDX</th>
 						<th>ID</th>
 						<th>이름</th>
 						<th>이메일</th>
@@ -76,9 +76,9 @@
 				<tbody>
 				<c:forEach var="userlist" items="${positionList}" varStatus="status">
 							<tr>
-								<td><a href="${ contextPath }/user/detail.do?id=${userlist.MEMBER_ID}">${userlist.IDX}</a></td>
-								<td><a href="${ contextPath }/user/detail.do?id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
-								<td><a href="${ contextPath }/user/detail.do?id=${userlist.MEMBER_ID}">${userlist.MEMBER_NM}</a></td>
+								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.IDX}</a></td>
+								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
+								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_NM}</a></td>
 								<td>${userlist.MEMBER_EMAIL}</td>
 								<td>${userlist.MEMBER_STATUS_DESC}</td>
 								<td>${userlist.MEMBER_ROLE}</td>

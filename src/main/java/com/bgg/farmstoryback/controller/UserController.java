@@ -14,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.UserService;
 import com.mysql.jdbc.StringUtils;
@@ -31,35 +33,67 @@ public class UserController {
 	@Autowired
 	private PageUtil pageUtil;
 	
+	@Autowired
+	private JsonResponseMaker jsonResMaker;
+	
 	@RequestMapping(value = "user/logout.do", method = RequestMethod.GET)
 	public String logout(Model model, HttpServletRequest request, HttpSession session) {
 		logger.info("logout.do");
-
-		if(session != null){
-			session.invalidate();
-		}
-        
+		session.invalidate();
         return "pure-user/login";
 	}
 	
 	@RequestMapping(value = "user/login.do")
-	public String login(
-			@RequestParam Map<String,Object> paramMap, HttpServletRequest request, HttpSession session) {
-		
-		logger.info("login method");
-		
-		if(StringUtils.isNullOrEmpty((String)paramMap.get("id"))){
+	public String login(@RequestParam Map<String,Object> paramMap, HttpSession session) {
+		if(paramMap.isEmpty()){
 			return "pure-user/login";
 		}else{
-			HashMap<String, Object> sessionMap = (HashMap<String, Object>)userService.getOneRole(paramMap);
-			if(sessionMap !=null){
-				session.setAttribute("login_session", sessionMap);
-				return "redirect:/dashboard.do";
-			}else{
-				return "pure-user/login";
-			}
+			// 관리자 계정만 로그인 가능 하도록
+			Map sessionMap = userService.getOneRole(paramMap);
+			session.setAttribute("login_session", sessionMap);
+			return "redirect:/dashboard.do";
 		}
 	}
+	
+	@RequestMapping(value = "user/login.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String loginAjax(@RequestParam Map paramMap, HttpSession session) {
+		
+		logger.info("parma {}", paramMap);
+		
+		Map response = new HashMap();
+		
+		// ID 체크
+		if(userService.isNotFountUser(paramMap)){
+			response.put("code", 404);
+			response.put("msg", "ID 가 없습니다.");
+			return jsonResMaker.generateMap("data", response);
+		}
+		
+		// 관리자 계정만 로그인 가능 하도록
+		if(userService.isNotAdminUser(paramMap)){
+			response.put("code", 400);
+			response.put("msg", "관리자 회원이 아닙니다.");
+			return jsonResMaker.generateMap("data", response);
+		}
+		
+		// PWD 체크
+		Map userInfo = userService.getOneRole(paramMap);
+		if(userInfo == null){
+			response.put("code", 400);
+			response.put("msg", "비밀번호가 틀립니다.");
+			return jsonResMaker.generateMap("data", response);
+		}else{
+			session.setAttribute("login_session", userInfo);
+		}
+		
+		response.put("code", 200);
+		response.put("msg", "ok");
+		String res = jsonResMaker.generateMap("data", response);
+		logger.info("response {}", res);
+		return res;
+		
+	}
+	
 	
 	@RequestMapping(value = "/user/user/manage.do")
 	public String userManage(Model model, @RequestParam Map parameter) {

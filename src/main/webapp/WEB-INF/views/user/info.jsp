@@ -118,7 +118,7 @@
 					</div>
 			</div>
 			
-		<c:if test="${type == 'userView' }">
+		<c:if test="${detail.type == 'userView' }">
 			<div class="page-header position-relative">
 					<h1>
 						자녀 정보
@@ -158,7 +158,7 @@
 <!--/.main-content-->
 
 <script>
-$(document).ready(function(){
+/* $(document).ready(function(){
 	
 	var dspType = "${detail.type}";
 	$("#side-user").attr("class", "open active");
@@ -194,5 +194,5 @@ $(document).ready(function(){
 		$("#dayBox").val(${childListOne.BIRTH_DAY});
 	}
 		
-});
+}); */
 </script>

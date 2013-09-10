@@ -26,7 +26,7 @@
         SELECT /* userQuery.detail 2013.09.09 김운호 */ 
         	*
         FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ id }
+        WHERE MEMBER_ID = #{member_id}
     </select>
 
     <select id="childDetail" resultType="hashmap" parameterType="hashmap">
@@ -94,15 +94,24 @@
 		WHERE MB.MEMBER_ID = #{ member_id }
 	</select>
 	
-	<select id="userSearch" resultType="hashmap">
-		SELECT /* userQuery.userSearch 2013.09.09 김운호 */ 
-			*
+	<select id="adminUserCheckCount" resultType="int">
+		SELECT /* userQuery.adminUserCheckCount 2013.09.09 최지순 */ 
+			count(*)
 		FROM BG_MEMBER
-		WHERE
-		MEMBER_ID = #{ id } or
-		MEMBER_NM = #{ name } or
-		MEMBER_ROLE = #{ role }
+		WHERE 1=1
+		AND MEMBER_ID = #{ id}
+		AND MEMBER_TYPE = 0
 	</select>
+	
+	<select id="userIdCheckCount" resultType="int">
+		SELECT /* userQuery.userIdCheckCount 2013.09.09 최지순 */ 
+			count(*)
+		FROM BG_MEMBER
+		WHERE 1=1
+		AND MEMBER_ID = #{ id}
+	</select>
+	
+	
 	
 	<!-- insert -->
 	<insert id="addAdminUser"  parameterType="hashmap">

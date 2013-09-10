@@ -1,14 +1,13 @@
 package com.bgg.farmstoryback.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 
 
 import org.junit.After;
@@ -34,16 +33,25 @@ public class UserServiceTest {
 	
 	@Before
 	public void before() {
-		logger.info("==========================");
-		logger.info("모든 JUNIT 테스트 시작 전 실행 됩니다.");
-		logger.info("==========================");
 	}
 
 	@After
 	public void after(){
-		logger.info("==========================");
-		logger.info("모든 JUNIT 테스트 종료 후 실행 됩니다.");
-		logger.info("==========================");
+	}
+	
+	@Test
+	public void testIsNotAdminUser() {
+
+		// given 
+		Map paramMap = new HashMap();
+		paramMap.put("id", "test");
+
+		// when
+		boolean isNotAdminUser = userService.isNotAdminUser(paramMap);
+
+		// then
+		assertTrue(isNotAdminUser);
+
 	}
 	
 	@Test

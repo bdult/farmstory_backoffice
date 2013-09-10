@@ -94,7 +94,7 @@ public class UserService {
 		
 		Map userDetail = userDao.detail(paramMap);
 		detailInfo.put("userDetail", userDetail );
-		if((Integer)userDetail.get("MEMBER_TYPE") == 2){
+		if((Integer)userDetail.get("MEMBER_TYPE") == 1){
 			detailInfo.put("userChildList", userDao.childList(paramMap));
 			detailInfo.put("type", "userView");
 		}else{
@@ -145,6 +145,20 @@ public class UserService {
 		map.put("id", (String)paramMap.get("id"));
 		
 		return userDao.deleteUser(map);
+	}
+
+	public boolean isNotAdminUser(Map parameter) {
+		int checkCount = userDao.adminUserCheckCount(parameter);
+		if(checkCount == 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public boolean isNotFountUser(Map paramMap) {
+		int checkCount = userDao.userIdCheckCount(paramMap);
+		return false;
 	}
 
 
