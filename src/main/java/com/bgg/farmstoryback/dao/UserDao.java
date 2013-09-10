@@ -75,7 +75,7 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param childListMap
 	 * @return
 	 */
-	public List<HashMap<String, Object>> childList(Map<String, Object> childListMap) {
+	public List<HashMap<String, Object>> childList(String childListMap) {
 		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.childList", childListMap);
 	}
 	
@@ -92,8 +92,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int insertUser(Map<String, Object> userListMap){
-		return getSqlSession().insert("userQuery.insertUser",userListMap);
+	public void insertUser(Map<String, Object> userListMap){
+		getSqlSession().insert("userQuery.insertUser",userListMap);
 	}
 	
 	/**
@@ -101,8 +101,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param childListMap
 	 * @return
 	 */
-	public int insertChild(Map<String, Object> childListMap){
-		return getSqlSession().insert("userQuery.insertChild", childListMap);
+	public void insertChild(Map<String, Object> childListMap){
+		getSqlSession().insert("userQuery.insertChild", childListMap);
 	}
 	
 	
@@ -111,8 +111,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int updateUser(Map<String, Object> userListMap){
-		return getSqlSession().update("userQuery.updateUser", userListMap);
+	public void updateUser(Map<String, Object> userListMap){
+		getSqlSession().update("userQuery.updateUser", userListMap);
 	}
 	
 	/**
@@ -120,8 +120,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param childListMap
 	 * @return
 	 */
-	public int updateChild(Map<String, Object> childListMap){
-		return getSqlSession().update("userQuery.updateChild", childListMap);
+	public void updateChild(Map<String, Object> childListMap){
+		getSqlSession().update("userQuery.updateChild", childListMap);
 	}
 	
 	/**
@@ -129,8 +129,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public int deleteUser(Map<String, Object> userListMap){
-		return getSqlSession().delete("userQuery.deleteUser", userListMap);
+	public void deleteUser(String userListMap){
+		getSqlSession().delete("userQuery.deleteUser", userListMap);
 	}
 	
 	/**
@@ -138,8 +138,8 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param childListMap
 	 * @return
 	 */
-	public int deleteChild(Map<String, Object> childListMap){
-		return getSqlSession().delete("userQuery.deleteChild", childListMap);
+	public void deleteChild(String childListMap){
+		getSqlSession().delete("userQuery.deleteChild", childListMap);
 	}
 	
 }

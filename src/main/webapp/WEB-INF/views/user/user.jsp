@@ -70,7 +70,7 @@
 				<tbody>
 				<c:choose>
 					<c:when test="${ type == 'userView' || type == 'adminView' }">
-						<c:forEach var="userlist" items="${positionList}"
+						<c:forEach var="userlist" items="${list}"
 							varStatus="status">
 							<tr>
 								<td><a href="${ contextPath }/user/modify.do?id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>

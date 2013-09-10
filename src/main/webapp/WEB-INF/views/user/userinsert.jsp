@@ -91,7 +91,7 @@
 								</div>
 
 								<div class="control-group">
-									<label class="control-label">유저 타입 1:admin 2:user</label>
+									<label class="control-label">유저 타입 0:admin 1:user</label>
 
 									<div class="controls">
 										<input type="text" name="member_type" value="" />
@@ -155,7 +155,7 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label">유저 타입 1:admin 2:user</label>
+									<label class="control-label">유저 타입 0:admin 1:user</label>
 
 									<div class="controls">
 										<input type="text" name="member_type" value="${userListOne.MEMBER_TYPE}" />
@@ -184,7 +184,7 @@
 				
 					<c:if test="${ type == 'childCreate' }">
 							<form id="create-form" method="post" action="${ contextPath }/user/childCreate.do" class="form-horizontal" >
-								<input type="hidden" name="id" value="${ userListOne.MEMBER_ID }">
+								<input type="hidden" name="id" value="${ childUserOne.MEMBER_ID }">
 								
 								<div class="control-group">
 									<label class="control-label">부모 ID</label>

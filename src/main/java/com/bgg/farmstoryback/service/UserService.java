@@ -36,7 +36,6 @@ public class UserService {
 	 */
 	public Map<String, Object> typeCheck(Map<String, Object> paramMap) {
 		
-		
 		return userDao.typeCheck(paramMap);
 	}
 	
@@ -63,10 +62,7 @@ public class UserService {
 	 */
 	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_id", paramMap.get("id"));
-		
-		return userDao.childList(map);
+		return userDao.childList((String)paramMap.get("id"));
 	}
 	
 	/**
@@ -106,117 +102,56 @@ public class UserService {
 	
 	/**
 	 * 유저 생성
-	 * <pre>
-	 * Param sample
-	 * Map<String, String> map = new HashMap<String, String>();
-	 * map.put("MEMBER_ID", "test");
-	 * map.put("MEMBER_NM", "Unho");
-	 * map.put("MEMBER_PW", "1234");
-	 * </pre>
 	 * @param paramMap
-	 * @return
 	 */
-	public int insertUser(Map<String, Object> paramMap){
+	public void insertUser(Map<String, Object> paramMap){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", (String)paramMap.get("id"));
-		map.put("name", (String)paramMap.get("name"));
-		map.put("pwd", (String)paramMap.get("pwd"));
-		map.put("role", (String)paramMap.get("role"));
-		map.put("member_type", (String)paramMap.get("member_type"));
-		
-		return userDao.insertUser(map);
+		userDao.insertUser(paramMap);
 	}
 	
 	/**
 	 * 자녀 생성
 	 * @param paramMap
-	 * @return
 	 */
-	public int insertChild(Map<String, Object> paramMap){
+	public void insertChild(Map<String, Object> paramMap){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("parent_member_id", paramMap.get("parent_member_id"));
-		map.put("child_nm", paramMap.get("child_nm"));
-		map.put("photo", paramMap.get("photo"));
-		map.put("gender", paramMap.get("gender"));
-		map.put("birth_year", paramMap.get("birth_year"));
-		map.put("birth_month", paramMap.get("birth_month"));
-		map.put("birth_day", paramMap.get("birth_day"));
-		
-		return userDao.insertChild(map);
+		userDao.insertChild(paramMap);
 	}
 	
 	/**
 	 * 유저리스트 수정
-	 * <pre>
-	 * Param sample
-	 * Map<String, String> map = new HashMap<String, String>();
-	 * map.put("MEMBER_ID", "test");
-	 * map.put("MEMBER_NM", "Unho");
-	 * map.put("MEMBER_PW", "1234");
-	 * </pre>
 	 * @param paramMap
-	 * @return
 	 */
-	public int updateUser(Map<String, Object> paramMap){
+	public void updateUser(Map<String, Object> paramMap){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", paramMap.get("id"));
-		map.put("name", paramMap.get("name"));
-		map.put("pwd", paramMap.get("pwd"));
-		map.put("role", paramMap.get("role"));
-		map.put("member_type", paramMap.get("member_type"));
-		
-		return userDao.updateUser(map);
+		userDao.updateUser(paramMap);
 	}
 	
 	/**
 	 * 자녀리스트 수정
 	 * @param paramMap
-	 * @return
 	 */
-	public int updateChild(Map<String, Object> paramMap){
+	public void updateChild(Map<String, Object> paramMap){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("idx", paramMap.get("idx"));
-		map.put("parent_member_id", paramMap.get("parent_member_id"));
-		map.put("child_nm", paramMap.get("child_nm"));
-		map.put("photo", paramMap.get("photo"));
-		map.put("gender", paramMap.get("gender"));
-		map.put("birth_year", paramMap.get("birth_year"));
-		map.put("birth_month", paramMap.get("birth_month"));
-		map.put("birth_day", paramMap.get("birth_day"));
-		
-		return userDao.updateChild(map);
+		userDao.updateChild(paramMap);
 	}
 	
 	/**
 	 * 유저리스트 삭제
-	 * <pre>
-	 * Param sample
-	 * Map<String, String> map = new HashMap<String, String>();
-	 * map.put("MEMBER_ID", "test");
-	 * </pre>
 	 * @param paramMap
-	 * @return
 	 */
-	public int deleteUser(Map<String, Object> paramMap){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", (String)paramMap.get("id"));
+	public void deleteUser(Map<String, Object> paramMap){
 		
-		return userDao.deleteUser(map);
+		userDao.deleteUser((String)paramMap.get("id"));
 	}
+	
 	
 	/**
 	 * 자녀리스트 삭제
 	 * @param paramMap
-	 * @return
 	 */
-	public int deleteChild(Map<String, Object> paramMap){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("idx", paramMap.get("idx"));
+	public void deleteChild(Map<String, Object> paramMap){
 		
-		return userDao.deleteChild(map);
+		userDao.deleteChild((String)paramMap.get("idx"));
 	}
 }
