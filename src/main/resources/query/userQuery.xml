@@ -39,6 +39,14 @@
         WHERE MEMBER_ID = #{ id }
     </select>
     
+    <select id="adminTotalCount" resultType="int">
+    	SELECT
+    	count(*)
+    	FROM
+    	BG_MEMBER
+    	WHERE MEMBER_TYPE = 0
+    </select>
+    
 	<select id="userList" resultType="hashmap" >
 		SELECT
 		MB.MEMBER_ID,
@@ -50,7 +58,10 @@
 		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
 		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
 		GROUP BY MB.MEMBER_ID
-		HAVING MB.MEMBER_TYPE = 1
+		HAVING MB.MEMBER_TYPE = 1 ORDER BY MB.MEMBER_ID DESC
+		<if test="startNo != null and perPage != null"> 
+		LIMIT #{startNo}, #{perPage}
+		</if>
 	</select>
     
 	<select id="adminUserList" resultType="hashmap" >

@@ -78,7 +78,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "adminUser.do", method = RequestMethod.GET)
-	public String adminUser(Model model) {
+	public String adminUser(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		int pageNum=0;
+		if(paramMap.get("pageNum") == null){
+			pageNum=1;
+		}else{
+			pageNum = Integer.parseInt((String)paramMap.get("pageNum"));
+		}
+		
+		
 		
 		List<HashMap<String, Object>> list = userService.adminUserList(); 
 		
@@ -169,8 +178,6 @@ public class UserController {
 	
 	@RequestMapping(value = "user/modify.do", method = RequestMethod.GET)
 	public String modify(Model model, @RequestParam Map<String,Object> paramMap) {
-		
-		logger.info("model is : " + model);
 		
 		model.addAttribute("userListOne", userService.getUserOne(paramMap));
 		model.addAttribute("childList", userService.childList(paramMap));

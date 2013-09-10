@@ -54,6 +54,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getChildOne", childListMap);
 	}
 	
+	public int getAdminTotalCount(Map<String, Object> paramMap){
+		return (Integer)getSqlSession().selectOne("userQuery.adminTotalCount", paramMap);
+	}
+	
 	/**
 	 * 유저리스트 보기
 	 * @return
