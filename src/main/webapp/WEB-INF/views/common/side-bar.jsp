@@ -92,14 +92,12 @@
 							마스터
 						</a>
 					</li> 
-	<!-- 추후
 					<li id="side-board-board" >
 						<a href="${contextPath }/board/contents/manage.do">
 							<i class="icon-double-angle-right"></i>
 							게시판 조회
 						</a>
 					</li>
-	 -->
 				</ul>
 			</li>
 			<li id="side-code-code">

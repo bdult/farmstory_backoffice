@@ -21,17 +21,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bgg.farmstoryback.common.PageUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
+@ContextConfiguration(locations = { "classpath:servlet-contextForTest.xml" })
 public class BoardServiceTest {
-	
-	
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	
+
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	private PageUtil pageUtil;
 
 	@Before
 	public void setUp() throws Exception {
@@ -45,12 +47,12 @@ public class BoardServiceTest {
 	public void testCreate() {
 
 		// given
-		
+
 		Map boardInfo = new HashMap();
 		boardInfo.put("board_nm", "test");
 		boardInfo.put("reg_member_id", "test");
 		boardInfo.put("mod_member_id", "test");
-		boardService.deleteByName((String)boardInfo.get("board_nm"));
+		boardService.deleteByName((String) boardInfo.get("board_nm"));
 
 		// when
 		boardService.create(boardInfo);
@@ -59,12 +61,24 @@ public class BoardServiceTest {
 		Map boardDetailInfo = boardService.detail(boardInfo);
 		assertNotNull(boardDetailInfo);
 	}
-	
+
 	@Test
 	public void testList() {
 
 		// given
-		 testCreate();
+		//testCreate();
+		int pageNum=0;
+		if(parameter.get("pageNum") == null){
+			pageNum=1;
+		}else{
+			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
+		}
+		int totalCount = boardService.totalCount(parameter);
+
+		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
+		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
+		pageInfo.put("perPage", pageUtil.PER_PAGE);
+		//pageInfo.put("search", parameter.get("search"));
 
 		// when
 		List<Map> boardList = boardService.list();
@@ -73,11 +87,11 @@ public class BoardServiceTest {
 		assertNotNull(boardList);
 		assertThat(boardList.size(), is(not(0)));
 	}
-	
+
 	@Test
 	public void testDelete() {
 
-		// given 
+		// given
 		Map boardInfo = boardService.boardInfoByName("test");
 
 		// when
@@ -86,37 +100,36 @@ public class BoardServiceTest {
 		// then
 		Map boardDetailInfo = boardService.detail(boardInfo);
 		assertNull(boardDetailInfo);
-		
+
 	}
-	
+
 	@Test
 	public void testModify() {
 
-		// given 
+		// given
 		String boardMasterId = null;
 		List<Map> boardList = boardService.list();
 		Map boardModifyInfo = new HashMap();
-		if(boardList.size() > 0){
-			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
-		}else{
+		if (boardList.size() > 0) {
+			boardMasterId = "" + boardList.get(0).get("BOARD_ID");
+		} else {
 			testCreate();
 			boardList = boardService.list();
-			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
+			boardMasterId = "" + boardList.get(0).get("BOARD_ID");
 		}
-		
+
 		boardModifyInfo.put("board_id", boardMasterId);
 		boardModifyInfo.put("board_nm", "test_modify");
-		
+
 		// when
 		boardService.modify(boardModifyInfo);
 
 		// then
 		Map boardDetailInfo = boardService.detail(boardModifyInfo);
 		assertNotNull(boardDetailInfo);
-		assertEquals(boardModifyInfo.get("board_nm"), boardDetailInfo.get("BOARD_NM"));
-		
+		assertEquals(boardModifyInfo.get("board_nm"),
+				boardDetailInfo.get("BOARD_NM"));
+
 	}
-	
-	
-	
+
 }
