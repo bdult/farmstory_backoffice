@@ -194,11 +194,10 @@ public class UserServiceTest {
 		paramMap.put("pw", "123");
 		
 		//when
-		int result = userService.insertUser(paramMap);
+		userService.insertUser(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
-		assertThat(result, is(not(0)));
 		logger.info("{}", paramMap);
 	}
 	
@@ -218,11 +217,10 @@ public class UserServiceTest {
 		paramMap.put("birth_day", "00");
 
 		//when
-		int result = userService.insertChild(paramMap);
+		userService.insertChild(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
-		assertThat(result, is(not(0)));
 		logger.info("{}", paramMap);
 	}
 
@@ -240,11 +238,10 @@ public class UserServiceTest {
 		paramMap.put("pw", "1234");
 		
 		//when
-		int result = userService.updateUser(paramMap);
+		userService.updateUser(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
-		assertThat(result, is(not(0)));
 		logger.info("{}", paramMap);
 	}
 
@@ -267,7 +264,7 @@ public class UserServiceTest {
 		paramMap.put("birth_day", "00");
 
 		//when
-		int result = userService.updateChild(paramMap);
+		userService.updateChild(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
@@ -286,11 +283,10 @@ public class UserServiceTest {
 		userDTO.put("id", id);
 		
 		//when
-		int result = userService.deleteUser(userDTO);
+		userService.deleteUser(userDTO);
 		
 		//than
 		assertNotNull(userDTO);
-		assertThat(result, is(not(0)));
 		logger.info("{}", userDTO);
 	}
 	
@@ -306,11 +302,10 @@ public class UserServiceTest {
 		childList.put("idx", idx);
 
 		//when
-		int result = userService.deleteChild(childList);
+		userService.deleteChild(childList);
 		
 		//than
 		assertNotNull(childList);
-		assertThat(result, is(not(0)));
 		logger.info("{}", childList);
 	}
 }

@@ -30,7 +30,7 @@ public class UserService {
 	}
 	
 	/**
-	 * member_type 체크 ( 1:admin, 2:user )
+	 * member_type 체크 ( 0:admin, 1:user )
 	 * @param paramMap
 	 * @return
 	 */

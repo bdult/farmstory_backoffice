@@ -10,28 +10,28 @@
 		WHERE 1=1
 	</select>
 
-    <select id="getOneRole" resultType="hashmap" parameterType="hashmap">
+    <select id="getOneRole" resultType="hashmap">
         SELECT
         	MEMBER_ROLE, MEMBER_ID, MEMBER_PW
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ id } and MEMBER_PW = #{ pw }
     </select>
 
-    <select id="getUserOne" resultType="hashmap" parameterType="hashmap">
+    <select id="getUserOne" resultType="hashmap">
         SELECT
         	*
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ id }
     </select>
 
-    <select id="getChildOne" resultType="hashmap" parameterType="hashmap">
+    <select id="getChildOne" resultType="hashmap">
         SELECT
         	*
         FROM BG_CHILDREN
         WHERE IDX = #{ idx }
     </select>
     
-    <select id="typeCheck" resultType="hashmap" parameterType="hashmap">
+    <select id="typeCheck" resultType="hashmap">
     	SELECT
     	MEMBER_TYPE
     	FROM
