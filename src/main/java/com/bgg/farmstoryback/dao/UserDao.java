@@ -15,9 +15,9 @@ import java.util.Map;
 public class UserDao extends SqlSessionDaoSupport {
 
 	
-	public List<HashMap<String, String>> memberList() {
-		return (List<HashMap<String, String>>)getSqlSession().selectList( "userQuery.memberList");
-	}
+//	public List<HashMap<String, String>> memberList() {
+//		return (List<HashMap<String, String>>)getSqlSession().selectList( "userQuery.memberList");
+//	}
 
 	/** 아이디와 비밀번호로 유저정보(id, pwd, role)가져오기
 	 * @param oneRoleMap
@@ -41,37 +41,16 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param userListMap
 	 * @return
 	 */
-	public Map<String, Object> getUserOne(Map<String, Object> userListMap){
-		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getUserOne", userListMap);
+	public Map<String, Object> detail(Map<String, Object> userListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.detail", userListMap);
 	}
 	
 	/**
-	 * 자녀 리스트 하나 보기
-	 * @param childListMap
+	 * 회원 리스트
 	 * @return
 	 */
-	public Map<String, Object> getChildOne(Map<String, Object> childListMap){
-		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getChildOne", childListMap);
-	}
-	
-	public int getAdminTotalCount(Map<String, Object> paramMap){
-		return (Integer)getSqlSession().selectOne("userQuery.adminTotalCount", paramMap);
-	}
-	
-	/**
-	 * 유저리스트 보기
-	 * @return
-	 */
-	public List<HashMap<String, Object>> userList() {
-		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userList");
-	}
-	
-	/**
-	 * admin 유저 리스트 보기
-	 * @return
-	 */
-	public List<HashMap<String, Object>> adminUserList() {
-		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.adminUserList");
+	public List<HashMap<String, Object>> userList(Map parameter) {
+		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userList", parameter);
 	}
 	
 	/**
@@ -79,71 +58,57 @@ public class UserDao extends SqlSessionDaoSupport {
 	 * @param childListMap
 	 * @return
 	 */
-	public List<HashMap<String, Object>> childList(String childListMap) {
+	public List<HashMap<String, Object>> childList(Map<String, Object> childListMap) {
 		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.childList", childListMap);
 	}
 	
-	/**유저리스트 검색
-	 * @param userListMap
-	 * @return
-	 */
-	public List<HashMap<String, Object>> userSearch(Map<String, Object> userListMap) {
-		return (List<HashMap<String, Object>>)getSqlSession().selectList("userQuery.userSearch", userListMap);
-	}
-	
 	/**
-	 * 유저리스트 생성
-	 * @param userListMap
-	 * @return
-	 */
-	public void insertUser(Map<String, Object> userListMap){
-		getSqlSession().insert("userQuery.insertUser",userListMap);
-	}
-	
-	/**
-	 * 자녀리스트 생성
+	 * 자녀 상세정보
 	 * @param childListMap
 	 * @return
 	 */
-	public void insertChild(Map<String, Object> childListMap){
-		getSqlSession().insert("userQuery.insertChild", childListMap);
+	public Map<String, Object> childDetail(Map<String, Object> childListMap){
+		return (Map<String, Object>)getSqlSession().selectOne("userQuery.getChildOne", childListMap);
 	}
 	
 	
 	/**
-	 * 유저리스트 수정
+	 * 관리자 회원 생성
 	 * @param userListMap
 	 * @return
 	 */
-	public void updateUser(Map<String, Object> userListMap){
-		getSqlSession().update("userQuery.updateUser", userListMap);
+	public int addAdminUser(Map<String, Object> userListMap){
+		return getSqlSession().insert("userQuery.addAdminUser",userListMap);
 	}
 	
 	/**
-	 * 자녀리스트 수정
-	 * @param childListMap
-	 * @return
-	 */
-	public void updateChild(Map<String, Object> childListMap){
-		getSqlSession().update("userQuery.updateChild", childListMap);
-	}
-	
-	/**
-	 * 유저리스트 삭제
+	 * 관리자 회원 정보 수정
 	 * @param userListMap
 	 * @return
 	 */
-	public void deleteUser(String userListMap){
-		getSqlSession().delete("userQuery.deleteUser", userListMap);
+	public int modifyAdminUser(Map<String, Object> userListMap){
+		return getSqlSession().update("userQuery.modifyAdminUser", userListMap);
 	}
 	
 	/**
-	 * 자녀리스트 삭제
-	 * @param childListMap
+	 * 회원 삭제
+	 * @param userListMap
 	 * @return
 	 */
-	public void deleteChild(String childListMap){
-		getSqlSession().delete("userQuery.deleteChild", childListMap);
+	public int deleteUser(Map<String, Object> userListMap){
+		return getSqlSession().update("userQuery.deleteUser", userListMap);
+	}
+
+	public int totalCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("userQuery.totalCount", parameter);
+	}
+
+	public int adminUserCheckCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("userQuery.adminUserCheckCount", parameter);
+	}
+
+	public int userIdCheckCount(Map paramMap) {
+		return (Integer)getSqlSession().selectOne("userQuery.userIdCheckCount", paramMap);
 	}
 	
 }

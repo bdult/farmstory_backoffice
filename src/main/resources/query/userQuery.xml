@@ -4,185 +4,155 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="userQuery">
 
-	<select id="memberList" resultType="hashmap">
-		SELECT *
-		FROM BG_MEMBER
-		WHERE 1=1
-	</select>
-
-    <select id="getOneRole" resultType="hashmap">
-        SELECT
+    <select id="getOneRole" resultType="hashmap" parameterType="hashmap">
+        SELECT /* userQuery.getOneRole 2013.09.09 김운호 */ 
         	MEMBER_ROLE, MEMBER_ID, MEMBER_PW
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ id } and MEMBER_PW = #{ pw }
     </select>
-
-    <select id="getUserOne" resultType="hashmap">
-        SELECT
-        	*
+    
+    <select id="totalCount" resultType="int" >
+        SELECT /* userQuery.normalUserTotalCount 2013.09.09 김운호 */ 
+        	count(*)
         FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ id }
+        WHERE 1=1 
+        AND MEMBER_TYPE = #{whereType}
+        <if test="search != null and search != ''">
+			AND ( MEMBER_NM LIKE CONCAT('%', #{search}, '%')  OR MEMBER_ID LIKE CONCAT('%', #{search}, '%') )
+		</if>
     </select>
 
-    <select id="getChildOne" resultType="hashmap">
-        SELECT
+    <select id="detail" resultType="hashmap" parameterType="hashmap">
+        SELECT /* userQuery.detail 2013.09.09 김운호 */ 
+        	*
+        FROM BG_MEMBER
+        WHERE MEMBER_ID = #{member_id}
+    </select>
+
+    <select id="childDetail" resultType="hashmap" parameterType="hashmap">
+        SELECT /* userQuery.childDetail 2013.09.09 김운호 */ 
         	*
         FROM BG_CHILDREN
         WHERE IDX = #{ idx }
     </select>
     
-    <select id="typeCheck" resultType="hashmap">
-    	SELECT
+    <select id="typeCheck" resultType="hashmap" parameterType="hashmap">
+    	SELECT /* userQuery.typeCheck 2013.09.09 김운호 */ 
     	MEMBER_TYPE
     	FROM
     	BG_MEMBER
         WHERE MEMBER_ID = #{ id }
     </select>
     
-    <select id="adminTotalCount" resultType="int">
-    	SELECT
-    	count(*)
-    	FROM
-    	BG_MEMBER
-    	WHERE MEMBER_TYPE = 0
-    </select>
-    
 	<select id="userList" resultType="hashmap" >
-		SELECT
-		MB.MEMBER_ID,
-		MB.MEMBER_NM,
-		MB.MEMBER_PW,
-		MB.MEMBER_ROLE,
-		MB.MEMBER_TYPE,
-		CD.CHILD_NM,
-		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
-		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
-		GROUP BY MB.MEMBER_ID
-		HAVING MB.MEMBER_TYPE = 1 ORDER BY MB.MEMBER_ID DESC
-		<if test="startNo != null and perPage != null"> 
-		LIMIT #{startNo}, #{perPage}
+		SELECT /* userQuery.userList 2013.09.09 김운호 */ 
+			MB.IDX,
+			MB.MEMBER_ID,
+			MB.MEMBER_NM,
+			MB.MEMBER_EMAIL,
+			MB.MEMBER_STATUS,
+			MB.EMAIL_RECEIVE,
+			MB.SMS_RECEIVE,
+			case (MEMBER_STATUS)
+				when 0 then '이용'
+				when 1 then '중지'
+				when 2 then '탈퇴'
+			end AS MEMBER_STATUS_DESC,
+			case (MB.SMS_RECEIVE)
+				when 0 then '수신'
+				when 1 then '거절'
+			end AS SMS_RECEIVE_DESC,
+			case (MB.EMAIL_RECEIVE)
+				when 0 then '수신'
+				when 1 then '거절'
+			end AS EMAIL_RECEIVE_DESC,
+			DATE_FORMAT(MB.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		FROM BG_MEMBER MB 
+		WHERE 1=1 
+		AND MB.MEMBER_TYPE = #{whereType}
+		<if test="search != null and search != ''">
+			AND ( MB.MEMBER_NM LIKE CONCAT('%', #{search}, '%')  OR MB.MEMBER_ID LIKE CONCAT('%', #{search}, '%') )
+		</if>
+		ORDER BY MB.IDX DESC
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
 		</if>
 	</select>
     
-	<select id="adminUserList" resultType="hashmap" >
-		SELECT
-		MB.MEMBER_ID,
-		MB.MEMBER_NM,
-		MB.MEMBER_PW,
-		MB.MEMBER_ROLE,
-		MB.MEMBER_TYPE,
-		CD.CHILD_NM,
-		count(CD.PARENT_MEMBER_ID) as CHILD_COUNT
-		FROM BG_MEMBER MB LEFT OUTER JOIN BG_CHILDREN CD ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
-		GROUP BY MB.MEMBER_ID
-		HAVING MB.MEMBER_TYPE = 0
-	</select>
-	
 	<select id="childList" resultType="hashmap">
-		SELECT
-		CD.IDX,
-		CD.PARENT_MEMBER_ID,
-		CD.CHILD_NM,
-		CD.PHOTO,
-		CD.GENDER,
-		CD.BIRTH_YEAR,
-		CD.BIRTH_MONTH,
-		CD.BIRTH_DAY
+		SELECT /* userQuery.childList 2013.09.09 김운호 */ 
+			CD.IDX,
+			CD.PARENT_MEMBER_ID,
+			CD.CHILD_NM,
+			CD.PHOTO,
+			CD.GENDER,
+			CD.BIRTH_YEAR,
+			CD.BIRTH_MONTH,
+			CD.BIRTH_DAY
 		FROM BG_CHILDREN CD LEFT OUTER JOIN BG_MEMBER MB 
-		ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
+			ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
 		WHERE MB.MEMBER_ID = #{ member_id }
 	</select>
 	
-	<select id="userSearch" resultType="hashmap">
-		SELECT
-			*
+	<select id="adminUserCheckCount" resultType="int">
+		SELECT /* userQuery.adminUserCheckCount 2013.09.09 최지순 */ 
+			count(*)
 		FROM BG_MEMBER
-		WHERE
-		MEMBER_ID = #{ id } or
-		MEMBER_NM = #{ name } or
-		MEMBER_ROLE = #{ role }
+		WHERE 1=1
+		AND MEMBER_ID = #{ id}
+		AND MEMBER_TYPE = 0
 	</select>
 	
+	<select id="userIdCheckCount" resultType="int">
+		SELECT /* userQuery.userIdCheckCount 2013.09.09 최지순 */ 
+			count(*)
+		FROM BG_MEMBER
+		WHERE 1=1
+		AND MEMBER_ID = #{ id}
+	</select>
+	
+	
+	
 	<!-- insert -->
-	<insert id="insertUser"  parameterType="hashmap">
-		INSERT INTO BG_MEMBER (
-		MEMBER_ID,
-		MEMBER_NM,
-		MEMBER_PW,
-		MEMBER_ROLE,
-		MEMBER_TYPE,
-		REG_DT,
-		MOD_DT
+	<insert id="addAdminUser"  parameterType="hashmap">
+		INSERT  /* userQuery.addAdminUser 2013.09.09 김운호 */ 
+		INTO BG_MEMBER (
+			MEMBER_ID,
+			MEMBER_NM,
+			MEMBER_PW,
+			MEMBER_ROLE,
+			MEMBER_TYPE,
+			REG_DATE,
+			UPDATE_DATE
 		)
 		VALUES (
-        #{ id },
-        #{ name },
-        #{ pwd },
-        #{ role },
-        #{ member_type },
-        NOW(),
-        NOW()
-		)
-	
-	</insert>
-	
-	<insert id="insertChild" parameterType="hashmap">
-		INSERT INTO BG_CHILDREN (
-		PARENT_MEMBER_ID,
-		CHILD_NM,
-		PHOTO,
-		GENDER,
-		BIRTH_YEAR,
-		BIRTH_MONTH,
-		BIRTH_DAY
-		)
-		VALUES (
-		#{ parent_member_id },
-		#{ child_nm },
-		#{ photo },
-		#{ gender },
-		#{ birth_year },
-		#{ birth_month },
-		#{ birth_day }
+	        #{ id },
+	        #{ name },
+	        #{ pwd },
+	        #{ role },
+	        #{ member_type },
+	        NOW(),
+	        NOW()
 		)
 	</insert>
 	
 	<!-- UPDATE USER -->
-	<update id="updateUser" parameterType="hashmap">
-		UPDATE BG_MEMBER
+	<update id="modifyAdminUser" parameterType="hashmap">
+		UPDATE /* userQuery.modifyAdminUser 2013.09.09 김운호 */  
+			BG_MEMBER
 		<set>
-		MEMBER_ID = #{ id },
-		MEMBER_NM = #{ name },
-		MEMBER_PW = #{ pwd },
-		MEMBER_ROLE = #{ role },
-		MEMBER_TYPE = #{ member_type },
-		UPDATE_DATE = NOW()
+			MEMBER_ID = #{ id },
+			MEMBER_NM = #{ name },
+			MEMBER_PW = #{ pwd },
+			MEMBER_ROLE = #{ role },
+			MEMBER_TYPE = #{ member_type },
+			UPDATE_DATE = NOW()
 		</set>
 		WHERE MEMBER_ID = #{ id }
 	</update>
 	
-	<update id="updateChild" parameterType="hashmap">
-		UPDATE BG_CHILDREN
-		<set>
-		PARENT_MEMBER_ID = #{ parent_member_id },
-		CHILD_NM = #{ child_nm },
-		PHOTO = #{ photo },
-		GENDER = #{ gender },
-		BIRTH_YEAR = #{ birth_year },
-		BIRTH_MONTH = #{ birth_month },
-		BIRTH_DAY = #{ birth_day }
-		</set>
-		WHERE IDX = #{ idx }
+	<!-- DELETE USER -->
+	<update id="deleteUser" parameterType="hashmap">
 	</update>
 	
-	<!-- DELETE USER -->
-	<delete id="deleteUser" parameterType="hashmap">
-    	DELETE from BG_MEMBER
-    	WHERE MEMBER_ID = #{ id }
-	</delete>
-	
-	<delete id="deleteChild" parameterType="hashmap">
-		DELETE from BG_CHILDREN
-		WHERE IDX = #{ idx }
-	</delete>
 </mapper>

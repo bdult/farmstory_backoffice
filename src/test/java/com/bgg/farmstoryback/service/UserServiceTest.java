@@ -1,14 +1,13 @@
 package com.bgg.farmstoryback.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 
 
 import org.junit.After;
@@ -34,16 +33,25 @@ public class UserServiceTest {
 	
 	@Before
 	public void before() {
-		logger.info("==========================");
-		logger.info("모든 JUNIT 테스트 시작 전 실행 됩니다.");
-		logger.info("==========================");
 	}
 
 	@After
 	public void after(){
-		logger.info("==========================");
-		logger.info("모든 JUNIT 테스트 종료 후 실행 됩니다.");
-		logger.info("==========================");
+	}
+	
+	@Test
+	public void testIsNotAdminUser() {
+
+		// given 
+		Map paramMap = new HashMap();
+		paramMap.put("id", "test");
+
+		// when
+		boolean isNotAdminUser = userService.isNotAdminUser(paramMap);
+
+		// then
+		assertTrue(isNotAdminUser);
+
 	}
 	
 	@Test
@@ -93,7 +101,7 @@ public class UserServiceTest {
 		paramMap.put("id", "test");
 		
 		//when
-		Map<String, Object> userList = userService.getUserOne(paramMap);
+		Map<String, Object> userList = userService.detail(paramMap);
 		
 		//than
 		logger.info("userList : {}", userList.toString());
@@ -194,10 +202,11 @@ public class UserServiceTest {
 		paramMap.put("pw", "123");
 		
 		//when
-		userService.insertUser(paramMap);
+		int result = userService.addAdminUser(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
+		assertThat(result, is(not(0)));
 		logger.info("{}", paramMap);
 	}
 	
@@ -217,10 +226,11 @@ public class UserServiceTest {
 		paramMap.put("birth_day", "00");
 
 		//when
-		userService.insertChild(paramMap);
+		int result = userService.insertChild(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
+		assertThat(result, is(not(0)));
 		logger.info("{}", paramMap);
 	}
 
@@ -238,10 +248,11 @@ public class UserServiceTest {
 		paramMap.put("pw", "1234");
 		
 		//when
-		userService.updateUser(paramMap);
+		int result = userService.updateUser(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
+		assertThat(result, is(not(0)));
 		logger.info("{}", paramMap);
 	}
 
@@ -264,7 +275,7 @@ public class UserServiceTest {
 		paramMap.put("birth_day", "00");
 
 		//when
-		userService.updateChild(paramMap);
+		int result = userService.updateChild(paramMap);
 		
 		//than
 		assertNotNull(paramMap);
@@ -283,10 +294,11 @@ public class UserServiceTest {
 		userDTO.put("id", id);
 		
 		//when
-		userService.deleteUser(userDTO);
+		int result = userService.deleteUser(userDTO);
 		
 		//than
 		assertNotNull(userDTO);
+		assertThat(result, is(not(0)));
 		logger.info("{}", userDTO);
 	}
 	
@@ -302,10 +314,11 @@ public class UserServiceTest {
 		childList.put("idx", idx);
 
 		//when
-		userService.deleteChild(childList);
+		int result = userService.deleteChild(childList);
 		
 		//than
 		assertNotNull(childList);
+		assertThat(result, is(not(0)));
 		logger.info("{}", childList);
 	}
 }

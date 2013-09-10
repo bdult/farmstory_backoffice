@@ -46,7 +46,7 @@ public class BrandServiceTest {
 		testCreate();
 		
 		// when
-		List<Map> brandList = brandService.list();
+		List<Map> brandList = brandService.list(null);
 
 		// then
 		logger.info("list=", brandList);
@@ -75,10 +75,10 @@ public class BrandServiceTest {
 	public void testModifyJustBrandInfo() {
 
 		// given 
-		List<Map> brandList = brandService.list();
+		List<Map> brandList = brandService.list(null);
 		if(brandList.size() == 0){
 			testCreate();
-			brandList = brandService.list();
+			brandList = brandService.list(null);
 		}
 		String brandId = ""+brandList.get(0).get("BRAND_ID");
 		
@@ -101,12 +101,12 @@ public class BrandServiceTest {
 	public void testDelete() {
 
 		// given 
-		List<Map> brandList = brandService.list();
+		List<Map> brandList = brandService.list(null);
 		if(brandList.size() == 0){
 			Map brandInfo = new HashMap();
 			brandInfo.put("brand_nm", "brand_insert_test");
 			brandService.create(brandInfo);
-			brandList = brandService.list();
+			brandList = brandService.list(null);
 		}
 		String brandId = ""+brandList.get(0).get("BRAND_ID");
 		

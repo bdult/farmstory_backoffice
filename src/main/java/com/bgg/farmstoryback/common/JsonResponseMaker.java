@@ -37,6 +37,18 @@ public class JsonResponseMaker {
 		return json.toJSONString();
 	}
 	
+	public String generateMap(String jsonParentName, Map map){
+		JSONObject json = new JSONObject();
+		
+		if (map != null) {
+			setSucessCode(json);
+			json.put(jsonParentName, map);
+		}else{
+			setFailCode(json);
+		}
+		return json.toJSONString();
+	}
+	
 //	"{\"status\":\"200\",\"data\":{\"test\":{\"name\":\"test\",\"type\":\"item\"}}}";
 	public String generateCateListForTree(List<Map> cateList) {
 		JSONObject json = new JSONObject();

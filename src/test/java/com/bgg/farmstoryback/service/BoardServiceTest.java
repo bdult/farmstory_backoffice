@@ -67,7 +67,7 @@ public class BoardServiceTest {
 		 testCreate();
 
 		// when
-		List<Map> boardList = boardService.list();
+		List<Map> boardList = boardService.list(null);
 
 		// then
 		assertNotNull(boardList);
@@ -94,13 +94,13 @@ public class BoardServiceTest {
 
 		// given 
 		String boardMasterId = null;
-		List<Map> boardList = boardService.list();
+		List<Map> boardList = boardService.list(null);
 		Map boardModifyInfo = new HashMap();
 		if(boardList.size() > 0){
 			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
 		}else{
 			testCreate();
-			boardList = boardService.list();
+			boardList = boardService.list(null);
 			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
 		}
 		
