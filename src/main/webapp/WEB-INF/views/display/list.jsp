@@ -50,11 +50,7 @@
 					<button type="button" class="close" data-dismiss="alert">
 						<i class="icon-remove"></i>
 					</button>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/category/list.jsp
 					<strong>카테고리관리</strong>
-=======
-					<strong>카테고리</strong>
->>>>>>> e387c323e0d1ecff18d75b790699d8cff516bec3:src/main/webapp/WEB-INF/views/display/list.jsp
 					<br>
 				</div>
 				
@@ -67,40 +63,24 @@
 						</tr>
 					</thead>				
 					<tbody>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/category/list.jsp
 						<c:forEach items="${ cateList }" var="cateObj">
 							<tr>
 								<td>${ cateObj.CATE_ID }</td>
 								<td class="pointer">${ cateObj.CATE_NM }</td>
 								<td>x e</td>
-=======
-						<c:forEach items="${ cateList }" var="cate">
-							<tr>
-								<td>${ cate.CATE_ID }</td>
-								<td class="pointer">${ cate.CATE_NM }</td>
-								<td>${cate.REG_DT }</td>
->>>>>>> e387c323e0d1ecff18d75b790699d8cff516bec3:src/main/webapp/WEB-INF/views/display/list.jsp
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/category/list.jsp
 				<button class="btn btn-info pull-right" id="createCateBtn">생성</button>
-=======
-				<button id="create-category" class="btn btn-info pull-right">카테고리 생성</button>
->>>>>>> e387c323e0d1ecff18d75b790699d8cff516bec3:src/main/webapp/WEB-INF/views/display/list.jsp
 			</div><!--/.span-->
 			<div class="span5">
 			
 				<div class="alert alert-info">
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/category/list.jsp
 					<button type="button" class="close" data-dismiss="alert">
 						<i class="icon-remove"></i>
 					</button>
 					<strong>브랜드 관리</strong>
-=======
-					<strong>브랜드</strong>
->>>>>>> e387c323e0d1ecff18d75b790699d8cff516bec3:src/main/webapp/WEB-INF/views/display/list.jsp
 					<br>
 				</div>
 				
@@ -113,7 +93,6 @@
 						</tr>
 					</thead>				
 					<tbody>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/category/list.jsp
 						<c:forEach items="${ brandList }" var="brandObj">
 							<tr>
 								<td>${ brandObj.BRAND_ID }</td>
@@ -176,18 +155,6 @@
 					</tbody>	
 				</table>
 				<button class="btn btn-info pull-right" id="createBrandBtn">생성</button>
-=======
-						<c:forEach items="${brandList }" var="brand">
-						<tr>
-							<td>${brand.BRAND_ID }</td>
-							<td>${brand.BRAND_NM }</td>
-							<td>${brand.REG_DT }</td>
-						</tr>
-						</c:forEach>
-					</tbody>	
-				</table>
-				<button id="create-brand-btn" class="btn btn-info pull-right">브랜드 생성</button>
->>>>>>> e387c323e0d1ecff18d75b790699d8cff516bec3:src/main/webapp/WEB-INF/views/display/list.jsp
 			</div><!--/.span-->
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->
@@ -215,7 +182,6 @@
 
 <script>
 $(function(){
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/category/list.jsp
 	$("#createCateBtn").on(ace.click_event, function() {
 		bootbox.prompt("생성할 카테고리 이름을 입력해 주세요.", function(result) {
 			if (result === null) {
@@ -236,17 +202,6 @@ $(function(){
 		});
 	});
 
-=======
-	$("#create-brand-btn").click(function(){
-			console.log("create-brand-btn click");
-			$("#creat-brand-modal").modal('toggle');
-	});
-	
-	$("#create-category").click(function(){
-			console.log("creat-category click");
-	});
-	
->>>>>>> e387c323e0d1ecff18d75b790699d8cff516bec3:src/main/webapp/WEB-INF/views/display/list.jsp
 });
 </script>
 

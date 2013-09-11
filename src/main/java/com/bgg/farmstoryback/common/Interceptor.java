@@ -24,7 +24,6 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		printRequestLog(request);
 		try {
-<<<<<<< HEAD
 			if(	
 				//세션 체크 예외 리스트
 				! request.getServletPath().contains( "login.do" ) &&
@@ -38,22 +37,6 @@ public class Interceptor extends HandlerInterceptorAdapter {
 				}else {
 					// 권한체크
 					//HashMap<String, String> sessionMap = (HashMap<String, String>)session.getAttribute("login_session");
-=======
-			if(isSessionCheck) {
-				if(	
-					//세션 체크 예외 리스트
-					! request.getServletPath().contains( "login.do" ) &&
-					! request.getServletPath().contains( "logout.do" )				
-				){
-					HttpSession session = request.getSession(false);
-					if ( session == null || session.getAttribute("login_session") == null){
-						response.sendRedirect(request.getContextPath()+"/user/login.do");
-						return false;
-					}else {
-						// 권한체크
-						//HashMap<String, String> sessionMap = (HashMap<String, String>)session.getAttribute("login_session");
-					}
->>>>>>> e3044f3e95a6bae36ac8b158e91de3a8d1348dc8
 				}
 			}
 		} catch (Exception e) {
