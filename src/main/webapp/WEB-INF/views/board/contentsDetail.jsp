@@ -121,8 +121,10 @@
 			
 
 <script type="text/javascript">
-$("#side-board-master").attr("class", "active");
-$("#side-board-board").attr("class", "open active");
+	
+	$("#side-board").attr("class", "open active");
+	$("#side-board-board").attr("class", "active");
+	
 	$(function(){
 		
 		$("#cancel-btn").click(function(){

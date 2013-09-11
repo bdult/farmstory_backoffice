@@ -101,8 +101,8 @@
 	<div id="parameter" data-board-id="${ parameter.boardId }"></div>
 	
 	<script type="text/javascript">
-		$("#side-board-master").attr("class", "active");
 		$("#side-board").attr("class", "open active");
+		$("#side-board-board").attr("class", "active");
 	
 		$(function() {
 			
