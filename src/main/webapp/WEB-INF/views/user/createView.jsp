@@ -97,16 +97,16 @@
 									</div>
 								</div>
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit">
+									<button class="btn btn-primary" type="submit" id="add-btn">
 										<i class="icon-ok bigger-110"></i>
 										저장
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button id="cancel-btn" class="btn btn-inverse" type="button">
+									<a class="btn btn-inverse" id="cancel-btn">
 										<i class="icon-undo bigger-110"></i>
 										취소
-									</button>
+									</a>
 								</div>
 							</form>
 					</div>
@@ -161,6 +161,10 @@ $(document).ready(function(){
 	}else{
 		$("#side-user-admin").attr("class", "active");
 	}
+
+	$("#cancel-btn").click(function(){
+			window.location.href="manage.do?pageNum=1";
+	});
 	
 	var $genderBox = $("#genderBox");
 	var genderData = $genderBox.data("gender_value");

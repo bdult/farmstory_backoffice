@@ -123,7 +123,7 @@
 										삭제
 									</button>
 									<a class="btn btn-inverse" id="cancel-btn">
-										<i class="icon-trash bigger-110"></i>
+										<i class="icon-undo bigger-110"></i>
 										취소
 									</a>
 								</div>
