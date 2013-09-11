@@ -105,7 +105,7 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public Map<String, Object> getChildOne(Map<String, Object> paramMap) {
+	public Map<String, Object> childDetail(Map<String, Object> paramMap) {
 		return userDao.childDetail(paramMap);
 	}
 	

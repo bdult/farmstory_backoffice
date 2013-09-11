@@ -154,6 +154,14 @@ Map response = new HashMap();
     
     return "user/info";
   }
+
+  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
+  public String childDetail(Model model, @RequestParam Map<String,Object> paramMap) {
+	  
+    model.addAttribute("childDetail",userService.childDetail(paramMap));
+    
+    return "user/child_info";
+  }
   
   @RequestMapping(value = "user/admin/createView.do", method = RequestMethod.GET)
   public String adminCreateView(Model model) {

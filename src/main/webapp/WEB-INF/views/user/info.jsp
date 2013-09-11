@@ -152,12 +152,11 @@
 						<th>자녀 생년월일</th>
 					</tr>
 				</thead>
-				
 				<tbody>
 						<c:forEach var="childList" items="${detail.userChildList}"
 							varStatus="status">
 							<tr>
-								<td>${ childList.CHILD_NM }</td>
+								<td><a href="${ contextPath }/user/childDetail.do?idx=${ childList.IDX }">${ childList.CHILD_NM }</a></td>
 								<td>${ childList.GENDER }</td>
 								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
 							</tr>
