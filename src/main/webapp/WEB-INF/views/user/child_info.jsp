@@ -62,7 +62,6 @@
 									<label class="control-label">자녀 사진</label>
 									<div class="controls">
 										<input type="text" readonly="readonly" name="photo" value="${ childDetail.PHOTO }" />
-										<input type="button" id="photo-mod-btn" class="btn btn-primary" value="자녀 사진변경" />
 									</div>
 								</div>
 								<div class="control-group">
