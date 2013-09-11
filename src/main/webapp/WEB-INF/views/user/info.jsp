@@ -46,24 +46,24 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
-							<form id="create-form" method="get" action="${ contextPath }/user/modify.do" class="form-horizontal" >
+							<form id="create-form" method="get" action="${ contextPath }/user/admin/delete.do" class="form-horizontal" >
 								<div class="control-group">
 									<label class="control-label">회원 ID</label>
 									<div class="controls">
-											${detail.userDetail.MEMBER_ID}
+										<input readonly="readonly" type="text" name="member_id" value="${detail.userDetail.MEMBER_ID}">
 									</div>
 								</div>
 
 								<div class="control-group">
 									<label class="control-label">회원 이름</label>
 									<div class="controls">
-										<input readonly="readonly" type="text" name="name" value="${detail.userDetail.MEMBER_NM}" />
+										<input readonly="readonly" type="text" name="member_nm" value="${detail.userDetail.MEMBER_NM}" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 이메일</label>
 									<div class="controls">
-										<input readonly="readonly" type="text" name="name" value="${detail.userDetail.MEMBER_EMAIL}" />
+										<input readonly="readonly" type="text" name="member_email" value="${detail.userDetail.MEMBER_EMAIL}" />
 									</div>
 								</div>
 								<div class="control-group">
@@ -81,13 +81,13 @@
 								<div class="control-group">
 									<label class="control-label">회원 주소</label>
 									<div class="controls">
-										<input readonly="readonly" type="text" name="name" value="${detail.userDetail.MEMBER_ADDR_1}" />
+										<input readonly="readonly" type="text" name="member_addr1" value="${detail.userDetail.MEMBER_ADDR_1}" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 상세 주소</label>
 									<div class="controls">
-										<input readonly="readonly" type="text" name="name" value="${detail.userDetail.MEMBER_ADDR_2}" />
+										<input readonly="readonly" type="text" name="member_addr2" value="${detail.userDetail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
 								
@@ -95,7 +95,7 @@
 									<label class="control-label">회원 등급</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" name="role" value="${detail.userDetail.MEMBER_ROLE}" />
+										<input readonly="readonly" type="text" name="member_role" value="${detail.userDetail.MEMBER_ROLE}" />
 									</div>
 								</div>
 								
@@ -103,7 +103,7 @@
 									<label class="control-label">회원 상태</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" name="role" value="${detail.userDetail.MEMBER_ROLE}" />
+										<input readonly="readonly" type="text" name="member_type" value="${detail.userDetail.MEMBER_ROLE}" />
 									</div>
 								</div>
 								<c:if test="${detail.type == 'adminView' }">

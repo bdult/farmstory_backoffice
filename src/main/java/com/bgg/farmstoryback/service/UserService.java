@@ -77,10 +77,7 @@ public class UserService {
 	 */
 	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_id", paramMap.get("id"));
-		
-		return userDao.childList(map);
+		return userDao.childList(paramMap);
 	}
 	
 	/**
@@ -120,14 +117,7 @@ public class UserService {
 	 */
 	public int addAdminUser(Map<String, Object> paramMap){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", (String)paramMap.get("id"));
-		map.put("name", (String)paramMap.get("name"));
-		map.put("pwd", (String)paramMap.get("pwd"));
-		map.put("role", (String)paramMap.get("role"));
-		map.put("member_type", (String)paramMap.get("member_type"));
-		
-		return userDao.addAdminUser(map);
+		return userDao.addAdminUser(paramMap);
 	}
 	
 	/**
@@ -141,10 +131,8 @@ public class UserService {
 	 * @return
 	 */
 	public int deleteUser(Map<String, Object> paramMap){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", (String)paramMap.get("id"));
 		
-		return userDao.deleteUser(map);
+		return userDao.deleteUser(paramMap);
 	}
 
 	public boolean isNotAdminUser(Map parameter) {

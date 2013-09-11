@@ -41,7 +41,7 @@
     	MEMBER_TYPE
     	FROM
     	BG_MEMBER
-        WHERE MEMBER_ID = #{ id }
+        WHERE MEMBER_ID = #{ member_id }
     </select>
     
 	<select id="userList" resultType="hashmap" >
@@ -121,16 +121,24 @@
 			MEMBER_NM,
 			MEMBER_PW,
 			MEMBER_ROLE,
-			MEMBER_TYPE,
-			REG_DATE,
-			UPDATE_DATE
+			MEMBER_EMAIL,
+			MEMBER_CEL,
+			MEMBER_TEL,
+			MEMBER_ADDR_1,
+			MEMBER_ADDR_2,
+			REG_DT,
+			MOD_DT
 		)
 		VALUES (
-	        #{ id },
-	        #{ name },
-	        #{ pwd },
-	        #{ role },
-	        #{ member_type },
+	        #{ member_id },
+	        #{ member_nm },
+	        #{ member_pw },
+	        #{ member_role },
+	        #{ member_email },
+	        #{ member_cel },
+	        #{ member_tel },
+	        #{ member_addr_1 },
+	        #{ member_addr_2 },
 	        NOW(),
 	        NOW()
 		)
@@ -153,6 +161,12 @@
 	
 	<!-- DELETE USER -->
 	<update id="deleteUser" parameterType="hashmap">
+		UPDATE
+			BG_MEMBER
+		<set>
+			MEMBER_STATUS = 2
+		</set>
+		WHERE MEMBER_ID = #{ member_id }
 	</update>
 	
 </mapper>
