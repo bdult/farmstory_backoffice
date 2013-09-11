@@ -50,7 +50,7 @@
 								<div class="control-group">
 									<label class="control-label">회원 ID</label>
 									<div class="controls">
-										<input type="text" name="member_id" value="${detail.userDetail.MEMBER_ID}">
+										<input type="text" readonly="readonly" name="member_id" value="${detail.userDetail.MEMBER_ID}">
 									</div>
 								</div>
 
@@ -164,24 +164,17 @@
 		</div>
 	</div>
 	<!--/.page-content-->
-</div>
 <!--/.main-content-->
 
 <script>
 
 $(function(){
-	var readOnly = "${detail.userDetail.MEMBER_TYPE}";
-	if(readOnly == 1){
-		$("input:text").attr({
-			readonly : 'readonly'
-		});
-	}
-});
-
-$(function(){
 	var memberType = "${detail.userDetail.MEMBER_TYPE}";
 	$("#side-user").attr("class", "open active");
 	if(memberType == 1){
+		$("input:text").attr({
+			readonly : 'readonly'
+		});
 		$("#side-user-user").attr("class", "active");
 	}else{
 		$("#side-user-admin").attr("class", "active");
