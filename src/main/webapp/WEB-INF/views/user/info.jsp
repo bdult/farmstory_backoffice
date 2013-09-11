@@ -46,7 +46,7 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
-							<form id="create-form" method="get"  class="form-horizontal" >
+							<form id="create-form" method="get" class="form-horizontal" >
 								<div class="control-group">
 									<label class="control-label">회원 ID</label>
 									<div class="controls">
@@ -169,8 +169,21 @@
 
 <script>
 
+$(function(){
+	var dspType = "${detail.userDetail.MEMBER_TYPE}";
+	$("#side-user").attr("class", "open active");
+	if(dspType == 1){
+		$("#side-user-user").attr("class", "active");
+	}else{
+		$("#side-user-admin").attr("class", "active");
+	}
+});
+
 $("#modify").click(function(){
-	$("#create-form").attr('action', '${ contextPath }/user/admin/modify.do').submit();
+	$("#create-form").attr({
+	method: 'post',
+	action: '${ contextPath }/user/admin/modify.do'
+	}).submit();
 });
 
 $("#delete").click(function(){

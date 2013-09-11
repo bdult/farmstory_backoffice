@@ -176,7 +176,7 @@ Map response = new HashMap();
     }
   }
 
-  @RequestMapping(value = "user/admin/modify.do", method = RequestMethod.GET)
+  @RequestMapping(value = "user/admin/modify.do", method = RequestMethod.POST)
   public String adminModify(Model model, @RequestParam Map<String,Object> paramMap) {
 	  userService.modifyAdminUser(paramMap);
 	  
