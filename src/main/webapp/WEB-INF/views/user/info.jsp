@@ -114,14 +114,18 @@
 								</div>
 								<c:if test="${detail.type == 'adminView' }">
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit" id="modify">
+									<button class="btn btn-primary" type="submit" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
 										수정
 									</button>
-									<button class="btn btn-danger" type="submit" id="delete">
+									<button class="btn btn-danger" type="submit" id="delete-btn">
 										<i class="icon-trash bigger-110"></i>
 										삭제
 									</button>
+									<a class="btn btn-inverse" id="cancel-btn">
+										<i class="icon-trash bigger-110"></i>
+										취소
+									</a>
 								</div>
 								</c:if>
 							</form>
@@ -166,7 +170,7 @@
 	<!--/.page-content-->
 <!--/.main-content-->
 
-<script>
+<script type="text/javascript">
 
 $(function(){
 	var memberType = "${detail.userDetail.MEMBER_TYPE}";
@@ -179,17 +183,30 @@ $(function(){
 	}else{
 		$("#side-user-admin").attr("class", "active");
 	}
+
 });
 
-$("#modify").click(function(){
-	$("#create-form").attr({
-	method: 'post',
-	action: '${ contextPath }/user/admin/modify.do'
-	}).submit();
+$("#cancel-btn").click(function(){
+	window.location.href="admin/manage.do?pageNum=1";
 });
 
-$("#delete").click(function(){
-	$("#create-form").attr('action', '${ contextPath }/user/admin/delete.do').submit();
+$("#modify-btn").click(function(){
+	if(confirm("저장 하시겠습니까?")){
+		$("#create-form").attr({
+			method: 'post',
+			action: '${ contextPath }/user/admin/modify.do'
+		}).submit();
+	}else{
+		return false;
+	}
+});
+
+$("#delete-btn").click(function(){
+	if(confirm("삭제 하시겠습니까?")){
+		$("#create-form").attr('action', '${ contextPath }/user/admin/delete.do').submit();
+	}else{
+		return false;
+	}
 });
 /* $(document).ready(function(){
 	
@@ -228,4 +245,5 @@ $("#delete").click(function(){
 	}
 		
 }); */
+
 </script>

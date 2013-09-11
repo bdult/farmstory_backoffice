@@ -149,7 +149,7 @@ $("#side-board-board").attr("class", "open active");
 	$(function(){
 		
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do?pageNum=1";
+			window.location.href="admin/manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){
