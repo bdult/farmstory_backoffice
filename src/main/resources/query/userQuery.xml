@@ -149,14 +149,19 @@
 		UPDATE /* userQuery.modifyAdminUser 2013.09.09 김운호 */  
 			BG_MEMBER
 		<set>
-			MEMBER_ID = #{ id },
-			MEMBER_NM = #{ name },
-			MEMBER_PW = #{ pwd },
-			MEMBER_ROLE = #{ role },
-			MEMBER_TYPE = #{ member_type },
-			UPDATE_DATE = NOW()
+			MEMBER_ID = #{ member_id },
+			MEMBER_NM = #{ member_nm },
+			MEMBER_PW = #{ member_pw },
+			MEMBER_ROLE = #{ member_role },
+			MEMBER_EMAIL = #{ member_email },
+			MEMBER_CEL = #{ member_cel },
+			MEMBER_TEL = #{ member_tel },
+			MEMBER_ADDR_1 = #{ member_addr_1 },
+			MEMBER_ADDR_2 = #{ member_addr_2 },
+			MEMBER_STATUS = #{ member_status },
+			MOD_DT = NOW()
 		</set>
-		WHERE MEMBER_ID = #{ id }
+		WHERE MEMBER_ID = #{ member_id }
 	</update>
 	
 	<!-- DELETE USER -->

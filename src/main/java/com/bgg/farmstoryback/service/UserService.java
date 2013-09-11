@@ -115,9 +115,14 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public int addAdminUser(Map<String, Object> paramMap){
+	public void addAdminUser(Map<String, Object> paramMap){
 		
-		return userDao.addAdminUser(paramMap);
+		userDao.addAdminUser(paramMap);
+	}
+	
+	public void modifyAdminUser(Map<String, Object> paramMap){
+		
+		userDao.modifyAdminUser(paramMap);
 	}
 	
 	/**
@@ -130,9 +135,9 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public int deleteUser(Map<String, Object> paramMap){
+	public void deleteUser(Map<String, Object> paramMap){
 		
-		return userDao.deleteUser(paramMap);
+		userDao.deleteUser((String)paramMap.get("member_id"));
 	}
 
 	public boolean isNotAdminUser(Map parameter) {
