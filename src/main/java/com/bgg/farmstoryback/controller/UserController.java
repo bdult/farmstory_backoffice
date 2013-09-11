@@ -157,6 +157,7 @@ Map response = new HashMap();
   
   @RequestMapping(value = "user/admin/createView.do", method = RequestMethod.GET)
   public String adminCreateView(Model model) {
+	  
     return "user/createView";
   }
   

@@ -170,9 +170,18 @@
 <script>
 
 $(function(){
-	var dspType = "${detail.userDetail.MEMBER_TYPE}";
+	var readOnly = "${detail.userDetail.MEMBER_TYPE}";
+	if(readOnly == 1){
+		$("input:text").attr({
+			readonly : 'readonly'
+		});
+	}
+});
+
+$(function(){
+	var memberType = "${detail.userDetail.MEMBER_TYPE}";
 	$("#side-user").attr("class", "open active");
-	if(dspType == 1){
+	if(memberType == 1){
 		$("#side-user-user").attr("class", "active");
 	}else{
 		$("#side-user-admin").attr("class", "active");
