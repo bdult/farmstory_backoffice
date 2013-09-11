@@ -37,6 +37,7 @@
 		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 
+<div class="page-content">
 	<div class="row-fluid">
 			<h3 class="header smaller lighter blue">브랜드 리스트</h3>
 			<div class="table-header" align="right">
