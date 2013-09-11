@@ -114,12 +114,12 @@
 								</div>
 								<c:if test="${detail.type == 'adminView' }">
 								<div class="form-actions">
-									<button class="btn btn-default" type="submit" id="modify">
-										<i class="icon-ok bigger-110"></i>
+									<button class="btn btn-primary" type="submit" id="modify">
+										<i class="icon-wrench bigger-110"></i>
 										수정
 									</button>
-									<button class="btn btn-primary" type="submit" id="delete">
-										<i class="icon-ok bigger-110"></i>
+									<button class="btn btn-danger" type="submit" id="delete">
+										<i class="icon-trash bigger-110"></i>
 										삭제
 									</button>
 								</div>
