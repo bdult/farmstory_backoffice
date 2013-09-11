@@ -128,6 +128,14 @@
 									</a>
 								</div>
 								</c:if>
+								<c:if test="${detail.type == 'userView' }">
+									<div class="form-actions">
+										<a class="btn btn-inverse" id="cancel-btn">
+											<i class="icon-list bigger-110"></i>
+											목록으로
+										</a>
+									</div>
+								</c:if>
 							</form>
 					</div>
 			</div>
@@ -183,30 +191,34 @@ $(function(){
 		$("#side-user-admin").attr("class", "active");
 	}
 
+	$("#cancel-btn").click(function(){
+		if(memberType == 1){
+			window.location.href="user/manage.do?pageNum=1";
+		}else {
+			window.location.href="admin/manage.do?pageNum=1";
+		}
+	});
+
+	$("#modify-btn").click(function(){
+		if(confirm("저장 하시겠습니까?")){
+			$("#create-form").attr({
+				method: 'post',
+				action: '${ contextPath }/user/admin/modify.do'
+			}).submit();
+		}else{
+			return false;
+		}
+	});
+
+	$("#delete-btn").click(function(){
+		if(confirm("삭제 하시겠습니까?")){
+			$("#create-form").attr('action', '${ contextPath }/user/admin/delete.do').submit();
+		}else{
+			return false;
+		}
+	});
 });
 
-$("#cancel-btn").click(function(){
-	window.location.href="admin/manage.do?pageNum=1";
-});
-
-$("#modify-btn").click(function(){
-	if(confirm("저장 하시겠습니까?")){
-		$("#create-form").attr({
-			method: 'post',
-			action: '${ contextPath }/user/admin/modify.do'
-		}).submit();
-	}else{
-		return false;
-	}
-});
-
-$("#delete-btn").click(function(){
-	if(confirm("삭제 하시겠습니까?")){
-		$("#create-form").attr('action', '${ contextPath }/user/admin/delete.do').submit();
-	}else{
-		return false;
-	}
-});
 /* $(document).ready(function(){
 	
 	var dspType = "${detail.type}";
