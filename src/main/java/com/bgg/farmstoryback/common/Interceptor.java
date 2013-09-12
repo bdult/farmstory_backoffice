@@ -19,7 +19,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 	private Logger logger = LoggerFactory.getLogger(Interceptor.class);
 
 	//false로 변경 하면 로그인 세션 체크 안함
-	private boolean isSessionCheck = true; 
+	private boolean isSessionCheck = false; 
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		printRequestLog(request);
