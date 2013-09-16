@@ -50,7 +50,7 @@
 					<button type="button" class="close" data-dismiss="alert">
 						<i class="icon-remove"></i>
 					</button>
-					<strong>카테고리</strong>
+					<strong>카테고리관리</strong>
 					<br>
 				</div>
 				
@@ -63,21 +63,24 @@
 						</tr>
 					</thead>				
 					<tbody>
-						<c:forEach items="${ cateList }" var="cate">
+						<c:forEach items="${ cateList }" var="cateObj">
 							<tr>
-								<td>${ cate.CATE_ID }</td>
-								<td class="pointer">${ cate.CATE_NM }</td>
-								<td>${cate.REG_DT }</td>
+								<td>${ cateObj.CATE_ID }</td>
+								<td class="pointer">${ cateObj.CATE_NM }</td>
+								<td>x e</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<button id="create-category" class="btn btn-info pull-right">카테고리 생성</button>
+				<button class="btn btn-info pull-right" id="createCateBtn">생성</button>
 			</div><!--/.span-->
 			<div class="span5">
 			
 				<div class="alert alert-info">
-					<strong>브랜드</strong>
+					<button type="button" class="close" data-dismiss="alert">
+						<i class="icon-remove"></i>
+					</button>
+					<strong>브랜드 관리</strong>
 					<br>
 				</div>
 				
@@ -90,16 +93,68 @@
 						</tr>
 					</thead>				
 					<tbody>
-						<c:forEach items="${brandList }" var="brand">
-						<tr>
-							<td>${brand.BRAND_ID }</td>
-							<td>${brand.BRAND_NM }</td>
-							<td>${brand.REG_DT }</td>
-						</tr>
+						<c:forEach items="${ brandList }" var="brandObj">
+							<tr>
+								<td>${ brandObj.BRAND_ID }</td>
+								<td class="pointer">${ brandObj.BRAND_NM }</td>
+								<td>
+									<div class="hidden-phone visible-desktop btn-group">
+										<button class="btn btn-mini btn-success">
+											<i class="icon-ok bigger-120"></i>
+										</button>
+	
+										<button class="btn btn-mini btn-info">
+											<i class="icon-edit bigger-120"></i>
+										</button>
+	
+										<button class="btn btn-mini btn-danger">
+											<i class="icon-trash bigger-120"></i>
+										</button>
+	
+										<button class="btn btn-mini btn-warning">
+											<i class="icon-flag bigger-120"></i>
+										</button>
+									</div>
+	
+									<div class="hidden-desktop visible-phone">
+										<div class="inline position-relative">
+											<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown">
+												<i class="icon-cog icon-only bigger-110"></i>
+											</button>
+	
+											<ul class="dropdown-menu dropdown-icon-only dropdown-yellow pull-right dropdown-caret dropdown-close">
+												<li>
+													<a href="#" class="tooltip-info" data-rel="tooltip" title="" data-original-title="View">
+														<span class="blue">
+															<i class="icon-zoom-in bigger-120"></i>
+														</span>
+													</a>
+												</li>
+	
+												<li>
+													<a href="#" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
+														<span class="green">
+															<i class="icon-edit bigger-120"></i>
+														</span>
+													</a>
+												</li>
+	
+												<li>
+													<a href="#" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+														<span class="red">
+															<i class="icon-trash bigger-120"></i>
+														</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</td>
+							</tr>
 						</c:forEach>
 					</tbody>	
 				</table>
-				<button id="create-brand-btn" class="btn btn-info pull-right">브랜드 생성</button>
+				<button class="btn btn-info pull-right" id="createBrandBtn">생성</button>
 			</div><!--/.span-->
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->
@@ -127,15 +182,26 @@
 
 <script>
 $(function(){
-	$("#create-brand-btn").click(function(){
-			console.log("create-brand-btn click");
-			$("#creat-brand-modal").modal('toggle');
+	$("#createCateBtn").on(ace.click_event, function() {
+		bootbox.prompt("생성할 카테고리 이름을 입력해 주세요.", function(result) {
+			if (result === null) {
+				//Example.show("Prompt dismissed");
+			} else {
+				alert("카테고리 생성 ajax 요청");
+			}
+		});
 	});
 	
-	$("#create-category").click(function(){
-			console.log("creat-category click");
+	$("#createBrandBtn").on(ace.click_event, function() {
+		bootbox.prompt("생성할 브랜드 이름을 입력해 주세요.", function(result) {
+			if (result === null) {
+				//Example.show("Prompt dismissed");
+			} else {
+				alert("브랜드 생성 ajax 요청");
+			}
+		});
 	});
-	
+
 });
 </script>
 

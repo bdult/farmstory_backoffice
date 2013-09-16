@@ -20,7 +20,7 @@
 							</span>
 						</li>
 						<li>
-							마스터
+							게시판 조회
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
@@ -44,73 +44,49 @@
 					<div class="row-fluid">
 						<div class="span12">
 							<!--PAGE CONTENT BEGINS-->
-
-							<form id="modify-form" method="post" action="${contextPath }/board/modify.do" class="form-horizontal" >
-								<input type="hidden" name="mode" value="${mode}" />
+							<c:choose>
+								<c:when test="${ mode eq 'create' }">
+									<form id="modify-form" method="post" action="${contextPath }/board/contents/create.do" class="form-horizontal" >
+								</c:when>
+								<c:otherwise>
+									<form id="modify-form" method="post" action="${contextPath }/board/contents/modify.do" class="form-horizontal" >
+								</c:otherwise>
+							</c:choose>
 								
-								<div class="control-group">
-									<label class="control-label" for="board_id">게시판 ID</label>
-
-									<div class="controls">
-										<input readonly="readonly" type="text" id="board_id" name="board_id" value="${data.BOARD_ID}" />
+								<input type="hidden" id="boardId" name="boardId" value="${ data.BOARD_ID }" />
+								
+								<c:if test="${ mode ne 'create' }">
+									<div class="control-group">
+										<label class="control-label" for="board_id">글번호</label>
+	
+										<div class="controls">
+											<input readonly="readonly" type="text" id="contentsId" name="contentsId" value="${ data.CONTENTS_ID }" />
+										</div>
 									</div>
-								</div>
+								</c:if>
 
 								<div class="control-group">
-									<label class="control-label" for="board_nm">게시판 명</label>
+									<label class="control-label" for="board_nm">제목</label>
 
 									<div class="controls">
-										<input type="text" id="board_nm" name="board_nm" placeholder="게시판 명" value="${data.BOARD_NM}" />
+										<input type="text" id="title" name="title" placeholder="제목" value="${ data.TITLE }" />
 									</div>
 								</div>
 								
-								<c:if test="${data.REG_MEMBER_ID != null}">
-								<div class="control-group">
-									<label class="control-label" for="reg_member_id">생성자 ID</label>
-
-									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.REG_MEMBER_ID}" />
+								<c:if test="${ mode ne 'create' }">
+									<div class="control-group">
+										<label class="control-label" for="member_id">작성자 ID</label>
+	
+										<div class="controls">
+											<input readonly="readonly" type="text" value="${ data.MEMBER_ID }" />
+										</div>
 									</div>
-								</div>
 								</c:if>
 								
-								<c:if test="${data.MOD_MEMBER_ID != null}">
 								<div class="control-group">
-									<label class="control-label" for="mod_member_id">변경자 ID</label>
-
+									<label class="control-label" for="form-field-2">내용</label>
 									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.MOD_MEMBER_ID}" />
-									</div>
-								</div>
-								</c:if>
-								
-								<div class="control-group">
-									<label class="control-label" for="src_path">댓글 사용여부</label>
-
-									<div class="controls">
-										<input type="text" value="${data.COMMENT_USE_YN== null? "Y" : data.COMMENT_USE_YN}" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">파일 업로드 사용여부</label>
-
-									<div class="controls">
-										<input type="text" value="${data.FILEUPLOAD_USE_YN== null? "Y" : data.FILEUPLOAD_USE_YN}" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">브랜드 설명</label>
-									<div class="controls">
-										<c:choose>
-											<c:when test="${data.BOARD_DESC != null}">
-												<textarea rows="20" class="autosize-transition span12" id="board_desc" name="board_desc">${data.BOARD_DESC }</textarea>
-											</c:when>
-											<c:otherwise>
-												<textarea rows="20" class="autosize-transition span12" id="board_desc" name="board_desc" ></textarea>
-											</c:otherwise>
-										</c:choose>
+										<textarea rows="20" class="autosize-transition span12" id="board_desc" name="contents">${ data.CONTENTS }</textarea>
 									</div>
 								</div>
 								
@@ -138,18 +114,21 @@
 				</div><!--/.page-content-->
 			</div><!--/.main-content-->
 			
-			<form id="delete-form" method="post" action="delete.do">
-				<input type="hidden" name="board_id" value="${data.BOARD_ID }">
+			<form id="delete-form" method="post" action="${ contextPath }/board/contents/delete.do">
+				<input type="hidden" name="boardId" value="${ data.BOARD_ID }">
+				<input type="hidden" name="contentsId" value="${ data.CONTENTS_ID }">
 			</form>
 			
 
 <script type="text/javascript">
-$("#side-board-master").attr("class", "active");
-$("#side-board-board").attr("class", "open active");
+	
+	$("#side-board").attr("class", "open active");
+	$("#side-board-board").attr("class", "active");
+	
 	$(function(){
 		
 		$("#cancel-btn").click(function(){
-			window.location.href="admin/manage.do?pageNum=1";
+			window.location.href="manage.do?pageNum=1";
 		});
 		
 		$("#delete-btn").click(function(){

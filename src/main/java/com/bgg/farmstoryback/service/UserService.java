@@ -77,10 +77,7 @@ public class UserService {
 	 */
 	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("member_id", paramMap.get("id"));
-		
-		return userDao.childList(map);
+		return userDao.childList(paramMap);
 	}
 	
 	/**
@@ -108,7 +105,7 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public Map<String, Object> getChildOne(Map<String, Object> paramMap) {
+	public Map<String, Object> childDetail(Map<String, Object> paramMap) {
 		return userDao.childDetail(paramMap);
 	}
 	
@@ -118,16 +115,14 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public int addAdminUser(Map<String, Object> paramMap){
+	public void addAdminUser(Map<String, Object> paramMap){
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", (String)paramMap.get("id"));
-		map.put("name", (String)paramMap.get("name"));
-		map.put("pwd", (String)paramMap.get("pwd"));
-		map.put("role", (String)paramMap.get("role"));
-		map.put("member_type", (String)paramMap.get("member_type"));
+		userDao.addAdminUser(paramMap);
+	}
+	
+	public void modifyAdminUser(Map<String, Object> paramMap){
 		
-		return userDao.addAdminUser(map);
+		userDao.modifyAdminUser(paramMap);
 	}
 	
 	/**
@@ -140,11 +135,9 @@ public class UserService {
 	 * @param paramMap
 	 * @return
 	 */
-	public int deleteUser(Map<String, Object> paramMap){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", (String)paramMap.get("id"));
+	public void deleteUser(Map<String, Object> paramMap){
 		
-		return userDao.deleteUser(map);
+		userDao.deleteUser((String)paramMap.get("member_id"));
 	}
 
 	public boolean isNotAdminUser(Map parameter) {

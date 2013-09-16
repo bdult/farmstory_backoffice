@@ -41,48 +41,72 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
-							<form id="create-form" method="get" action="${ contextPath }/user/modify.do" class="form-horizontal" >
+							<form id="create-form" method="post" action="${ contextPath }/user/admin/create.do" class="form-horizontal" >
 								<div class="control-group">
 									<label class="control-label">회원 ID</label>
 									<div class="controls">
-											<input type="text" name="member_id" id="member_id" placeholder="회원 ID">
+										<input type="text" name="member_id" id="member_id" placeholder="회원 ID">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 이름</label>
 									<div class="controls">
-										<input  type="text" name="name" value="${detail.userDetail.MEMBER_NM}" />
+										<input  type="text" name="member_nm" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">회원 비밀번호</label>
+									<div class="controls">
+										<input  type="text" name="member_pw" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">회원 전화번호</label>
+									<div class="controls">
+										<input  type="text" name="member_cel" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 이메일</label>
 									<div class="controls">
-										<input  type="text" name="name" value="${detail.userDetail.MEMBER_EMAIL}" />
+										<input  type="text" name="member_email" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 휴대폰 번호</label>
 									<div class="controls">
-										<input  type="text" name="member_sel" value="${detail.userDetail.MEMBER_CEL}" />
+										<input  type="text" name="member_tel" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">회원 주소</label>
+									<div class="controls">
+										<input  type="text" name="member_addr_1" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">회원 상세 주소</label>
+									<div class="controls">
+										<input  type="text" name="member_addr_2" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 등급</label>
 									<div class="controls">
-										<input  type="text" name="role" value="${detail.userDetail.MEMBER_ROLE}" />
+										<input  type="text" name="member_role" />
 									</div>
 								</div>
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit">
+									<button class="btn btn-primary" type="submit" id="add-btn">
 										<i class="icon-ok bigger-110"></i>
 										저장
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
-									<button id="cancel-btn" class="btn btn-inverse" type="button">
+									<a class="btn btn-inverse" id="cancel-btn">
 										<i class="icon-undo bigger-110"></i>
 										취소
-									</button>
+									</a>
 								</div>
 							</form>
 					</div>
@@ -137,6 +161,10 @@ $(document).ready(function(){
 	}else{
 		$("#side-user-admin").attr("class", "active");
 	}
+
+	$("#cancel-btn").click(function(){
+			window.location.href="manage.do?pageNum=1";
+	});
 	
 	var $genderBox = $("#genderBox");
 	var genderData = $genderBox.data("gender_value");
