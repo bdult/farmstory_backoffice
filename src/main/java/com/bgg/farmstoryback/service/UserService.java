@@ -156,7 +156,7 @@ public class UserService {
 		}
 	}
 
-	public boolean isNotFountUser(Map paramMap) {
+	public boolean isNotFoundUser(Map paramMap) {
 		int checkCount = userDao.userIdCheckCount(paramMap);
 		return false;
 	}

@@ -43,6 +43,7 @@ public class UserController {
         return "pure-user/login";
 	}
 	
+	@SuppressWarnings({ "rawtypes"})
 	@RequestMapping(value = "user/login.do")
 	public String login(@RequestParam Map<String,Object> paramMap, HttpSession session) {
 		if(paramMap.isEmpty()){
@@ -55,6 +56,7 @@ public class UserController {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked"})
 	@RequestMapping(value = "user/login.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String loginAjax(@RequestParam Map paramMap, HttpSession session) {
 		
@@ -63,7 +65,7 @@ public class UserController {
 		Map response = new HashMap();
 		
 		// ID 체크
-		if(userService.isNotFountUser(paramMap)){
+		if(userService.isNotFoundUser(paramMap)){
 			response.put("code", 404);
 			response.put("msg", "ID 가 없습니다.");
 			return jsonResMaker.generateMap("data", response);
@@ -95,6 +97,7 @@ public class UserController {
 	}
 	
 	
+	@SuppressWarnings({ "rawtypes", "unchecked", "static-access" })
 	@RequestMapping(value = "/user/user/manage.do")
 	public String userManage(Model model, @RequestParam Map parameter) {
 		
@@ -121,6 +124,7 @@ public class UserController {
 		return "user/manage";
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked", "static-access" })
 	@RequestMapping(value = "/user/admin/manage.do", method = RequestMethod.GET)
 	public String adminManage(Model model, @RequestParam Map parameter) {
 		
@@ -152,6 +156,10 @@ public class UserController {
 		model.addAttribute("detail",userService.detail(paramMap));
 		return "user/info";
 	}
+	
+	
+	
+	
 	
 	@RequestMapping(value = "user/admin/createView.do", method = RequestMethod.GET)
 	public String adminCreateView(Model model) {
