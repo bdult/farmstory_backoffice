@@ -10,31 +10,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="request"/>
-<c:set var="rootPath" value="/storyfarm-admin" scope="request"/>
+<c:set var="rootPath" value="/ozworld-admin" scope="request"/>
 
-<!--basic styles-->
+<!-- basic styles -->
 
-<link href="${rootPath}/assets/css/bootstrap.min.css" rel="stylesheet" />
-<link href="${rootPath}/assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="${rootPath}/assets/css/font-awesome.min.css" />
+<link href="${rootPath }/assets/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="${rootPath }/assets/css/font-awesome.min.css" />
 
 <!--[if IE 7]>
-  <link rel="stylesheet" href="${contextPath}/assets/css/font-awesome-ie7.min.css" />
+  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 <![endif]-->
 
-<!--page specific plugin styles-->
+<!-- page specific plugin styles -->
 
-<link rel="stylesheet" href="${rootPath}/assets/css/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/chosen.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/datepicker.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/bootstrap-timepicker.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/daterangepicker.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/colorpicker.css" />
 
-<!--fonts-->
+<!-- fonts -->
 
-<link rel="stylesheet" href="${rootPath}/assets/css/ace-fonts.css" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
-<!--ace styles-->
+<!-- ace styles -->
 
-<link rel="stylesheet" href="${rootPath}/assets/css/ace.min.css" />
-<link rel="stylesheet" href="${rootPath}/assets/css/ace-responsive.min.css" />
-<link rel="stylesheet" href="${rootPath}/assets/css/ace-skins.min.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/ace.min.css" />
+<link rel="stylesheet" href="${rootPath }/assets/css/ace-skins.min.css" />
 
 <!-- RNTS -->
 <link rel="stylesheet" href="${contextPath}/css/main.css" />

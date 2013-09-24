@@ -73,6 +73,18 @@
 									</div>
 								</div>
 								
+								<!-- 
+								<div class="control-group">
+									<label class="control-label" for="contents_series_id">카테고리</label>
+
+									<div class="controls">
+										<c:forEach items="${categoryList }" var="cate">
+										<input  type="hidden" id="cate_id" name="cate_id" value="${cate.CATE_ID}" />
+										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM}" />
+										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
+										</c:forEach>
+									</div>
+								</div>
 								<div class="control-group">
 									<label class="control-label" for="brand_id">브랜드 명</label>
 
@@ -82,22 +94,30 @@
 										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 변경" />
 									</div>
 								</div>
+								 -->
 								
 								<div class="control-group">
 									<label class="control-label" for="src_path">동영상 경로</label>
-
 									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="src_path" name="src_path" placeholder="/" />
+										<input readonly="readonly" type="text" id="src_path" name="src_path" placeholder="/" value="${data.SRC_PATH }" />
+										<input  type="button" id="movie-mod-btn" class="btn btn-primary" value="동영상 변경" />
+										<div class="help-block" id="input-span-slider"></div>
+									</div>
+								</div>
+								
+								<div class="control-group">
+									<label class="control-label" for="src_path">동영상 Player</label>
+									<div class="controls">
+										<input readonly="readonly" class="span8" type="text" id="player_type" name="player_type" placeholder="/" value="${data.PLAYER_TYPE }" />
 										<div class="help-block" id="input-span-slider"></div>
 									</div>
 								</div>
 								
 								<div class="control-group">
 									<label class="control-label" for="form-field-2">썸네일 이미지 경로</label>
-
 									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" value="${img_path }" />
-										<div class="help-block" id="input-span-slider"></div>
+										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+										<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
 									</div>
 								</div>
 								
@@ -171,27 +191,51 @@
 		</div>
 </div>		
 
-<!--  brand modify modal -->			
-<div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 변경</h3>
-		</div>
-		<div class="modal-body">
-			<div id="modify-brand-list" class="control-group">
-				<label class="control-label">브랜드 리스트</label>
-				<div class="controls">
-					<select id="modify-brand-select">
-					</select>
+<!--  movie modify modal -->			
+<div id="modify-movie-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="col-sm-4">
+		<div class="widget-box">
+			<div class="widget-header">
+				<h4>동영상 업로드</h4>
+
+			</div>
+
+			<div class="widget-body">
+				<div class="widget-main">
+					<input multiple="" type="file" id="id-input-file-3" />
+					<button type="button" id="file-upload-submit" class="btn btn-sm btn-success">
+						업로드
+						<i class="icon-arrow-right icon-on-right bigger-110"></i>
+					</button>
 				</div>
 			</div>
+		</div>
+	</div>
+<!-- 
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">동영상 변경</h3>
+		</div>
+		<div class="modal-body">
+			<form action="//dummy.html" class="dropzone dz-clickable">
+				<div class="dz-default dz-message">
+					<span>
+						<span class="bigger-150 bolder">
+							<i class="icon-caret-right red"></i> Drop files
+						</span> to upload 				
+						<span class="smaller-80 grey">(or click)</span> 
+						<br> 				
+						<i class="upload-icon icon-cloud-upload blue icon-3x"></i>
+					</span>
+				</div>
+			</form>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
 			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
 		</div>
+ -->
 </div>		
-			
 
 <script type="text/javascript">
 
@@ -199,6 +243,44 @@ $("#side-contents-contents").attr("class", "active");
 $("#side-contents").attr("class", "open active");
 
 	$(function(){
+		
+		$('#id-input-file-3').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'small'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
+	
+		}).on('change', function(){
+			$("#file-upload-submit").show();
+			//console.log($(this).data('ace_input_files'));
+			//console.log($(this).data('ace_input_method'));
+		});
+		
+		
+		$("#file-upload-submit").click(function(){
+			$("#modify-movie-modal").modal('toggle');
+		});
+		
 		$("#cancel-btn").click(function(){
 			window.location.href="manage.do?pageNum=1";
 		});
@@ -270,8 +352,11 @@ $("#side-contents").attr("class", "open active");
 				}); // ajax end
 		});
 		
-		$("#brand-mod-btn").click(function(){
-			$.ajax({
+		$("#movie-mod-btn").click(function(){
+			$("#file-upload-submit").hide();
+			$("#modify-movie-modal").modal('toggle');
+			
+			/* $.ajax({
 				url: "${contextPath}/brand/list.ajax",
 				type: 'GET',
 				dataType: 'json',
@@ -284,7 +369,7 @@ $("#side-contents").attr("class", "open active");
 				error: function(xhr, status, error) {
 					console.log("error="+error);
 				}
-			}); // ajax end
+			}); // ajax end */
 		}); // <!-- brand-mod-btn event end
 		
 	}); // <!-- function() end 

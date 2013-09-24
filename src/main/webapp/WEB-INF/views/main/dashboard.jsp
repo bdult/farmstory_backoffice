@@ -110,7 +110,7 @@
 
 															<th class="hidden-phone">
 																<i class="icon-caret-right blue"></i>
-																이메일
+																생성일
 															</th>
 														</tr>
 													</thead>

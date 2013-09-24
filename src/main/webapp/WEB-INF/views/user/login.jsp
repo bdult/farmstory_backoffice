@@ -80,7 +80,7 @@
 <script>
 
 	$(document).ready(function(){
-	    $('#member_pwd').focus();
+	    $('#member_id').focus();
 	    $("#member_pwd ").bind("keydown", function(e) {
 	        if (e.keyCode == 13) { // enter key
 	        	loginAjax();

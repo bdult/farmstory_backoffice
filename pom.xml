@@ -247,11 +247,11 @@
                     </dependency> 
                </dependencies>
                 <configuration>
-                    <contextPath>/ozword-admin</contextPath>
+                    <contextPath>/ozworld-admin</contextPath>
                     <scanIntervalSeconds>3</scanIntervalSeconds>
                     <connectors>
                         <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-                            <port>10000</port>
+                            <port>80</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>
