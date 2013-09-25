@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
+import com.bgg.farmstoryback.service.CategoryService;
 import com.bgg.farmstoryback.service.ContentsService;
 import com.mysql.jdbc.StringUtils;
 
@@ -29,6 +30,9 @@ public class ContentsController {
 	
 	@Autowired
 	private ContentsService contentsService;
+	
+	@Autowired
+	private CategoryService cateService;
 	
 	@Autowired
 	private JsonResponseMaker jsonMaker;
@@ -64,8 +68,10 @@ public class ContentsController {
 	
 	
 	@RequestMapping(value = "contents/detail.do")
-	public String detail(Model model, @RequestParam Map<String,String> parameter) {
-		Map contentsDetail =  contentsService.detail(parameter.get("contents_id"));
+	public String detail(Model model, @RequestParam Map parameter) {
+		Map contentsDetail =  contentsService.detail((String)parameter.get("contents_id"));
+		model.addAttribute("cateList", cateService.listByLevel(1));
+		model.addAttribute("contentsCateList", contentsService.contentsCateList(parameter));
 		model.addAttribute("data", contentsDetail);
 		return "contents/info";
 	}
@@ -97,27 +103,30 @@ public class ContentsController {
 	public @ResponseBody String movieUpload(Model model,
 			@RequestParam("file")MultipartFile file
 			) {
-		System.out.println(file.getContentType());
-		System.out.println(file.getOriginalFilename().substring(file.getOriginalFilename().length()-3));
-		System.out.println(file.getOriginalFilename().substring(0, file.getOriginalFilename().length()-4));
-		
 		String srcPath = contentsService.movieUpload(file);
-		System.out.println(srcPath);
-		
 		return srcPath;
 	}
 	@RequestMapping(value = "contents/thumbnail-upload.do")
 	public @ResponseBody String thumbnailUpload(Model model,
 			@RequestParam("file")MultipartFile file
 			) {
-		System.out.println(file.getContentType());
-		System.out.println(file.getOriginalFilename().substring(file.getOriginalFilename().length()-3));
-		System.out.println(file.getOriginalFilename().substring(0, file.getOriginalFilename().length()-4));
-		
 		String srcPath = contentsService.thumbnailUpload(file);
-		System.out.println(srcPath);
-		
 		return srcPath;
+	}
+	
+	@RequestMapping(value = "contents/addContentsCate.ajax", produces = "application/json;charset=UTF-8")
+	public @ResponseBody String addContentsCate(Model model,
+			@RequestParam Map parameter
+			) {
+		logger.info("{}", parameter);
+		contentsService.addContentsCate(parameter);
+		return jsonMaker.generateOk();
+	}
+	
+	@RequestMapping(value = "contents/contentsCate.ajax", produces = "application/json;charset=UTF-8")
+	public @ResponseBody String contentsCate(Model model,
+			@RequestParam Map parameter) {
+		return jsonMaker.generateMapList("data", contentsService.contentsCateList(parameter));
 	}
 	
 	

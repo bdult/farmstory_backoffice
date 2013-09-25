@@ -42,4 +42,16 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("contentsQuery.top5");
 	}
 
+	public void addContentsCate(Map<String, Object> parameter) {
+		getSqlSession().insert("contentsQuery.addContentsCate", parameter);
+	}
+
+	public int checkContentsCate(Map<String, Object> parameter) {
+		return (Integer)getSqlSession().selectOne("contentsQuery.checkContentsCate", parameter);
+	}
+
+	public List contentsCateList(Map parameter) {
+		return getSqlSession().selectList("contentsQuery.contentsCateList", parameter);
+	}
+
 }

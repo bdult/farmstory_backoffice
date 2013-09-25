@@ -89,6 +89,36 @@
    		)
    </insert>
    
+	<insert id="addContentsCate" parameterType="map">
+	    INSERT INTO BG_CATE_CONTENTS_RELATIONSHIPS(
+	    	CATE_ID
+	    	, CONTENTS_ID
+	    ) 
+	    VALUES (
+			#{cate_id}
+			, #{contents_id}	    	
+	    )
+   </insert>
+   
+	<select id="checkContentsCate" resultType="int">
+	    SELECT COUNT(*) FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    WHERE 1=1
+	    AND CATE_ID = #{cate_id}
+	    AND CONTENTS_ID = #{contents_id}
+	    
+	</select>
+	
+	<select id="contentsCateList" resultType="hashmap">
+	    SELECT 
+	    	BC.CATE_ID 
+	    	, BC.CATE_NM 
+	  	FROM BG_CATE_CONTENTS_RELATIONSHIPS CCR, BG_CATE BC
+	    WHERE 1=1
+	    AND BC.CATE_ID = CCR.CATE_ID
+	    AND CCR.CONTENTS_ID = #{contents_id}
+	    
+	</select>
+   
    <update id="modify">
    		UPDATE BG_CONTENTS SET
    			CONTENTS_NM = #{contents_nm}

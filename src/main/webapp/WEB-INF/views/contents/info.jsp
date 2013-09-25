@@ -123,6 +123,22 @@
 								</div>
 								
 								<div class="control-group">
+									<label class="control-label" for="form-field-2">카테고리 </label>
+									<div class="span7">
+										<table class="table table-striped table-bordered table-hover" id="product-content-tb" >
+											<thead>
+												<tr id="contents-cate-list">
+													<c:forEach items="${contentsCateList }" var="contentsCate">
+														<th>${contentsCate.CATE_NM }</th>
+													</c:forEach>
+												</tr>
+											</thead>
+										</table>	
+										<input  type="button" id="category-mod-btn" class="btn btn-primary" value="카테고리 변경" />			
+									</div>
+								</div>
+								
+								<div class="control-group">
 									<label class="control-label" for="form-field-2">컨텐츠 설명</label>
 
 									<div class="controls">
@@ -160,9 +176,9 @@
 				</div><!--/.page-content-->
 			</div><!--/.main-content-->
 			
-			<form id="delete-form" method="post" action="delete.do">
-				<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">
-			</form>
+<form id="delete-form" method="post" action="delete.do">
+	<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">
+</form>
 			
 
 <div id="modify-series-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -192,24 +208,20 @@
 		</div>
 </div>		
 
-<!--  movie modify modal -->			
-<div id="modify-movie-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--  movie modal -->			
+<div id="movie-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<form action="movie-upload.do" id="movie-upload-form"  method="POST" enctype="multipart/form-data">
-		<div class="col-sm-4">
-			<div class="widget-box">
-				<div class="widget-header">
-					<h4>동영상 업로드</h4>
-				</div>
-				<div class="widget-body">
-					<div class="widget-main">
-						<input type="file" id="movie-upload-input" name="file" />
-						<button type="submit" id="movie-upload-submit" class="btn btn-sm btn-success">
-							업로드
-							<i class="icon-arrow-right icon-on-right bigger-110"></i>
-						</button>
-					</div>
-				</div>
-			</div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">동영상 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="movie-upload-input" name="file" />
+		</div>
+		<div id="movie-modal-footer" class="modal-footer">
+			<button type="submit" id="movie-upload-submit" class="btn btn-sm btn-success">
+				업로드 <i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
 		</div>
 	</form>
 </div>
@@ -217,23 +229,45 @@
 <!--  thumbnail modal -->
 <div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
-		<div class="col-sm-4">
-			<div class="widget-box">
-				<div class="widget-header">
-					<h4>썸네일 업로드</h4>
-				</div>
-				<div class="widget-body">
-					<div class="widget-main">
-						<input type="file" id="thumbnail-upload-input" name="file" />
-						<button type="submit" id="thumbnail-upload-input" class="btn btn-sm btn-success">
-							업로드
-							<i class="icon-arrow-right icon-on-right bigger-110"></i>
-						</button>
-					</div>
-				</div>
-			</div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">썸네일 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="thumbnail-upload-input" name="file" />
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
 		</div>
 	</form>
+</div>
+
+<!--  category tag modal -->
+<div id="category-tag-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">카테고리 변경</h3>
+		</div>
+		<div class="modal-body">
+			<div>
+				<select name="cate_id">
+					<c:forEach items="${cateList }" var="cate">
+						<option value="${cate.CATE_ID }">${cate.name }</option>
+					</c:forEach>
+				</select>
+				<button type="button" id="add-category-btn" class="btn btn-sm btn-success">추가</button>
+			</div>
+			<div>
+				<ul id="add-category-list">
+					<c:forEach items="${contentsCateList }" var="contentsCate">
+						<li>${contentsCate.CATE_NM }<button type="button" value="${contentsCate.CATE_ID }" class="btn btn-sm btn-danger delete-category-btn">삭제</button></li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
 </div>
 <!-- 
 		<div class="modal-header">
@@ -264,10 +298,15 @@
 
 	$("#side-contents-contents").attr("class", "active");
 	$("#side-contents").attr("class", "open active");
+	
+	$(document).on('click', '.delete-category-btn', function(){
+	    alert($(this).attr('value'));
+	    contentsCateList();
+	    $(this).parent().remove();
+	    
+	});
 
 	$(function(){
-		
-		$("#movie-upload-submit").hide();
 		
 		$('#movie-upload-input').ace_file_input({
 			style:'well',
@@ -296,7 +335,7 @@
 			}
 	
 		}).on('change', function(){
-			$("#movie-upload-submit").show();
+			$("#movie-modal-footer").show();
 			//console.log($(this).data('ace_input_files'));
 			//console.log($(this).data('ace_input_method'));
 		});
@@ -328,7 +367,7 @@
 			}
 	
 		}).on('change', function(){
-			$("#movie-upload-submit").show();
+			$("#thumbnail-modal-footer").show();
 			//console.log($(this).data('ace_input_files'));
 			//console.log($(this).data('ace_input_method'));
 		});
@@ -337,7 +376,7 @@
 				 {
 					    success: function(response){
 					      $("#src_path").val(response);
-					      $("#modify-movie-modal").modal('toggle');
+					      $("#movie-modal").modal('toggle');
 						}
 				 }
 		 );
@@ -423,12 +462,66 @@
 		});
 		
 		$("#movie-mod-btn").click(function(){
-			$("#file-upload-submit").hide();
-			$("#modify-movie-modal").modal('toggle');
+			$("#movie-modal-footer").hide();
+			$("#movie-modal").modal('toggle');
 		}); // <!-- brand-mod-btn event end
+		
+		$("#thumbnail-mod-btn").click(function(){
+			$("#thumbnail-modal-footer").hide();
+			$("#thumbnail-modal").modal('toggle');
+		}); // <!-- brand-mod-btn event end
+		
+		$("#category-mod-btn").click(function(){
+			$("#category-tag-modal").modal('toggle');
+		}); // <!-- brand-mod-btn event end
+		
+		$("#add-category-btn").click(function(){
+			param = {
+					contents_id : "${data.CONTENTS_ID}",
+					cate_id : $("select[name=cate_id]").val()
+				};
+				
+				$.ajax({
+					url: "addContentsCate.ajax",
+					data: param,
+					type: 'POST',
+					dataType: 'json',
+					success : function(response) {
+						console.log(response);
+					},
+					error: function(xhr, status, error) {
+						console.log("error="+error);
+					}
+				}); // ajax end
+		}); // <!-- brand-mod-btn event end
+		
 		
 		
 	}); // <!-- function() end 
 	
+	function contentsCateList(){
+			param = {
+					contents_id : "${data.CONTENTS_ID}"
+				};
+				
+				$.ajax({
+					url: "contentsCate.ajax",
+					data: param,
+					type: 'POST',
+					dataType: 'json',
+					success : function(response) {
+						$("#contents-cate-list").empty();
+						$.each(response.data, function(key, value){
+								$("#contents-cate-list").append("<th>"+value.CATE_NM+"</th>");
+							}
+						);
+						console.log(response);
+					},
+					error: function(xhr, status, error) {
+						console.log("error="+error);
+					}
+				}); // ajax end
+		
+	}
 	
 </script>

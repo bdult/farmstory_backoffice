@@ -49,6 +49,12 @@ public class JsonResponseMaker {
 		return json.toJSONString();
 	}
 	
+	public String generateOk(){
+		JSONObject json = new JSONObject();
+		setSucessCode(json);
+		return json.toJSONString();
+	}
+	
 //	"{\"status\":\"200\",\"data\":{\"test\":{\"name\":\"test\",\"type\":\"item\"}}}";
 	public String generateCateListForTree(List<Map> cateList) {
 		JSONObject json = new JSONObject();

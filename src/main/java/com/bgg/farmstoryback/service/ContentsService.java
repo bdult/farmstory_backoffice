@@ -96,4 +96,15 @@ public class ContentsService {
 	public String thumbnailUpload(MultipartFile file) {
 		return makeFilePath(file);
 	}
+
+	public void addContentsCate(Map parameter) {
+		int checkCount = conDao.checkContentsCate(parameter);
+		if(checkCount == 0){
+			conDao.addContentsCate(parameter);
+		}
+	}
+
+	public List contentsCateList(Map parameter) {
+		return conDao.contentsCateList(parameter);
+	}
 }
