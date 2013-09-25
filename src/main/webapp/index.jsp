@@ -2,7 +2,7 @@
 <html>
 <head>
 <script>
-	window.location.href="/ozworld-admin/dashboard.do"
+	window.location.href="/storyfarm-admin/dashboard.do"
 </script>
 </head>
 <body>
