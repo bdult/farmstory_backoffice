@@ -154,6 +154,10 @@ public class UserService {
 		return false;
 	}
 
+	public List top5() {
+		return userDao.top5();
+	}
+
 
 	
 	/**

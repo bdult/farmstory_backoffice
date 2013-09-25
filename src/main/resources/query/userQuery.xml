@@ -44,6 +44,16 @@
         WHERE MEMBER_ID = #{ member_id }
     </select>
     
+    <select id="top5" resultType="hashmap" >
+        SELECT /* userQuery.top5 2013.09.24 최지순 */ 
+			* 
+		FROM BG_MEMBER 
+		WHERE 1=1 
+		AND MEMBER_STATUS = 0
+		ORDER BY IDX DESC
+		LIMIT 5
+    </select>
+    
 	<select id="userList" resultType="hashmap" >
 		SELECT /* userQuery.userList 2013.09.09 김운호 */ 
 			MB.IDX,

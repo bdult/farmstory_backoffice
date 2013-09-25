@@ -97,14 +97,14 @@
 								 -->
 								
 								<div class="control-group">
-									<label class="control-label" for="src_path">동영상 경로</label>
+									<label class="control-label" for="src_path">동영상</label>
 									<div class="controls">
-										<input readonly="readonly" type="text" id="src_path" name="src_path" placeholder="/" value="${data.SRC_PATH }" />
+										<input readonly="readonly" class="span5" type="text" id="src_path" name="src_path" value="${data.SRC_PATH }" />
 										<input  type="button" id="movie-mod-btn" class="btn btn-primary" value="동영상 변경" />
 										<div class="help-block" id="input-span-slider"></div>
 									</div>
 								</div>
-								
+								<!-- 
 								<div class="control-group">
 									<label class="control-label" for="src_path">동영상 Player</label>
 									<div class="controls">
@@ -112,11 +112,12 @@
 										<div class="help-block" id="input-span-slider"></div>
 									</div>
 								</div>
+								 -->
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">썸네일 이미지 경로</label>
+									<label class="control-label" for="form-field-2">썸네일 이미지</label>
 									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+										<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
 										<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
 									</div>
 								</div>
@@ -193,24 +194,47 @@
 
 <!--  movie modify modal -->			
 <div id="modify-movie-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="col-sm-4">
-		<div class="widget-box">
-			<div class="widget-header">
-				<h4>동영상 업로드</h4>
-
-			</div>
-
-			<div class="widget-body">
-				<div class="widget-main">
-					<input multiple="" type="file" id="id-input-file-3" />
-					<button type="button" id="file-upload-submit" class="btn btn-sm btn-success">
-						업로드
-						<i class="icon-arrow-right icon-on-right bigger-110"></i>
-					</button>
+	<form action="movie-upload.do" id="movie-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="col-sm-4">
+			<div class="widget-box">
+				<div class="widget-header">
+					<h4>동영상 업로드</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<input type="file" id="movie-upload-input" name="file" />
+						<button type="submit" id="movie-upload-submit" class="btn btn-sm btn-success">
+							업로드
+							<i class="icon-arrow-right icon-on-right bigger-110"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
+</div>
+
+<!--  thumbnail modal -->
+<div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="col-sm-4">
+			<div class="widget-box">
+				<div class="widget-header">
+					<h4>썸네일 업로드</h4>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<input type="file" id="thumbnail-upload-input" name="file" />
+						<button type="submit" id="thumbnail-upload-input" class="btn btn-sm btn-success">
+							업로드
+							<i class="icon-arrow-right icon-on-right bigger-110"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
 <!-- 
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -235,22 +259,23 @@
 			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
 		</div>
  -->
-</div>		
 
 <script type="text/javascript">
 
-$("#side-contents-contents").attr("class", "active");
-$("#side-contents").attr("class", "open active");
+	$("#side-contents-contents").attr("class", "active");
+	$("#side-contents").attr("class", "open active");
 
 	$(function(){
 		
-		$('#id-input-file-3').ace_file_input({
+		$("#movie-upload-submit").hide();
+		
+		$('#movie-upload-input').ace_file_input({
 			style:'well',
 			btn_choose:'Drop files here or click to choose',
 			btn_change:null,
 			no_icon:'icon-cloud-upload',
 			droppable:true,
-			thumbnail:'small'//large | fit
+			thumbnail:'large'//large | fit
 			//,icon_remove:null//set null, to hide remove/reset button
 			/**,before_change:function(files, dropped) {
 				//Check an example below
@@ -271,15 +296,60 @@ $("#side-contents").attr("class", "open active");
 			}
 	
 		}).on('change', function(){
-			$("#file-upload-submit").show();
+			$("#movie-upload-submit").show();
 			//console.log($(this).data('ace_input_files'));
 			//console.log($(this).data('ace_input_method'));
 		});
 		
-		
-		$("#file-upload-submit").click(function(){
-			$("#modify-movie-modal").modal('toggle');
+		$('#thumbnail-upload-input').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'large'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
+	
+		}).on('change', function(){
+			$("#movie-upload-submit").show();
+			//console.log($(this).data('ace_input_files'));
+			//console.log($(this).data('ace_input_method'));
 		});
+		
+		$('#movie-upload-form').ajaxForm(
+				 {
+					    success: function(response){
+					      $("#src_path").val(response);
+					      $("#modify-movie-modal").modal('toggle');
+						}
+				 }
+		 );
+		$('#thumbnail-upload-form').ajaxForm(
+				 {
+					    success: function(response){
+					      $("#img_path").val(response);
+					      $("#thumbnail-modal").modal('toggle');
+						}
+				 }
+		 );
+		
 		
 		$("#cancel-btn").click(function(){
 			window.location.href="manage.do?pageNum=1";
@@ -355,22 +425,8 @@ $("#side-contents").attr("class", "open active");
 		$("#movie-mod-btn").click(function(){
 			$("#file-upload-submit").hide();
 			$("#modify-movie-modal").modal('toggle');
-			
-			/* $.ajax({
-				url: "${contextPath}/brand/list.ajax",
-				type: 'GET',
-				dataType: 'json',
-				success : function(response) {
-						$.each(response.data, function(index, data){
-							$("#modify-brand-select").append("<option value=\""+data.BRAND_ID+"\">"+data.BRAND_NM+"</option>")
-						}); 
-						$("#modify-brand-modal").modal('toggle');
-				},
-				error: function(xhr, status, error) {
-					console.log("error="+error);
-				}
-			}); // ajax end */
 		}); // <!-- brand-mod-btn event end
+		
 		
 	}); // <!-- function() end 
 	

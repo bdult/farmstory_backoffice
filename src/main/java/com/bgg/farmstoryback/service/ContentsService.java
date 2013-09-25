@@ -1,13 +1,17 @@
 package com.bgg.farmstoryback.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.dao.ContentsDao;
@@ -17,6 +21,8 @@ import com.mysql.jdbc.StringUtils;
 public class ContentsService {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	private final String parentPath = "/var/lib/tomcat6/webapps/storyfarm/source/";
 
 	@Autowired
 	private ContentsDao conDao;
@@ -58,5 +64,36 @@ public class ContentsService {
 
 	public List top5() {
 		return conDao.top5();
+	}
+
+	public String movieUpload(MultipartFile file) {
+		return makeFilePath(file);
+	}
+	
+	private String makeFilePath(MultipartFile file) {
+		try {
+			
+			//디렉토리 생성 
+			File desti = new File(parentPath);
+
+		  //해당 디렉토리의 존재여부를 확인
+			if(!desti.exists()){
+				desti.mkdirs(); 
+			}
+			String extenstion = file.getOriginalFilename().substring(file.getOriginalFilename().length()-3);
+			String fileName = UUID.randomUUID().toString().replace("-", "")+"."+extenstion;
+			byte fileData[] = file.getBytes();
+			FileOutputStream fos = new FileOutputStream(parentPath +fileName);
+			fos.write(fileData);
+			fos.close();
+			return fileName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public String thumbnailUpload(MultipartFile file) {
+		return makeFilePath(file);
 	}
 }

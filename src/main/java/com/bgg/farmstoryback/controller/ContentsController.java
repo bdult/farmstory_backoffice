@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bgg.farmstoryback.common.JsonResponseMaker;
@@ -87,9 +88,38 @@ public class ContentsController {
 	
 	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
 	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
+		logger.info("parameter={}", parameter);
 		contentsService.create(parameter);
 		return "redirect:manage.do?pageNum=1";
 	}
+	
+	@RequestMapping(value = "contents/movie-upload.do")
+	public @ResponseBody String movieUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		System.out.println(file.getContentType());
+		System.out.println(file.getOriginalFilename().substring(file.getOriginalFilename().length()-3));
+		System.out.println(file.getOriginalFilename().substring(0, file.getOriginalFilename().length()-4));
+		
+		String srcPath = contentsService.movieUpload(file);
+		System.out.println(srcPath);
+		
+		return srcPath;
+	}
+	@RequestMapping(value = "contents/thumbnail-upload.do")
+	public @ResponseBody String thumbnailUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		System.out.println(file.getContentType());
+		System.out.println(file.getOriginalFilename().substring(file.getOriginalFilename().length()-3));
+		System.out.println(file.getOriginalFilename().substring(0, file.getOriginalFilename().length()-4));
+		
+		String srcPath = contentsService.thumbnailUpload(file);
+		System.out.println(srcPath);
+		
+		return srcPath;
+	}
+	
 	
 	@RequestMapping(value = "contents/delete.do")
 	public String delete(Model model, @RequestParam Map<String,Object> parameter){

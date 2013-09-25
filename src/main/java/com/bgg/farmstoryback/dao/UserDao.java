@@ -110,5 +110,9 @@ public class UserDao extends SqlSessionDaoSupport {
 	public int userIdCheckCount(Map paramMap) {
 		return (Integer)getSqlSession().selectOne("userQuery.userIdCheckCount", paramMap);
 	}
+
+	public List top5() {
+		return (List)getSqlSession().selectList("userQuery.top5");
+	}
 	
 }

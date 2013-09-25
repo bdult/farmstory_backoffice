@@ -39,7 +39,8 @@ public class Interceptor extends HandlerInterceptorAdapter {
 						return false;
 					}else {
 						// 권한체크
-						//HashMap<String, String> sessionMap = (HashMap<String, String>)session.getAttribute("login_session");
+						HashMap<String, String> sessionMap = (HashMap<String, String>)session.getAttribute("login_session");
+						logger.info("{}", sessionMap);
 					}
 				}
 				

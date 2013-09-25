@@ -57,7 +57,7 @@
 															</th>
 
 															<th class="hidden-phone">
-																<i class="icon-caret-right blue"></i>
+																<i class="icon-time bigger-110 hidden-phone"></i>
 																생성일
 															</th>
 														</tr>
@@ -109,18 +109,18 @@
 															</th>
 
 															<th class="hidden-phone">
-																<i class="icon-caret-right blue"></i>
-																생성일
+																<i class="icon-time bigger-110 hidden-phone"></i>
+																가입일
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-														<c:forEach items="${contentsTop5 }" var="contents">
+														<c:forEach items="${userTop5 }" var="user">
 															<tr>
-																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_ID}</a> </td>
-																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_NM}</a> </td>
-																<td>${contents.REG_DT}</td>
+																<td><a href="${contextPath }/user/detail.do?member_id=${user.MEMBER_ID}">${user.MEMBER_ID}</a> </td>
+																<td><a href="${contextPath }/user/detail.do?member_id=${user.MEMBER_ID}">${user.MEMBER_NM}</a> </td>
+																<td>${user.REG_DT}</td>
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -165,7 +165,7 @@
 															</th>
 
 															<th class="hidden-phone">
-																<i class="icon-caret-right blue"></i>
+																<i class="icon-time bigger-110 hidden-phone"></i>
 																생성일
 															</th>
 														</tr>
@@ -218,7 +218,7 @@
 																</th>
 	
 																<th class="hidden-phone">
-																	<i class="icon-caret-right blue"></i>
+																	<i class="icon-time bigger-110 hidden-phone"></i>
 																	생성일
 																</th>
 															</tr>
@@ -276,7 +276,7 @@
 															</th>
 
 															<th class="hidden-phone">
-																<i class="icon-caret-right blue"></i>
+																<i class="icon-time bigger-110 hidden-phone"></i>
 																생성일
 															</th>
 														</tr>
@@ -327,7 +327,7 @@
 															</th>
 
 															<th class="hidden-phone">
-																<i class="icon-caret-right blue"></i>
+																<i class="icon-time bigger-110 hidden-phone"></i>
 																생성일
 															</th>
 														</tr>

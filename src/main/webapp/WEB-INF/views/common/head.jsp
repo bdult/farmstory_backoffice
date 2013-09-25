@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<title>BIGSTAR GLOBAL</title>
+<title>OZ World BackOffice</title>
 <link rel="shortcut icon" href="/img/favicon.ico" />	
 
 <meta charset="utf-8" />
@@ -84,4 +84,5 @@
 <script src="${rootPath}/assets/js/ace-elements.min.js"></script>
 <script src="${rootPath}/assets/js/ace.min.js"></script>
 
-<!--inline scripts related to this page-->
+<!-- ajaxform -->
+<script src="http://malsup.github.com/jquery.form.js"></script> 
