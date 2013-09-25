@@ -129,6 +129,13 @@ public class ContentsController {
 		return jsonMaker.generateMapList("data", contentsService.contentsCateList(parameter));
 	}
 	
+	@RequestMapping(value = "contents/deleteContentsCate.ajax", produces = "application/json;charset=UTF-8")
+	public @ResponseBody String deleteContentsCate(Model model,
+			@RequestParam Map parameter) {
+		contentsService.deleteContentsCate(parameter);
+		return jsonMaker.generateOk();
+	}
+	
 	
 	@RequestMapping(value = "contents/delete.do")
 	public String delete(Model model, @RequestParam Map<String,Object> parameter){

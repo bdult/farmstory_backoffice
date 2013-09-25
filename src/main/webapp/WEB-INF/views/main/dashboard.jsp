@@ -76,7 +76,7 @@
 											</div><!--/widget-main-->
 										</div><!--/widget-body-->
 									</div><!--/widget-box-->
-								</div>
+								</div><!-- /.span6 -->
 
 								<div class="span6">
 									<div class="widget-box transparent">
@@ -135,7 +135,7 @@
 
 							<div class="row-fluid">
 								<div class="span6">
-									<div class="widget-box transparent" id="recent-box">
+									<div class="widget-box transparent" >
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
@@ -154,7 +154,7 @@
 												<table class="table table-bordered table-striped">
 													<thead>
 														<tr>
-															<th>
+															<th class="span2">
 																<i class="icon-caret-right blue"></i>
 																브랜드 ID
 															</th>
@@ -188,7 +188,7 @@
 
 								<div class="row-fluid">
 									<div class="span6">
-										<div class="widget-box transparent" id="recent-box">
+										<div class="widget-box transparent" >
 											<div class="widget-header">
 												<h4 class="lighter smaller">
 													<i class="icon-rss orange"></i>
@@ -239,13 +239,13 @@
 									</div><!--/widget-box-->
 								</div><!--/span-->
 							</div><!--/row-->
-						</div><!--/.span-->
+						</div><!--/.row-fluid-->
 						
 						<div class="hr hr32 hr-dotted"></div>
 						
 						<div class="row-fluid">
 								<div class="span6">
-									<div class="widget-box transparent" id="recent-box">
+									<div class="widget-box transparent" >
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
@@ -297,7 +297,7 @@
 									</div><!--/widget-box-->
 								</div><!--/span-->
 								<div class="span6">
-									<div class="widget-box transparent" id="recent-box">
+									<div class="widget-box transparent" >
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
@@ -349,48 +349,10 @@
 								</div><!--/span-->
 						</div><!--/.span-->
 							<!--PAGE CONTENT ENDS-->
-						
-						
-					</div><!--/.row-fluid-->
-				</div><!--/.page-content-->
-
-				<div class="ace-settings-container" id="ace-settings-container">
-
-					<div class="ace-settings-box" id="ace-settings-box">
-						<div>
-							<div class="pull-left">
-								<select id="skin-colorpicker" class="hide">
-									<option data-class="default" value="#438EB9">#438EB9</option>
-									<option data-class="skin-1" value="#222A2D">#222A2D</option>
-									<option data-class="skin-2" value="#C6487E">#C6487E</option>
-									<option data-class="skin-3" value="#D0D0D0">#D0D0D0</option>
-								</select>
-							</div>
-							<span>&nbsp; Choose Skin</span>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-header" />
-							<label class="lbl" for="ace-settings-header"> Fixed Header</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-sidebar" />
-							<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-breadcrumbs" />
-							<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
-						</div>
-
-						<div>
-							<input type="checkbox" class="ace-checkbox-2" id="ace-settings-rtl" />
-							<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
-						</div>
-					</div>
-				</div><!--/#ace-settings-container-->
-			</div><!--/.main-content-->
+					</div><!--/.span12-->
+				</div><!--/.row-fluid-->
+			</div><!--/.page-content-->
+		</div><!--/.main-content-->
 
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>

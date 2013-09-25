@@ -54,4 +54,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("contentsQuery.contentsCateList", parameter);
 	}
 
+	public void deleteContentsCate(Map parameter) {
+		getSqlSession().delete("contentsQuery.deleteContentsCate", parameter);
+	}
+
 }

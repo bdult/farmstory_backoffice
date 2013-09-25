@@ -124,17 +124,13 @@
 								
 								<div class="control-group">
 									<label class="control-label" for="form-field-2">카테고리 </label>
-									<div class="span7">
-										<table class="table table-striped table-bordered table-hover" id="product-content-tb" >
-											<thead>
-												<tr id="contents-cate-list">
-													<c:forEach items="${contentsCateList }" var="contentsCate">
-														<th>${contentsCate.CATE_NM }</th>
-													</c:forEach>
-												</tr>
-											</thead>
-										</table>	
-										<input  type="button" id="category-mod-btn" class="btn btn-primary" value="카테고리 변경" />			
+									<div class="controls">
+										<div id="contents-cate-list">
+										<c:forEach items="${contentsCateList }" var="contentsCate">
+										<input readonly="readonly" class="span1" type="text" value="${contentsCate.CATE_NM }" />
+										</c:forEach>
+										</div>
+										<input  type="button" id="category-mod-btn" class="btn btn-primary" value="카테고리 변경" />
 									</div>
 								</div>
 								
@@ -253,7 +249,8 @@
 		</div>
 		<div class="modal-body">
 			<div>
-				<select name="cate_id">
+				<select name="cate_id" id="contents-cate-select" class="form-control">
+						<option>카테고리 선택</option>
 					<c:forEach items="${cateList }" var="cate">
 						<option value="${cate.CATE_ID }">${cate.name }</option>
 					</c:forEach>
@@ -263,10 +260,16 @@
 			<div>
 				<ul id="add-category-list">
 					<c:forEach items="${contentsCateList }" var="contentsCate">
-						<li>${contentsCate.CATE_NM }<button type="button" value="${contentsCate.CATE_ID }" class="btn btn-sm btn-danger delete-category-btn">삭제</button></li>
+						<li>${contentsCate.CATE_NM }&nbsp;&nbsp;<button type="button" value="${contentsCate.CATE_ID }" class="btn btn-sm btn-danger delete-category-btn">삭제</button></li>
 					</c:forEach>
 				</ul>
 			</div>
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">
+			완료
+			</button>
+			
 		</div>
 </div>
 <!-- 
@@ -300,10 +303,26 @@
 	$("#side-contents").attr("class", "open active");
 	
 	$(document).on('click', '.delete-category-btn', function(){
-	    alert($(this).attr('value'));
-	    contentsCateList();
-	    $(this).parent().remove();
-	    
+		$eventTag = $(this); 
+	    param = {
+	    		contents_id : "${data.CONTENTS_ID}",
+				cate_id : $eventTag.attr('value')
+			};
+			
+			$.ajax({
+				url: "deleteContentsCate.ajax",
+				data: param,
+				type: 'POST',
+				dataType: 'json',
+				success : function(response) {
+					console.log(response);
+					contentsCateList();
+					$eventTag.parent().remove();
+				},
+				error: function(xhr, status, error) {
+					console.log("error="+error);
+				}
+			}); // ajax end
 	});
 
 	$(function(){
@@ -487,7 +506,8 @@
 					type: 'POST',
 					dataType: 'json',
 					success : function(response) {
-						console.log(response);
+						contentsCateListForModal();						
+						contentsCateList();
 					},
 					error: function(xhr, status, error) {
 						console.log("error="+error);
@@ -499,6 +519,29 @@
 		
 	}); // <!-- function() end 
 	
+	function contentsCateListForModal(){
+			param = {
+					contents_id : "${data.CONTENTS_ID}"
+				};
+				
+				$.ajax({
+					url: "contentsCate.ajax",
+					data: param,
+					type: 'POST',
+					dataType: 'json',
+					success : function(response) {
+						$("#add-category-list").empty();
+						$.each(response.data, function(key, value){
+							$("#add-category-list").append('<li>'+value.CATE_NM+'&nbsp;&nbsp;<button type="button" value="'+value.CATE_ID+'" class="btn btn-sm btn-danger delete-category-btn">삭제</button></li>\n');
+							}
+						);
+					},
+					error: function(xhr, status, error) {
+						console.log("error="+error);
+					}
+				}); // ajax end
+		
+	}
 	function contentsCateList(){
 			param = {
 					contents_id : "${data.CONTENTS_ID}"
@@ -512,10 +555,10 @@
 					success : function(response) {
 						$("#contents-cate-list").empty();
 						$.each(response.data, function(key, value){
-								$("#contents-cate-list").append("<th>"+value.CATE_NM+"</th>");
+							
+								$("#contents-cate-list").append('<input readonly="readonly" class="span1" type="text" value="'+value.CATE_NM+'" />\n');
 							}
 						);
-						console.log(response);
 					},
 					error: function(xhr, status, error) {
 						console.log("error="+error);

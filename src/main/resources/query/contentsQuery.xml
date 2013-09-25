@@ -116,6 +116,7 @@
 	    WHERE 1=1
 	    AND BC.CATE_ID = CCR.CATE_ID
 	    AND CCR.CONTENTS_ID = #{contents_id}
+	    ORDER BY CCR.REG_DT DESC
 	    
 	</select>
    
@@ -138,6 +139,13 @@
    <delete id="delete" >
    		DELETE FROM BG_CONTENTS
    		WHERE CONTENTS_ID = #{contentsID}
+   </delete>
+   
+   <delete id="deleteContentsCate" >
+   		DELETE FROM BG_CATE_CONTENTS_RELATIONSHIPS
+   		WHERE 1=1 
+   		AND CONTENTS_ID = #{contents_id}
+   		AND CATE_ID = #{cate_id}
    </delete>
 	
 </mapper>

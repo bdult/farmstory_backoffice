@@ -2,33 +2,23 @@ package com.bgg.farmstoryback.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.dao.ContentsDao;
-import com.mysql.jdbc.StringUtils;
 
 @Service
 public class ContentsService {
-	
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	private final String parentPath = "/var/lib/tomcat6/webapps/storyfarm/source/";
 
 	@Autowired
 	private ContentsDao conDao;
-	
-	@Autowired
-	private PageUtil pageUtil;
 	
 	/**
 	 * 컨텐츠 리스트
@@ -86,7 +76,7 @@ public class ContentsService {
 			FileOutputStream fos = new FileOutputStream(parentPath +fileName);
 			fos.write(fileData);
 			fos.close();
-			return fileName;
+			return parentPath +fileName;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -106,5 +96,9 @@ public class ContentsService {
 
 	public List contentsCateList(Map parameter) {
 		return conDao.contentsCateList(parameter);
+	}
+
+	public void deleteContentsCate(Map parameter) {
+		conDao.deleteContentsCate(parameter);
 	}
 }
