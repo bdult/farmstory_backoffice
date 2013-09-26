@@ -76,7 +76,7 @@ public class ContentsService {
 			FileOutputStream fos = new FileOutputStream(parentPath +fileName);
 			fos.write(fileData);
 			fos.close();
-			return parentPath +fileName;
+			return "source/"+fileName;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
