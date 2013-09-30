@@ -65,11 +65,10 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">썸네일 이미지 경로</label>
-
+									<label class="control-label">이미지</label>
 									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
-										<div class="help-block" id="input-span-slider"></div>
+										<input id="img_path" name="img_path" type="text" readonly>
+										<button id="modify-img-btn" class="btn btn-info" type="button">변경</button>
 									</div>
 								</div>
 								
@@ -115,13 +114,77 @@
 			</form>
 			
 
+<!--  thumbnail modal -->
+<div id="img-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="imgUpload.do" id="img-upload-form" method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">이미지 업로드</h3>
+		</div>
+		<div class="modal-body">
+			<input type="file" id="img-upload-input" name="file" />
+		</div>
+		<div id="img-modal-footer" class="modal-footer">
+			<button type="submit" id="img-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+</div>
+
 <script type="text/javascript">
 	$("#side-contents-brand").attr("class", "active");
 	$("#side-contents").attr("class", "open active");
 
 	$(function(){
+		
+		$("#modify-img-btn").click(function(){
+			$("#img-modal-footer").hide();
+			$("#img-modal").modal('toggle');
+		});
+		
+		$('#img-upload-input').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'large'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
+	
+		}).on('change', function(){
+			$("#img-modal-footer").show();
+		});
+		
+		$('#img-upload-form').ajaxForm(
+				 {
+					    success: function(response){
+					      $("#img_path").val(response);
+					      $("#img-modal").modal('toggle');
+						}
+				 }
+		 );
+		
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do";
+			window.location.href="manage.do?pageNum=${pageNum}";
 		});
 		
 		$("#delete-btn").click(function(){

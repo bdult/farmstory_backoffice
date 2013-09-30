@@ -10,14 +10,20 @@
 			A.CONTENTS_SERIES_ID
 			, A.CONTENTS_SERIES_NM
 			, A.SERIES_LEVEL
-			, A.CONTENTS_SERIES_NM AS name
-			, (SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.PARENT_SERIES_ID) as PARENT_NM
-			, if((SELECT COUNT(*) FROM BG_CONTENTS_SERIES WHERE PARENT_SERIES_ID = A.CONTENTS_SERIES_ID) > 0, 'folder', 'item') as type
-			, if(A.PARENT_SERIES_ID > 0, A.PARENT_SERIES_ID, 0) as PARENT_SERIES_ID
 			, A.IMG_PATH   
+			, A.BRAND_ID
+			, (SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM
 			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
 			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
 		FROM BG_CONTENTS_SERIES A
+		WHERE 1=1
+		<if test="search != null and search != ''">
+			AND A.CONTENTS_SERIES_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+		ORDER BY CONTENTS_SERIES_ID DESC
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
+		</if>
 	</select>
 	
 	<select id="top5" resultType="hashmap">
@@ -71,8 +77,12 @@
 	
 	<select id="detail" resultType="hashmap">
 		SELECT /* seriesQuery.detail 2013.08.21 최지순 */ 
-			CONTENTS_SERIES_NM, CONTENTS_SERIES_ID  
-		FROM BG_CONTENTS_SERIES
+			A.CONTENTS_SERIES_NM
+			, A.CONTENTS_SERIES_ID
+			, A.SERIES_DESC
+			, A.IMG_PATH
+			, (SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = A.BRAND_ID) AS BRAND_NM  
+		FROM BG_CONTENTS_SERIES A
 		WHERE CONTENTS_SERIES_ID = #{series_id}
 	</select>
 	
@@ -105,6 +115,16 @@
 		WHERE CONTENTS_SERIES_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
 	</select>
 	
+	<select id="totalCount" resultType="int">
+		SELECT
+			count(*)
+		FROM  BG_CONTENTS_SERIES 
+		WHERE 1=1
+		<if test="search != null and search != ''">
+			AND CONTENTS_SERIES_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+	</select>
+	
 	<insert id="create" parameterType="map"  keyProperty="series_id">
    		INSERT /* seriesQuery.create 2013.08.21 최지순 */ 
    		BG_CONTENTS_SERIES(
@@ -124,8 +144,8 @@
    		BG_CONTENTS_SERIES SET
    			CONTENTS_SERIES_NM = #{series_nm}
    			, IMG_PATH = #{img_path}
-   			, SERIES_LEVEL = #{series_level}
-   			, PARENT_SERIES_ID = #{parent_series_id}
+   			, SERIES_DESC = #{series_desc}
+   			, BRAND_ID = #{brand_id}
    			, MOD_DT = now()
    		WHERE 1=1
    		AND CONTENTS_SERIES_ID = #{series_id}

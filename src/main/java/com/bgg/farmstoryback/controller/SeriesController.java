@@ -4,6 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 
+
+
+
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
+import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.SeriesService;
 
@@ -29,11 +37,34 @@ public class SeriesController {
 	@Autowired
 	private SeriesService seriesService;
 	
-	@RequestMapping(value = "series/manage.do", method = RequestMethod.GET)
-	public String manage(Model model) {
+	@Autowired
+	private PageUtil pageUtil;
+	
+	@Autowired
+	private FileUtil fileUtil;
+	
+	@RequestMapping(value = "series/manage.do")
+	public String manage(Model model, @RequestParam Map parameter) {
 		
-		List<Map> brandList = seriesService.list();
-		model.addAttribute("seriesList", brandList);
+		int pageNum=0;
+		if(parameter.get("pageNum") == null){
+			pageNum=1;
+		}else{
+			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
+		}
+		int totalCount = seriesService.totalCount(parameter);
+		
+		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
+		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
+		pageInfo.put("perPage", pageUtil.PER_PAGE);
+		pageInfo.put("search", parameter.get("search"));
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
+		model.addAttribute("search", parameter.get("search"));
+		
+		List<Map> seriesList = seriesService.list(pageInfo);
+		model.addAttribute("seriesList", seriesList);
 		
 		return "series/manage";
 	}
@@ -42,6 +73,11 @@ public class SeriesController {
 	public String create(Model model, @RequestParam Map<String,Object> parameter) {
 		seriesService.create(parameter);
 		return "redirect:manage.do";
+	}
+	
+	@RequestMapping(value = "series/createView.do")
+	public String create(Model model) {
+		return "series/info";
 	}
 	
 	@RequestMapping(value = "series/modify.do", method = RequestMethod.POST)
@@ -53,7 +89,9 @@ public class SeriesController {
 	
 	@RequestMapping(value = "series/detail.do")
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
-		seriesService.detail(parameter);
+		Map detailInfo = seriesService.detail(parameter);
+		model.addAttribute("data", detailInfo);
+		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
 		return "series/info";
 	}
 	
@@ -86,6 +124,14 @@ public class SeriesController {
 		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
 		logger.info(seriesListJson);
 		return seriesListJson;
+	}
+	
+	@RequestMapping(value = "series/thumbnail-upload.do")
+	public @ResponseBody String thumbnailUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		String srcPath = fileUtil.thumbnailUpload(file);
+		return srcPath;
 	}
 	
 	@RequestMapping(value = "series/parentSeriesList.ajax",  produces = "application/json;charset=UTF-8")

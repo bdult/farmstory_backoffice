@@ -54,8 +54,8 @@
 				<tbody>
 					<c:forEach items="${brandList }" var="brand">
 					<tr>
-						<td><a href="${contextPath }/brand/detail.do?brand_id=${brand.BRAND_ID }">${brand.BRAND_ID }</a></td>
-						<td><a href="${contextPath }/brand/detail.do?brand_id=${brand.BRAND_ID }">${brand.BRAND_NM }</a></td>
+						<td><a href="${contextPath }/brand/detail.do?pageNum=${pageNum}&brand_id=${brand.BRAND_ID }">${brand.BRAND_ID }</a></td>
+						<td><a href="${contextPath }/brand/detail.do?pageNum=${pageNum}&brand_id=${brand.BRAND_ID }">${brand.BRAND_NM }</a></td>
 						<td>${brand.REG_DT }</td>
 					</tr>
 					</c:forEach>

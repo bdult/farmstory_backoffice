@@ -80,6 +80,13 @@
 															</div>
 														</div>
 														<div class="control-group">
+															<label class="control-label">이미지</label>
+															<div class="controls">
+																<input id="img_path" name="img_path" type="text" readonly>
+																<button id="modify-img-btn" class="btn btn-info" type="button">변경</button>
+															</div>
+														</div>
+														<div class="control-group">
 															<label class="control-label">상위 카테고리 명</label>
 															<div class="controls">
 																<input id="parent-category-id" name="parent_cate_id" type="hidden">
@@ -177,6 +184,25 @@
 		</div>
 </div>		
 
+<!--  thumbnail modal -->
+<div id="img-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="imgUpload.do" id="img-upload-form" method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">이미지 업로드</h3>
+		</div>
+		<div class="modal-body">
+			<input type="file" id="img-upload-input" name="file" />
+		</div>
+		<div id="img-modal-footer" class="modal-footer">
+			<button type="submit" id="img-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+</div>
+
 
 		<!--page specific plugin scripts-->
 		<script src="${ rootPath }/assets/js/fuelux/fuelux.tree.min.js"></script>
@@ -193,6 +219,12 @@
 					// infomation layout hide
 					$("#category-info").hide();
 					$("#parent-category-list").hide();
+					
+					
+					$("#modify-img-btn").click(function(){
+						$("#img-modal-footer").hide();
+						$("#img-modal").modal('toggle');
+					});
 					
 					
 					$("#create-category-btn").click(function(){
@@ -212,6 +244,45 @@
 						$("#modify-parent-category-modal").modal('toggle');
 						
 					}); // modify-parent-category-modal end
+					
+					$('#img-upload-input').ace_file_input({
+						style:'well',
+						btn_choose:'Drop files here or click to choose',
+						btn_change:null,
+						no_icon:'icon-cloud-upload',
+						droppable:true,
+						thumbnail:'large'//large | fit
+						//,icon_remove:null//set null, to hide remove/reset button
+						/**,before_change:function(files, dropped) {
+							//Check an example below
+							//or examples/file-upload.html
+							return true;
+						}*/
+						/**,before_remove : function() {
+							return true;
+						}*/
+						,
+						preview_error : function(filename, error_code) {
+							//name of the file that failed
+							//error_code values
+							//1 = 'FILE_LOAD_FAILED',
+							//2 = 'IMAGE_LOAD_FAILED',
+							//3 = 'THUMBNAIL_FAILED'
+							//alert(error_code);
+						}
+				
+					}).on('change', function(){
+						$("#img-modal-footer").show();
+					});
+					
+					$('#img-upload-form').ajaxForm(
+							 {
+								    success: function(response){
+								      $("#img_path").val(response);
+								      $("#img-modal").modal('toggle');
+									}
+							 }
+					 );
 					
 					$("#modify-parent-cate-search").click(function(){
 							param = {
@@ -240,7 +311,6 @@
 									}
 								},
 								error: function(xhr, status, error) {
-									console.log("error="+error);
 								}
 							}); // ajax end
 					}); // modify-parent-cate-search end
@@ -285,7 +355,6 @@
 								}
 							},
 							error: function(xhr, status, error) {
-								console.log("error="+error);
 							}
 						}); // ajax end
 					}); // create-parent-category-search end
@@ -313,11 +382,9 @@
 							type: 'POST',
 							dataType: 'json',
 							success : function(response) {
-								console.log(response.data);
-								callback({ data: response.data })
+								callback({ data: response.data });
 							},
 							error: function(xhr, status, error) {
-								alert(error);
 							}
 						});
 					}
@@ -333,11 +400,9 @@
 				});
 		
 				 $('#cate-tree').on('loaded', function (evt, data) {
-					console.log("load");
 				}); 
 		
 				$('#cate-tree').on('opened', function (evt, data) {
-					console.log(data);
 					cateInfoSet(data);
 					
 				});
@@ -354,7 +419,6 @@
 					
 					$(".tree-item-name").each(function(){
 						if($(this).text() === categoryInfo.name ){
-							console.log("selected cate-name:"+$(this).text());
 						}else{
 							$(this).parent().attr("class", "tree-item");
 							$(this).parent().children(".icon-ok").attr("class", "icon-remove");

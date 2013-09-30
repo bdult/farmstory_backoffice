@@ -56,36 +56,6 @@ public class ContentsService {
 		return conDao.top5();
 	}
 
-	public String movieUpload(MultipartFile file) {
-		return makeFilePath(file);
-	}
-	
-	private String makeFilePath(MultipartFile file) {
-		try {
-			
-			//디렉토리 생성 
-			File desti = new File(parentPath);
-
-		  //해당 디렉토리의 존재여부를 확인
-			if(!desti.exists()){
-				desti.mkdirs(); 
-			}
-			String extenstion = file.getOriginalFilename().substring(file.getOriginalFilename().length()-3);
-			String fileName = UUID.randomUUID().toString().replace("-", "")+"."+extenstion;
-			byte fileData[] = file.getBytes();
-			FileOutputStream fos = new FileOutputStream(parentPath +fileName);
-			fos.write(fileData);
-			fos.close();
-			return "source/"+fileName;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	public String thumbnailUpload(MultipartFile file) {
-		return makeFilePath(file);
-	}
 
 	public void addContentsCate(Map parameter) {
 		int checkCount = conDao.checkContentsCate(parameter);
@@ -101,4 +71,5 @@ public class ContentsService {
 	public void deleteContentsCate(Map parameter) {
 		conDao.deleteContentsCate(parameter);
 	}
+
 }

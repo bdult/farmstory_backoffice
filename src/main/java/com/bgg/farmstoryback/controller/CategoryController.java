@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.service.CategoryService;
 
@@ -28,22 +32,11 @@ public class CategoryController {
 	@Autowired
 	private JsonResponseMaker jsonMaker;
 	
-	/**
-	 * 	Result
-			Key : CATE_NM -> Value : test_modify2
-			Key : REG_DT -> Value : 2013-08-07 13:45:17.0
-			Key : MOD_DT -> Value : 2013-08-07 13:45:17.0
-			Key : PARENT_CATE_ID -> Value : 
-			Key : CATE_LEVEL -> Value : 1
-			Key : CATE_ID -> Value : C_954682af87414cca86c18a70754b5b58
-	 * @return
-	 */
+	@Autowired
+	private FileUtil fileUtil;
+	
 	@RequestMapping(value = "category/manage.do", method = RequestMethod.GET)
 	public String manage() {
-		
-//		List<Map> cateList = categoryService.list();
-//		model.addAttribute("cateList", cateList);
-		
 		return "category/manage";
 	}
 	
@@ -73,6 +66,14 @@ public class CategoryController {
 	public String detail(Model model, String cateId) {
 		categoryService.detail(cateId);
 		return null;
+	}
+	
+	@RequestMapping(value = "category/imgUpload.do")
+	public @ResponseBody String imgUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		String srcPath = fileUtil.cateThumbnailUpload(file);
+		return srcPath;
 	}
 	
 	// AJAX

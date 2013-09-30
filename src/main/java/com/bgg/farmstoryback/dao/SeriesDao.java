@@ -13,8 +13,8 @@ public class SeriesDao extends SqlSessionDaoSupport {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public List<Map> list() {
-		return (List<Map>)getSqlSession().selectList("seriesQuery.list");
+	public List<Map> list(Map pageInfo) {
+		return (List<Map>)getSqlSession().selectList("seriesQuery.list", pageInfo);
 	}
 
 	public Map detail(String series_id) {
@@ -57,6 +57,10 @@ public class SeriesDao extends SqlSessionDaoSupport {
 
 	public List top5() {
 		return getSqlSession().selectList("seriesQuery.top5");
+	}
+
+	public int totalCount(Map parameter) {
+		return (Integer)getSqlSession().selectOne("seriesQuery.totalCount", parameter);
 	}
 	
 }

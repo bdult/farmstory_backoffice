@@ -63,6 +63,15 @@
 									</div>
 								</div>
 								
+								<!-- 
+								<div class="control-group">
+									<label class="control-label" for="contents_nm">시리얼 번호</label>
+									<div class="controls">
+										<input type="text" id="serial_num" name="serial_num" placeholder="시리얼 번호" value="${data.SERIAL_NUM}" />
+									</div>
+								</div>
+								 -->
+								
 								<div class="control-group">
 									<label class="control-label" for="contents_series_id">시리즈 명</label>
 
@@ -315,12 +324,11 @@
 				type: 'POST',
 				dataType: 'json',
 				success : function(response) {
-					console.log(response);
 					contentsCateList();
 					$eventTag.parent().remove();
 				},
 				error: function(xhr, status, error) {
-					console.log("error="+error);
+					alert("error="+error);
 				}
 			}); // ajax end
 	});
@@ -355,8 +363,6 @@
 	
 		}).on('change', function(){
 			$("#movie-modal-footer").show();
-			//console.log($(this).data('ace_input_files'));
-			//console.log($(this).data('ace_input_method'));
 		});
 		
 		$('#thumbnail-upload-input').ace_file_input({
@@ -387,8 +393,6 @@
 	
 		}).on('change', function(){
 			$("#thumbnail-modal-footer").show();
-			//console.log($(this).data('ace_input_files'));
-			//console.log($(this).data('ace_input_method'));
 		});
 		
 		$('#movie-upload-form').ajaxForm(
@@ -410,7 +414,7 @@
 		
 		
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do?pageNum=1";
+			window.location.href="manage.do?pageNum=${pageNum}";
 		});
 		
 		$("#delete-btn").click(function(){
@@ -432,6 +436,8 @@
 		$("#modify-series-submit-btn").click(function(){
 				$("#contents_series_nm").val($("#modify-series-select option:selected").text());
 				$("#contents_series_id").val($("#modify-series-select option:selected").val());
+				$("#thumbnail-series-id").val($("#modify-series-select option:selected").val());
+				$("#movie-series-id").val($("#modify-series-select option:selected").val());
 				$("#modify-series-modal").modal('toggle');
 		});
 		
@@ -475,7 +481,7 @@
 						}
 					},
 					error: function(xhr, status, error) {
-						console.log("error="+error);
+						alert("error="+error);
 					}
 				}); // ajax end
 		});
@@ -510,7 +516,7 @@
 						contentsCateList();
 					},
 					error: function(xhr, status, error) {
-						console.log("error="+error);
+						alert("error="+error);
 					}
 				}); // ajax end
 		}); // <!-- brand-mod-btn event end
@@ -537,7 +543,7 @@
 						);
 					},
 					error: function(xhr, status, error) {
-						console.log("error="+error);
+						alert("error="+error);
 					}
 				}); // ajax end
 		
@@ -555,13 +561,12 @@
 					success : function(response) {
 						$("#contents-cate-list").empty();
 						$.each(response.data, function(key, value){
-							
 								$("#contents-cate-list").append('<input readonly="readonly" class="span1" type="text" value="'+value.CATE_NM+'" />\n');
 							}
 						);
 					},
 					error: function(xhr, status, error) {
-						console.log("error="+error);
+						alert("error="+error);
 					}
 				}); // ajax end
 		

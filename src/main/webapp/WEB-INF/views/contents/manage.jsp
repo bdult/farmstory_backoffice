@@ -55,11 +55,11 @@
 					<tr>
 
 						<td>
-							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
+							<a href="${contextPath }/contents/detail.do?pageNum=${pageNum}&contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
 						</td>
 						<td>
 							
-							<a href="${contextPath }/contents/detail.do?contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_NM}</a>
+							<a href="${contextPath }/contents/detail.do?pageNum=${pageNum}&contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_NM}</a>
 						</td>
 						<td>${conlist.SERIES_NM}</td>											
 						<td>${conlist.BRAND_NM}</td>

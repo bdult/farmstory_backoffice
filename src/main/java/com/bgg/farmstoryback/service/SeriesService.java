@@ -22,8 +22,8 @@ public class SeriesService {
 	@Autowired
 	private SeriesDao seriesDao;
 	
-	public List<Map> list() {
-		return seriesDao.list();
+	public List<Map> list(Map pageInfo) {
+		return seriesDao.list(pageInfo);
 	}
 	
 	public Map detail(Map parameter) {
@@ -73,5 +73,9 @@ public class SeriesService {
 
 	public List top5() {
 		return seriesDao.top5();
+	}
+
+	public int totalCount(Map parameter) {
+		return seriesDao.totalCount(parameter);
 	}
 }

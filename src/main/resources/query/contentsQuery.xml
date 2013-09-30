@@ -70,6 +70,26 @@
 		ORDER BY CONTENTS_ID DESC
 	</select>
 	
+	<select id="checkContentsCate" resultType="int">
+	    SELECT COUNT(*) FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    WHERE 1=1
+	    AND CATE_ID = #{cate_id}
+	    AND CONTENTS_ID = #{contents_id}
+	    
+	</select>
+	
+	<select id="contentsCateList" resultType="hashmap">
+	    SELECT 
+	    	BC.CATE_ID 
+	    	, BC.CATE_NM 
+	  	FROM BG_CATE_CONTENTS_RELATIONSHIPS CCR, BG_CATE BC
+	    WHERE 1=1
+	    AND BC.CATE_ID = CCR.CATE_ID
+	    AND CCR.CONTENTS_ID = #{contents_id}
+	    ORDER BY CCR.REG_DT DESC
+	    
+	</select>
+	
 	<insert id="create" parameterType="map"  keyProperty="contents_id">
    		INSERT BG_CONTENTS(
 			CONTENTS_NM,
@@ -98,27 +118,7 @@
 			#{cate_id}
 			, #{contents_id}	    	
 	    )
-   </insert>
-   
-	<select id="checkContentsCate" resultType="int">
-	    SELECT COUNT(*) FROM BG_CATE_CONTENTS_RELATIONSHIPS
-	    WHERE 1=1
-	    AND CATE_ID = #{cate_id}
-	    AND CONTENTS_ID = #{contents_id}
-	    
-	</select>
-	
-	<select id="contentsCateList" resultType="hashmap">
-	    SELECT 
-	    	BC.CATE_ID 
-	    	, BC.CATE_NM 
-	  	FROM BG_CATE_CONTENTS_RELATIONSHIPS CCR, BG_CATE BC
-	    WHERE 1=1
-	    AND BC.CATE_ID = CCR.CATE_ID
-	    AND CCR.CONTENTS_ID = #{contents_id}
-	    ORDER BY CCR.REG_DT DESC
-	    
-	</select>
+	</insert>
    
    <update id="modify">
    		UPDATE BG_CONTENTS SET

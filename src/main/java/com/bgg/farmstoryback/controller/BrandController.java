@@ -7,6 +7,9 @@ import java.util.Map;
 
 
 
+
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.BrandService;
@@ -35,6 +40,9 @@ public class BrandController {
 	
 	@Autowired
 	private PageUtil pageUtil;
+	
+	@Autowired
+	private FileUtil fileUtil;
 	
 	@RequestMapping(value = "brand/manage.do")
 	public String manage(Model model, @RequestParam Map parameter) {
@@ -79,6 +87,7 @@ public class BrandController {
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
 		Map detailInfo = brandService.detail(parameter);
 		model.addAttribute("data", detailInfo);
+		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
 		return "brand/info";
 	}
 	
@@ -108,9 +117,17 @@ public class BrandController {
 	@RequestMapping(value = "brand/list.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String listAjax(Model model, @RequestParam Map<String,Object> parameter) {
 		
-		List<Map> brandList = brandService.listAll();
+		List<Map> brandList = brandService.list(parameter);
 		String brandListJson = jsonMaker.generateMapList("data", brandList);
 		logger.info("response={}", brandListJson);
 		return brandListJson;
+	}
+	
+	@RequestMapping(value = "brand/imgUpload.do")
+	public @ResponseBody String imgUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		String srcPath = fileUtil.brandThumbnailUpload(file);
+		return srcPath;
 	}
 }

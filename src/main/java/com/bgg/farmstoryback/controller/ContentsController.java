@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.CategoryService;
@@ -39,6 +40,9 @@ public class ContentsController {
 	
 	@Autowired
 	private PageUtil pageUtil;
+	
+	@Autowired
+	private FileUtil fileUtil;
 	
 	@RequestMapping(value = "contents/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
@@ -73,6 +77,7 @@ public class ContentsController {
 		model.addAttribute("cateList", cateService.listByLevel(1));
 		model.addAttribute("contentsCateList", contentsService.contentsCateList(parameter));
 		model.addAttribute("data", contentsDetail);
+		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
 		return "contents/info";
 	}
 	
@@ -103,14 +108,15 @@ public class ContentsController {
 	public @ResponseBody String movieUpload(Model model,
 			@RequestParam("file")MultipartFile file
 			) {
-		String srcPath = contentsService.movieUpload(file);
+		
+		String srcPath = fileUtil.movieUpload(file);
 		return srcPath;
 	}
 	@RequestMapping(value = "contents/thumbnail-upload.do")
 	public @ResponseBody String thumbnailUpload(Model model,
 			@RequestParam("file")MultipartFile file
 			) {
-		String srcPath = contentsService.thumbnailUpload(file);
+		String srcPath = fileUtil.thumbnailUpload(file);
 		return srcPath;
 	}
 	
