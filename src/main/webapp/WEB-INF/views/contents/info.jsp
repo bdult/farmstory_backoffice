@@ -229,6 +229,10 @@
 			</button>
 		</div>
 	</form>
+    <div id="upload-bar" class="progress">
+        <div class="bar"></div >
+        <div class="percent">0%</div >
+    </div>
 </div>
 
 <!--  thumbnail modal -->
@@ -395,12 +399,28 @@
 			$("#thumbnail-modal-footer").show();
 		});
 		
+		var bar = $('.bar');
+		var percent = $('.percent');
+		var status = $('#status');
 		$('#movie-upload-form').ajaxForm(
 				 {
-					    success: function(response){
-					      $("#src_path").val(response);
-					      $("#movie-modal").modal('toggle');
-						}
+					 beforeSend: function() {
+							
+					        status.empty();
+					        var percentVal = '0%';
+					        bar.width(percentVal);
+					        percent.html(percentVal);
+					    },
+				    uploadProgress: function(event, position, total, percentComplete) {
+				    	$("#upload-bar").show();
+				        var percentVal = percentComplete + '%';
+				        bar.width(percentVal);
+				        percent.html(percentVal);
+				    },
+				    success: function(response){
+				      $("#src_path").val(response);
+				      $("#movie-modal").modal('toggle');
+					}
 				 }
 		 );
 		$('#thumbnail-upload-form').ajaxForm(
@@ -488,6 +508,7 @@
 		
 		$("#movie-mod-btn").click(function(){
 			$("#movie-modal-footer").hide();
+			$("#upload-bar").hide();
 			$("#movie-modal").modal('toggle');
 		}); // <!-- brand-mod-btn event end
 		
