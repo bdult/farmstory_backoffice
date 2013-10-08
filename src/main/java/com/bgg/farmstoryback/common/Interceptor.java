@@ -18,37 +18,38 @@ public class Interceptor extends HandlerInterceptorAdapter {
 
 	private Logger logger = LoggerFactory.getLogger(Interceptor.class);
 
-	//false로 변경 하면 로그인 세션 체크 안함
-	private boolean isSessionCheck = false; 
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		printRequestLog(request);
 		try {
 			
-			if(isSessionCheck){
-				
-				if(	
-					//세션 체크 예외 리스트
-					! request.getServletPath().contains( "login.do" ) &&
-					! request.getServletPath().contains( "login.ajax" ) &&
-					! request.getServletPath().contains( "logout.do" )				
-				){
-					HttpSession session = request.getSession(false);
-					if ( session == null || session.getAttribute("login_session") == null){
-						response.sendRedirect(request.getContextPath()+"/user/login.do");
-						return false;
-					}else {
-						// 권한체크
-						HashMap<String, String> sessionMap = (HashMap<String, String>)session.getAttribute("login_session");
-						logger.info("{}", sessionMap);
-					}
+			//false로 변경 하면 로그인 세션 체크 안함
+			if(notExcludeRequestPath(request)){
+				if (noHasSession(request)){
+					response.sendRedirect(request.getContextPath()+"/user/login.do");
+					return false;
 				}
-				
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return true;
+	}
+
+	private boolean notExcludeRequestPath(HttpServletRequest request) {
+		//세션 체크 예외 리스트
+//		return 
+//		! request.getServletPath().contains( "login.do" ) &&
+//		! request.getServletPath().contains( "login.ajax" ) &&
+//		! request.getServletPath().contains( "logout.do" );
+		
+		return false;
+	}
+
+	private boolean noHasSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return session == null || session.getAttribute("login_session") == null;
 	}
 	
 	private void printRequestLog(HttpServletRequest request) {

@@ -34,23 +34,10 @@ public class BoardController {
 	@RequestMapping(value = "board/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
 		
-		int pageNum=0;
-		if(parameter.get("pageNum") == null){
-			pageNum=1;
-		}else{
-			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
-		}
-		int totalCount = boardService.totalCount(parameter);
 		
-		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		pageInfo.put("search", parameter.get("search"));
-		
-		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("pageNum", pageNum);
+		Map pageInfo = pageUtil.pageLink(boardService.totalCount(parameter), parameter);
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
-		model.addAttribute("search", parameter.get("search"));
 		
 		model.addAttribute("boardList", boardService.list(pageInfo));
 		
@@ -71,11 +58,19 @@ public class BoardController {
 	}
 	
 	
+	/**
+	 * 게시판 정보 추가 및 수정 
+	 * 게시판 추가 / 수정은 같은 페이지를 사용 하기 때문에
+	 * 파라미터의 board_id 의 유무를 통해 생성인지 수정인지로 분기 처리
+	 * @param parameter
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value = "board/modify.do", method = RequestMethod.POST)
 	public String modify(@RequestParam Map<String,Object> parameter, HttpSession session) {
-		Map sessionInfo = (Map)session.getAttribute("login_session");
-		if(parameter.get("board_id") == null || parameter.get("board_id").equals("")){
-			parameter.put("reg_member_id", sessionInfo.get("MEMBER_ID"));
+		
+		// 파라미터중 board_id 값이 있다면 수정, 없으면 추가
+		if(noHasBoardId(parameter)){
 			boardService.create(parameter);
 			return "redirect:manage.do";
 		}else{
@@ -83,10 +78,15 @@ public class BoardController {
 			return "redirect:detail.do?board_id="+parameter.get("board_id");
 		}
 	}
+
 	
 	@RequestMapping(value = "board/delete.do", method = RequestMethod.POST)
 	public String delete(@RequestParam Map<String,Object> parameter) {
 		boardService.delete(parameter);
 		return "redirect:manage.do?pageNum=1";
+	}
+	
+	private boolean noHasBoardId(Map<String, Object> parameter) {
+		return parameter.get("board_id") == null || parameter.get("board_id").equals("");
 	}
 }

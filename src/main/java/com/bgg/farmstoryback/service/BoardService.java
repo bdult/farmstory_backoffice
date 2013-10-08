@@ -1,12 +1,9 @@
 package com.bgg.farmstoryback.service;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +14,6 @@ import com.bgg.farmstoryback.dao.BoardDao;
 @Service
 public class BoardService {
 	
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
 	BoardDao boardDao;
@@ -37,6 +33,10 @@ public class BoardService {
 		boardDao.deleteByName(boardName);
 	}
 
+	public List<Map> listAll() {
+		return boardDao.listAll();
+	}
+	
 	public List<Map> list(Map pageInfo) {
 		return boardDao.list(pageInfo);
 	}

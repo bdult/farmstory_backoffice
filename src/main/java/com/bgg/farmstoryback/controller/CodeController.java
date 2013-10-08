@@ -39,28 +39,10 @@ public class CodeController {
 	@RequestMapping(value = "code/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
 		
-		logger.info("{}", parameter);
-		
-		int pageNum=0;
-		if(parameter.get("pageNum") == null){
-			pageNum=1;
-		}else{
-			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
-		}
-		int totalCount = codeService.totalCount(parameter);
-		
-		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		pageInfo.put("search", parameter.get("search"));
-		
-		List<Map> list = codeService.list(pageInfo);
-		
-		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("pageNum", pageNum);
+		Map pageInfo = pageUtil.pageLink(codeService.totalCount(parameter), parameter);
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
-		model.addAttribute("search", parameter.get("search"));
-		model.addAttribute("list", list);
+		model.addAttribute("list", codeService.list(pageInfo));
 		return "code/manage";
 	}
 	
@@ -85,19 +67,5 @@ public class CodeController {
 		model.addAttribute("data", codeDetail);
 		return "code/info";
 	}
-//	
-//	
-//	
-//	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
-//	public String createView(Model model) {
-//		return "contents/create";
-//	}
-//	
-//	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
-//	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
-//		contentsService.create(parameter);
-//		return "redirect:manage.do?pageNum=1";
-//	}
-//	
 
 }

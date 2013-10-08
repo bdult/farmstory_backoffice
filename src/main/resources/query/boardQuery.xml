@@ -7,13 +7,11 @@
 		INSERT /* boardQuery.create 2013.08.21 최지순 */ 
 		INTO BG_BOARD_MASTER( 
 			BOARD_NM,
-			REG_MEMBER_ID,
 			BOARD_DESC,
 			MOD_DT
 			)
 		VALUES(
 			#{board_nm},
-			#{reg_member_id},
 			#{board_desc},
 			now()
 		)
@@ -22,8 +20,6 @@
 	<select id="list" resultType="hashmap">
 		SELECT /* boardQuery.list 2013.08.21 최지순 */
 			A.*
-			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.REG_MEMBER_ID) AS REG_MEMBER_NM
-			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.MOD_MEMBER_ID) AS MOD_MEMBER_NM
 		FROM BG_BOARD_MASTER A
 		WHERE 1=1
 		AND USE_YN = 'Y'		
@@ -34,6 +30,14 @@
 		<if test="startNo != null and perPage != null">
 			LIMIT #{startNo}, #{perPage}
 		</if>
+	</select>
+	
+	<select id="listAll" resultType="hashmap">
+		SELECT /* boardQuery.listAll 2013.08.21 최지순 */
+			A.*
+		FROM BG_BOARD_MASTER A
+		WHERE 1=1
+		AND USE_YN = 'Y'		
 	</select>
 	
 	<select id="top5" resultType="hashmap">
@@ -51,8 +55,6 @@
 	<select id="searchByName" resultType="hashmap">
 		SELECT /* boardQuery.searchByName 2013.08.21 최지순 */ 
 			A.*
-			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.REG_MEMBER_ID) AS REG_MEMBER_NM
-			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.MOD_MEMBER_ID) AS MOD_MEMBER_NM
 		FROM BG_BOARD_MASTER A
 		WHERE 1=1
 		AND USE_YN = 'Y'		
@@ -63,8 +65,6 @@
 	<select id="listByPageNum" resultType="hashmap">
 		SELECT  /* boardQuery.listByPageNum 2013.08.21 최지순 */ 
 			A.*
-			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.REG_MEMBER_ID) AS REG_MEMBER_NM
-			,  (SELECT MEMBER_NM FROM BG_MEMBER WHERE MEMBER_ID = A.MOD_MEMBER_ID) AS MOD_MEMBER_NM 
 		FROM BG_BOARD_MASTER A
 		WHERE 1=1
 		AND USE_YN = 'Y'

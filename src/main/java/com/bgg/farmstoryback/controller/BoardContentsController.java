@@ -35,25 +35,14 @@ public class BoardContentsController {
 	@Autowired
 	private PageUtil pageUtil;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "board/contents/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
 		
-		int pageNum=0;
-		if(parameter.get("pageNum") == null){
-			pageNum=1;
-		}else{
-			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
-		}
-		int totalCount = boardService.totalCount(parameter);
-		
-		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		pageInfo.put("search", parameter.get("search"));
-		
-		model.addAttribute("boardList", boardService.list(pageInfo));
-
+		Map pageInfo = pageUtil.pageLink(boardService.totalCount(parameter), parameter);
 		pageInfo.put("boardId", parameter.get("boardId"));
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("boardList", boardService.listAll());
 		model.addAttribute("boardContents", boardContentsService.list(pageInfo));
 		model.addAttribute("parameter", parameter);
 		
@@ -69,10 +58,8 @@ public class BoardContentsController {
 	
 	@RequestMapping(value = "board/contents/createView.do")
 	public String createView(Model model, @RequestParam Map<String,Object> parameter) {
-		
 		model.addAttribute("mode", "create");
 		model.addAttribute("data", parameter);
-		
 		return "board/contentsDetail";
 	}
 	

@@ -47,26 +47,10 @@ public class ContentsController {
 	@RequestMapping(value = "contents/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
 		
-		int pageNum=0;
-		if(parameter.get("pageNum") == null){
-			pageNum=1;
-		}else{
-			pageNum = Integer.parseInt((String)parameter.get("pageNum"));
-		}
-		int totalCount = contentsService.totalCount(parameter);
-		
-		Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
-		pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-		pageInfo.put("perPage", pageUtil.PER_PAGE);
-		pageInfo.put("search", parameter.get("search"));
-		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("pageNum", pageNum);
+		Map pageInfo = pageUtil.pageLink(contentsService.totalCount(parameter), parameter);
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
-		model.addAttribute("search", parameter.get("search"));
-		
-		List<Map> list = contentsService.list(pageInfo);
-		
-		model.addAttribute("list", list);
+		model.addAttribute("list", contentsService.list(pageInfo));
 		return "contents/manage";
 	}
 	

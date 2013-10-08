@@ -64,25 +64,6 @@
 									</div>
 								</div>
 								
-								<c:if test="${data.REG_MEMBER_ID != null}">
-								<div class="control-group">
-									<label class="control-label" for="reg_member_id">생성자 ID</label>
-
-									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.REG_MEMBER_ID}" />
-									</div>
-								</div>
-								</c:if>
-								
-								<c:if test="${data.MOD_MEMBER_ID != null}">
-								<div class="control-group">
-									<label class="control-label" for="mod_member_id">변경자 ID</label>
-
-									<div class="controls">
-										<input readonly="readonly" type="text" value="${data.MOD_MEMBER_ID}" />
-									</div>
-								</div>
-								</c:if>
 								
 								<div class="control-group">
 									<label class="control-label" for="src_path">댓글 사용여부</label>

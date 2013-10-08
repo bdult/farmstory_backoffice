@@ -58,7 +58,6 @@ public class UserController {
   @RequestMapping(value = "user/login.ajax",  produces = "application/json;charset=UTF-8")
   public @ResponseBody String loginAjax(@RequestParam Map paramMap, HttpSession session) {
 
-    logger.info("parma {}", paramMap);
     Map response = new HashMap();
     
     // ID 체크
@@ -96,23 +95,9 @@ public class UserController {
   @RequestMapping(value = "/user/user/manage.do")
   public String userManage(Model model, @RequestParam Map parameter) {
     
-    int pageNum=0;
-    if(parameter.get("pageNum") == null){
-      pageNum=1;
-    }else{
-      pageNum = Integer.parseInt((String)parameter.get("pageNum"));
-    }
-    int totalCount = userService.normalUserTotalCount(parameter);
-    
-    Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
-    pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-    pageInfo.put("perPage", pageUtil.PER_PAGE);
-    pageInfo.put("search", parameter.get("search"));
-    
-    model.addAttribute("totalCount", totalCount);
-    model.addAttribute("pageNum", pageNum);
-    model.addAttribute("pageList", pageInfo.get("pageList"));
-    model.addAttribute("search", parameter.get("search"));
+	Map pageInfo = pageUtil.pageLink(userService.normalUserTotalCount(parameter), parameter);
+	model.addAttribute("pageInfo", pageInfo);
+	model.addAttribute("pageList", pageInfo.get("pageList"));
     
     model.addAttribute("positionList", userService.userList(pageInfo));
     model.addAttribute("type", "userView");
@@ -122,23 +107,9 @@ public class UserController {
   @RequestMapping(value = "/user/admin/manage.do", method = RequestMethod.GET)
   public String adminManage(Model model, @RequestParam Map parameter) {
     
-    int pageNum=0;
-    if(parameter.get("pageNum") == null){
-      pageNum=1;
-    }else{
-      pageNum = Integer.parseInt((String)parameter.get("pageNum"));
-    }
-    int totalCount = userService.adminUserTotalCount(parameter);
-    
-    Map pageInfo = pageUtil.pageLink(totalCount, pageNum);
-    pageInfo.put("startNo", pageUtil.getStartRowNum(pageNum));
-    pageInfo.put("perPage", pageUtil.PER_PAGE);
-    pageInfo.put("search", parameter.get("search"));
-    
-    model.addAttribute("totalCount", totalCount);
-    model.addAttribute("pageNum", pageNum);
-    model.addAttribute("pageList", pageInfo.get("pageList"));
-    model.addAttribute("search", parameter.get("search"));
+	Map pageInfo = pageUtil.pageLink(userService.adminUserTotalCount(parameter), parameter);
+	model.addAttribute("pageInfo", pageInfo);
+	model.addAttribute("pageList", pageInfo.get("pageList"));
     
     model.addAttribute("positionList", userService.adminUserList(pageInfo));
     model.addAttribute("type", "adminView");

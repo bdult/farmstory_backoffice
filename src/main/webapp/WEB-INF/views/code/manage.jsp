@@ -66,7 +66,7 @@
 		
 		<div class="row-fluid">
 				<div class="span6">
-					<div class="dataTables_info">Total ${totalCount } entries</div>
+					<div class="dataTables_info">Total ${pageInfo.totalCount } entries</div>
 				</div>
 				<div class="span6">
 					<div class="dataTables_paginate paging_bootstrap pagination">
@@ -75,7 +75,7 @@
 									class="icon-double-angle-left"></i></a></li>
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
-									<c:when test="${pageNum == page.pageNum}">
+									<c:when test="${pageInfo.pageNum == page.pageNum}">
 										<li class="active"><a href="manage.do?pageNum=${page.pageNum}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>

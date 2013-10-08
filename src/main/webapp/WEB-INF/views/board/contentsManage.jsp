@@ -80,11 +80,11 @@
 									class="icon-double-angle-left"></i></a></li>
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
-									<c:when test="${pageNum == page.pageNum}">
+									<c:when test="${pageInfo.pageNum == page.pageNum}">
 										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&search=${search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

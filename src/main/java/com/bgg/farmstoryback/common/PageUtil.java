@@ -51,7 +51,12 @@ public class PageUtil {
 	 * @param pageNum
 	 * @return
 	 */
-	public Map<String, Object> pageLink(int totalCnt, int pageNum) {
+//	public Map<String, Object> pageLink(int totalCnt, int pageNum, String search) {
+	public Map<String, Object> pageLink(int totalCnt, Map parameter) {
+		int pageNum = 1;
+		if(parameter.get("pageNum") != null){
+			pageNum  = Integer.parseInt((String)parameter.get("pageNum"));
+		}
 		Map<String, Object> pageLinkMap = new HashMap<String, Object>();
 		int firstPageNum = this.getFirstPageNum(pageNum);
 		int lastPageNum = this.getLastPageNum(firstPageNum);
@@ -67,9 +72,12 @@ public class PageUtil {
 		}
 		
 		pageLinkMap.put("lastPage", (int)Math.ceil(totalPage / 1));
-		pageLinkMap.put("totalCnt", totalCnt);
+		pageLinkMap.put("totalCount", totalCnt);
 		pageLinkMap.put("pageList", pageList);// 페이지 리스트
 		pageLinkMap.put("pageNum", pageNum);// 현재 페이지 번호
+		pageLinkMap.put("startNo", getStartRowNum(pageNum));
+		pageLinkMap.put("perPage", PER_PAGE);
+		pageLinkMap.put("search", parameter.get("search"));
 		
 		// 1페이지가 아니라면
 		if (1 != firstPageNum) {
@@ -79,6 +87,9 @@ public class PageUtil {
 		if (totalPage != lastPageNum) {
 			pageLinkMap.put("pageNext", lastPageNum + 1);// 다음
 		}
+		
+		
+		
 		return pageLinkMap;
 	}
 	
