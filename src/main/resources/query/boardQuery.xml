@@ -8,11 +8,13 @@
 		INTO BG_BOARD_MASTER( 
 			BOARD_NM,
 			BOARD_DESC,
+			REG_MEMBER_ID,
 			MOD_DT
 			)
 		VALUES(
 			#{board_nm},
 			#{board_desc},
+			#{reg_member_id},
 			now()
 		)
 	</insert>

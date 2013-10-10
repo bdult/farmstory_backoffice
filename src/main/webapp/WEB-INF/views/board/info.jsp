@@ -46,6 +46,7 @@
 							<!--PAGE CONTENT BEGINS-->
 
 							<form id="modify-form" method="post" action="${contextPath }/board/modify.do" class="form-horizontal" >
+								<input type="hidden" name="reg_member_id" value="${ login_session.member_id }">
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
