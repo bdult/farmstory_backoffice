@@ -55,11 +55,11 @@
 					<tr>
 
 						<td>
-							<a href="${contextPath }/contents/detail.do?pageNum=${pageNum}&contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
+							<a href="${contextPath }/contents/detail.do?pageNum=${pageInfo.pageNum}&contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_ID}</a>
 						</td>
 						<td>
 							
-							<a href="${contextPath }/contents/detail.do?pageNum=${pageNum}&contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_NM}</a>
+							<a href="${contextPath }/contents/detail.do?pageNum=${pageInfo.pageNum}&contents_id=${conlist.CONTENTS_ID}">${conlist.CONTENTS_NM}</a>
 						</td>
 						<td>${conlist.SERIES_NM}</td>											
 						<td>${conlist.BRAND_NM}</td>
@@ -83,10 +83,10 @@
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${page.search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&search=${page.search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
