@@ -53,8 +53,8 @@
 						<tbody>
 						<c:forEach items="${boardList }" var="board">
 							<tr>
-								<td><a href="${contextPath}/board/detail.do?board_id=${board.BOARD_ID }">${board.BOARD_ID }</a></td>
-								<td><a href="${contextPath}/board/detail.do?board_id=${board.BOARD_ID }">${board.BOARD_NM }</a></td>
+								<td><a href="${contextPath}/board/detail.do?pageNum=${pageInfo.pageNum}&board_id=${board.BOARD_ID }">${board.BOARD_ID }</a></td>
+								<td><a href="${contextPath}/board/detail.do?pageNum=${pageInfo.pageNum}&board_id=${board.BOARD_ID }">${board.BOARD_NM }</a></td>
 								<td>${board.REG_MEMBER_NM }</td>
 								<td>${board.MOD_MEMBER_NM }</td>
 								<td>${board.COMMENT_USE_YN }</td>

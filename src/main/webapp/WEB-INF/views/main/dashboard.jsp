@@ -31,7 +31,7 @@
 										<div class="widget-header widget-header-flat">
 											<h4 class="lighter">
 												<i class="icon-star orange"></i>
-												<a href="${contextPath }/contents/manage.do?pageNum=1"> 컨텐츠</a>
+												<a href="${contextPath }/contents/manage.do?pageNum=1&pageNum=1"> 컨텐츠</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -66,8 +66,8 @@
 													<tbody>
 														<c:forEach items="${contentsTop5 }" var="contents">
 															<tr>
-																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_ID}</a> </td>
-																<td><a href="${contextPath }/contents/detail.do?contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_NM}</a> </td>
+																<td><a href="${contextPath }/contents/detail.do?pageNum=1&contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_ID}</a> </td>
+																<td><a href="${contextPath }/contents/detail.do?pageNum=1&contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_NM}</a> </td>
 																<td>${contents.REG_DT}</td>
 															</tr>
 														</c:forEach>
@@ -83,7 +83,7 @@
 										<div class="widget-header widget-header-flat">
 											<h4 class="lighter">
 												<i class="icon-signal"></i>
-												<a href="${contextPath }/user.do?pageNum=1"> 회원</a>
+												<a href="${contextPath }/user.do?pageNum=1&pageNum=1"> 회원</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -118,8 +118,8 @@
 													<tbody>
 														<c:forEach items="${userTop5 }" var="user">
 															<tr>
-																<td><a href="${contextPath }/user/detail.do?member_id=${user.MEMBER_ID}">${user.MEMBER_ID}</a> </td>
-																<td><a href="${contextPath }/user/detail.do?member_id=${user.MEMBER_ID}">${user.MEMBER_NM}</a> </td>
+																<td><a href="${contextPath }/user/detail.do?pageNum=1&member_id=${user.MEMBER_ID}">${user.MEMBER_ID}</a> </td>
+																<td><a href="${contextPath }/user/detail.do?pageNum=1&member_id=${user.MEMBER_ID}">${user.MEMBER_NM}</a> </td>
 																<td>${user.REG_DT}</td>
 															</tr>
 														</c:forEach>
@@ -139,7 +139,7 @@
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
-												<a href="${contextPath }/brand/manage.do?pageNum=1"> 브랜드</a>
+												<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 브랜드</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -174,8 +174,8 @@
 													<tbody>
 														<c:forEach items="${brandTop5 }" var="brand">
 															<tr>
-																<td><a href="${contextPath }/brand/detail.do?contents_id=${brand.BRAND_ID}">${brand.BRAND_ID}</a> </td>
-																<td><a href="${contextPath }/brand/detail.do?contents_id=${brand.BRAND_ID}">${brand.BRAND_NM}</a> </td>
+																<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_ID}</a> </td>
+																<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_NM}</a> </td>
 																<td>${brand.REG_DT}</td>
 															</tr>
 														</c:forEach>
@@ -250,7 +250,7 @@
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
 												
-												<a href="${contextPath }/board/manage.do?pageNum=1"> 게시판</a>
+												<a href="${contextPath }/board/manage.do?pageNum=1&pageNum=1"> 게시판</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -285,8 +285,8 @@
 													<tbody>
 														<c:forEach items="${boardTop5 }" var="board">
 															<tr>
-																<td><a href="${contextPath }/board/detail.do?contents_id=${board.BOARD_ID}">${board.BOARD_ID}</a> </td>
-																<td><a href="${contextPath }/board/detail.do?contents_id=${board.BOARD_ID}">${board.BOARD_NM}</a> </td>
+																<td><a href="${contextPath }/board/detail.do?pageNum=1&board_id=${board.BOARD_ID}">${board.BOARD_ID}</a> </td>
+																<td><a href="${contextPath }/board/detail.do?pageNum=1&board_id=${board.BOARD_ID}">${board.BOARD_NM}</a> </td>
 																<td>${board.REG_DT}</td>
 															</tr>
 														</c:forEach>

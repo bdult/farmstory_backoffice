@@ -51,10 +51,10 @@
 							<c:forEach var="series" items="${seriesList}" varStatus="status">
 								<tr>
 									<td>
-										<a href="${contextPath }/series/detail.do?pageNum=${pageNum}&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_ID}</a>
+										<a href="${contextPath }/series/detail.do?pageNum=${pageInfo.pageNum}&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_ID}</a>
 									</td>
 									<td>
-										<a href="${contextPath }/series/detail.do?pageNum=${pageNum}&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_NM}</a>
+										<a href="${contextPath }/series/detail.do?pageNum=${pageInfo.pageNum}&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_NM}</a>
 									</td>
 									<td>${series.BRAND_NM}</td>											
 									<td>${series.IMG_PATH}</td>
