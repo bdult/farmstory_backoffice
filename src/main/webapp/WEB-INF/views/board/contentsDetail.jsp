@@ -256,29 +256,5 @@
 			$("#thumbnail-modal-footer").hide();
 			$("#thumbnail-modal").modal('toggle');
 		}); // <!-- thumbnaul-mod-btn event end
-		
-		
-		$("#cancel-btn").click(function(){
-			window.location.href="manage.do?pageNum=1";
-		});
-		
-		$("#delete-btn").click(function(){
-			console.log("delete_btn");
-			if(confirm("삭제 하시겠습니까?")){
-				$("#delete-form").submit();
-			}else{
-				return false;				
-			}
-		});
-		
-		$("#submit-btn").click(function(){
-			console.log("delete_btn");
-			if(confirm("저장 하시겠습니까?")){
-				$("#modify-form").submit();
-			}else{
-				return false;				
-			}
-		});
-		
 	}); // <!-- function() end 
 </script>

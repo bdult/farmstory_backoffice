@@ -28,6 +28,10 @@ public class FileUtil {
 		return makeFilePath("source/movie/contents/",file);
 	}
 	
+	public String boardThumbnailUpload(MultipartFile file) {
+		return makeFilePath("source/thumbnail/board/",file);
+	}
+	
 	private String makeFilePath(String prefix, MultipartFile file) {
 		try {
 			

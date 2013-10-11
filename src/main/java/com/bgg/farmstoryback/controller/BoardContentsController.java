@@ -98,7 +98,7 @@ public class BoardContentsController {
 	public @ResponseBody String thumbnailUpload(Model model,
 			@RequestParam("file")MultipartFile file
 			) {
-		String srcPath = fileUtil.thumbnailUpload(file);
+		String srcPath = fileUtil.boardThumbnailUpload(file);
 		return srcPath;
 	}
 }
