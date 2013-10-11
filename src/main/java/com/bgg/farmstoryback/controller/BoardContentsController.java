@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.BoardContentsService;
 import com.bgg.farmstoryback.service.BoardService;
@@ -34,6 +36,9 @@ public class BoardContentsController {
 	
 	@Autowired
 	private PageUtil pageUtil;
+	
+	@Autowired
+	private FileUtil fileUtil; 
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "board/contents/manage.do")
@@ -59,7 +64,8 @@ public class BoardContentsController {
 	@RequestMapping(value = "board/contents/createView.do")
 	public String createView(Model model, @RequestParam Map<String,Object> parameter) {
 		model.addAttribute("mode", "create");
-		model.addAttribute("data", parameter);
+		Map contentDetail = boardService.detail(parameter);
+		model.addAttribute("data", contentDetail);
 		return "board/contentsDetail";
 	}
 	
@@ -87,5 +93,12 @@ public class BoardContentsController {
 		model.addAttribute("result", result);
 		return "redirect:manage.do?boardId=" + parameter.get("boardId");
 	}
-	
+
+	@RequestMapping(value = "board/contents/thumbnail-upload.do")
+	public @ResponseBody String thumbnailUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		String srcPath = fileUtil.thumbnailUpload(file);
+		return srcPath;
+	}
 }

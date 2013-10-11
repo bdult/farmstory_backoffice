@@ -10,6 +10,12 @@
 			TITLE,
 			CONTENTS,
 			MEMBER_ID,
+			<if test="status != null">
+			STATUS,
+			</if>
+			<if test="img_path != null">
+			IMG_PATH,
+			</if>
 			MOD_DT,
 			REG_DT
 			)
@@ -18,6 +24,12 @@
 			#{ title },
 			#{ contents },
 			#{ memberId },
+			<if test="status != null">
+			#{ status },
+			</if>
+			<if test="img_path != null">
+			#{ img_path },
+			</if>
 			NOW(),
 			NOW()
 		)
@@ -94,8 +106,14 @@
 		SET 
 			TITLE = #{ title }, 
 			CONTENTS = #{ contents }
+			<if test="status != null">
+			,STATUS = #{ status }
+			</if>
+			<if test="img_path != null">
+			,IMG_PATH = #{ img_path }
+			</if>
 		WHERE 1=1
-		AND CONTENTS_ID = #{ contentsId}
+		AND CONTENTS_ID = #{ contentsId }
 	</update>
 	
 </mapper>

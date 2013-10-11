@@ -68,7 +68,6 @@
 				</table>
 			</div>
 		</div><!--/. board table div-->
-			
 			<div class="row-fluid">
 				<div class="span6">
 					<div class="dataTables_info">Total ${totalCount } entries</div>
@@ -112,7 +111,7 @@
 				if( $("#boardSelect").val() == 0 ) {
 					return alert("게시판을 선택해 주세요.");
 				}
-				window.location.href="${contextPath}/board/contents/createView.do?BOARD_ID=" + boardId;
+				window.location.href="${contextPath}/board/contents/createView.do?board_id=" + boardId;
 			});
 			
 			$("#boardSelect").change(function(){

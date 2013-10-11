@@ -83,6 +83,52 @@
 									</div>
 								</c:if>
 								
+								<c:if test="${ mode eq 'create' }">
+									<c:if test="${ data.STATUS_USE_YN == 'Y' }">
+										<div class="control-group">
+											<label class="control-label" for="board_status">상태</label>
+		
+											<div class="controls">
+												<input type="text" name="status" value="${ data.STATUS }" />
+											</div>
+										</div>
+									</c:if>
+									
+									<c:if test="${ data.IMG_PATH_USE_YN == 'Y' }">
+										<div class="control-group">
+											<label class="control-label" for="board_img_path">이미지 경로</label>
+		
+											<div class="controls">
+												<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+												<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+											</div>
+										</div>
+									</c:if>
+								</c:if>
+								
+								<c:if test="${ mode ne 'create' }">
+									<c:if test="${ data.STATUS != null }">
+										<div class="control-group">
+											<label class="control-label" for="board_status">상태</label>
+		
+											<div class="controls">
+												<input type="text" name="status" value="${ data.STATUS }" />
+											</div>
+										</div>
+									</c:if>
+									
+									<c:if test="${ data.IMG_PATH != null }">
+										<div class="control-group">
+											<label class="control-label" for="board_img_path">이미지 경로</label>
+		
+											<div class="controls">
+												<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+												<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+											</div>
+										</div>
+									</c:if>
+								</c:if>
+
 								<div class="control-group">
 									<label class="control-label" for="form-field-2">내용</label>
 									<div class="controls">
@@ -120,12 +166,97 @@
 			</form>
 			
 
+<!--  thumbnail modal -->
+<div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">썸네일 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="thumbnail-upload-input" name="file" />
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+</div>
+
 <script type="text/javascript">
 	
 	$("#side-board").attr("class", "open active");
 	$("#side-board-board").attr("class", "active");
 	
 	$(function(){
+
+		$('#thumbnail-upload-input').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'large'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
+	
+		}).on('change', function(){
+			$("#thumbnail-modal-footer").show();
+		});
+		
+		$('#thumbnail-upload-form').ajaxForm(
+				 {
+					    success: function(response){
+					      $("#img_path").val(response);
+					      $("#thumbnail-modal").modal('toggle');
+						}
+				 }
+		 );
+		
+		
+		$("#cancel-btn").click(function(){
+			window.location.href="manage.do?pageNum=${pageNum}";
+		});
+		
+		$("#delete-btn").click(function(){
+			if(confirm("삭제 하시겠습니까?")){
+				$("#delete-form").submit();
+			}else{
+				return false;
+			}
+		});
+		
+		$("#submit-btn").click(function(){
+			if(confirm("저장 하시겠습니까?")){
+				$("#modify-form").submit();
+			}else{
+				return false;
+			}
+		});
+		
+		$("#thumbnail-mod-btn").click(function(){
+			$("#thumbnail-modal-footer").hide();
+			$("#thumbnail-modal").modal('toggle');
+		}); // <!-- thumbnaul-mod-btn event end
+		
 		
 		$("#cancel-btn").click(function(){
 			window.location.href="manage.do?pageNum=1";
@@ -150,6 +281,4 @@
 		});
 		
 	}); // <!-- function() end 
-	
-	
 </script>
