@@ -16,6 +16,11 @@
       <property name="url" value="jdbc:mysql://1.234.65.17:3306/storyfarm?autoReconnect=true&amp;characterEncoding=UTF-8" />
       <property name="username" value="storyfarm" />
       <property name="password" value="storyfarm2013" />
+      <property name="validationQuery" value="SELECT 1 FROM DUAL"/>    
+	  <property name="testOnBorrow" value="true"/>    
+	  <property name="testOnReturn" value="false"/>    
+	  <property name="testWhileIdle" value="true"/>    
+	  <property name="timeBetweenEvictionRunsMillis" value="60000"/>
     </bean>
     
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">     
