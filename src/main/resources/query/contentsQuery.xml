@@ -109,6 +109,20 @@
    		)
    </insert>
    
+	<insert parameterType="map" id="createTemp">
+   		INSERT BG_CONTENTS(
+			CONTENTS_NM,
+			CONTENTS_SERIES_ID
+   		)
+   		VALUES(
+   			'준비중...',
+   			0
+   		)
+   		<selectKey keyProperty="contents_id" resultType="integer" order="AFTER">
+		    SELECT LAST_INSERT_ID()
+		</selectKey>
+   </insert>
+   
 	<insert id="addContentsCate" parameterType="map">
 	    INSERT INTO BG_CATE_CONTENTS_RELATIONSHIPS(
 	    	CATE_ID

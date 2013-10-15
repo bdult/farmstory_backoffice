@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +95,17 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 */
 	public void deleteContentsCate(Map parameter) {
 		getSqlSession().delete("contentsQuery.deleteContentsCate", parameter);
+	}
+
+	/**
+	 * 임시 컨텐츠 생성
+	 * @return
+	 */
+	public String createTemp() {
+		Map<String, Integer> tempMap = new HashMap<String, Integer>();
+		tempMap.put("contents_id", 0);
+		getSqlSession().insert("contentsQuery.createTemp", tempMap);
+		return ""+tempMap.get("contents_id");
 	}
 
 }

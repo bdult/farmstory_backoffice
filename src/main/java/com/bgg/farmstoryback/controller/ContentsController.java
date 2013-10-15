@@ -61,7 +61,11 @@ public class ContentsController {
 		model.addAttribute("cateList", cateService.listByLevel(1));
 		model.addAttribute("contentsCateList", contentsService.contentsCateList(parameter));
 		model.addAttribute("data", contentsDetail);
-		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
+		if((String)parameter.get("pageNum") == null){
+			model.addAttribute("pageNum", 1);
+		}else{
+			model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
+		}
 		return "contents/info";
 	}
 	
@@ -78,12 +82,19 @@ public class ContentsController {
 	
 	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
 	public String createView(Model model) {
+		
+		// 컨텐츠 생성시 미리 DB 에 ROW 를 추가후 변경하는 걸로
+		String contentsId = contentsService.createTemp();
+		Map contentsDetail =  contentsService.detail(contentsId);
+		
+		// 카테고리 변경 시 필요한 카테고리 리스트
+		model.addAttribute("cateList", cateService.listByLevel(1));
+		model.addAttribute("data", contentsDetail);
 		return "contents/info";
 	}
 	
 	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
 	public String createdb(Model model, @RequestParam Map<String,String> parameter) {
-		logger.info("parameter={}", parameter);
 		contentsService.create(parameter);
 		return "redirect:manage.do?pageNum=1";
 	}

@@ -279,7 +279,7 @@
 			</div>
 		</div>
 		<div id="thumbnail-modal-footer" class="modal-footer">
-			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">
+			<button type="submit" class="btn btn-sm btn-primary" data-dismiss="modal" aria-hidden="true">
 			완료
 			</button>
 			
@@ -519,6 +519,7 @@
 		
 		$("#category-mod-btn").click(function(){
 			$("#category-tag-modal").modal('toggle');
+			
 		}); // <!-- brand-mod-btn event end
 		
 		$("#add-category-btn").click(function(){

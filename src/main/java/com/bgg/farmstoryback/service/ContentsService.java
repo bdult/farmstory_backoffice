@@ -72,4 +72,8 @@ public class ContentsService {
 		conDao.deleteContentsCate(parameter);
 	}
 
+	public String createTemp() {
+		return conDao.createTemp();
+	}
+
 }
