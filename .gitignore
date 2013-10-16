@@ -16,6 +16,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+mybatis-context.xml
 
 # External tool builders
 .externalToolBuilders/
