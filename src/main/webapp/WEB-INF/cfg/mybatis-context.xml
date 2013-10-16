@@ -13,9 +13,9 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
       destroy-method="close">
       <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-      <property name="url" value="jdbc:mysql://1.234.65.17:3306/storyfarm?autoReconnect=true&amp;characterEncoding=UTF-8" />
-      <property name="username" value="storyfarm" />
-      <property name="password" value="storyfarm2013" />
+      <property name="url" value="jdbc:mysql://localhost:3306/ozworld?autoReconnect=true&amp;characterEncoding=UTF-8" />
+      <property name="username" value="ozworld" />
+      <property name="password" value="ozworldrnts" />
       <property name="validationQuery" value="SELECT 1 FROM DUAL"/>    
 	  <property name="testOnBorrow" value="true"/>    
 	  <property name="testOnReturn" value="false"/>    

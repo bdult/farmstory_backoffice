@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="request"/>
-<c:set var="rootPath" value="/storyfarm-admin" scope="request"/>
+<c:set var="rootPath" value="/ozworld-admin" scope="request"/>
 
 <!-- basic styles -->
 
