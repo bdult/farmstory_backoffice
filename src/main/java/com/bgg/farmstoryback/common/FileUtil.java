@@ -46,7 +46,7 @@ public class FileUtil {
 			String extenstion = file.getOriginalFilename().substring(file.getOriginalFilename().length()-3);
 			String fileName = UUID.randomUUID().toString().replace("-", "").substring(0, 9)+"."+extenstion;
 			byte fileData[] = file.getBytes();
-			FileOutputStream fos = new FileOutputStream(parentPath+prefix+fileName);
+			FileOutputStream fos = new FileOutputStream(ROOT+parentPath+prefix+fileName);
 			fos.write(fileData);
 			fos.close();
 			return parentPath+prefix+fileName;
