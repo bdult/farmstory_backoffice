@@ -10,26 +10,26 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileUtil {
 	
-	private final String parentPath = "/var/lib/tomcat6/webapps/storyfarm/";
+	private final String parentPath = "/ozworld-movie/";
 	
 	public String brandThumbnailUpload(MultipartFile file) {
-		return makeFilePath("source/thumbnail/brand/",file);
+		return makeFilePath("thumbnail/brand/",file);
 	}
 	
 	public String cateThumbnailUpload(MultipartFile file) {
-		return makeFilePath("source/thumbnail/cate/",file);
+		return makeFilePath("thumbnail/cate/",file);
 	}
 	
 	public String thumbnailUpload(MultipartFile file) {
-		return makeFilePath("source/thumbnail/contents/",file);
+		return makeFilePath("thumbnail/contents/",file);
 	}
 	
 	public String movieUpload(MultipartFile file) {
-		return makeFilePath("source/movie/contents/",file);
+		return makeFilePath("movie/contents/",file);
 	}
 	
 	public String boardThumbnailUpload(MultipartFile file) {
-		return makeFilePath("source/thumbnail/board/",file);
+		return makeFilePath("thumbnail/board/",file);
 	}
 	
 	private String makeFilePath(String prefix, MultipartFile file) {
