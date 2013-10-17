@@ -51,7 +51,7 @@ public class SeriesServiceTest {
 		testCreate();
 		
 		// when
-		List seriesList = seriesService.list(); 
+		List seriesList = seriesService.list(null); 
 
 		// then
 		assertThat(seriesList, is(notNullValue()));

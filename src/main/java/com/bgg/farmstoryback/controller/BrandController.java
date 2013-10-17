@@ -74,7 +74,11 @@ public class BrandController {
 	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
 		Map detailInfo = brandService.detail(parameter);
 		model.addAttribute("data", detailInfo);
-		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
+		if((String)parameter.get("pageNum") == null){
+			model.addAttribute("pageNum", 1);
+		}else{
+			model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
+		}
 		return "brand/info";
 	}
 	

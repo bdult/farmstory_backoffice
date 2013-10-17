@@ -67,7 +67,7 @@ public class CategoryDao extends SqlSessionDaoSupport {
 	}
 
 	public void delete(String cateId) {
-		getSqlSession().delete("categoryQuery.deleteCateItemRelation", cateId);
+		getSqlSession().delete("categoryQuery.deleteCateContentsRelation", cateId);
 		
 		// 하위 카테고리 삭제
 		getSqlSession().delete("categoryQuery.deleteChildCate", cateId);

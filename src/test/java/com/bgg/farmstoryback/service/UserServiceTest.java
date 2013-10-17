@@ -109,23 +109,6 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
-	public void testGetChildOne(){
-		logger.info("한개의 자녀정보 가져오는 테스트 입니다.");
-		logger.info(userService.toString());
-		
-		//given
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("idx", "4");
-		
-		//when
-		Map<String, Object> childList = userService.getChildOne(paramMap);
-		
-		//than
-		logger.info("childList : {}", childList.toString());
-		logger.info("childList set 갯수 : {}", childList.size());
-		
-	}
 
 	@Test
 	public void testUserList(){
@@ -133,7 +116,7 @@ public class UserServiceTest {
 		logger.info(userService.toString());
 		
 		//when
-		List<HashMap<String,Object>> userList = userService.userList();
+		List<HashMap<String,Object>> userList = userService.userList(null);
 		
 		//than
 		logger.info("userList : {}", userList.toString());
@@ -146,7 +129,7 @@ public class UserServiceTest {
 		logger.info(userService.toString());
 		
 		//when
-		List<HashMap<String, Object>> adminUserList = userService.adminUserList();
+		List<HashMap<String, Object>> adminUserList = userService.adminUserList(null);
 		
 		//than
 		logger.info("adminUserList : {}", adminUserList.toString());
@@ -172,23 +155,6 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
-	public void testUserSerch(){
-		logger.info("유저검색 테스트 입니다.");
-		logger.info(userService.toString());
-		
-		//given
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("id", "test");
-		
-		//when
-		List<HashMap<String, Object>> userList = userService.userSearch(paramMap);
-		
-		//than
-		logger.info("Result : {}", userList.toString());
-		logger.info("Result set 갯수 : {}", userList.size());
-		
-	}
 	
 	@Test
 	public void testInsertUser(){
@@ -202,85 +168,13 @@ public class UserServiceTest {
 		paramMap.put("pw", "123");
 		
 		//when
-		int result = userService.addAdminUser(paramMap);
+		userService.addAdminUser(paramMap);
 		
 		//than
-		assertNotNull(paramMap);
-		assertThat(result, is(not(0)));
-		logger.info("{}", paramMap);
 	}
 	
-	@Test
-	public void testInsertChild(){
-		logger.info("childList추가 테스트 입니다.");
-		logger.info(userService.toString());
-		
-		//given
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("parent_member_id", "test");
-		paramMap.put("child_nm", "testchild");
-		paramMap.put("photo", null);
-		paramMap.put("gender", "여");
-		paramMap.put("birth_year", "00");
-		paramMap.put("birth_month", "00");
-		paramMap.put("birth_day", "00");
 
-		//when
-		int result = userService.insertChild(paramMap);
-		
-		//than
-		assertNotNull(paramMap);
-		assertThat(result, is(not(0)));
-		logger.info("{}", paramMap);
-	}
 
-	@Test
-	public void testUpdateUser() {
-		logger.info("userList수정 테스트 입니다.");
-		logger.info(userService.toString());
-
-		//given
-		String id = "test";
-
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("id", id);
-		paramMap.put("name", "굿굿");
-		paramMap.put("pw", "1234");
-		
-		//when
-		int result = userService.updateUser(paramMap);
-		
-		//than
-		assertNotNull(paramMap);
-		assertThat(result, is(not(0)));
-		logger.info("{}", paramMap);
-	}
-
-	@Test
-	public void testUpdateChild() {
-		logger.info("자녀리스트 수정 테스트 입니다.");
-		logger.info(userService.toString());
-
-		//given
-		String IDX = "1";
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("IDX", IDX);
-		paramMap.put("parent_member_id", "test");
-		paramMap.put("child_nm", "testchild");
-		paramMap.put("photo", null);
-		paramMap.put("gender", "여");
-		paramMap.put("birth_year", "00");
-		paramMap.put("birth_month", "00");
-		paramMap.put("birth_day", "00");
-
-		//when
-		int result = userService.updateChild(paramMap);
-		
-		//than
-		assertNotNull(paramMap);
-		logger.info("{}", paramMap);
-	}
 	
 	@Test
 	public void testDeleteUser(){
@@ -294,31 +188,8 @@ public class UserServiceTest {
 		userDTO.put("id", id);
 		
 		//when
-		int result = userService.deleteUser(userDTO);
+		userService.deleteUser(userDTO);
 		
 		//than
-		assertNotNull(userDTO);
-		assertThat(result, is(not(0)));
-		logger.info("{}", userDTO);
-	}
-	
-	@Test
-	public void testDeleteChild(){
-		logger.info("자녀리스트 삭제 테스트 입니다.");
-		logger.info(userService.toString());
-		
-		//given
-		int idx = 1;
-		
-		Map<String, Object> childList = new HashMap<String, Object>();
-		childList.put("idx", idx);
-
-		//when
-		int result = userService.deleteChild(childList);
-		
-		//than
-		assertNotNull(childList);
-		assertThat(result, is(not(0)));
-		logger.info("{}", childList);
 	}
 }

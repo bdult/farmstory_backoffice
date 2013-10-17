@@ -135,9 +135,9 @@
 		AND CATE_ID = #{CATE_ID}
 	</update>
 
-	<delete id="deleteCateItemRelation">
+	<delete id="deleteCateContentsRelation">
 		DELETE /* categoryQuery.deleteCateItemRelation 2013.08.21 최지순 */ 
-		FROM BG_CATE_ITEM_RELATIONSHIPS
+		FROM BG_CATE_CONTENTS_RELATIONSHIPS
 		WHERE 1=1
 		AND CATE_ID = #{cateId}
 	</delete>

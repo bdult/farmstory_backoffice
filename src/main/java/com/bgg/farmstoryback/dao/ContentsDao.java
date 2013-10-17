@@ -42,6 +42,7 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 * @param contents_id
 	 */
 	public void delete(String contents_id) {
+		getSqlSession().delete("contentsQuery.deleteContentsCate", contents_id);
 		getSqlSession().delete("contentsQuery.delete", contents_id);
 	}
 	

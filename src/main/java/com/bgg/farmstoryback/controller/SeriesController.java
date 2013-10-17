@@ -67,7 +67,6 @@ public class SeriesController {
 	
 	@RequestMapping(value = "series/modify.do", method = RequestMethod.POST)
 	public String modify(Model model, @RequestParam Map<String,Object> parameter) {
-		logger.info("{}", parameter);
 		seriesService.modify(parameter);
 		return "redirect:manage.do";
 	}

@@ -33,6 +33,7 @@ public class SeriesService {
 	public void create(Map parameter) {
 		if(hasSeries(parameter)){
 			parameter.put(SERIES_ID_TAG, seriesIdByName(parameter));
+			seriesDao.modify(parameter);
 		}else{
 			seriesDao.create(parameter);
 		}
@@ -52,7 +53,22 @@ public class SeriesService {
 	}
 
 	public void modify(Map parameter) {
-		seriesDao.modify(parameter);
+		if(hasSeriesId(parameter)){
+			seriesDao.modify(parameter);
+		}else{
+			seriesDao.create(parameter);
+		}
+	}
+
+	private boolean hasSeriesId(Map parameter) {
+		String seriesId = (String)parameter.get(SERIES_ID_TAG);
+		if(seriesId == null || seriesId.equals("")){
+			return false;
+		}
+		if(Integer.parseInt(seriesId) > 0){
+			return true;
+		}
+		return false;
 	}
 
 	public void delete(Map<String, Object> parameter) {
@@ -65,10 +81,6 @@ public class SeriesService {
 
 	public List<Map> listOfTop() {
 		return seriesDao.listOfTop();
-	}
-
-	public List<Map> listOfChild(int parentSeriesId) {
-		return seriesDao.listOfChild(parentSeriesId);
 	}
 
 	public List top5() {

@@ -67,7 +67,7 @@
 								<div class="control-group">
 									<label class="control-label">이미지</label>
 									<div class="controls">
-										<input id="img_path" name="img_path" type="text" readonly>
+										<input id="img_path" name="img_path" type="text" readonly value="${data.IMG_PATH}">
 										<button id="modify-img-btn" class="btn btn-info" type="button">변경</button>
 									</div>
 								</div>
@@ -110,7 +110,7 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">
+				<input type="hidden" name="brand_id" value="${data.BRAND_ID }">
 			</form>
 			
 

@@ -51,10 +51,6 @@ public class SeriesDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("seriesQuery.listOfTop");
 	}
 
-	public List listOfChild(int parentSeriesId) {
-		return getSqlSession().selectList("seriesQuery.listOfChild", parentSeriesId);
-	}
-
 	public List top5() {
 		return getSqlSession().selectList("seriesQuery.top5");
 	}
