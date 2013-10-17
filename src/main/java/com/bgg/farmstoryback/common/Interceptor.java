@@ -39,12 +39,12 @@ public class Interceptor extends HandlerInterceptorAdapter {
 
 	private boolean notExcludeRequestPath(HttpServletRequest request) {
 		//세션 체크 예외 리스트
-//		return 
-//		! request.getServletPath().contains( "login.do" ) &&
-//		! request.getServletPath().contains( "login.ajax" ) &&
-//		! request.getServletPath().contains( "logout.do" );
+		return 
+		! request.getServletPath().contains( "login.do" ) &&
+		! request.getServletPath().contains( "login.ajax" ) &&
+		! request.getServletPath().contains( "logout.do" );
 		
-		return false;
+//		return false;
 	}
 
 	private boolean noHasSession(HttpServletRequest request) {
