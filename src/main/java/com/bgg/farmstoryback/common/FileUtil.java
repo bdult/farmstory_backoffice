@@ -10,7 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileUtil {
 	
-	private final String parentPath = "/ozworld-movie/";
+	private final String ROOT = "/";
+	private final String parentPath = "ozworld-movie/";
 	
 	public String brandThumbnailUpload(MultipartFile file) {
 		return makeFilePath("thumbnail/brand/",file);
@@ -36,7 +37,7 @@ public class FileUtil {
 		try {
 			
 			//디렉토리 생성 
-			File desti = new File(parentPath+prefix);
+			File desti = new File(ROOT+parentPath+prefix);
 
 		  //해당 디렉토리의 존재여부를 확인
 			if(!desti.exists()){
@@ -48,7 +49,7 @@ public class FileUtil {
 			FileOutputStream fos = new FileOutputStream(parentPath+prefix+fileName);
 			fos.write(fileData);
 			fos.close();
-			return prefix+fileName;
+			return parentPath+prefix+fileName;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
