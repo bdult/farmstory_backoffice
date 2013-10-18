@@ -86,3 +86,17 @@
 
 <!-- ajaxform -->
 <script src="http://malsup.github.com/jquery.form.js"></script> 
+
+<<style>
+<!--
+
+-->
+.btn {
+	line-height : 20px
+}
+
+.btn-success {
+	line-height : 32px
+}
+
+</style>
