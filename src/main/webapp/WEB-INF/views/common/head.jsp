@@ -87,10 +87,7 @@
 <!-- ajaxform -->
 <script src="http://malsup.github.com/jquery.form.js"></script> 
 
-<<style>
-<!--
-
--->
+<style>
 .btn {
 	line-height : 20px
 }
