@@ -83,7 +83,7 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">브랜드 설명</label>
+									<label class="control-label" for="form-field-2">출판사 설명</label>
 									<div class="controls">
 										<c:choose>
 											<c:when test="${data.BOARD_DESC != null}">

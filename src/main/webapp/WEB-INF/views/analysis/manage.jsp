@@ -19,7 +19,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">브랜드 관리</li>
+			<li class="active">출판사 관리</li>
 		</ul><!--.breadcrumb-->
 
 		<div class="nav-search" id="nav-search">
@@ -35,7 +35,7 @@
 			<div class="span5">
 			
 				<div class="alert alert-info">
-					<strong>브랜드</strong>
+					<strong>출판사</strong>
 					<br>
 				</div>
 				
@@ -57,7 +57,7 @@
 						</c:forEach>
 					</tbody>	
 				</table>
-				<button id="create-brand-btn" class="btn btn-info pull-right">브랜드 생성</button>
+				<button id="create-brand-btn" class="btn btn-info pull-right">출판사 생성</button>
 			</div><!--/.span-->
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->
@@ -67,10 +67,10 @@
 	<form action="/storyfarm-admin/brand/create.do" method="post">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 등록</h3>
+			<h3 class="text-center">출판사 등록</h3>
 		</div>
 		<div class="modal-body">
-					브랜드 명  <input type="text" name="brand_nm">
+					출판사 명  <input type="text" name="brand_nm">
 		</div>
 		<div class="modal-footer">
 			<button class="btn btn-series-close" data-dismiss="modal" aria-hidden="true">등록취소</button>

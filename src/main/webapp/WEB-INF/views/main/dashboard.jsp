@@ -139,7 +139,7 @@
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-rss orange"></i>
-												<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 브랜드</a>
+												<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 출판사</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -156,12 +156,12 @@
 														<tr>
 															<th class="span2">
 																<i class="icon-caret-right blue"></i>
-																브랜드 ID
+																출판사 ID
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																브랜드 명
+																출판사 명
 															</th>
 
 															<th class="hidden-phone">
