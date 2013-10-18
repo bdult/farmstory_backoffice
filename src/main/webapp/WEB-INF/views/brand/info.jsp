@@ -19,7 +19,7 @@
 							</span>
 						</li>
 						<li>
-							브랜드
+							출판사
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
@@ -32,10 +32,10 @@
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							브랜드 상세
+							출판사 상세
 							<small>
 								<i class="icon-double-angle-right"></i>
-								브랜드에 대한 상세한 정보
+								출판사에 대한 상세한 정보
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -48,7 +48,7 @@
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_id">브랜드 ID</label>
+									<label class="control-label" for="contents_id">출판사 ID</label>
 
 									<div class="controls">
 										<input readonly="readonly" type="text" id="brand_id" name="brand_id" value="${data.BRAND_ID}" />
@@ -56,10 +56,10 @@
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">브랜드 명</label>
+									<label class="control-label" for="contents_nm">출판사 명</label>
 
 									<div class="controls">
-										<input type="text" id="brand_nm" name="brand_nm" placeholder="브랜드 명" value="${data.BRAND_NM}" />
+										<input type="text" id="brand_nm" name="brand_nm" placeholder="출판사 명" value="${data.BRAND_NM}" />
 									</div>
 								</div>
 								
@@ -72,7 +72,7 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">브랜드 설명</label>
+									<label class="control-label" for="form-field-2">출판사 설명</label>
 									<div class="controls">
 										<c:choose>
 											<c:when test="${data.BRAND_DESC != null}">

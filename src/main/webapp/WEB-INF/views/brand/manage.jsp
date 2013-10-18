@@ -24,7 +24,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">브랜드</li>
+			<li class="active">출판사</li>
 		</ul>
 
 		<div class="nav-search" id="nav-search">
@@ -39,7 +39,7 @@
 
 <div class="page-content">
 	<div class="row-fluid">
-			<h3 class="header smaller lighter blue">브랜드 리스트</h3>
+			<h3 class="header smaller lighter blue">출판사 리스트</h3>
 			<div class="table-header" align="right">
 				<button id="create-brand-btn" class="btn btn-success">추가</button>
 			</div>
