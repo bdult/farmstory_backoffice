@@ -218,7 +218,7 @@
 		
 		
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do?pageNum=${pageNum}";
+			history.back(1);
 		});
 		
 		$("#delete-btn").click(function(){

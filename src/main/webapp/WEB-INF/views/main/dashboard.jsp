@@ -134,59 +134,57 @@
 							<div class="hr hr32 hr-dotted"></div>
 
 							<div class="row-fluid">
-								<div class="span6">
-									<div class="widget-box transparent" >
-										<div class="widget-header">
-											<h4 class="lighter smaller">
-												<i class="icon-rss orange"></i>
-												<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 브랜드</a>
-											</h4>
-
-											<div class="widget-toolbar">
-												<a href="#" data-action="collapse">
-													<i class="icon-chevron-up"></i>
-												</a>
+									<div class="span6">
+										<div class="widget-box transparent" >
+											<div class="widget-header">
+												<h4 class="lighter smaller">
+													<i class="icon-rss orange"></i>
+													<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 브랜드</a>
+												</h4>
+	
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="icon-chevron-up"></i>
+													</a>
+												</div>
 											</div>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th class="span2">
-																<i class="icon-caret-right blue"></i>
-																브랜드 ID
-															</th>
-
-															<th>
-																<i class="icon-caret-right blue"></i>
-																브랜드 명
-															</th>
-
-															<th class="hidden-phone">
-																<i class="icon-time bigger-110 hidden-phone"></i>
-																생성일
-															</th>
-														</tr>
-													</thead>
-
-													<tbody>
-														<c:forEach items="${brandTop5 }" var="brand">
+	
+											<div class="widget-body">
+												<div class="widget-main no-padding">
+													<table class="table table-bordered table-striped">
+														<thead>
 															<tr>
-																<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_ID}</a> </td>
-																<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_NM}</a> </td>
-																<td>${brand.REG_DT}</td>
+																<th class="span2">
+																	<i class="icon-caret-right blue"></i>
+																	브랜드 ID
+																</th>
+	
+																<th>
+																	<i class="icon-caret-right blue"></i>
+																	브랜드 명
+																</th>
+	
+																<th class="hidden-phone">
+																	<i class="icon-time bigger-110 hidden-phone"></i>
+																	생성일
+																</th>
 															</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div><!--/widget-main-->
-										</div><!--/widget-body-->
-									</div><!--/widget-box-->
-								</div><!--/span-->
-
-								<div class="row-fluid">
+														</thead>
+	
+														<tbody>
+															<c:forEach items="${brandTop5 }" var="brand">
+																<tr>
+																	<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_ID}</a> </td>
+																	<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_NM}</a> </td>
+																	<td>${brand.REG_DT}</td>
+																</tr>
+															</c:forEach>
+														</tbody>
+													</table>
+												</div><!--/widget-main-->
+											</div><!--/widget-body-->
+										</div><!--/widget-box-->
+									</div><!--/span-->
 									<div class="span6">
 										<div class="widget-box transparent" >
 											<div class="widget-header">
@@ -201,7 +199,7 @@
 													</a>
 												</div>
 											</div>
-
+	
 											<div class="widget-body">
 												<div class="widget-main no-padding">
 													<table class="table table-bordered table-striped">
@@ -227,8 +225,8 @@
 														<tbody>
 															<c:forEach items="${seriesTop5 }" var="series">
 																<tr>
-																	<td>${series.CONTENTS_SERIES_ID}</td>
-																	<td>${series.CONTENTS_SERIES_NM}</td>
+																	<td><a href="${contextPath }/series/detail.do?pageNum=1&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_ID}</a></td>
+																	<td><a href="${contextPath }/series/detail.do?pageNum=1&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_NM}</a></td>
 																	<td>${series.REG_DT}</td>
 																</tr>
 															</c:forEach>
@@ -236,10 +234,9 @@
 													</table>
 												</div><!--/widget-main-->
 											</div><!--/widget-body-->
-									</div><!--/widget-box-->
-								</div><!--/span-->
-							</div><!--/row-->
-						</div><!--/.row-fluid-->
+										</div><!--/widget-box-->
+									</div><!--/span-->
+							</div><!--/.span-->
 						
 						<div class="hr hr32 hr-dotted"></div>
 						
