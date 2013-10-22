@@ -95,12 +95,12 @@
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label" for="brand_id">브랜드 명</label>
+									<label class="control-label" for="brand_id">출판사 명</label>
 
 									<div class="controls">
 										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID == null? 0 : data.BRAND_ID}" />
 										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM}" />
-										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 변경" />
+										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="출판사 변경" />
 									</div>
 								</div>
 								 -->

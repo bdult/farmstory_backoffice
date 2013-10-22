@@ -80,7 +80,7 @@
 					<button type="button" class="close" data-dismiss="alert">
 						<i class="icon-remove"></i>
 					</button>
-					<strong>브랜드 관리</strong>
+					<strong>출판사 관리</strong>
 					<br>
 				</div>
 				
@@ -163,11 +163,11 @@
 <div id="creat-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 class="text-center">브랜드 등록</h3>
+		<h3 class="text-center">출판사 등록</h3>
 	</div>
 	<div class="modal-body">
 		<form action="/brand/create.do">
-				브랜드 명  <input type="text" name="brand_nm">
+				출판사 명  <input type="text" name="brand_nm">
 		</form>
 	</div>
 	<div class="modal-footer">
@@ -193,11 +193,11 @@ $(function(){
 	});
 	
 	$("#createBrandBtn").on(ace.click_event, function() {
-		bootbox.prompt("생성할 브랜드 이름을 입력해 주세요.", function(result) {
+		bootbox.prompt("생성할 출판사 이름을 입력해 주세요.", function(result) {
 			if (result === null) {
 				//Example.show("Prompt dismissed");
 			} else {
-				alert("브랜드 생성 ajax 요청");
+				alert("출판사 생성 ajax 요청");
 			}
 		});
 	});

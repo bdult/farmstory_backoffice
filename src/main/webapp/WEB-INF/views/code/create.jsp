@@ -71,12 +71,12 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="brand_id">브랜드</label>
+									<label class="control-label" for="brand_id">출판사</label>
 
 									<div class="controls">
 										<input type="hidden" id="brand_id" name="brand_id" />
 										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" />
-										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 설정" />
+										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="출판사 설정" />
 									</div>
 								</div>
 								
@@ -178,11 +178,11 @@
 <div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 설정</h3>
+			<h3 class="text-center">출판사 설정</h3>
 		</div>
 		<div class="modal-body">
 			<div id="modify-brand-list" class="control-group">
-				<label class="control-label">브랜드 리스트</label>
+				<label class="control-label">출판사 리스트</label>
 				<div class="controls">
 					<select id="modify-brand-select">
 					</select>

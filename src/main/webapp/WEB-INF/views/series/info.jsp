@@ -64,12 +64,12 @@
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">브랜드 명</label>
+									<label class="control-label" for="contents_nm">출판사 명</label>
 
 									<div class="controls">
 										<input  type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID == null? 0 : data.BRAND_ID}" />
-										<input readonly="readonly" type="text" id="brand_nm" placeholder="브랜드 명" name="brand_nm" value="${data.BRAND_NM}" />
-										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="브랜드 변경" />
+										<input readonly="readonly" type="text" id="brand_nm" placeholder="출판사 명" name="brand_nm" value="${data.BRAND_NM}" />
+										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="출판사 변경" />
 									</div>
 								</div>
 								
@@ -146,18 +146,18 @@
 <div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">브랜드 설정</h3>
+			<h3 class="text-center">출판사 설정</h3>
 		</div>
 		<div class="modal-body">
 			<div  class="control-group row-fluid">
-				<label class="control-label ">브랜드 명</label>
+				<label class="control-label ">출판사 명</label>
 				<div class="controls">
 					<input  id="modify-brand-name" name="brand_nm" type="text">					
 					<button id="modify-brand-search-btn" type="button" class="btn btn-primary">검색</button>
 				</div>
 			</div>
 			<div class="control-group" id="brand-modal-list">
-				<label class="control-label">브랜드 리스트</label>
+				<label class="control-label">출판사 리스트</label>
 				<div class="controls">
 					<select id="modify-brand-select">
 					</select>
@@ -260,7 +260,7 @@
 					dataType: 'json',
 					success : function(response) {
 						if(response.data.length == 0){
-							alert("검색된 브랜드가 없습니다.");
+							alert("검색된 출판사가 없습니다.");
 							return false;
 						}else{
 							$.each(response.data, function(index, brand){

@@ -79,7 +79,7 @@
 					<li id="side-contents-brand">
 						<a href="${contextPath }/brand/manage.do">
 							<i class="icon-double-angle-right"></i>
-							브랜드
+							출판사
 						</a>
 					</li>
 					<li id="side-contents-category">
