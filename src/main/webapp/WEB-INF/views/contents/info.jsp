@@ -82,34 +82,12 @@
 									</div>
 								</div>
 								
-								<!-- 
-								<div class="control-group">
-									<label class="control-label" for="contents_series_id">카테고리</label>
-
-									<div class="controls">
-										<c:forEach items="${categoryList }" var="cate">
-										<input  type="hidden" id="cate_id" name="cate_id" value="${cate.CATE_ID}" />
-										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM}" />
-										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
-										</c:forEach>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label" for="brand_id">출판사 명</label>
-
-									<div class="controls">
-										<input type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID == null? 0 : data.BRAND_ID}" />
-										<input readonly="readonly" type="text" id="brand_nm" name="brand_nm" value="${data.BRAND_NM}" />
-										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="출판사 변경" />
-									</div>
-								</div>
-								 -->
-								
 								<div class="control-group">
 									<label class="control-label" for="src_path">동영상</label>
 									<div class="controls">
 										<input readonly="readonly" class="span5" type="text" id="src_path" name="src_path" value="${data.SRC_PATH }" />
 										<input  type="button" id="movie-mod-btn" class="btn btn-primary" value="동영상 변경" />
+										<input  type="button" id="confirm-btn" class="btn btn-info" value="확인" />
 										<div class="help-block" id="input-span-slider"></div>
 									</div>
 								</div>
@@ -285,35 +263,27 @@
 			
 		</div>
 </div>
-<!-- 
+
+<!-- Comfirm modal -->
+<div id="comfirm-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">동영상 변경</h3>
+			<h3 class="text-center">Check movie</h3>
 		</div>
 		<div class="modal-body">
-			<form action="//dummy.html" class="dropzone dz-clickable">
-				<div class="dz-default dz-message">
-					<span>
-						<span class="bigger-150 bolder">
-							<i class="icon-caret-right red"></i> Drop files
-						</span> to upload 				
-						<span class="smaller-80 grey">(or click)</span> 
-						<br> 				
-						<i class="upload-icon icon-cloud-upload blue icon-3x"></i>
-					</span>
-				</div>
-			</form>
+			<video id="player" width="720px" controls height="380px">
+			<source src="http://rntsmedia.vps.phps.kr/ozworld/streaming.do?contents_id=${data.CONTENTS_ID}">
+				error
+			</video>
 		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-brand-modal-btn" type="button" class="btn btn-primary">변경</button>
-		</div>
- -->
+</div>
 
 <script type="text/javascript">
 
 	$("#side-contents-contents").attr("class", "active");
 	$("#side-contents").attr("class", "open active");
+	
+	
 	
 	$(document).on('click', '.delete-category-btn', function(){
 		$eventTag = $(this); 
@@ -338,6 +308,19 @@
 	});
 
 	$(function(){
+		
+		// 동영상 확인 버튼
+		$("#confirm-btn").click(function(){
+			$("#comfirm-modal").modal().css({'width': '750px', 'height': '470px', 'margin-left': function () {return -($(this).width() / 2);}});
+			$("#player")[0].load();
+			$("#player").get(0).play();
+		});
+		
+		$('#comfirm-modal').on('hidden', function () {
+			$("#player")[0].ended();
+		});
+		
+		// end 동영상 확인 버튼
 		
 		$('#movie-upload-input').ace_file_input({
 			style:'well',

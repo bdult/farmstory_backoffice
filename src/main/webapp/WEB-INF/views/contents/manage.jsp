@@ -78,20 +78,32 @@
 				<div class="span6">
 					<div class="dataTables_paginate paging_bootstrap pagination">
 						<ul>
-							<li class="prev disabled"><a href="#null"><i
-									class="icon-double-angle-left"></i></a></li>
+							<c:choose>
+								<c:when test="${pageInfo.blockPage == 1}">
+									<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+								</c:otherwise>
+							</c:choose>
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${page.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&search=${page.search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							<li class="next"><a href="#"><i
-									class="icon-double-angle-right"></i></a></li>
+							<c:choose>
+								<c:when test="${pageInfo.blockPage == pageInfo.totalBlockPage}">
+									<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 				</div>

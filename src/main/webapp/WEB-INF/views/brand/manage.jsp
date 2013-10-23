@@ -37,52 +37,65 @@
 		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 
-<div class="page-content">
-	<div class="row-fluid">
-			<h3 class="header smaller lighter blue">출판사 리스트</h3>
-			<div class="table-header" align="right">
-				<button id="create-brand-btn" class="btn btn-success">추가</button>
-			</div>
-			<table  class="table table-striped table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>이름</th>
-						<th><i class="icon-time bigger-110 hidden-phone"></i>생성일</th>
-					</tr>
-				</thead>				
-				<tbody>
-					<c:forEach items="${brandList }" var="brand">
-					<tr>
-						<td><a href="${contextPath }/brand/detail.do?pageNum=${pageInfo.pageNum}&brand_id=${brand.BRAND_ID }">${brand.BRAND_ID }</a></td>
-						<td><a href="${contextPath }/brand/detail.do?pageNum=${pageInfo.pageNum}&brand_id=${brand.BRAND_ID }">${brand.BRAND_NM }</a></td>
-						<td>${brand.REG_DT }</td>
-					</tr>
-					</c:forEach>
-				</tbody>	
-			</table>
-	</div><!--/.row-fluid-->
-	<div class="row-fluid">
+	<div class="page-content">
+		<div class="row-fluid">
+				<h3 class="header smaller lighter blue">출판사 리스트</h3>
+				<div class="table-header" align="right">
+					<button id="create-brand-btn" class="btn btn-success">추가</button>
+				</div>
+				<table  class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>이름</th>
+							<th><i class="icon-time bigger-110 hidden-phone"></i>생성일</th>
+						</tr>
+					</thead>				
+					<tbody>
+						<c:forEach items="${brandList }" var="brand">
+						<tr>
+							<td><a href="${contextPath }/brand/detail.do?pageNum=${pageInfo.pageNum}&brand_id=${brand.BRAND_ID }">${brand.BRAND_ID }</a></td>
+							<td><a href="${contextPath }/brand/detail.do?pageNum=${pageInfo.pageNum}&brand_id=${brand.BRAND_ID }">${brand.BRAND_NM }</a></td>
+							<td>${brand.REG_DT }</td>
+						</tr>
+						</c:forEach>
+					</tbody>	
+				</table>
+		</div><!--/.row-fluid-->
+	</div>
+		<div class="row-fluid">
 				<div class="span6">
 					<div class="dataTables_info">Total ${pageInfo.totalCount } entries</div>
 				</div>
 				<div class="span6">
 					<div class="dataTables_paginate paging_bootstrap pagination">
 						<ul>
-							<li class="prev disabled"><a href="#null"><i
-									class="icon-double-angle-left"></i></a></li>
+							<c:choose>
+								<c:when test="${pageInfo.blockPage == 1}">
+									<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+								</c:otherwise>
+							</c:choose>
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							<li class="next"><a href="#"><i
-									class="icon-double-angle-right"></i></a></li>
+							<c:choose>
+								<c:when test="${pageInfo.blockPage == pageInfo.totalBlockPage}">
+									<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 				</div>

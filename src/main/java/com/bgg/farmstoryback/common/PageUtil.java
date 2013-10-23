@@ -14,9 +14,10 @@ public class PageUtil {
 	public static final String ROWNUM_KEY = "rownum";
 	public static final String PER_KEY = "perpage"; 
 	
-	public static final int PAGE_NUM = 1; // 기본 페이지 번호
+	public static final int DEFAULT_NUM = 1; 
 	public static final int PAGE_SIZE = 10; // 한 화면에 보여질 **페이지** 갯수
 	public static final int PER_PAGE = 10; // 한 페이지에 보여질 **글** 갯수
+	public static final int PAGE_BLOCK = 10; // 페이징 block
 
 	public int getPerPage() {
 		return PER_PAGE;
@@ -44,6 +45,8 @@ public class PageUtil {
 		int startRowNum = getStartRowNum(pageNum);
 		return startRowNum+PER_PAGE;
 	}
+	
+	
 
 	/**
 	 *  현재 페이지 와 Total Count 넣어 주면 Page Link를 리턴 해줌
@@ -53,14 +56,36 @@ public class PageUtil {
 	 */
 //	public Map<String, Object> pageLink(int totalCnt, int pageNum, String search) {
 	public Map<String, Object> pageLink(int totalCnt, Map parameter) {
-		int pageNum = 1;
-		if(parameter.get("pageNum") != null){
-			pageNum  = Integer.parseInt((String)parameter.get("pageNum"));
-		}
+		
 		Map<String, Object> pageLinkMap = new HashMap<String, Object>();
+		int totalPage = this.getTotalPageCnt(totalCnt);
+		pageLinkMap.put("totalCount", totalCnt);
+		
+		int blockPage = creatBlockPageInfo(parameter, pageLinkMap, totalPage);
+		
+		setPageNumInfo(parameter, pageLinkMap, totalPage, blockPage);
+		
+		return pageLinkMap;
+	}
+
+	private void setPageNumInfo(Map parameter,
+			Map<String, Object> pageLinkMap, int totalPage, int blockPage) {
+		// 요청 페이지 number 세팅
+		int pageNum = DEFAULT_NUM;
+		if(parameter.get("pageNum") != null){
+			try {
+				pageNum  = Integer.parseInt((String)parameter.get("pageNum"));
+			} catch (Exception e) {
+				
+			}
+		}else{
+			pageNum = (blockPage-1)*PAGE_BLOCK+1;
+		}
+		
+		
 		int firstPageNum = this.getFirstPageNum(pageNum);
 		int lastPageNum = this.getLastPageNum(firstPageNum);
-		int totalPage = this.getTotalPageCnt(totalCnt);
+		
 		
 		lastPageNum = totalPage < lastPageNum ? totalPage : lastPageNum;
 
@@ -70,27 +95,40 @@ public class PageUtil {
 			pageMap.put("pageNum", pageNumSeq + "");
 			pageList.add(pageMap);
 		}
-		
 		pageLinkMap.put("lastPage", (int)Math.ceil(totalPage / 1));
-		pageLinkMap.put("totalCount", totalCnt);
 		pageLinkMap.put("pageList", pageList);// 페이지 리스트
 		pageLinkMap.put("pageNum", pageNum);// 현재 페이지 번호
 		pageLinkMap.put("startNo", getStartRowNum(pageNum));
 		pageLinkMap.put("perPage", PER_PAGE);
 		pageLinkMap.put("search", parameter.get("search"));
-		
-		// 1페이지가 아니라면
-		if (1 != firstPageNum) {
-			pageLinkMap.put("pagePrev", firstPageNum - 1);// 이전
+	}
+
+	private int creatBlockPageInfo(Map parameter,
+			Map<String, Object> pageLinkMap, int totalPage) {
+		// 요청 페이지 block 세팅
+		int blockPage = DEFAULT_NUM;
+		if(parameter.get("blockPage") != null){
+			try {
+				blockPage  = Integer.parseInt((String)parameter.get("blockPage"));
+			} catch (Exception e) {
+				
+			}
 		}
-		// 마지막 페이지 리스트가 아니라면
-		if (totalPage != lastPageNum) {
-			pageLinkMap.put("pageNext", lastPageNum + 1);// 다음
+		int totalBlockPage = ((totalPage - 1) / PAGE_BLOCK) + 1;
+		int nextBlockPage = blockPage+1;
+		int preBlockPage = blockPage-1;
+		if(blockPage >= totalBlockPage){
+			nextBlockPage = totalBlockPage;
 		}
 		
-		
-		
-		return pageLinkMap;
+		if(preBlockPage <= 0){
+			preBlockPage = DEFAULT_NUM;
+		}
+		pageLinkMap.put("nextBlockPage", nextBlockPage);// 현재 페이지 번호
+		pageLinkMap.put("preBlockPage", preBlockPage);// 현재 페이지 번호
+		pageLinkMap.put("blockPage", blockPage);// 현재 페이지 번호
+		pageLinkMap.put("totalBlockPage", totalBlockPage);// 현재 페이지 번호
+		return blockPage;
 	}
 	
 }
