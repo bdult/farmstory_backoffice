@@ -23,14 +23,14 @@ public class Interceptor extends HandlerInterceptorAdapter {
 		printRequestLog(request);
 		try {
 			
-//			//false로 변경 하면 로그인 세션 체크 안함
-//			if(notExcludeRequestPath(request)){
-//				if (noHasSession(request)){
-//					response.sendRedirect(request.getContextPath()+"/user/login.do");
-//					return false;
-//				}
-//				return true;
-//			}
+			//false로 변경 하면 로그인 세션 체크 안함
+			if(notExcludeRequestPath(request)){
+				if (noHasSession(request)){
+					response.sendRedirect(request.getContextPath()+"/user/login.do");
+					return false;
+				}
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
