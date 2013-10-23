@@ -33,12 +33,9 @@
 	</logger>
 	
 	<logger name="java.sql">
-        <level value="DEBUG" />
+        <level value="info" />
     </logger>
 
-	<logger name="java.sql">
-		<level value="debug" />
-	</logger>
 
 	<!-- Root Logger -->
 	<root>
