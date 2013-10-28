@@ -119,6 +119,29 @@
 					코드 관리
 				</a>
 			</li>
+			<li id="side-stats">
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 통계 관리
+						<span class="badge badge-primary ">2</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li id="side-board-master" >
+						<a href="${contextPath }/stats/setting.do">
+							<i class="icon-double-angle-right"></i>
+							설정
+						</a>
+					</li> 
+					<li id="side-board-board" >
+						<a href="${contextPath }/stats/manage.do">
+							<i class="icon-double-angle-right"></i>
+							통계 조회
+						</a>
+					</li>
+				</ul>
+			</li>
 		</ul><!--/.nav-list-->
 	
 		<div class="sidebar-collapse" id="sidebar-collapse">
