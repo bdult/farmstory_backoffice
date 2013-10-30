@@ -36,6 +36,10 @@ public class GoogleApiUtil {
 
 	Logger logger = org.slf4j.LoggerFactory.getLogger(getClass());
 
+	private final String ROOT = "/";
+	private final String parentPath = "google-analytics/";
+	private final String fileName = "google.accessToken";
+	
 	// https://cloud.google.com/console
 	// ozworld installed 정보
 	private final String cliendId = "724483965228-j599oijfnsl3r3m3a8npsu0hlsa4544d.apps.googleusercontent.com";
@@ -119,10 +123,10 @@ public class GoogleApiUtil {
 	 * @return
 	 */
 	public String getAccessToken() {
-
+		
 		String accessToken = "";
 		try {
-			FileInputStream inputStream = new FileInputStream(new File(String.format("%s\\src\\main\\webapp\\WEB-INF\\cfg\\google.accessToken", System.getProperty("user.dir"))));
+			FileInputStream inputStream = new FileInputStream(ROOT + parentPath + fileName);
 			accessToken = IOUtils.toString(inputStream);
 			inputStream.close();
 		} catch (Exception e) {
@@ -141,10 +145,16 @@ public class GoogleApiUtil {
 	 */
 	public void writeAccessToken(String accessToken) {
 
+		//디렉토리 생성 
+		File destination = new File(ROOT+parentPath);
+		//해당 디렉토리의 존재여부를 확인
+		if(!destination.exists()){
+			destination.mkdirs(); 
+		}
 		FileOutputStream fos = null;
 		try {
 
-			fos = new FileOutputStream(String.format("%s\\src\\main\\webapp\\WEB-INF\\cfg\\google.accessToken", System.getProperty("user.dir")), false);
+			fos = new FileOutputStream(ROOT + parentPath + fileName, false);
 
 			byte[] contentInBytes = accessToken.getBytes();
 

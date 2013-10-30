@@ -24,8 +24,7 @@ public class Interceptor extends HandlerInterceptorAdapter {
 		try {
 			
 			//false로 변경 하면 로그인 세션 체크 안함
-			if(false){
-//			if(notExcludeRequestPath(request)){
+			if(notExcludeRequestPath(request)){
 				if (noHasSession(request)){
 					response.sendRedirect(request.getContextPath()+"/user/login.do");
 					return false;
