@@ -131,6 +131,14 @@ public class UserController {
     
     return "user/child_info";
   }
+
+  @RequestMapping(value = "user/userModify.do", method = RequestMethod.GET)
+  public String userModify(Model model, @RequestParam Map<String,Object> paramMap) {
+	  
+    model.addAttribute("detail",userService.detail(paramMap));
+    
+    return "user/addInfo";
+  }
   
   @RequestMapping(value = "user/admin/createView.do", method = RequestMethod.GET)
   public String adminCreateView(Model model) {

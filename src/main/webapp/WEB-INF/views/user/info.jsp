@@ -47,71 +47,98 @@
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
 							<form id="create-form" method="get" class="form-horizontal" >
+
 								<div class="control-group">
-									<label class="control-label">회원 ID</label>
+									<label class="control-label">아이디</label>
 									<div class="controls">
 										<input type="text" readonly="readonly" name="member_id" value="${detail.userDetail.MEMBER_ID}">
 									</div>
 								</div>
-
 								<div class="control-group">
-									<label class="control-label">회원 이름</label>
+									<label class="control-label">이름</label>
 									<div class="controls">
 										<input type="text" name="member_nm" value="${detail.userDetail.MEMBER_NM}" />
 									</div>
 								</div>
-								<div class="control-group">
+								<%-- <div class="control-group">
 									<label class="control-label">회원 비밀번호</label>
 									<div class="controls">
 										<input type="text" name="member_pw" value="${detail.userDetail.MEMBER_PW}" />
 									</div>
-								</div>
+								</div> --%>
 								<div class="control-group">
-									<label class="control-label">회원 이메일</label>
+									<label class="control-label">생년월일</label>
 									<div class="controls">
-										<input type="text" name="member_email" value="${detail.userDetail.MEMBER_EMAIL}" />
+										<input type="hidden" value="${detail.userDetail.MEMBER_YEAR}" />
+										<input type="hidden" value="${detail.userDetail.MEMBER_MONTHL}" />
+										<input type="hidden" value="${detail.userDetail.MEMBER_DAY}" />
+										<input type="text" value="${detail.userDetail.MEMBER_YEAR}년 ${detail.userDetail.MEMBER_MONTH}월 ${detail.userDetail.MEMBER_DAY}일" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">회원 전화번호</label>
+									<label class="control-label">성별</label>
 									<div class="controls">
-										<input type="text" name="member_tel" value="${detail.userDetail.MEMBER_TEL}" />
+										<input type="text" name="member_gender" value="${detail.userDetail.MEMBER_GENDER}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">회원 휴대폰 번호</label>
+									<label class="control-label">휴대폰</label>
 									<div class="controls">
 										<input type="text" name="member_cel" value="${detail.userDetail.MEMBER_CEL}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">회원 주소</label>
+									<label class="control-label">이메일</label>
 									<div class="controls">
-										<input type="text" name="member_addr_1" value="${detail.userDetail.MEMBER_ADDR_1}" />
+										<input type="text" name="member_email" value="${detail.userDetail.MEMBER_EMAIL}" />
 									</div>
+								</div>
+								<!-- <div class="control-group">
+									<label class="control-label">회원 주소</label>
+									<div class="controls"> -->
+										<input type="hidden" name="member_addr_1" value="${detail.userDetail.MEMBER_ADDR_1}" />
+									<!-- </div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">회원 상세 주소</label>
+									<div class="controls"> -->
+										<input type="hidden" name="member_addr_2" value="${detail.userDetail.MEMBER_ADDR_2}" />
+									<!-- </div>
+								</div> -->
+								<div class="control-group">
+									<label class="control-label">주소</label>
 									<div class="controls">
-										<input type="text" name="member_addr_2" value="${detail.userDetail.MEMBER_ADDR_2}" />
+										<input class="input-xxlarge" type="text" value="${detail.userDetail.MEMBER_ADDR_1} ${detail.userDetail.MEMBER_ADDR_2}" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">회원구분</label>
+									<div class="controls">
+										<input type="text" name="" value="" />
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label">최근결제일</label>
+									<div class="controls">
+										<input type="text" name="" value="" />
 									</div>
 								</div>
 								
-								<div class="control-group">
+								<%-- <div class="control-group">
 									<label class="control-label">회원 등급</label>
 
 									<div class="controls">
 										<input type="text" name="member_role" value="${detail.userDetail.MEMBER_ROLE}" />
 									</div>
-								</div>
+								</div> --%>
 								
-								<div class="control-group">
+								<%-- <div class="control-group">
 									<label class="control-label">회원 상태</label>
 
 									<div class="controls">
 										<input type="text" name="member_status" value="${detail.userDetail.MEMBER_STATUS}" />
 									</div>
-								</div>
+								</div> --%>
 								<c:if test="${detail.type == 'adminView' }">
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit" id="modify-btn">
@@ -128,49 +155,171 @@
 									</a>
 								</div>
 								</c:if>
-								<c:if test="${detail.type == 'userView' }">
+								<%-- <c:if test="${detail.type == 'userView' }">
 									<div class="form-actions">
 										<a class="btn btn-inverse" id="cancel-btn">
 											<i class="icon-list bigger-110"></i>
 											목록으로
 										</a>
 									</div>
-								</c:if>
+								</c:if> --%>
 							</form>
 					</div>
 			</div>
 			
 		<c:if test="${detail.type == 'userView' }">
-			<div class="page-header position-relative">
-					<h1>
-						자녀 정보
-						<small>
-							<i class="icon-double-angle-right"></i>
-							회원 자녀 정보에 대한 상세한 정보를 입력한다
-						</small>
-					</h1>
-			</div>		
-				
+		<!-- clidren nav -->
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="active" id="navTab1">
+					<a data-toggle="tab" href="#home">
+						<i class="green icon-home bigger-110"></i>
+						자녀방설정
+					</a>
+				</li>
+
+				<li class="" id="navTab2">
+					<a data-toggle="tab" href="#home">
+						<i class="green icon-home bigger-110"></i>
+						결제내역
+					</a>
+				</li>
+				<li class="" id="navTab3">
+					<a data-toggle="tab" href="#home">
+						<i class="green icon-home bigger-110"></i>
+						쿠폰내역
+					</a>
+				</li>
+				<li class="" id="navTab4">
+					<a data-toggle="tab" href="#home">
+						<i class="green icon-home bigger-110"></i>
+						1:1문의
+					</a>
+				</li>
+			</ul>
+			
 		<!--/.page-header-->
-			<table class="table table-striped table-bordered table-hover">
+			<table class="table table-striped table-bordered table-hover" id="navTabList1">
+				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="0" end="0">
+					<thead>
+						<tr>
+							<th colspan="4">자녀A 정보</th>
+						</tr>
+					</thead>
+					<tbody>
+							<tr>
+								<td>이름</td>
+								<td><a href="${ contextPath }/user/childDetail.do?idx=${ childList.IDX }">${ childList.CHILD_NM }</a></td>
+								<td>성별</td>
+								<td>${ childList.GENDER }</td>
+							</tr>
+							<tr>
+								<td>생년월일</td>
+								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
+								<td>자녀등록일</td>
+								<td></td>
+							</tr>
+					</tbody>
+				</c:forEach>
+					
+				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="1" end="1">
+					<thead>
+						<tr>
+							<th colspan="4">자녀B 정보</th>
+						</tr>
+					</thead>
+					<tbody>
+							<tr>
+								<td>이름</td>
+								<td><a href="${ contextPath }/user/childDetail.do?idx=${ childList.IDX }">${ childList.CHILD_NM }</a></td>
+								<td>성별</td>
+								<td>${ childList.GENDER }</td>
+							</tr>
+							<tr>
+								<td>생년월일</td>
+								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
+								<td>자녀등록일</td>
+								<td></td>
+							</tr>
+					</tbody>
+				</c:forEach>
+			</table>
+			
+			<table class="table table-striped table-bordered table-hover" id="navTabList2" style="display: none;">
 				<thead>
 					<tr>
-						<th>자녀 이름</th>
-						<th>지녀 성별</th>
-						<th>자녀 생년월일</th>
+						<th>NO.</th>
+						<th>결제일자</th>
+						<th>요금제</th>
+						<th>결제요금</th>
+						<th>결제방법</th>
+						<th>잔여기간</th>
 					</tr>
 				</thead>
 				<tbody>
-						<c:forEach var="childList" items="${detail.userChildList}"
-							varStatus="status">
-							<tr>
-								<td><a href="${ contextPath }/user/childDetail.do?idx=${ childList.IDX }">${ childList.CHILD_NM }</a></td>
-								<td>${ childList.GENDER }</td>
-								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
-							</tr>
+					<tr>
+						<c:forEach var="true" items="true">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
 						</c:forEach>
+					</tr>
 				</tbody>
 			</table>
+			
+			<table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
+				<thead>
+					<tr>
+						<th>NO.</th>
+						<th>등록일자</th>
+						<th>쿠폰명</th>
+						<th>쿠폰번호</th>
+						<th>쿠폰만료일</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<c:forEach var="true" items="true">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</c:forEach>
+					</tr>
+				</tbody>
+			</table>
+			
+			<table class="table table-striped table-bordered table-hover" id="navTabList4" style="display: none;">
+				<thead>
+					<tr>
+						<th>NO.</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>답변현황</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<c:forEach var="true" items="true">
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</c:forEach>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="row-fluid">
+				<div class="span12 text-right">
+					<a class="btn btn-primary" href="${ contextPath }/user/userModify.do?member_id=${detail.userDetail.MEMBER_ID}">회원정보 수정</a>
+				</div>
+			</div>
 		</c:if>
 		</div>
 	</div>
@@ -217,6 +366,32 @@ $(function(){
 			return false;
 		}
 	});
+});
+
+
+$("#navTab1").click(function(){
+	$("#navTabList1").show();
+	$("#navTabList2").css("display", "none");
+	$("#navTabList3").css("display", "none");
+	$("#navTabList4").css("display", "none");
+});
+$("#navTab2").click(function(){
+	$("#navTabList1").css("display", "none");
+	$("#navTabList2").show();
+	$("#navTabList3").css("display", "none");
+	$("#navTabList4").css("display", "none");
+});
+$("#navTab3").click(function(){
+	$("#navTabList1").css("display", "none");
+	$("#navTabList2").css("display", "none");
+	$("#navTabList3").show();
+	$("#navTabList4").css("display", "none");
+});
+$("#navTab4").click(function(){
+	$("#navTabList1").css("display", "none");
+	$("#navTabList2").css("display", "none");
+	$("#navTabList3").css("display", "none");
+	$("#navTabList4").show();
 });
 
 /* $(document).ready(function(){

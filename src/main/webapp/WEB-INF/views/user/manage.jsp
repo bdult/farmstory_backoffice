@@ -41,7 +41,7 @@
 			</form>
 		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
-
+	
 	<div class="page-content">
 		<div class="row-fluid">
 			<c:if test="${ type == 'userView' }">
@@ -55,21 +55,81 @@
 			</c:if>
 			<!-- /. table-header -->
 		<!--/.page-header-->
-		
+				<form class="form-horizontal well">
+					<div class="row-fluid">
+						<div class="span4">
+							<div class="control-group">
+							    <label class="">회원검색
+									<select>
+									  <option>1</option>
+									  <option>2</option>
+									  <option>3</option>
+									  <option>4</option>
+									  <option>5</option>
+									</select>
+							    </label>
+							</div>
+						</div>
+						<div class="span8">
+							<input class="input-xxlarge" type="text" placeholder="검색어를 입력하세요">
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span4">
+							<div class="control-group">
+							    <label class="">회원구분
+									<select>
+									  <option>1</option>
+									  <option>2</option>
+									  <option>3</option>
+									  <option>4</option>
+									  <option>5</option>
+									</select>
+							    </label>
+							</div>
+						</div>
+						<div class="span8">
+							<div class="control-group">
+								<div class="row-fluid">
+									회원가입일
+									<input class="span4 date-picker-1" id="date-picker-1" type="text" data-date-format="yyyy-mm-dd">
+									<span class="add-on">
+										<i class="icon-calendar"></i>
+									</span>
+									~
+									<input class="span4 date-picker-2" id="date-picker-2" type="text" data-date-format="yyyy-mm-dd">
+									<span class="add-on">
+										<i class="icon-calendar"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid text-right">
+						<a class="btn btn-primary" href="#">검색</a>
+					</div>
+				</form>
+				
+			<div class="row-fluid text-right">
+				<div class="dataTables_info">회원수: ${ pageInfo.totalCount }명</div>
+			</div>
+				
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>IDX</th>
-						<th>ID</th>
+						<th>NO</th>
+						<th>아이디</th>
 						<th>이름</th>
-						<th>이메일</th>
+						<th>회원구분</th>
+						<th>휴대폰번호</th>
+						<%-- <th>이메일</th>
 						<th>상태</th>
 						<th>등급</th>
 						<c:if test="${ type == 'userView' }">
 						<th>SMS 수신</th>
 						<th>이메일 수신</th>
-						</c:if>
-						<th>가입일</th>
+						</c:if> --%>
+						<th>구독 일시</th>
 					</tr>
 				</thead>
 				
@@ -79,13 +139,15 @@
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.IDX}</a></td>
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_NM}</a></td>
-								<td>${userlist.MEMBER_EMAIL}</td>
+								<td></td>
+								<td>${userlist.MEMBER_CEL}</td>
+								<%-- <td>${userlist.MEMBER_EMAIL}</td>
 								<td>${userlist.MEMBER_STATUS_DESC}</td>
 								<td>${userlist.MEMBER_ROLE}</td>
 								<c:if test="${ type == 'userView' }">
 								<td>${userlist.SMS_RECEIVE_DESC}</td>
 								<td>${userlist.EMAIL_RECEIVE_DESC}</td>
-								</c:if>
+								</c:if> --%>
 								<td>${userlist.REG_DT}</td>
 							</tr>
 				</c:forEach>
@@ -95,11 +157,8 @@
 		
 		
 		<div class="row-fluid">
-				<div class="span6">
-					<div class="dataTables_info">Total ${pageInfo.totalCount } entries</div>
-				</div>
-				<div class="span6">
-					<div class="dataTables_paginate paging_bootstrap pagination">
+				<div class="span12 text-center">
+					<div class="paging_bootstrap pagination">
 						<ul>
 							<c:choose>
 								<c:when test="${pageInfo.blockPage == 1}">
@@ -131,12 +190,15 @@
 					</div>
 				</div>
 			</div><!--  page-link -->
-		
 	</div>
 	<!--/.page-content-->
 </div>
 
 <script>
+jQuery(function($){
+		$('.date-picker-1').datepicker();
+		$('.date-picker-2').datepicker();
+});
 	$(function(){
 		var dspType = "${type}";
 		$("#side-user").attr("class", "open active");
