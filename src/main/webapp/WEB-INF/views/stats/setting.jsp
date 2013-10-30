@@ -32,7 +32,15 @@
 				<!--PAGE CONTENT BEGINS-->
 				0. 구글 콘솔 정보(필요한가?)
 				<hr />
-				1. 토큰 살아있나? 버튼
+				<a href="${ contextPath }/stats/checkAccessToken.do" target="">1. 엑세스 토큰 확인</a>
+				<p style="color: red;">
+				<c:if test="${ not empty isValidAccessToken }">
+					<c:choose>
+						<c:when test="${ isValidAccessToken eq true }">사용할 수 있는 토큰입니다!</c:when>
+						<c:otherwise>사용할 수 없는 토큰입니다!</c:otherwise>
+					</c:choose>
+				</c:if>
+				</p>
 				<hr />
 				<a href="${ contextPath }/stats/getCode.do" target="_blank">2. 코드 가져오기</a>
 				<hr />
@@ -43,11 +51,7 @@
 				</form>
 				<input type="text" name="code" value="${ accessToken }" placeholder="가져온 토큰" />
 				<hr />
-				5. 토큰 죽이기
-				<form action="${ contextPath }/stats/revoke.do">
-					<input type="text" name="accessToken" placeholder="accessToken" />
-					<input type="submit" value="토큰 죽이기" />
-				</form>
+				<a href="${ contextPath }/stats/revoke.do" target="_blank">엑세스 토큰 파기하기</a>
 			</div>
 			<!--/.span-->
 		</div>
