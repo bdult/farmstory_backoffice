@@ -35,14 +35,14 @@
 													<fieldset>
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input type="text" id="member_id" name="id" class="span12" placeholder="Username" />
+																<input type="text" id="member_id" name="member_id" class="span12" placeholder="Username" />
 																<i class="icon-user"></i>
 															</span>
 														</label>
 
 														<label>
 															<span class="block input-icon input-icon-right">
-																<input type="password" id="member_pwd" name="pw" class="span12" placeholder="Password" />
+																<input type="password" id="member_pwd" name="member_pwd" class="span12" placeholder="Password" />
 																<i class="icon-lock"></i>
 															</span>
 														</label>
