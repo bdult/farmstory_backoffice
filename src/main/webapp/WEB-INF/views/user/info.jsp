@@ -202,7 +202,7 @@
 				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="0" end="0">
 					<thead>
 						<tr>
-							<th colspan="4">자녀A 정보</th>
+							<th colspan="4">자녀A 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -224,7 +224,7 @@
 				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="1" end="1">
 					<thead>
 						<tr>
-							<th colspan="4">자녀B 정보</th>
+							<th colspan="4">자녀B 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -326,48 +326,143 @@
 	<!--/.page-content-->
 <!--/.main-content-->
 
+<!-- clid modify modal form -->
+<div id="child-modal-form" class="modal hide in" tabindex="-1" >
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h4 class="blue bigger">아래의 정보를 입력해 주세요</h4>
+	</div>
+
+	<div class="modal-body overflow-visible">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">자녀명</label>
+
+					<div class="controls">
+						<input type="text" id="form-field-username" value="">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">성별</label>
+					<div class="controls">
+						<div class="row-fluid">
+						<label class="span2">
+							<input name="form-field-radio" type="radio">
+							<span class="lbl"> 남</span>
+						</label>
+						<label class="span2">
+							<input name="form-field-radio" type="radio">
+							<span class="lbl"> 여</span>
+						</label>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">썸네일</label>
+
+					<div class="controls">
+						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+						<input type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">생년월일</label>
+
+					<div class="controls">
+						<input class="span3" type="text" id="" value="">년
+						<input class="span3" type="text" id="" value="">월
+						<input class="span3" type="text" id="" value="">일
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-footer">
+		<button class="btn btn-small btn-primary">
+			<i class="icon-ok"></i>
+			등록
+		</button>
+		<button class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i>
+			취소
+		</button>
+
+	</div>
+</div>
+							
+<!--  thumbnail modal -->
+<div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">썸네일 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="thumbnail-upload-input" name="file" />
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+</div>
 <script type="text/javascript">
 
+
+
+//child modal thombnail upload
 $(function(){
-	var memberType = "${detail.userDetail.MEMBER_TYPE}";
-	$("#side-user").attr("class", "open active");
-	if(memberType == 1){
-		$("input:text").attr({
-			readonly : 'readonly'
-		});
-		$("#side-user-user").attr("class", "active");
-	}else{
-		$("#side-user-admin").attr("class", "active");
-	}
-
-	$("#cancel-btn").click(function(){
-		if(memberType == 1){
-			window.location.href="user/manage.do?pageNum=1";
-		}else {
-			window.location.href="admin/manage.do?pageNum=1";
+	
+	$('#thumbnail-upload-input').ace_file_input({
+		style:'well',
+		btn_choose:'Drop files here or click to choose',
+		btn_change:null,
+		no_icon:'icon-cloud-upload',
+		droppable:true,
+		thumbnail:'large'//large | fit
+		//,icon_remove:null//set null, to hide remove/reset button
+		/**,before_change:function(files, dropped) {
+			//Check an example below
+			//or examples/file-upload.html
+			return true;
+		}*/
+		/**,before_remove : function() {
+			return true;
+		}*/
+		,
+		preview_error : function(filename, error_code) {
+			//name of the file that failed
+			//error_code values
+			//1 = 'FILE_LOAD_FAILED',
+			//2 = 'IMAGE_LOAD_FAILED',
+			//3 = 'THUMBNAIL_FAILED'
+			//alert(error_code);
 		}
-	});
 
-	$("#modify-btn").click(function(){
-		if(confirm("저장 하시겠습니까?")){
-			$("#create-form").attr({
-				method: 'post',
-				action: '${ contextPath }/user/admin/modify.do'
-			}).submit();
-		}else{
-			return false;
-		}
+	}).on('change', function(){
+		$("#thumbnail-modal-footer").show();
 	});
-
-	$("#delete-btn").click(function(){
-		if(confirm("삭제 하시겠습니까?")){
-			$("#create-form").attr('action', '${ contextPath }/user/admin/delete.do').submit();
-		}else{
-			return false;
-		}
-	});
-});
-
+	
+	$('#thumbnail-upload-form').ajaxForm(
+			 {
+				    success: function(response){
+				      $("#img_path").val(response);
+				      $("#thumbnail-modal").modal('toggle');
+					}
+			 }
+	 );
+	
+	$("#thumbnail-mod-btn").click(function(){
+		$("#thumbnail-modal-footer").hide();
+		$("#thumbnail-modal").modal('toggle');
+	}); // <!-- brand-mod-btn event end
+	
+	
+}); // <!-- function() end 
 
 $("#navTab1").click(function(){
 	$("#navTabList1").show();
