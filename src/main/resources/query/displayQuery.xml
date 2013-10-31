@@ -4,6 +4,53 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="displayQuery">
 	
+	<select id="bannerDisplaylist" resultType="hashmap">
+		SELECT /* displayQuery.bannerDisplaylist */
+			DISPLAY_ID
+			, TITLE
+			, IMG_PATH
+			, LINK_URL
+			, DISPLAY_CODE
+			, DISPLAY_YN
+			, DISPLAY_TYPE
+			, REG_DT 
+		FROM BG_DISPLAY
+		WHERE 1=1
+		AND DISPLAY_CODE = 'DIS002'
+	</select>
+	
+	<select id="topDisplaylist" resultType="hashmap">
+		SELECT /* displayQuery.topDisplayList */ 
+			DISPLAY_ID
+			, TITLE
+			, IMG_PATH
+			, LINK_URL
+			, DISPLAY_CODE
+			, DISPLAY_YN
+			, DISPLAY_TYPE
+			, REG_DT 
+		FROM BG_DISPLAY
+		WHERE 1=1
+		AND DISPLAY_CODE = 'DIS001'		
+	</select>
+	
+	<select id="detail" resultType="hashmap">
+		SELECT /* displayQuery.detail */
+			DISPLAY_ID
+			, TITLE
+			, IMG_PATH
+			, LINK_URL
+			, DISPLAY_CODE
+			, DISPLAY_YN
+			, DISPLAY_TYPE
+			, REG_DT
+		FROM BG_DISPLAY
+		WHERE DISPLAY_ID = #{display_id}
+	</select>
+	
+	
+	
+	<!-- 
 	<insert id="create"  keyProperty="display_id">
 		INSERT BG_DISPLAY(
 			DISPLAY_NM,
@@ -28,14 +75,8 @@
    		)
 	</insert>
 	
-	<select id="list" resultType="hashmap">
-		SELECT * FROM BG_DISPLAY
-	</select>
 	
-	<select id="detail" resultType="hashmap">
-		SELECT * FROM BG_DISPLAY
-		WHERE DISPLAY_ID = #{displayId}
-	</select>
+	
 	
 	<select id="displayIdByName"  resultType="String">
 		SELECT DISPLAY_ID FROM BG_DISPLAY
@@ -81,4 +122,5 @@
 		AND DISPLAY_ID = #{displayId}
 	</delete>
 	
+	 -->
 </mapper>

@@ -1,14 +1,48 @@
 package com.bgg.farmstoryback.service;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
+import com.bgg.farmstoryback.common.ConstantsForResponse;
+import com.bgg.farmstoryback.dao.DisplayDao;
+
 @Service
-public class DispalyService {
+public class DisplayService {
+	
+	@Autowired
+	private DisplayDao displayDao; 
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	/**
+	 * @return 상단 비주얼 리스트, 배너 리스트
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map listInfo() {
+		Map displayInfo = new HashMap();
+		List<Map> topDisplay = displayDao.topDisplaylist();
+		List<Map> bannerDisplay = displayDao.bannerDisplaylist();
+		displayInfo.put(ConstantsForResponse.TOP_DISPLAY, topDisplay);
+		displayInfo.put(ConstantsForResponse.BANNER_DISPLAY, bannerDisplay);
+		return displayInfo;
+	}
+
+	/**
+	 * @param requestParamMap (display_id 필수)
+	 * @return 상세정보
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map detail(Map requestParamMap) {
+		return displayDao.detail(requestParamMap);
+	}
 
 //		@Autowired
 //		private DisplayDao displayDao;
