@@ -11,6 +11,10 @@ import org.springframework.stereotype.Repository;
 
 
 
+
+
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,8 +39,33 @@ public class UserDao extends SqlSessionDaoSupport {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Map adminMemberInfo(Map<String, Object> paramMap) {
+	public Map adminMemberInfo(Map paramMap) {
 		return (Map)getSqlSession().selectOne("userQuery.adminMemberInfo", paramMap);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public Map detail(Map paramMap) {
+		return (Map)getSqlSession().selectOne("userQuery.detail", paramMap);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public List<Map> childInfo(Map paramMap) {
+		return (List<Map>)getSqlSession().selectList("userQuery.childInfo", paramMap);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public List<Map> paymentsInfo(Map paramMap) {
+		return (List<Map>)getSqlSession().selectList("userQuery.paymentsInfo", paramMap);
+	}
+
+	/**
+	 * 회원의 1:1 문의 내역
+	 * @param paramMap
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> queryInfo(Map paramMap) {
+		return (List<Map>)getSqlSession().selectList("userQuery.queryInfo", paramMap);
 	}
 
 	

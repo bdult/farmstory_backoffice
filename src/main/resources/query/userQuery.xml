@@ -59,6 +59,71 @@
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ member_id } and MEMBER_PW = #{ member_pwd }
     </select>
+    
+    <select id="detail" resultType="hashmap">
+        SELECT /* userQuery.detail */ 
+        	IDX
+			, MEMBER_NM
+			, MEMBER_ID
+			, MEMBER_EMAIL
+			, MEMBER_CEL
+			, MEMBER_GENDER
+			, MEMBER_YEAR
+			, MEMBER_MONTH
+			, MEMBER_DAY
+			, MEMBER_ADDR_1
+			, MEMBER_ADDR_2
+			, MEMBER_ROLE
+			, '2013-10-31' AS PAYDAY
+        FROM BG_MEMBER
+        WHERE MEMBER_ID = #{ member_id }
+    </select>
+    
+    <select id="childInfo" resultType="hashmap">
+        SELECT /* userQuery.childInfo */
+	         CHILD_NM
+	         , PHOTO
+	         , GENDER
+	         , BIRTH_YEAR
+	         , BIRTH_MONTH
+	         , BIRTH_DAY
+	         , DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
+        FROM BG_CHILDREN
+        WHERE 1=1
+        AND PARENT_MEMBER_ID = #{member_id}
+        ORDER BY IDX DESC 
+        LIMIT 2
+    </select>
+    
+    <select id="paymentsInfo" resultType="hashmap">
+        SELECT /* userQuery.paymentsInfo */ 
+        	DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
+        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_CODE)
+        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_PROCESS)
+        	, PRICE
+        	, IF(TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ) > 0, TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ), 0) AS REMINE_DAY
+        FROM BG_PAYMENT_HIS
+        WHERE 1=1
+        AND MEMBER_ID = #{member_id}
+        ORDER BY REG_DT DESC
+    </select>
+    
+    <select id="queryInfo" resultType="hashmap">
+        SELECT /* userQuery.queryInfo */
+        	BBC.TITLE
+        	, DATE_FORMAT(BBC.REG_DT,'%Y.%m.%d') AS REG_DT
+        	, CASE (SELECT COUNT(COMMENT_ID) FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID)
+        	WHEN 0 THEN '미처리'
+        	ELSE '답변완료' 
+        	END AS ANSWER_YN
+        FROM BG_BOARD_CONTENTS BBC, BG_BOARD_MASTER BBM
+        WHERE 1=1
+        AND BBM.BOARD_ID = BBC.BOARD_ID        
+        AND BBC.MEMBER_ID = #{member_id}
+        AND BBM.BOARD_ID =3
+        
+    </select>
+    
     <!-- 
     
     <select id="totalCount" resultType="int" >
@@ -72,12 +137,7 @@
 		</if>
     </select>
 
-    <select id="detail" resultType="hashmap" parameterType="hashmap">
-        SELECT /* userQuery.detail 2013.09.09 김운호 */ 
-        	*
-        FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ member_id }
-    </select>
+    
 
     <select id="childDetail" resultType="hashmap" parameterType="hashmap">
         SELECT /* userQuery.childDetail 2013.09.09 김운호 */ 
