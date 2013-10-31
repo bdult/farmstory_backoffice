@@ -183,8 +183,10 @@
 </div>
 
 <script type="text/javascript">
-	$('.date-picker-first').datepicker();
-	$('.date-picker-last').datepicker();
+jQuery(function($){
+	$('.date-picker-1').datepicker();
+	$('.date-picker-2').datepicker();
+});
 	function getTimeStamp(type) {
 
 		var mydate = new Date();
