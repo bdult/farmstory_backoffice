@@ -18,20 +18,19 @@ public class StatsService {
 	@Autowired
 	private GoogleApiUtil googleApiUtil;
 
-	/** 구글에서 토큰 받아오기
+	/** 구글에서 받은 토큰 저장
 	 * @param code
 	 * @return
 	 */
-	public String getAccessToken(String code) {
-		//구글로 부터 엑세스 토큰 받아오기
-		return googleApiUtil.getAccessToken(code);
+	public String saveAccessToken(String code) {
+		return googleApiUtil.getAccessTokenByGoogle(code);
 	}
 	
-	/** 파일에서 토큰 가져오기
+	/** 파일에서 토큰 읽어오기
 	 * @return
 	 */
 	public String getAccessToken() {
-		return googleApiUtil.getAccessToken();
+		return googleApiUtil.getAccessTokenByFile();
 	}
 
 	public String getCodeUrl() {

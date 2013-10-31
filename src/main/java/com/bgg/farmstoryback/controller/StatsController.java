@@ -33,10 +33,11 @@ public class StatsController {
 		return String.format("redirect:%s", statsService.getCodeUrl());
 	}
 	
-	@RequestMapping(value = "/stats/getAccessToken.do")
-	public String getAccessToken(Model model,  @RequestParam Map<String, String> parameter) {
+	@RequestMapping(value = "/stats/saveAccessToken.do")
+	public String saveAccessToken(Model model,  @RequestParam Map<String, String> parameter) {
 		
-		model.addAttribute("accessToken", statsService.getAccessToken(parameter.get("code")));
+		//TODO 엑세스 토큰 생성 실패시 시나리오?
+		model.addAttribute("accessToken", statsService.saveAccessToken(parameter.get("code")));
 		return "stats/setting";
 	}
 	
@@ -74,31 +75,6 @@ public class StatsController {
 	public String setting(Model model,  @RequestParam Map parameter) {
 		
 		return "stats/setting";
-	}
-	
-	private static void printGaData(GaData results) {
-		System.out.println("printing results for profile: " + results.getProfileInfo().getProfileName());
-
-		if (results.getRows() == null || results.getRows().isEmpty()) {
-			System.out.println("No results Found.");
-		} else {
-
-			// Print column headers.
-			for (ColumnHeaders header : results.getColumnHeaders()) {
-				System.out.printf("%30s", header.getName());
-			}
-			System.out.println();
-
-			// Print actual data.
-			for (List<String> row : results.getRows()) {
-				for (String column : row) {
-					System.out.printf("%30s", column);
-				}
-				System.out.println();
-			}
-
-			System.out.println();
-		}
 	}
 	
 }

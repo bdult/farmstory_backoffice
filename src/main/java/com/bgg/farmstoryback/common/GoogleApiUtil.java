@@ -62,7 +62,7 @@ public class GoogleApiUtil {
 	 * @param code
 	 * @return
 	 */
-	public String getAccessToken(String code) {
+	public String getAccessTokenByGoogle(String code) {
 
 		String _accessToken = "";
 		CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -92,20 +92,16 @@ public class GoogleApiUtil {
 						String responseBody = IOUtils.toString(instream);
 						logger.debug(responseBody);
 						JSONObject json = (JSONObject) JSONValue.parse(responseBody);
-						try {
-							_accessToken = json.get("access_token").toString();
-							// 엑세스 토큰 파일쓰기
-							this.writeAccessToken(_accessToken);
-						} catch (Exception e) {
-							// 실패
-						}
+						_accessToken = json.get("access_token").toString();
+						// 엑세스 토큰 파일쓰기
+						this.saveAccessToken(_accessToken);
 					} finally {
 						instream.close();
 					}
 				}
 
-			} else {
-				// 실패
+			} else if(responseCode == 401) {
+				//TODO 엑세스 토큰 재생성 시나리오 필요
 			}
 			response.close();
 
@@ -113,7 +109,7 @@ public class GoogleApiUtil {
 			e.printStackTrace();
 		}
 
-		logger.info("_accessToken {}", _accessToken);
+		logger.debug("_accessToken {}", _accessToken);
 		return _accessToken;
 	}
 
@@ -122,7 +118,7 @@ public class GoogleApiUtil {
 	 * 
 	 * @return
 	 */
-	public String getAccessToken() {
+	public String getAccessTokenByFile() {
 		
 		String accessToken = "";
 		try {
@@ -139,11 +135,11 @@ public class GoogleApiUtil {
 	}
 
 	/**
-	 * 파라미터로 받은 엑세스 토큰을 cfg\google.accessToken에 쓴다
+	 * 파라미터로 받은 엑세스 토큰을 /google-analytics/google.accessToken 파일로 저장
 	 * 
 	 * @param accessToken
 	 */
-	public void writeAccessToken(String accessToken) {
+	private void saveAccessToken(String accessToken) {
 
 		//디렉토리 생성 
 		File destination = new File(ROOT+parentPath);
@@ -187,7 +183,7 @@ public class GoogleApiUtil {
 		boolean isValidAccessToken = false;
 
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-		String url = String.format("https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s", this.getAccessToken());
+		String url = String.format("https://www.googleapis.com/oauth2/v1/userinfo?access_token=%s", this.getAccessTokenByFile());
 		HttpGet httpget = new HttpGet(url);
 		try {
 			CloseableHttpResponse response = httpclient.execute(httpget);
@@ -204,12 +200,12 @@ public class GoogleApiUtil {
 		return isValidAccessToken;
 	}
 
-	/** 방문자 정보를 리턴한다
+	/** ozworld 사이트 방문자 정보를 리턴한다
 	 * @return null리턴시 엑세스 토큰 유효성 확인해보기
 	 */
 	public GaData getVisitor(String dimension, String startDate, String endDate) {
 
-		GoogleCredential credential = new GoogleCredential().setAccessToken(this.getAccessToken());
+		GoogleCredential credential = new GoogleCredential().setAccessToken(this.getAccessTokenByFile());
 
 		GaData result = null;
 		try {
@@ -238,7 +234,7 @@ public class GoogleApiUtil {
 	 */
 	public GaData getAverage(String metrics, String startDate, String endDate) {
 		
-		GoogleCredential credential = new GoogleCredential().setAccessToken(this.getAccessToken());
+		GoogleCredential credential = new GoogleCredential().setAccessToken(this.getAccessTokenByFile());
 		
 		GaData result = null;
 		try {
