@@ -6,6 +6,9 @@
 
 
 	<select id="list" resultType="hashmap">
+	    SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+			
 		SELECT
 			A.CONTENTS_NM
 			, A.CONTENTS_ID
@@ -49,7 +52,9 @@
 		<if test="search_end_date !=null and search_end_date !=''">
 			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
-		ORDER BY CONTENTS_ID DESC
+		ORDER BY CONTENTS_ID ASC
+		) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC
 		<if test="startNo != null and perPage != null">
 			LIMIT #{startNo}, #{perPage}
 		</if>

@@ -60,6 +60,7 @@ public class ContentsServiceTest {
 	public void testList() {
 		
 		// given 
+		setDefaultPageParam();
 
 		// when
 		List<Map> contentsList = contentsService.list(requestParamMap);
