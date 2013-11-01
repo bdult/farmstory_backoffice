@@ -29,5 +29,9 @@ public class DisplayDao extends SqlSessionDaoSupport {
 	public Map detail(Map requestParamMap) {
 		return (Map)getSqlSession().selectOne("displayQuery.detail", requestParamMap);
 	}
+
+	public List<Map> popupList() {
+		return (List<Map>)getSqlSession().selectList("displayQuery.popupList");
+	}
 	
 }

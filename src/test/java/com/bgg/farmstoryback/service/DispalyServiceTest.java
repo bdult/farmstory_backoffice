@@ -91,4 +91,33 @@ public class DispalyServiceTest {
 		assertThat(contentsList.size(), is(not(0)));
 
 	}
+	
+	@Test
+	public void testPopupList() {
+		
+		// given 
+		
+
+		// when
+		List<Map> popupList = displayService.popupList();
+
+		// then
+		assertThat(popupList, is(notNullValue()));
+		assertThat(popupList.size(), is(not(0)));
+
+	}
+	
+	@Test
+	public void testPopupDetail() {
+		
+		// given 
+		String testPopupId = "3";
+		requestParamMap.put(ConstantsForParam.POPUP_ID, testPopupId);
+
+		// when
+		Map popupDisplayDetail = displayService.popupDetail(requestParamMap);
+
+		// then
+
+	}
 }
