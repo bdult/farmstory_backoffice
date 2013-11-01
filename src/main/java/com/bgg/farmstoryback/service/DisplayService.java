@@ -62,6 +62,10 @@ public class DisplayService {
 	public List<Map> popupList() {
 		return displayDao.popupList();
 	}
+
+	public Map popupDetail(Map requestParamMap) {
+		return displayDao.popupDetail(requestParamMap);
+	}
 	
 
 //		@Autowired

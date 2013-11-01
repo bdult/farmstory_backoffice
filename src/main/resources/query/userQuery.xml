@@ -57,7 +57,7 @@
         SELECT /* userQuery.adminMemberInfo  */ 
         	MEMBER_ROLE, MEMBER_ID
         FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ member_id } and MEMBER_PW = #{ member_pwd }
+        WHERE MEMBER_ID = #{ member_id } and MEMBER_PW = PASSWORD(#{ member_pwd })
     </select>
     
     <select id="detail" resultType="hashmap">

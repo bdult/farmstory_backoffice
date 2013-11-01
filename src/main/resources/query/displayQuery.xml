@@ -59,6 +59,21 @@
 		AND DISPLAY_CODE = 'DIS003'
 	</select>
 	
+	<select id="popupDetail" resultType="hashmap">
+		SELECT /* displayQuery.popupList */
+			DISPLAY_ID
+			, TITLE
+			, IMG_PATH
+			, LINK_URL
+			, DISPLAY_CODE
+			, DISPLAY_YN
+			, REG_DT
+		FROM BG_DISPLAY
+		WHERE 1=1
+		AND DISPLAY_ID = #{popup_id}
+		AND DISPLAY_CODE = 'DIS003'
+	</select>
+	
 	
 	
 	<!-- 
