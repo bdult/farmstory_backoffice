@@ -164,7 +164,45 @@
 		LIMIT 5
     </select>
     
+<<<<<<< HEAD
 	
+=======
+	<select id="userList" resultType="hashmap" >
+		SELECT /* userQuery.userList 2013.09.09 김운호 */ 
+			MB.IDX,
+			MB.MEMBER_ID,
+			MB.MEMBER_NM,
+			MB.MEMBER_EMAIL,
+			MB.MEMBER_STATUS,
+			MB.MEMBER_Cel,
+			MB.EMAIL_RECEIVE,
+			MB.SMS_RECEIVE,
+			case (MEMBER_STATUS)
+				when 0 then '이용'
+				when 1 then '중지'
+				when 2 then '탈퇴'
+			end AS MEMBER_STATUS_DESC,
+			case (MB.SMS_RECEIVE)
+				when 0 then '수신'
+				when 1 then '거절'
+			end AS SMS_RECEIVE_DESC,
+			case (MB.EMAIL_RECEIVE)
+				when 0 then '수신'
+				when 1 then '거절'
+			end AS EMAIL_RECEIVE_DESC,
+			DATE_FORMAT(MB.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		FROM BG_MEMBER MB 
+		WHERE 1=1 
+		AND MB.MEMBER_TYPE = #{whereType}
+		<if test="search != null and search != ''">
+			AND ( MB.MEMBER_NM LIKE CONCAT('%', #{search}, '%')  OR MB.MEMBER_ID LIKE CONCAT('%', #{search}, '%') )
+		</if>
+		ORDER BY MB.IDX DESC
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
+		</if>
+	</select>
+>>>>>>> Unho
     
 	<select id="childList" resultType="hashmap">
 		SELECT /* userQuery.childList 2013.09.09 김운호 */ 

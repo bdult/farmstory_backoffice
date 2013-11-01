@@ -2,17 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
-.btn-group form{
-	margin: 0;
-	float: left;
-}
-
-#userCreatebtn {
-	float: right;
-}
-
-</style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -24,13 +13,12 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>회원 관리
+			<li>문의하기 관리
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<c:if test="${ type == 'userView' }"><li class="active">일반 회원 관리</li></c:if>
-			<c:if test="${ type == 'adminView' }"><li class="active">관리자 회원 관리</li></c:if>
+			<li class="active">문의하기 리스트</li>
 		</ul>
 		<div class="nav-search" id="nav-search">
 			<form class="form-search" action="manage.do" method="post">
@@ -44,21 +32,14 @@
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<c:if test="${ type == 'userView' }">
-				<h3 class="header smaller lighter blue">일반 회원 정보 리스트</h3></li>
-			</c:if>
-			<c:if test="${ type == 'adminView' }">
-				<h3 class="header smaller lighter blue">관리자 회원 정보 리스트</h3></li>
-			</c:if>
+			<h3 class="header smaller lighter blue">문의하기 리스트</h3>
 			<!-- /. table-header -->
-		<!--/.page-header-->
-		
-				<!-- search -->
+			
 				<form class="form-horizontal well">
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
-   								<label class="control-label">회원검색</label>
+   								<label class="control-label">검색</label>
     							<div class="controls">
 									<select class="span12">
 									  <option>1</option>
@@ -77,7 +58,7 @@
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
-   								<label class="control-label">회원구분</label>
+   								<label class="control-label">처리여부</label>
     							<div class="controls">
 									<select class="span12">
 									  <option>1</option>
@@ -95,7 +76,7 @@
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="control-group">
-   								<label class="control-label">회원가입일</label>
+   								<label class="control-label">문의일</label>
    									
     							<div class="controls">
     								<div class="span6">
@@ -133,59 +114,36 @@
 					</div>
 				</form>
 				
-			<div class="row-fluid text-right">
-				<div class="dataTables_info">회원수: ${ pageInfo.totalCount }명</div>
+			<div class="table-header" align="right">
+				<a class="btn btn-info btn-success" href="${ contextPath }/">추가</a>
 			</div>
-				
-			<%-- <c:if test="${ type == 'userView' }">
-			</c:if> --%>
-			<c:if test="${ type == 'adminView' }">
-				<div class="table-header" align="right">
-					<a class="btn btn-info btn-success" href="${ contextPath }/user/admin/createView.do">추가</a>
-				</div>
-			</c:if>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
 						<th>NO</th>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>회원구분</th>
-						<th>휴대폰번호</th>
-						<%-- <th>이메일</th>
-						<th>상태</th>
-						<th>등급</th>
-						<c:if test="${ type == 'userView' }">
-						<th>SMS 수신</th>
-						<th>이메일 수신</th>
-						</c:if> --%>
-						<th>구독 일시</th>
+						<th>작성자</th>
+						<th>제목</th>
+						<th>등록일시</th>
+						<th>답변일시</th>
+						<th>답변방법</th>
 					</tr>
 				</thead>
 				
 				<tbody>
 				<c:forEach var="userlist" items="${positionList}" varStatus="status">
-							<tr>
-								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.IDX}</a></td>
-								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
-								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_NM}</a></td>
-								<td></td>
-								<td>${userlist.MEMBER_CEL}</td>
-								<%-- <td>${userlist.MEMBER_EMAIL}</td>
-								<td>${userlist.MEMBER_STATUS_DESC}</td>
-								<td>${userlist.MEMBER_ROLE}</td>
-								<c:if test="${ type == 'userView' }">
-								<td>${userlist.SMS_RECEIVE_DESC}</td>
-								<td>${userlist.EMAIL_RECEIVE_DESC}</td>
-								</c:if> --%>
-								<td>${userlist.REG_DT}</td>
-							</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 		</div>
-		
-		
+				
 		<div class="row-fluid">
 				<div class="span12 text-center">
 					<div class="paging_bootstrap pagination">
@@ -220,85 +178,78 @@
 					</div>
 				</div>
 			</div><!--  page-link -->
+			
 	</div>
-	<!--/.page-content-->
 </div>
 
-<script>
+<script type="text/javascript">
 jQuery(function($){
 	$('.date-picker-1').datepicker();
 	$('.date-picker-2').datepicker();
 });
+	function getTimeStamp(type) {
 
-	$(function(){
-		var dspType = "${type}";
-		$("#side-user").attr("class", "open active");
-		if(dspType == "userView"){
-			$("#side-user-user").attr("class", "active");
-		}else{
-			$("#side-user-admin").attr("class", "active");
+		var mydate = new Date();
+
+		switch (type) {
+		case 'today':
+			new Date(mydate);
+			break;
+		case 'week':
+			var day = mydate.getDate();
+			mydate.setDate(day - 7);
+			break;
+		case 'month':
+			var month = mydate.getMonth();
+			mydate.setMonth(month - 1);
+			break;
+		case 'year':
+			var year = mydate.getFullYear();
+			mydate.setFullYear(year - 1);
+			break;
 		}
+		
+		var fdate = 
+		    leadingZeros(mydate.getFullYear(), 4) + '-' +
+		    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
+		    leadingZeros(mydate.getDate(), 2)
+		
+		return fdate;
+	}
+	
+	function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
+
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		 return zero + n;
+	}
+	
+	$("#todayCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('today'));
+		$("#date-picker-last").val(getTimeStamp('today'));
 	});
-
-		function getTimeStamp(type) {
-
-			var mydate = new Date();
-
-			switch (type) {
-			case 'today':
-				new Date(mydate);
-				break;
-			case 'week':
-				var day = mydate.getDate();
-				mydate.setDate(day - 7);
-				break;
-			case 'month':
-				var month = mydate.getMonth();
-				mydate.setMonth(month - 1);
-				break;
-			case 'year':
-				var year = mydate.getFullYear();
-				mydate.setFullYear(year - 1);
-				break;
-			}
-			
-			var fdate = 
-			    leadingZeros(mydate.getFullYear(), 4) + '-' +
-			    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
-			    leadingZeros(mydate.getDate(), 2)
-			
-			return fdate;
-		}
-		
-		function leadingZeros(n, digits) {
-			  var zero = '';
-			  n = n.toString();
-
-			  if (n.length < digits) {
-			    for (i = 0; i < digits - n.length; i++)
-			      zero += '0';
-			  }
-			 return zero + n;
-		}
-		
-		$("#todayCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('today'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#weekCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('week'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#monthCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('month'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#yearCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('year'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#allCalenderBtn").click(function() {
-			$("#date-picker-first").val(null);
-			$("#date-picker-last").val(null);
-		});
+	$("#weekCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('week'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#monthCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('month'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#yearCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('year'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#allCalenderBtn").click(function() {
+		$("#date-picker-first").val(null);
+		$("#date-picker-last").val(null);
+	});
+	
+	/* $(".btn-group>a").click(function(){
+		$(this).attr("class", "btn btn-light active");
+	}); */
 </script>
