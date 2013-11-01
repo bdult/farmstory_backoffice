@@ -60,3 +60,10 @@
 	<!--/.page-content-->
 </div>
 <!--/.main-content-->
+<script>
+$(function(){
+	//사이드바 활성화
+	$("#side-stats-setting").addClass("active");
+	$("#side-stats").addClass("open active");
+});
+</script>

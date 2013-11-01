@@ -54,8 +54,8 @@ public class StatsController {
 		return String.format("redirect:https://accounts.google.com/o/oauth2/revoke?token=%s", statsService.getAccessToken());
 	}
 	
-	@RequestMapping(value = "/stats/manage.do")
-	public String manage(Model model,  @RequestParam Map parameter) {
+	@RequestMapping(value = "/stats/view.do")
+	public String view(Model model,  @RequestParam Map parameter) {
 		
 		{//선차트용 데이터 가져오기
 			String dimension = "ga:date"; //year,month,week
@@ -68,7 +68,7 @@ public class StatsController {
 			model.addAttribute("averageData", statsService.getAverage(metrics, dateUtil.add(-30), dateUtil.today()));
 		}
 		
-		return "stats/manage";
+		return "stats/view";
 	}
 	
 	@RequestMapping(value = "/stats/setting.do")

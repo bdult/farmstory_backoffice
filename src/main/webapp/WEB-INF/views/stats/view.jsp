@@ -88,6 +88,14 @@
 </div>
 <!--/.main-content-->
 
+<script>
+$(function(){
+	//사이드바 활성화
+	$("#side-stats-view").addClass("active");
+	$("#side-stats").addClass("open active");
+});
+</script>
+
 <!-- GOOGLE CHART API -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
@@ -173,6 +181,4 @@
 	      pieChart.draw(data, options);
 		}
 	}
-	
-	
 </script>	

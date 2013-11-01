@@ -2,14 +2,17 @@ package com.bgg.farmstoryback.controller;
 
 import java.util.Map;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.bgg.farmstoryback.common.FileUtil;
 
 
 @Controller
@@ -17,34 +20,37 @@ public class DisplayController {
 	
 	private Logger logger = LoggerFactory.getLogger(DisplayController.class);
 	
-	@RequestMapping(value = "display/manage.do", method = RequestMethod.POST)
+	@Autowired
+	private FileUtil fileUtil;
+	
+	@RequestMapping(value = "contents/thumbnail-upload.do")
+	public @ResponseBody String thumbnailUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+//		String srcPath = fileUtil.thumbnailUpload(file);
+		String srcPath = ""; //대표이미지 
+		return srcPath;
+	}
+	
+	@RequestMapping(value = "display/main/manage.do")
 	public String manage(Model model, @RequestParam Map<String,Object> parameter) {
-		return null;
+		return "display/main";
 	}
 	
-	@RequestMapping(value = "display/create.do", method = RequestMethod.POST)
-	public String create(Model model, @RequestParam Map<String,Object> parameter){
-			return null;
+	@RequestMapping(value = "display/main/create.do")
+	public String create(Model model, @RequestParam Map<String,Object> parameter) {
+		return "display/create";
 	}
 	
-	@RequestMapping(value = "display/list.do", method = RequestMethod.POST)
-	public String list(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
+	@RequestMapping(value = "display/contents/manage.do")
+	public String contents(Model model, @RequestParam Map<String,Object> parameter) {
+		return "display/contents";
 	}
 	
-	@RequestMapping(value = "display/detail.do", method = RequestMethod.POST)
-	public String detail(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
+	@RequestMapping(value = "display/popup/manage.do")
+	public String popup(Model model, @RequestParam Map<String,Object> parameter) {
+		return "display/popup";
 	}
 	
-	@RequestMapping(value = "display/modify.do", method = RequestMethod.POST)
-	public String modify(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
-	}
-	
-	@RequestMapping(value = "display/delete.do", method = RequestMethod.POST)
-	public String delete(Model model, @RequestParam Map<String,Object> parameter){
-		return null;
-	}
 	
 }
