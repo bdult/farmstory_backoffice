@@ -29,7 +29,7 @@
 		WHERE DEL_YN = 'N'
 	</select>
 	
-	<select id="top5" resultType="hashmap">
+	<select id="top" resultType="hashmap">
 		SELECT 
 			BRAND_NM
 			, BRAND_ID
@@ -37,7 +37,7 @@
 		FROM BG_BRAND
 		WHERE DEL_YN = 'N'
 		ORDER BY BRAND_ID DESC
-		LIMIT 0,5
+		LIMIT 0,#{limitCount}
 	</select>
 	
 	<select id="totalCount" resultType="int">

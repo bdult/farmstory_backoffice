@@ -52,7 +52,7 @@ public class BoardDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("boardQuery.totalCount", parameter);
 	}
 
-	public List top5() {
-		return getSqlSession().selectList("boardQuery.top5");
+	public List<Map> top(int limitCount) {
+		return (List<Map>)getSqlSession().selectList("boardQuery.top", limitCount);
 	}
 }

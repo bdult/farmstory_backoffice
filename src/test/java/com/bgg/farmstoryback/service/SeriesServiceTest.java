@@ -110,6 +110,20 @@ public class SeriesServiceTest {
 		
 	}
 	
+	@Test
+	public void testTopList() {
+		
+		// given 
+		int limitCount = 9;
+
+		// when
+		List<Map> topList = seriesService.top(limitCount);
+
+		// then
+		assertThat(topList, is(notNullValue()));
+		assertTrue(topList.size() <= limitCount);
+	}
+	
 	
 	
 }

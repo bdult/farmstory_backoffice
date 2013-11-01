@@ -117,8 +117,8 @@ public class CategoryService {
 		return cateDao.parentCateList(categoryInfo);
 	}
 
-	public List top5() {
-		return cateDao.top5();
+	public List<Map> top(int limitCount) {
+		return cateDao.top(limitCount);
 	}
 
 }

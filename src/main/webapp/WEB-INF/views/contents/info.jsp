@@ -91,15 +91,6 @@
 										<div class="help-block" id="input-span-slider"></div>
 									</div>
 								</div>
-								<!-- 
-								<div class="control-group">
-									<label class="control-label" for="src_path">동영상 Player</label>
-									<div class="controls">
-										<input readonly="readonly" class="span8" type="text" id="player_type" name="player_type" placeholder="/" value="${data.PLAYER_TYPE }" />
-										<div class="help-block" id="input-span-slider"></div>
-									</div>
-								</div>
-								 -->
 								
 								<div class="control-group">
 									<label class="control-label" for="form-field-2">썸네일 이미지</label>

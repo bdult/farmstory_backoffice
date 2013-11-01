@@ -44,15 +44,15 @@ public class MainController {
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
-		List contentsTop5 = contentsService.top5(); 
-		List userTop5 = userService.top5(); 
-		List boardTop5 = boardService.top5(); 
-		List brandTop5 = brandService.top5(); 
-		List categoryTop5 = categoryService.top5(); 
-		List seriesTop5 = seriesService.top5(); 
-		logger.info("{}", brandTop5);
+		List contentsTop5 = contentsService.top(5); 
+		List userTop5 = userService.top(5); 
+		List boardTop5 = boardService.top(5); 
+		List brandTop5 = brandService.top(5); 
+		List categoryTop5 = categoryService.top(5); 
+		List seriesTop5 = seriesService.top(5); 
 		model.addAttribute("contentsTop5", contentsTop5);
-		model.addAttribute("userTop5", userTop5);
+		//
+		model.addAttribute("userTop5", null);
 		model.addAttribute("boardTop5", boardTop5);
 		model.addAttribute("brandTop5", brandTop5);
 		model.addAttribute("categoryTop5", categoryTop5);
