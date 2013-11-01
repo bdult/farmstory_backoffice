@@ -107,8 +107,8 @@
 	function loginAjax(){
 		var loginUrl = "${contextPath}/user/login.ajax";
 		param = {
-				id : $("#member_id").val(),
-				pw : $("#member_pwd").val()
+				member_id : $("#member_id").val(),
+				member_pwd : $("#member_pwd").val()
 		};
 		
 		console.log(param);
