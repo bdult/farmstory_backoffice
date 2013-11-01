@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
+import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.dao.DisplayDao;
 
@@ -18,7 +19,10 @@ import com.bgg.farmstoryback.dao.DisplayDao;
 public class DisplayService {
 	
 	@Autowired
-	private DisplayDao displayDao; 
+	private DisplayDao displayDao;
+	
+	@Autowired
+	private ContentsService contentsService;
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -42,6 +46,17 @@ public class DisplayService {
 	@SuppressWarnings("rawtypes")
 	public Map detail(Map requestParamMap) {
 		return displayDao.detail(requestParamMap);
+	}
+
+	/**
+	 * @param requestParamMap (category_id 필수)
+	 * @return 컨텐츠 리스트
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> contentsList(Map requestParamMap) {
+		String categoryId = (String)requestParamMap.get(ConstantsForParam.CATEGORY_ID);
+		List<Map> contentsList = contentsService.listByCategory(categoryId); 
+		return contentsList;
 	}
 
 //		@Autowired

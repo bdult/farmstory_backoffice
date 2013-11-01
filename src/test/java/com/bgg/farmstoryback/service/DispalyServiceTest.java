@@ -76,4 +76,19 @@ public class DispalyServiceTest {
 		assertThat(displayDetail, is(notNullValue()));
 
 	}
+	
+	@Test
+	public void testContentsDisplay() {
+		
+		// given 
+		requestParamMap.put(ConstantsForParam.CATEGORY_ID, "32");
+
+		// when
+		List<Map> contentsList = displayService.contentsList(requestParamMap);
+
+		// then
+		assertThat(contentsList, is(notNullValue()));
+		assertThat(contentsList.size(), is(not(0)));
+
+	}
 }

@@ -28,6 +28,7 @@ public class DateUtilTest {
 	public void testAdd() {
 		int days = -30;
 		logger.info(dateUtil.add(days));
+		logger.info(dateUtil.today());
 	}
 
 }
