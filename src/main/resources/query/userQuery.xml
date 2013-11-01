@@ -124,6 +124,25 @@
         
     </select>
     
+    <select id="top" resultType="hashmap" >
+		SELECT /* userQuery.list */
+			IDX,
+			MEMBER_ID,
+			MEMBER_NM,
+			MEMBER_CEL,
+			MEMBER_ROLE,
+			DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT,
+			case (MEMBER_ROLE)
+				when 0 then '무료회원'
+				when 1 then '유료회원'
+		    else '무료회원'
+			end AS MEMBER_ROLE
+		FROM BG_MEMBER 
+		WHERE 1=1 
+		ORDER BY IDX DESC
+		LIMIT #{limitCount}
+	</select>
+    
     <!-- 
     
     <select id="totalCount" resultType="int" >

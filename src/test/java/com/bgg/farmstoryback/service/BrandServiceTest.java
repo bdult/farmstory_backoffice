@@ -122,6 +122,20 @@ public class BrandServiceTest {
 		
 	}
 	
+	@Test
+	public void testTop() {
+		
+		// given 
+		int limitCount = 5;
+
+		// when
+		List<Map> topList = brandService.top(limitCount);
+
+		// then
+		assertThat(topList, is(notNullValue()));
+		assertTrue(topList.size() <= limitCount);
+	}
+	
 	
 	
 }

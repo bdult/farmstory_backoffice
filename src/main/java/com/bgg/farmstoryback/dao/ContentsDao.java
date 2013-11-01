@@ -69,8 +69,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 * @return
 	 */
 	@SuppressWarnings("rawtypes")
-	public List top5() {
-		return getSqlSession().selectList("contentsQuery.top5");
+	public List top(int limitCount) {
+		return getSqlSession().selectList("contentsQuery.top", limitCount);
 	}
 
 	/** 컨텐츠 카테고리 추가

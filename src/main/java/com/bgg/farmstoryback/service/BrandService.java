@@ -63,12 +63,12 @@ public class BrandService {
 		return brandDao.totalCount(parameter);
 	}
 
-	public List top5() {
-		return brandDao.top5();
-	}
-
 	public List<Map> listAll() {
 		return brandDao.listAll();
+	}
+
+	public List<Map> top(int limitCount) {
+		return brandDao.top(limitCount);
 	}	
 	
 }

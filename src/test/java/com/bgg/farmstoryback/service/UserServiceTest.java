@@ -336,6 +336,21 @@ public class UserServiceTest {
 
 	}
 	
+	@Test
+	public void testTopList() {
+		
+		// given 
+		int limitCount = 8;
+
+		// when
+		List<Map> topList = userService.top(limitCount);
+
+		// then
+		assertThat(topList, is(notNullValue()));
+		assertTrue(topList.size() <= limitCount);
+
+	}
+	
 	
 	
 
