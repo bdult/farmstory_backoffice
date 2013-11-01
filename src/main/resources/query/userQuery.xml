@@ -11,7 +11,6 @@
 			MEMBER_ID,
 			MEMBER_NM,
 			MEMBER_CEL,
-			MEMBER_ROLE,
 			DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT,
 			case (MEMBER_ROLE)
 				when 0 then '무료회원'
@@ -54,10 +53,11 @@
 
     
     <select id="adminMemberInfo" resultType="hashmap">
-        SELECT /* userQuery.adminMemberInfo  */ 
-        	MEMBER_ROLE, MEMBER_ID
+        SELECT /* userQuery.adminMemberInfo  */
+        	MEMBER_TYPE, MEMBER_ID
         FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ member_id } and MEMBER_PW = PASSWORD(#{ member_pwd })
+        WHERE MEMBER_ID = #{ member_id } 
+        and MEMBER_PW = PASSWORD(#{ member_pwd }) 
     </select>
     
     <select id="detail" resultType="hashmap">
@@ -73,7 +73,11 @@
 			, MEMBER_DAY
 			, MEMBER_ADDR_1
 			, MEMBER_ADDR_2
-			, MEMBER_ROLE
+			, case (MEMBER_ROLE)
+				when 0 then '무료회원'
+				when 1 then '유료회원'
+		      else '무료회원'
+			  end AS MEMBER_ROLE
 			, '2013-10-31' AS PAYDAY
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ member_id }
