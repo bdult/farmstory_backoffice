@@ -54,8 +54,8 @@ public class ContentsService {
 		return conDao.totalCount(parameter);
 	}
 
-	public List top5() {
-		return conDao.top5();
+	public List top(int limitCount) {
+		return conDao.top(limitCount);
 	}
 
 

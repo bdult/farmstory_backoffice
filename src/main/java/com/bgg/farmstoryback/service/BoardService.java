@@ -57,8 +57,8 @@ public class BoardService {
 		return boardDao.totalCount(parameter);
 	}
 
-	public List top5() {
-		return boardDao.top5();
+	public List<Map> top(int limitCount) {
+		return boardDao.top(limitCount);
 	}
 
 	

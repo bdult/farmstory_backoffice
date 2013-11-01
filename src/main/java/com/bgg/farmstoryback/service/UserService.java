@@ -130,6 +130,10 @@ public class UserService {
 		}
 	}
 
+	public List<Map> top(int limitCount) {
+		return userDao.top(limitCount);
+	}
+
 	
 //	public Map<String, Object> getOneRole(Map<String, Object> requestParamMap) {
 //		return userDao.getOneRole(requestParamMap);

@@ -130,4 +130,19 @@ public class CategoryServiceTest {
 		assertThat(detailInfo, is(nullValue()));
 	}
 
+	
+	@Test
+	public void testTopList() {
+		
+		// given 
+		int limitCount = 7;
+
+		// when
+		List<Map> topList = cateService.top(limitCount);
+
+		// then
+		assertThat(topList, is(notNullValue()));
+		assertTrue(topList.size() <= limitCount);
+
+	}
 }
