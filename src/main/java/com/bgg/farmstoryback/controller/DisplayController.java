@@ -23,8 +23,8 @@ public class DisplayController {
 	@Autowired
 	private FileUtil fileUtil;
 	
-	@RequestMapping(value = "contents/thumbnail-upload.do")
-	public @ResponseBody String thumbnailUpload(Model model,
+	@RequestMapping(value = "display/mainImgUpdate.do")
+	public @ResponseBody String mainImgUpdate(Model model,
 			@RequestParam("file")MultipartFile file
 			) {
 //		String srcPath = fileUtil.thumbnailUpload(file);
