@@ -17,6 +17,7 @@ public class ConstantsForParam {
 	public final static String LOGIN_YN = "loginYn";
 	public final static String PAYMENT_YN = "paymentYn";
 	public static final String DISPLAY_ID = "display_id";
+	public static final String CATEGORY_ID = "category_id";
 	
 	
 }
