@@ -22,13 +22,13 @@
 		WHERE 1=1 
 		<if test="search_type != null and search_type != ''">
 			<if test="search_type == 'id'">
-				AND ( MEMBER_ID LIKE CONCAT('%', #{member_id}, '%'))
+				AND ( MEMBER_ID LIKE CONCAT('%', #{search}, '%'))
 			</if>
 			<if test="search_type == 'name'">
-				AND ( MEMBER_NM LIKE CONCAT('%', #{member_name}, '%'))
+				AND ( MEMBER_NM LIKE CONCAT('%', #{search}, '%'))
 			</if>
 			<if test="search_type == 'cel'">
-				AND ( REPLACE(MEMBER_CEL, '-', '')  LIKE CONCAT('%', #{member_cel}, '%'))
+				AND ( REPLACE(MEMBER_CEL, '-', '')  LIKE CONCAT('%', #{search}, '%'))
 			</if>
 		</if>
 		<if test="member_role !=null and member_role !=''">
@@ -97,15 +97,16 @@
     
     <select id="paymentsInfo" resultType="hashmap">
         SELECT /* userQuery.paymentsInfo */ 
-        	DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
-        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_CODE)
-        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_PROCESS)
+        	IDX
+        	, DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
+        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_CODE) AS PAYMENT_CODE
+        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_PROCESS) AS PAYMENT_PROCESS
         	, PRICE
         	, IF(TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ) > 0, TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ), 0) AS REMINE_DAY
         FROM BG_PAYMENT_HIS
         WHERE 1=1
         AND MEMBER_ID = #{member_id}
-        ORDER BY REG_DT DESC
+        ORDER BY IDX DESC
     </select>
     
     <select id="queryInfo" resultType="hashmap">

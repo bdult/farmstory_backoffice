@@ -93,7 +93,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		requeryParamMap.put(ConstantsForParam.MEMBER_ID, testId);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testId);
 
 		// when
 		result = userService.list(requeryParamMap);
@@ -113,7 +113,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
-		requeryParamMap.put(ConstantsForParam.MEMBER_NAME, testName);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testName);
 
 		// when
 		result = userService.list(requeryParamMap);
@@ -134,7 +134,7 @@ public class UserServiceTest {
 		// given 
 		
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
-		requeryParamMap.put(ConstantsForParam.MEMBER_CEL, testCelNo);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testCelNo);
 		
 		// when
 		result = userService.list(requeryParamMap);
@@ -199,7 +199,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		requeryParamMap.put(ConstantsForParam.MEMBER_ID, testId);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testId);
 		setDefaultSearchData();
 
 		// when
@@ -221,7 +221,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
-		requeryParamMap.put(ConstantsForParam.MEMBER_NAME, testName);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testName);
 		setDefaultSearchData();
 		
 		// when
@@ -245,7 +245,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
-		requeryParamMap.put(ConstantsForParam.MEMBER_CEL, testCelNo);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testCelNo);
 		setDefaultSearchData();
 		
 		// when
