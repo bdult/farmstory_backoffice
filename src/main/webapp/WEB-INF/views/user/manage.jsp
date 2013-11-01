@@ -226,9 +226,10 @@
 
 <script>
 jQuery(function($){
-		$('.date-picker-1').datepicker();
-		$('.date-picker-2').datepicker();
+	$('.date-picker-1').datepicker();
+	$('.date-picker-2').datepicker();
 });
+
 	$(function(){
 		var dspType = "${type}";
 		$("#side-user").attr("class", "open active");
@@ -238,4 +239,66 @@ jQuery(function($){
 			$("#side-user-admin").attr("class", "active");
 		}
 	});
+
+		function getTimeStamp(type) {
+
+			var mydate = new Date();
+
+			switch (type) {
+			case 'today':
+				new Date(mydate);
+				break;
+			case 'week':
+				var day = mydate.getDate();
+				mydate.setDate(day - 7);
+				break;
+			case 'month':
+				var month = mydate.getMonth();
+				mydate.setMonth(month - 1);
+				break;
+			case 'year':
+				var year = mydate.getFullYear();
+				mydate.setFullYear(year - 1);
+				break;
+			}
+			
+			var fdate = 
+			    leadingZeros(mydate.getFullYear(), 4) + '-' +
+			    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
+			    leadingZeros(mydate.getDate(), 2)
+			
+			return fdate;
+		}
+		
+		function leadingZeros(n, digits) {
+			  var zero = '';
+			  n = n.toString();
+
+			  if (n.length < digits) {
+			    for (i = 0; i < digits - n.length; i++)
+			      zero += '0';
+			  }
+			 return zero + n;
+		}
+		
+		$("#todayCalenderBtn").click(function() {
+			$("#date-picker-first").val(getTimeStamp('today'));
+			$("#date-picker-last").val(getTimeStamp('today'));
+		});
+		$("#weekCalenderBtn").click(function() {
+			$("#date-picker-first").val(getTimeStamp('week'));
+			$("#date-picker-last").val(getTimeStamp('today'));
+		});
+		$("#monthCalenderBtn").click(function() {
+			$("#date-picker-first").val(getTimeStamp('month'));
+			$("#date-picker-last").val(getTimeStamp('today'));
+		});
+		$("#yearCalenderBtn").click(function() {
+			$("#date-picker-first").val(getTimeStamp('year'));
+			$("#date-picker-last").val(getTimeStamp('today'));
+		});
+		$("#allCalenderBtn").click(function() {
+			$("#date-picker-first").val(null);
+			$("#date-picker-last").val(null);
+		});
 </script>

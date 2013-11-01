@@ -208,7 +208,7 @@
 					<tbody>
 							<tr>
 								<td>이름</td>
-								<td><a href="${ contextPath }/user/childDetail.do?idx=${ childList.IDX }">${ childList.CHILD_NM }</a></td>
+								<td>${ childList.CHILD_NM }</td>
 								<td>성별</td>
 								<td>${ childList.GENDER }</td>
 							</tr>
@@ -230,7 +230,7 @@
 					<tbody>
 							<tr>
 								<td>이름</td>
-								<td><a href="${ contextPath }/user/childDetail.do?idx=${ childList.IDX }">${ childList.CHILD_NM }</a></td>
+								<td>${ childList.CHILD_NM }</td>
 								<td>성별</td>
 								<td>${ childList.GENDER }</td>
 							</tr>
