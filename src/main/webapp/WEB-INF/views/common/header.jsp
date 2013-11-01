@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 <div class="navbar">
 	<div class="navbar-inner">
@@ -16,7 +17,15 @@
 					<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 						<span class="user-info">
 							ID : ${ login_session.MEMBER_ID }
-							<br> 권한 : ${ login_session.MEMBER_ROLE }
+							<br>
+							<c:choose>
+								<c:when test="${ login_session.MEMBER_TYPE == 2 }">
+									권한 : 슈퍼어드민
+								</c:when>
+								<c:otherwise>
+									권한 : 어드민
+								</c:otherwise>
+							</c:choose>
 						</span>
 
 						<i class="icon-caret-down"></i>

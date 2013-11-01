@@ -38,8 +38,8 @@ public class BrandDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("brandQuery.totalCount", parameter);
 	}
 
-	public List top5() {
-		return getSqlSession().selectList("brandQuery.top5");
+	public List top(int limitCount) {
+		return getSqlSession().selectList("brandQuery.top", limitCount);
 	}
 
 	public List<Map> listAll() {

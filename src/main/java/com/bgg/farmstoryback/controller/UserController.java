@@ -44,72 +44,61 @@ public class UserController {
   }
   
   @RequestMapping(value = "user/login.do")
-    public String login(@RequestParam Map<String,Object> paramMap, HttpSession session) {
-	      if(paramMap.isEmpty()){
-	        return "pure-user/login";
-	      }else{
-	        // 관리자 계정만 로그인 가능 하도록
-	        Map memberInfo = userService.adminMemberInfo(paramMap);
-	        
-	        if(memberInfo == null){
-	        	return "redirect:/user/login.do";
-	        }else{
-	        	session.setAttribute("login_session", memberInfo);
-	        	return "redirect:/dashboard.do";
-	        }
-	        
-	      }
+    public String loginView(@RequestParam Map<String,Object> paramMap, HttpSession session) {
+	      
+	      
+	      return "pure-user/login";
+	      
   }
 
-//  @RequestMapping(value = "user/login.ajax",  produces = "application/json;charset=UTF-8")
-//  public @ResponseBody String loginAjax(@RequestParam Map paramMap, HttpSession session) {
-//
-//    Map response = new HashMap();
-//    
-//    // ID 체크
-//    if(userService.isNotFoundUser(paramMap)){
-//      response.put("code", 404);
-//      response.put("msg", "ID 가 없습니다.");
-//      return jsonResMaker.generateMap("data", response);
-//    }
-//    
-//    // 관리자 계정만 로그인 가능 하도록
-//    if(userService.isNotAdminUser(paramMap)){
-//      response.put("code", 400);
-//      response.put("msg", "관리자 회원이 아닙니다.");
-//      return jsonResMaker.generateMap("data", response);
-//    }
-//    
-//    // PWD 체크
-//    Map userInfo = userService.getOneRole(paramMap);
-//    if(userInfo == null){
-//      response.put("code", 400);
-//      response.put("msg", "비밀번호가 틀립니다.");
-//      return jsonResMaker.generateMap("data", response);
-//    }else{
-//    	      session.setAttribute("login_session", userInfo);
-//    }
-//    
-//    response.put("code", 200);
-//    response.put("msg", "ok");
-//    String res = jsonResMaker.generateMap("data", response);
-//    logger.info("response {}", res);
-//    return res;
-//    
-//  }
-//  
-//  @RequestMapping(value = "/user/user/manage.do")
-//  public String userManage(Model model, @RequestParam Map parameter) {
-//    
-//	Map pageInfo = pageUtil.pageLink(userService.normalUserTotalCount(parameter), parameter);
-//	model.addAttribute("pageInfo", pageInfo);
-//	model.addAttribute("pageList", pageInfo.get("pageList"));
-//    
-//    model.addAttribute("positionList", userService.list(pageInfo));
-//    model.addAttribute("type", "userView");
-//    return "user/manage";
-//  }
-//  
+  @RequestMapping(value = "user/login.ajax",  produces = "application/json;charset=UTF-8")
+  public @ResponseBody String loginAjax(@RequestParam Map paramMap, HttpSession session) {
+
+    Map response = new HashMap();
+
+    logger.info("paramMap is : " + paramMap);
+	Map memberInfo = userService.adminMemberInfo(paramMap);
+    logger.info("login service is : " + memberInfo);
+    
+    // 회원정보 체크
+    if(memberInfo == null){
+        response.put("code", 400);
+        response.put("msg", "아이디 또는 비밀번호가 일치하지 않습니다.");
+        return jsonResMaker.generateMap("data", response);
+      }
+    
+    // 관리자 계정만 로그인 가능 하도록
+    if(memberInfo.get("MEMBER_TYPE").equals(0)){
+      response.put("code", 400);
+      response.put("msg", "관리자 회원이 아닙니다.");
+      return jsonResMaker.generateMap("data", response);
+      
+    }else {
+    	session.setAttribute("login_session", memberInfo);
+    	logger.info("session is : " + session.getAttribute("login_session"));
+    }
+
+    response.put("code", 200);
+    response.put("msg", "ok");
+    String res = jsonResMaker.generateMap("data", response);
+    logger.info("response {}", res);
+    return res;
+    
+  }
+	
+  
+  @RequestMapping(value = "/user/user/manage.do")
+  public String userManage(Model model, @RequestParam Map parameter) {
+    
+	Map pageInfo = pageUtil.pageLink(userService.totalCount(parameter), parameter);
+	model.addAttribute("pageInfo", pageInfo);
+	model.addAttribute("pageList", pageInfo.get("pageList"));
+    
+    model.addAttribute("positionMap", userService.list(pageInfo));
+    model.addAttribute("type", "userView");
+    return "user/manage";
+  }
+  
 //  @RequestMapping(value = "/user/admin/manage.do", method = RequestMethod.GET)
 //  public String adminManage(Model model, @RequestParam Map parameter) {
 //    
@@ -121,15 +110,16 @@ public class UserController {
 //    model.addAttribute("type", "adminView");
 //    return "user/manage";
 //  }
-//  
-//  @RequestMapping(value = "user/detail.do", method = RequestMethod.GET)
-//  public String detail(Model model, @RequestParam Map<String,Object> paramMap) {
-//	  
-//    model.addAttribute("detail",userService.detail(paramMap));
-//    
-//    return "user/info";
-//  }
-//
+  
+	@RequestMapping(value = "user/detail.do", method = RequestMethod.GET)
+	public String detail(Model model, @RequestParam Map<String,Object> paramMap) {
+	 
+		model.addAttribute("detail",userService.detail(paramMap));
+	    model.addAttribute("type", "userView");
+	  
+		return "user/info";
+	}
+
 //  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
 //  public String childDetail(Model model, @RequestParam Map<String,Object> paramMap) {
 //	  

@@ -1,11 +1,7 @@
 package com.bgg.farmstoryback.service;
 
 import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
 import java.util.List;
@@ -115,6 +111,21 @@ public class BoardServiceTest {
 		assertNotNull(boardDetailInfo);
 		assertEquals(boardModifyInfo.get("board_nm"), boardDetailInfo.get("BOARD_NM"));
 		
+	}
+	
+	@Test
+	public void testTopList() {
+		
+		// given 
+		int limitCount = 5;
+
+		// when
+		List<Map> topList = boardService.top(limitCount);
+
+		// then
+		assertThat(topList, is(notNullValue()));
+		assertTrue(topList.size() <= limitCount);
+
 	}
 	
 	

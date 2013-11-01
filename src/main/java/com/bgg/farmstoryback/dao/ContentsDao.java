@@ -12,12 +12,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ContentsDao extends SqlSessionDaoSupport {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
 	
 	/** 컨텐츠 목록 조회
 	 * @param parameter
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Map> list(Map parameter) {
 		return (List<Map>)getSqlSession().selectList("contentsQuery.list", parameter);
 	}
@@ -25,6 +25,7 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	/** 컨텐츠 추가
 	 * @param parameter
 	 */
+	@SuppressWarnings("rawtypes")
 	public void create(Map parameter) {
 		getSqlSession().insert("contentsQuery.create", parameter);
 		
@@ -34,6 +35,7 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 * @param contents_id
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public Map detail(String contents_id) {
 		return (Map)getSqlSession().selectOne("contentsQuery.detail", contents_id);
 	}
@@ -49,6 +51,7 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	/** 컨텐츠 수정
 	 * @param itemModInfo
 	 */
+	@SuppressWarnings("rawtypes")
 	public void modify(Map itemModInfo) {
 		getSqlSession().update("contentsQuery.modify", itemModInfo);
 		
@@ -57,6 +60,7 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 * @param parameter
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public int totalCount(Map parameter) {
 		return (Integer)getSqlSession().selectOne("contentsQuery.totalCount", parameter);
 	}
@@ -64,8 +68,9 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	/** 최신 등록한 컨텐츠 5개 조회(dashboard 용)
 	 * @return
 	 */
-	public List top5() {
-		return getSqlSession().selectList("contentsQuery.top5");
+	@SuppressWarnings("rawtypes")
+	public List top(int limitCount) {
+		return getSqlSession().selectList("contentsQuery.top", limitCount);
 	}
 
 	/** 컨텐츠 카테고리 추가
@@ -87,6 +92,7 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 * @param parameter
 	 * @return
 	 */
+	@SuppressWarnings("rawtypes")
 	public List contentsCateList(Map parameter) {
 		return getSqlSession().selectList("contentsQuery.contentsCateList", parameter);
 	}
@@ -107,6 +113,11 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		tempMap.put("contents_id", 0);
 		getSqlSession().insert("contentsQuery.createTemp", tempMap);
 		return ""+tempMap.get("contents_id");
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Map> listByCategory(String categoryId) {
+		return (List<Map>)getSqlSession().selectList("contentsQuery.listByCategory", categoryId);
 	}
 
 }

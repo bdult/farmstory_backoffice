@@ -51,12 +51,12 @@ public class SeriesDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("seriesQuery.listOfTop");
 	}
 
-	public List top5() {
-		return getSqlSession().selectList("seriesQuery.top5");
-	}
-
 	public int totalCount(Map parameter) {
 		return (Integer)getSqlSession().selectOne("seriesQuery.totalCount", parameter);
+	}
+
+	public List<Map> top(int limitCount) {
+		return getSqlSession().selectList("seriesQuery.top", limitCount);
 	}
 	
 }

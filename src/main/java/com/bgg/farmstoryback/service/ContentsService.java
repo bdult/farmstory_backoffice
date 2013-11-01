@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.dao.ContentsDao;
+import com.mysql.jdbc.StringUtils;
 
 @Service
 public class ContentsService {
@@ -27,6 +28,7 @@ public class ContentsService {
 	public List<Map> list(Map parameter) {
 		return conDao.list(parameter);
 	}
+	
 	
 	/**
 	 * 컨텐츠 상세
@@ -52,8 +54,8 @@ public class ContentsService {
 		return conDao.totalCount(parameter);
 	}
 
-	public List top5() {
-		return conDao.top5();
+	public List top(int limitCount) {
+		return conDao.top(limitCount);
 	}
 
 
@@ -74,6 +76,16 @@ public class ContentsService {
 
 	public String createTemp() {
 		return conDao.createTemp();
+	}
+
+
+	@SuppressWarnings("rawtypes")
+	public List<Map> listByCategory(String categoryId) {
+		if(StringUtils.isNullOrEmpty(categoryId)){
+			return null;
+		}else{
+			return conDao.listByCategory(categoryId);
+		}
 	}
 
 }

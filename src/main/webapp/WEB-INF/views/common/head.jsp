@@ -78,6 +78,7 @@
 <script src="${rootPath}/assets/js/jquery.hotkeys.min.js"></script>
 <script src="${rootPath}/assets/js/bootstrap-wysiwyg.min.js"></script>
 <script src="${rootPath}/assets/js/bootbox.min.js"></script>
+<script src="${rootPath}/assets/js/date-time/bootstrap-datepicker.min.js"></script>
 
 <!--ace scripts-->
 

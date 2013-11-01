@@ -35,15 +35,15 @@
 	</select>
 	
 	<select id="listAll" resultType="hashmap">
-		SELECT /* boardQuery.listAll 2013.08.21 최지순 */
+		SELECT /* boardQuery.listAllz */
 			A.*
 		FROM BG_BOARD_MASTER A
 		WHERE 1=1
 		AND USE_YN = 'Y'		
 	</select>
 	
-	<select id="top5" resultType="hashmap">
-		SELECT /* boardQuery.top5 2013.08.21 최지순 */
+	<select id="top" resultType="hashmap">
+		SELECT /* boardQuery.top */
 			BOARD_ID
 			, BOARD_NM
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
@@ -51,7 +51,7 @@
 		WHERE 1=1
 		AND USE_YN = 'Y'
 		ORDER BY BOARD_ID DESC
-		LIMIT 0,5		
+		LIMIT 0, #{limitCount}	
 	</select>
 	
 	<select id="searchByName" resultType="hashmap">

@@ -83,11 +83,11 @@ public class SeriesService {
 		return seriesDao.listOfTop();
 	}
 
-	public List top5() {
-		return seriesDao.top5();
-	}
-
 	public int totalCount(Map parameter) {
 		return seriesDao.totalCount(parameter);
+	}
+
+	public List<Map> top(int limitCount) {
+		return seriesDao.top(limitCount);
 	}
 }

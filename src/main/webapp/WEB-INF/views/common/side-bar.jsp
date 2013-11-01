@@ -119,6 +119,81 @@
 					코드 관리
 				</a>
 			</li>
+			<li id="side-stats">
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 통계 관리
+						<span class="badge badge-primary ">2</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li id="side-board-master" >
+						<a href="${contextPath }/stats/setting.do">
+							<i class="icon-double-angle-right"></i>
+							설정
+						</a>
+					</li> 
+					<li id="side-board-board" >
+						<a href="${contextPath }/stats/manage.do">
+							<i class="icon-double-angle-right"></i>
+							통계 조회
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li id="side-cscenter">
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 고객센터 관리
+						<span class="badge badge-primary ">3</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li id="side-board-master" >
+						<a href="${contextPath }/cscenter/questionManage.do">
+							<i class="icon-double-angle-right"></i>
+							문의하기 관리
+						</a>
+					</li> 
+					<li id="side-board-board" >
+						<a href="${contextPath }/cscenter/noticeManage.do">
+							<i class="icon-double-angle-right"></i>
+							공지사항 관리
+						</a>
+					</li> 
+					<li id="side-board-board" >
+						<a href="${contextPath }/cscenter/faqManage.do">
+							<i class="icon-double-angle-right"></i>
+							FAQ 관리
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li id="side-event">
+				<a href="#" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text"> 이벤트 관리
+						<span class="badge badge-primary ">2</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li id="side-board-master" >
+						<a href="${contextPath }/event/eventManage.do">
+							<i class="icon-double-angle-right"></i>
+							이벤트 관리
+						</a>
+					</li> 
+					<li id="side-board-board" >
+						<a href="${contextPath }/event/eventManage.do">
+							<i class="icon-double-angle-right"></i>
+							쿠폰 관리
+						</a>
+					</li> 
+				</ul>
+			</li>
 		</ul><!--/.nav-list-->
 	
 		<div class="sidebar-collapse" id="sidebar-collapse">

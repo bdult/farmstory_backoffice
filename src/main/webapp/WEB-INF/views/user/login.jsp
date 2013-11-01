@@ -80,6 +80,13 @@
 <script>
 
 	$(document).ready(function(){
+		
+		//----------------------
+		//테스트 아이디/비밀번호
+		$('#member_id').val( "master" );
+		$('#member_pwd').val( "123" );
+		//----------------------
+		
 	    $('#member_id').focus();
 	    $("#member_pwd ").bind("keydown", function(e) {
 	        if (e.keyCode == 13) { // enter key
@@ -100,8 +107,8 @@
 	function loginAjax(){
 		var loginUrl = "${contextPath}/user/login.ajax";
 		param = {
-				id : $("#member_id").val(),
-				pw : $("#member_pwd").val()
+				member_id : $("#member_id").val(),
+				member_pwd : $("#member_pwd").val()
 		};
 		
 		console.log(param);

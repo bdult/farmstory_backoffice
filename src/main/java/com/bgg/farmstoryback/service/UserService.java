@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
+import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.dao.UserDao;
+import com.mysql.jdbc.StringUtils;
 
 @Service
 public class UserService {
@@ -35,6 +37,12 @@ public class UserService {
 		return list(null);
 	}
 	
+	/**
+	 * 검색 조건에 맞는 회원 리스트 조회
+	 * 
+	 * @param search
+	 * @return Map (member_list, member_list_count)
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" }) 
 	public Map list(Map search) {
 		Map resultInfo = new HashMap();
@@ -45,25 +53,101 @@ public class UserService {
 	}
 
 
+	/**
+	 * 관리자 회원 정보
+	 * @param requestParamMap (member_id 필수, member_pwd 필수)
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
-	public Map adminMemberInfo(Map<String, Object> paramMap) {
-		return userDao.adminMemberInfo(paramMap);
+	public Map adminMemberInfo(Map requestParamMap) {
+		return userDao.adminMemberInfo(requestParamMap);
+	}
+
+	/**
+	 * 해당 회원의 상세 정보 조회
+	 * 결제, 문의, 아이 정보는 미포함
+	 * @param requestParamMap (member_id 필수)
+	 * @return 회원 상세 정보
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map detail(Map requestParamMap) {
+		if(hasMemberId(requestParamMap)){
+			return userDao.detail(requestParamMap);
+		}else{
+			return null;
+		}
+	}
+
+	/**
+	 * 해당 회원의 아이 정보 조회
+	 * @param requestParamMap (member_id 필수)
+	 * @return 아이 정보 리스트
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> childInfo(Map requestParamMap) {
+		if(hasMemberId(requestParamMap)){
+			return userDao.childInfo(requestParamMap);
+		}else{
+			return null;
+		}
+	}
+
+	/**
+	 * 해당 회원 결제 내역 조회
+	 * @param requestParamMap (member_id 필수)
+	 * @return 결제 내역 리스트
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> paymentsInfo(Map requestParamMap) {
+		if(hasMemberId(requestParamMap)){
+			return userDao.paymentsInfo(requestParamMap);
+		}else{
+			return null;
+		}
+	}
+
+	/**
+	 * 해당 회원의 1:1 문의 내역 (member_id 필수)
+	 * @param requestParamMap
+	 * @return 1:1 문의 리스트
+	 */
+	@SuppressWarnings("rawtypes")
+	public List<Map> queryInfo(Map requestParamMap) {
+		if(hasMemberId(requestParamMap)){
+			return userDao.queryInfo(requestParamMap);
+		}else{
+			return null;
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	private boolean hasMemberId(Map requestParamMap) {
+		String member_id = (String)requestParamMap.get(ConstantsForParam.MEMBER_ID);
+		if(StringUtils.isNullOrEmpty(member_id)){
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	public List<Map> top(int limitCount) {
+		return userDao.top(limitCount);
 	}
 
 	
-//	public Map<String, Object> getOneRole(Map<String, Object> paramMap) {
-//		return userDao.getOneRole(paramMap);
+//	public Map<String, Object> getOneRole(Map<String, Object> requestParamMap) {
+//		return userDao.getOneRole(requestParamMap);
 //	}
 //	
 //	/**
 //	 * member_type 체크 ( 1:admin, 2:user )
-//	 * @param paramMap
+//	 * @param requestParamMap
 //	 * @return
 //	 */
-//	public Map<String, Object> typeCheck(Map<String, Object> paramMap) {
+//	public Map<String, Object> typeCheck(Map<String, Object> requestParamMap) {
 //		
 //		
-//		return userDao.typeCheck(paramMap);
+//		return userDao.typeCheck(requestParamMap);
 //	}
 //	
 //	
@@ -96,27 +180,27 @@ public class UserService {
 //	
 //	/**
 //	 * 상세 자녀 정보
-//	 * @param paramMap
+//	 * @param requestParamMap
 //	 * @return
 //	 */
-//	public List<HashMap<String, Object>> childList (Map<String, Object> paramMap) {
+//	public List<HashMap<String, Object>> childList (Map<String, Object> requestParamMap) {
 //		
-//		return userDao.childList(paramMap);
+//		return userDao.childList(requestParamMap);
 //	}
 //	
 //	/**
 //	 * 한개의 유저 리스트
-//	 * @param paramMap
+//	 * @param requestParamMap
 //	 * @return
 //	 */
-//	public Map<String, Object> detail(Map<String, Object> paramMap) {
+//	public Map<String, Object> detail(Map<String, Object> requestParamMap) {
 //		
 //		Map detailInfo = new HashMap();
 //		
-//		Map userDetail = userDao.detail(paramMap);
+//		Map userDetail = userDao.detail(requestParamMap);
 //		detailInfo.put("userDetail", userDetail );
 //		if((Integer)userDetail.get("MEMBER_TYPE") == 1){
-//			detailInfo.put("userChildList", userDao.childList(paramMap));
+//			detailInfo.put("userChildList", userDao.childList(requestParamMap));
 //			detailInfo.put("type", "userView");
 //		}else{
 //			detailInfo.put("type", "adminView");
@@ -126,27 +210,27 @@ public class UserService {
 //	
 //	/**
 //	 * 한개의 자녀 리스트
-//	 * @param paramMap
+//	 * @param requestParamMap
 //	 * @return
 //	 */
-//	public Map<String, Object> childDetail(Map<String, Object> paramMap) {
-//		return userDao.childDetail(paramMap);
+//	public Map<String, Object> childDetail(Map<String, Object> requestParamMap) {
+//		return userDao.childDetail(requestParamMap);
 //	}
 //	
 //	
 //	/**
 //	 * 관리자 회원 생성
-//	 * @param paramMap
+//	 * @param requestParamMap
 //	 * @return
 //	 */
-//	public void addAdminUser(Map<String, Object> paramMap){
+//	public void addAdminUser(Map<String, Object> requestParamMap){
 //		
-//		userDao.addAdminUser(paramMap);
+//		userDao.addAdminUser(requestParamMap);
 //	}
 //	
-//	public void modifyAdminUser(Map<String, Object> paramMap){
+//	public void modifyAdminUser(Map<String, Object> requestParamMap){
 //		
-//		userDao.modifyAdminUser(paramMap);
+//		userDao.modifyAdminUser(requestParamMap);
 //	}
 //	
 //	/**
@@ -156,12 +240,12 @@ public class UserService {
 //	 * Map<String, String> map = new HashMap<String, String>();
 //	 * map.put("MEMBER_ID", "test");
 //	 * </pre>
-//	 * @param paramMap
+//	 * @param requestParamMap
 //	 * @return
 //	 */
-//	public void deleteUser(Map<String, Object> paramMap){
+//	public void deleteUser(Map<String, Object> requestParamMap){
 //		
-//		userDao.deleteUser((String)paramMap.get("member_id"));
+//		userDao.deleteUser((String)requestParamMap.get("member_id"));
 //	}
 //
 //	public boolean isNotAdminUser(Map parameter) {
@@ -173,8 +257,8 @@ public class UserService {
 //		}
 //	}
 //
-//	public boolean isNotFoundUser(Map paramMap) {
-//		int checkCount = userDao.userIdCheckCount(paramMap);
+//	public boolean isNotFoundUser(Map requestParamMap) {
+//		int checkCount = userDao.userIdCheckCount(requestParamMap);
 //		return false;
 //	}
 //
