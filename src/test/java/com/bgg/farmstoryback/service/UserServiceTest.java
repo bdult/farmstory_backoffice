@@ -93,7 +93,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		requeryParamMap.put(ConstantsForParam.MEMBER_ID, testId);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testId);
 
 		// when
 		result = userService.list(requeryParamMap);
@@ -113,7 +113,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
-		requeryParamMap.put(ConstantsForParam.MEMBER_NAME, testName);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testName);
 
 		// when
 		result = userService.list(requeryParamMap);
@@ -134,7 +134,7 @@ public class UserServiceTest {
 		// given 
 		
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
-		requeryParamMap.put(ConstantsForParam.MEMBER_CEL, testCelNo);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testCelNo);
 		
 		// when
 		result = userService.list(requeryParamMap);
@@ -187,8 +187,8 @@ public class UserServiceTest {
 		// then
 		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
 		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
-			String memberRole =(String)memberInfo.get(ConstantsForDb.MEMBER_ROLE);
-			assertTrue(memberRole.equals(searchRole));
+			int memberRole =(Integer)memberInfo.get(ConstantsForDb.MEMBER_ROLE);
+			assertTrue(memberRole == Integer.parseInt(searchRole));
 		}
 		
 	}
@@ -199,7 +199,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		requeryParamMap.put(ConstantsForParam.MEMBER_ID, testId);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testId);
 		setDefaultSearchData();
 
 		// when
@@ -221,7 +221,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
-		requeryParamMap.put(ConstantsForParam.MEMBER_NAME, testName);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testName);
 		setDefaultSearchData();
 		
 		// when
@@ -245,7 +245,7 @@ public class UserServiceTest {
 		
 		// given 
 		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
-		requeryParamMap.put(ConstantsForParam.MEMBER_CEL, testCelNo);
+		requeryParamMap.put(ConstantsForParam.SEARCH, testCelNo);
 		setDefaultSearchData();
 		
 		// when
@@ -362,8 +362,8 @@ public class UserServiceTest {
 
 	@SuppressWarnings("rawtypes")
 	private void assertDefaultSearchInfo(Map result) {
-		String memberRole =(String)result.get(ConstantsForDb.MEMBER_ROLE);
-		assertTrue(memberRole.equals(searchRole));
+		int memberRole =(Integer)result.get(ConstantsForDb.MEMBER_ROLE);
+		assertTrue(memberRole == Integer.parseInt(searchRole));
 		
 		// 가입일 검증
 		String memberRegDt =(String)result.get(ConstantsForDb.REG_DT);

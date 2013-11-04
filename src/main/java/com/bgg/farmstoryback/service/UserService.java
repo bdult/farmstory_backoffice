@@ -23,7 +23,9 @@ public class UserService {
 	private UserDao userDao;
 	
 	/**
+	 * 
 	 * 전체(이용, 탈퇴, 이용정지) 회원 카운트
+	 * 게시판 번호 표시 할때는 ROWNUM 을 사용 하면 됨
 	 * @param search
 	 * @return
 	 */
