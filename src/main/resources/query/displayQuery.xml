@@ -16,6 +16,7 @@
 		FROM BG_DISPLAY
 		WHERE 1=1
 		AND DISPLAY_CODE = 'DIS002'
+		ORDER BY DISPLAY_ID DESC
 	</select>
 	
 	<select id="topDisplaylist" resultType="hashmap">
@@ -30,6 +31,7 @@
 		FROM BG_DISPLAY
 		WHERE 1=1
 		AND DISPLAY_CODE = 'DIS001'		
+		ORDER BY DISPLAY_ID DESC
 	</select>
 	
 	<select id="detail" resultType="hashmap">
@@ -57,6 +59,7 @@
 		FROM BG_DISPLAY
 		WHERE 1=1
 		AND DISPLAY_CODE = 'DIS003'
+		ORDER BY DISPLAY_ID DESC
 	</select>
 	
 	<select id="popupDetail" resultType="hashmap">
@@ -74,19 +77,42 @@
 		AND DISPLAY_CODE = 'DIS003'
 	</select>
 	
+	<update id="modify">
+	    UPDATE /* displayQuery.modify */ BG_DISPLAY
+	    SET 
+	    	TITLE = #{title}
+	    	, IMG_PATH = #{img_path}
+	    	, LINK_URL = #{link_url}
+	    	, DISPLAY_YN = #{display_yn}
+	    WHERE DISPLAY_ID = #{display_id}
+	    
+	</update>
 	
 	
-	<!-- 
-	<insert id="create"  keyProperty="display_id">
-		INSERT BG_DISPLAY(
-			DISPLAY_NM,
-			DIS_TYPE
+	
+	<insert id="add"  keyProperty="display_id">
+		INSERT /* displayQuery."add" */ BG_DISPLAY(
+			TITLE
+			, IMG_PATH
+			, LINK_URL
+			, DISPLAY_CODE
+			, DISPLAY_YN
    		)
    		VALUES(
-   			#{display_nm},
-   			#{display_type}
+   			#{title}
+   			, #{img_path}
+   			, #{link_url}
+   			, #{display_code}
+   			, #{display_yn}
    		)
 	</insert>
+	
+	<delete id="delete">
+	    DELETE /* displayQuery.delete */ FROM BG_DISPLAY
+	    WHERE DISPLAY_ID = #{display_id}
+	    
+	</delete>
+	<!-- 
 	
 	<insert id="createObjectDisplay"  >
 		INSERT BG_DIPLAY_ITEM_RELATIONSHIPS(

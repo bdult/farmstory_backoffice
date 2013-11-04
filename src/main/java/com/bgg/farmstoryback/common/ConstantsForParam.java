@@ -46,5 +46,8 @@ public class ConstantsForParam {
 	
 	public static final String CONTENTS_ID = "contents_id";
 	public static final String ORDERING_NO = "ordering_no";
+	public static final String DISPLAY_LINK_URL = "link_url";
+	public static final String TITLE = "title";
+	public static final Object DISPLAY_CODE = "display_code";
 	
 }
