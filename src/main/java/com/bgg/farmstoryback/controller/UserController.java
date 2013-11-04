@@ -116,10 +116,20 @@ public class UserController {
 	 
 		model.addAttribute("detail",userService.detail(paramMap));
 	    model.addAttribute("type", "userView");
-	  
+	    model.addAttribute("childInfo",  userService.childInfo(paramMap));
+	    model.addAttribute("paymentsInfo",  userService.paymentsInfo(paramMap));
+	    model.addAttribute("questionInfo",  userService.queryInfo(paramMap));
+	    
 		return "user/info";
 	}
 
+  @RequestMapping(value = "user/userModify.do", method = RequestMethod.GET)
+  public String userModify(Model model, @RequestParam Map<String,Object> paramMap) {
+	  	
+	  
+	  	return "user/addInfo";
+	}
+	
 //  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
 //  public String childDetail(Model model, @RequestParam Map<String,Object> paramMap) {
 //	  

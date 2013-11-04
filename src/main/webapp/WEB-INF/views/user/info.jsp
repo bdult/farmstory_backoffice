@@ -165,7 +165,6 @@
 							</form>
 					</div>
 			</div>
-			${type}
 		<c:if test="${type == 'userView' }">
 		<!-- clidren nav -->
 			<ul class="nav nav-tabs" id="myTab">
@@ -198,10 +197,15 @@
 			
 		<!--/.page-header-->
 			<table class="table table-striped table-bordered table-hover" id="navTabList1">
-				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="0" end="0">
+				<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="1">
 					<thead>
 						<tr>
-							<th colspan="4">자녀A 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
+							<c:if test="${ status.count == 1 }">
+								<th colspan="4">자녀A 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
+							</c:if>
+							<c:if test="${ status.count == 2 }">
+								<th colspan="4">자녀B 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -215,57 +219,35 @@
 								<td>생년월일</td>
 								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
 								<td>자녀등록일</td>
-								<td></td>
-							</tr>
-					</tbody>
-				</c:forEach>
-					
-				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="1" end="1">
-					<thead>
-						<tr>
-							<th colspan="4">자녀B 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
-						</tr>
-					</thead>
-					<tbody>
-							<tr>
-								<td>이름</td>
-								<td>${ childList.CHILD_NM }</td>
-								<td>성별</td>
-								<td>${ childList.GENDER }</td>
-							</tr>
-							<tr>
-								<td>생년월일</td>
-								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
-								<td>자녀등록일</td>
-								<td></td>
+								<td>${ childList.REG_DT }</td>
 							</tr>
 					</tbody>
 				</c:forEach>
 			</table>
 			
 			<table class="table table-striped table-bordered table-hover" id="navTabList2" style="display: none;">
-				<thead>
-					<tr>
-						<th>NO.</th>
-						<th>결제일자</th>
-						<th>요금제</th>
-						<th>결제요금</th>
-						<th>결제방법</th>
-						<th>잔여기간</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<c:forEach var="true" items="true">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+					<thead>
+						<tr>
+							<th>NO.</th>
+							<th>결제일자</th>
+							<th>요금제</th>
+							<th>결제요금</th>
+							<th>결제방법</th>
+							<th>잔여기간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="paymentsInfo" items="${paymentsInfo}" varStatus="status">
+							<tr>
+								<td>${ paymentsInfo.IDX }</td>
+								<td>${ paymentsInfo.REG_DT }</td>
+								<td>${ paymentsInfo.PAYMENT_CODE }</td>
+								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
+								<td>${ paymentsInfo.PRICE }</td>
+								<td>${ paymentsInfo.REMINE_DAY }</td>
+							</tr>
 						</c:forEach>
-					</tr>
-				</tbody>
+					</tbody>
 			</table>
 			
 			<table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
@@ -303,14 +285,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<c:forEach var="true" items="true">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</c:forEach>
-					</tr>
+					<c:forEach var="questionInfo" items="${ questionInfo }" varStatus="status">
+						<tr>
+							<td>${ questionInfo.IDX }</td>
+							<td>${ questionInfo.TITLE }</td>
+							<td>${ questionInfo.REG_DT }</td>
+							<td>${ questionInfo.ANSWER_YN }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			
@@ -410,7 +392,6 @@
 	</form>
 </div>
 <script type="text/javascript">
-
 
 
 //child modal thombnail upload
