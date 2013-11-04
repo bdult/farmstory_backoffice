@@ -31,6 +31,12 @@ public class ConstantsForDb {
 	public static final String SERIES_ID = "CONTENTS_SERIES_ID";
 
 
+	public static final String BOARD_TYPE = "BOARD_TYPE";
+
+
+	public static final String BOARD_CONTENTS_ID = "CONTENTS_ID";
+
+
 
 
 	

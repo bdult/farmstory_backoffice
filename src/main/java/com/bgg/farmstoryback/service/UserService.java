@@ -22,17 +22,6 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	/**
-	 * 
-	 * 전체(이용, 탈퇴, 이용정지) 회원 카운트
-	 * 게시판 번호 표시 할때는 ROWNUM 을 사용 하면 됨
-	 * @param search
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes") 
-	public int totalCount(Map search) {
-		return userDao.totalCount(search);
-	}
 	
 	@SuppressWarnings({ "rawtypes"}) 
 	public Map list() {
@@ -50,7 +39,7 @@ public class UserService {
 		Map resultInfo = new HashMap();
 		List<Map> userList = userDao.userList(search);
 		resultInfo.put(ConstantsForDb.MEMBER_LIST, userList);
-		resultInfo.put(ConstantsForDb.MEMBER_LIST_COUNT, userList.size());
+		resultInfo.put(ConstantsForDb.MEMBER_LIST_COUNT, userDao.userListCount(search));
 		return resultInfo;
 	}
 

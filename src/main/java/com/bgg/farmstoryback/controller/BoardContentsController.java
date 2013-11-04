@@ -40,65 +40,65 @@ public class BoardContentsController {
 	@Autowired
 	private FileUtil fileUtil; 
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "board/contents/manage.do")
-	public String manage(Model model,  @RequestParam Map parameter) {
-		
-		Map pageInfo = pageUtil.pageLink(boardService.totalCount(parameter), parameter);
-		pageInfo.put("boardId", parameter.get("boardId"));
-		model.addAttribute("pageInfo", pageInfo);
-		model.addAttribute("boardList", boardService.listAll());
-		model.addAttribute("boardContents", boardContentsService.list(pageInfo));
-		model.addAttribute("parameter", parameter);
-		
-		return "board/contentsManage";
-	}
-	
-	@RequestMapping(value = "board/contents/detail.do")
-	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
-		Map contentDetail = boardContentsService.detail(parameter);
-		model.addAttribute("data", contentDetail);
-		return "board/contentsDetail";
-	}
-	
-	@RequestMapping(value = "board/contents/createView.do")
-	public String createView(Model model, @RequestParam Map<String,Object> parameter) {
-		model.addAttribute("mode", "create");
-		Map contentDetail = boardService.detail(parameter);
-		model.addAttribute("data", contentDetail);
-		return "board/contentsDetail";
-	}
-	
-	@RequestMapping(value = "board/contents/create.do")
-	public String create(Model model, @RequestParam Map<String,Object> parameter, HttpSession session) {
-		
-		Map sessionInfo = (Map)session.getAttribute("login_session");
-		parameter.put("memberId", sessionInfo.get("MEMBER_ID"));
-			
-		int result = boardContentsService.create(parameter);
-		model.addAttribute("result", result);
-		return "redirect:manage.do?boardId=" + parameter.get("boardId");
-	}
-	
-	@RequestMapping(value = "board/contents/modify.do")
-	public String modify(Model model, @RequestParam Map<String,Object> parameter) {
-		int result = boardContentsService.modify(parameter);
-		model.addAttribute("result", result);
-		return "redirect:manage.do?boardId=" + parameter.get("boardId");
-	}
-	
-	@RequestMapping(value = "board/contents/delete.do")
-	public String delete(Model model, @RequestParam Map<String,Object> parameter) {
-		int result = boardContentsService.delete(parameter);
-		model.addAttribute("result", result);
-		return "redirect:manage.do?boardId=" + parameter.get("boardId");
-	}
-
-	@RequestMapping(value = "board/contents/thumbnail-upload.do")
-	public @ResponseBody String thumbnailUpload(Model model,
-			@RequestParam("file")MultipartFile file
-			) {
-		String srcPath = fileUtil.boardThumbnailUpload(file);
-		return srcPath;
-	}
+//	@SuppressWarnings({ "rawtypes", "unchecked" })
+//	@RequestMapping(value = "board/contents/manage.do")
+//	public String manage(Model model,  @RequestParam Map parameter) {
+//		
+//		Map pageInfo = pageUtil.pageLink(boardService.totalCount(parameter), parameter);
+//		pageInfo.put("boardId", parameter.get("boardId"));
+//		model.addAttribute("pageInfo", pageInfo);
+//		model.addAttribute("boardList", boardService.listAll());
+//		model.addAttribute("boardContents", boardContentsService.list(pageInfo));
+//		model.addAttribute("parameter", parameter);
+//		
+//		return "board/contentsManage";
+//	}
+//	
+//	@RequestMapping(value = "board/contents/detail.do")
+//	public String detail(Model model, @RequestParam Map<String,Object> parameter) {
+//		Map contentDetail = boardContentsService.detail(parameter);
+//		model.addAttribute("data", contentDetail);
+//		return "board/contentsDetail";
+//	}
+//	
+//	@RequestMapping(value = "board/contents/createView.do")
+//	public String createView(Model model, @RequestParam Map<String,Object> parameter) {
+//		model.addAttribute("mode", "create");
+//		Map contentDetail = boardService.detail(parameter);
+//		model.addAttribute("data", contentDetail);
+//		return "board/contentsDetail";
+//	}
+//	
+//	@RequestMapping(value = "board/contents/create.do")
+//	public String create(Model model, @RequestParam Map<String,Object> parameter, HttpSession session) {
+//		
+//		Map sessionInfo = (Map)session.getAttribute("login_session");
+//		parameter.put("memberId", sessionInfo.get("MEMBER_ID"));
+//			
+//		int result = boardContentsService.create(parameter);
+//		model.addAttribute("result", result);
+//		return "redirect:manage.do?boardId=" + parameter.get("boardId");
+//	}
+//	
+//	@RequestMapping(value = "board/contents/modify.do")
+//	public String modify(Model model, @RequestParam Map<String,Object> parameter) {
+//		int result = boardContentsService.modify(parameter);
+//		model.addAttribute("result", result);
+//		return "redirect:manage.do?boardId=" + parameter.get("boardId");
+//	}
+//	
+//	@RequestMapping(value = "board/contents/delete.do")
+//	public String delete(Model model, @RequestParam Map<String,Object> parameter) {
+//		int result = boardContentsService.delete(parameter);
+//		model.addAttribute("result", result);
+//		return "redirect:manage.do?boardId=" + parameter.get("boardId");
+//	}
+//
+//	@RequestMapping(value = "board/contents/thumbnail-upload.do")
+//	public @ResponseBody String thumbnailUpload(Model model,
+//			@RequestParam("file")MultipartFile file
+//			) {
+//		String srcPath = fileUtil.boardThumbnailUpload(file);
+//		return srcPath;
+//	}
 }

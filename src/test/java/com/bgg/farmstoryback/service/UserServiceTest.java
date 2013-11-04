@@ -82,9 +82,11 @@ public class UserServiceTest {
 	public void testUserListTotal(){
 		
 		//when
+		requeryParamMap.put(ConstantsForParam.PAGE_START_NO, "1");
+		requeryParamMap.put(ConstantsForParam.PAGE_PER_PAGE, "10");
 		result = userService.list();
 		
-		assertThat((Integer)result.get("userListCount"), is(not(0)));
+		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
 	}
 	
 	@Test
@@ -263,19 +265,6 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
-	public void testTotalCount() {
-		
-		// given 
-
-		// when
-		int totalCount = userService.totalCount(requeryParamMap);
-
-		// then
-		assertThat(totalCount, is(not(0)));
-		
-
-	}
 	
 	@Test
 	public void testMemberIndoDetail() {
