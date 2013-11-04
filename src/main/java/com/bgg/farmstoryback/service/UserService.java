@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
+import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.dao.UserDao;
 import com.mysql.jdbc.StringUtils;
 
@@ -38,9 +39,12 @@ public class UserService {
 	public Map list(Map search) {
 		Map resultInfo = new HashMap();
 		List<Map> userList = userDao.userList(search);
-		resultInfo.put(ConstantsForDb.MEMBER_LIST, userList);
-		resultInfo.put(ConstantsForDb.MEMBER_LIST_COUNT, userDao.userListCount(search));
+		resultInfo.put(ConstantsForResponse.MEMBER_LIST, userList);
 		return resultInfo;
+	}
+	
+	public int totalCount(Map search){
+		return userDao.userListCount(search);
 	}
 
 
@@ -123,6 +127,15 @@ public class UserService {
 
 	public List<Map> top(int limitCount) {
 		return userDao.top(limitCount);
+	}
+
+	public void modifyUserInfo(Map requestParamMap) {
+		userDao.modifyUserInfo(requestParamMap);
+	}
+
+	public void modifyChildInfo(Map requestParamMap) {
+		userDao.modifyChildInfo(requestParamMap);
+		
 	}
 
 	
