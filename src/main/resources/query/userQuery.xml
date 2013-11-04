@@ -6,29 +6,66 @@
     
     
     <select id="list" resultType="hashmap" >
-		SELECT /* userQuery.list */
-			IDX,
-			MEMBER_ID,
-			MEMBER_NM,
-			MEMBER_CEL,
-			MEMBER_ROLE,
-			DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT,
-			case (MEMBER_ROLE)
-				when 0 then '무료회원'
-				when 1 then '유료회원'
-		    else '무료회원'
-			end AS MEMBER_ROLE
+        SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+			
+				SELECT /* userQuery.list */
+					IDX,
+					MEMBER_ID,
+					MEMBER_NM,
+					MEMBER_CEL,
+					MEMBER_ROLE,
+					DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT,
+					case (MEMBER_ROLE)
+						when 0 then '무료회원'
+						when 1 then '유료회원'
+				    else '무료회원'
+					end AS MEMBER_ROLE_DESC
+				FROM BG_MEMBER 
+				WHERE 1=1 
+				<if test="search_type != null and search_type != ''">
+					<if test="search_type == 'id'">
+						AND ( MEMBER_ID LIKE CONCAT('%', #{search}, '%'))
+					</if>
+					<if test="search_type == 'name'">
+						AND ( MEMBER_NM LIKE CONCAT('%', #{search}, '%'))
+					</if>
+					<if test="search_type == 'cel'">
+						AND ( REPLACE(MEMBER_CEL, '-', '')  LIKE CONCAT('%', #{search}, '%'))
+					</if>
+				</if>
+				<if test="member_role !=null and member_role !=''">
+				    AND MEMBER_ROLE = #{member_role}
+				</if>
+				<if test="search_start_date !=null and search_start_date !=''">
+					AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+				</if>
+				<if test="search_end_date !=null and search_end_date !=''">
+					AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+				</if>
+				
+				ORDER BY IDX ASC
+		) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
+		</if>
+	</select>
+	
+    <select id="listCount" resultType="int">
+		SELECT /* userQuery.listCount */
+			COUNT(*) AS LIST_COUNT
 		FROM BG_MEMBER 
 		WHERE 1=1 
 		<if test="search_type != null and search_type != ''">
 			<if test="search_type == 'id'">
-				AND ( MEMBER_ID LIKE CONCAT('%', #{member_id}, '%'))
+				AND ( MEMBER_ID LIKE CONCAT('%', #{search}, '%'))
 			</if>
 			<if test="search_type == 'name'">
-				AND ( MEMBER_NM LIKE CONCAT('%', #{member_name}, '%'))
+				AND ( MEMBER_NM LIKE CONCAT('%', #{search}, '%'))
 			</if>
 			<if test="search_type == 'cel'">
-				AND ( REPLACE(MEMBER_CEL, '-', '')  LIKE CONCAT('%', #{member_cel}, '%'))
+				AND ( REPLACE(MEMBER_CEL, '-', '')  LIKE CONCAT('%', #{search}, '%'))
 			</if>
 		</if>
 		<if test="member_role !=null and member_role !=''">
@@ -40,24 +77,15 @@
 		<if test="search_end_date !=null and search_end_date !=''">
 			AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
-		
-		ORDER BY IDX DESC
-		<if test="startNo != null and perPage != null">
-			LIMIT #{startNo}, #{perPage}
-		</if>
-	</select>
-    <select id="totalCount" resultType="int" >
-		SELECT /* userQuery.totalCount */
-			COUNT(IDX)
-		FROM BG_MEMBER 
-	</select>
+    </select>
 
     
     <select id="adminMemberInfo" resultType="hashmap">
-        SELECT /* userQuery.adminMemberInfo  */ 
-        	MEMBER_ROLE, MEMBER_ID
+        SELECT /* userQuery.adminMemberInfo  */
+        	MEMBER_TYPE, MEMBER_ID
         FROM BG_MEMBER
-        WHERE MEMBER_ID = #{ member_id } and MEMBER_PW = PASSWORD(#{ member_pwd })
+        WHERE MEMBER_ID = #{ member_id } 
+        and MEMBER_PW = PASSWORD(#{ member_pwd }) 
     </select>
     
     <select id="detail" resultType="hashmap">
@@ -73,7 +101,11 @@
 			, MEMBER_DAY
 			, MEMBER_ADDR_1
 			, MEMBER_ADDR_2
-			, MEMBER_ROLE
+			, case (MEMBER_ROLE)
+				when 0 then '무료회원'
+				when 1 then '유료회원'
+		      else '무료회원'
+			  end AS MEMBER_ROLE
 			, '2013-10-31' AS PAYDAY
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ member_id }
@@ -81,7 +113,8 @@
     
     <select id="childInfo" resultType="hashmap">
         SELECT /* userQuery.childInfo */
-	         CHILD_NM
+        	 IDX
+	         , CHILD_NM
 	         , PHOTO
 	         , GENDER
 	         , BIRTH_YEAR
@@ -96,36 +129,45 @@
     </select>
     
     <select id="paymentsInfo" resultType="hashmap">
-        SELECT /* userQuery.paymentsInfo */ 
-        	DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
-        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_CODE)
-        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_PROCESS)
-        	, PRICE
-        	, IF(TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ) > 0, TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ), 0) AS REMINE_DAY
-        FROM BG_PAYMENT_HIS
-        WHERE 1=1
-        AND MEMBER_ID = #{member_id}
-        ORDER BY REG_DT DESC
+        SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+		        SELECT /* userQuery.paymentsInfo */ 
+		        	IDX
+		        	, DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
+		        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_CODE) AS PAYMENT_CODE
+		        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_PROCESS) AS PAYMENT_PROCESS
+		        	, PRICE
+		        	, IF(TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ) > 0, TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ), 0) AS REMINE_DAY
+		        FROM BG_PAYMENT_HIS
+		        WHERE 1=1
+		        AND MEMBER_ID = #{member_id}
+		        ORDER BY IDX ASC
+        	) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC
     </select>
     
     <select id="queryInfo" resultType="hashmap">
-        SELECT /* userQuery.queryInfo */
-        	BBC.TITLE
-        	, DATE_FORMAT(BBC.REG_DT,'%Y.%m.%d') AS REG_DT
-        	, CASE (SELECT COUNT(COMMENT_ID) FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID)
-        	WHEN 0 THEN '미처리'
-        	ELSE '답변완료' 
-        	END AS ANSWER_YN
-        FROM BG_BOARD_CONTENTS BBC, BG_BOARD_MASTER BBM
-        WHERE 1=1
-        AND BBM.BOARD_ID = BBC.BOARD_ID        
-        AND BBC.MEMBER_ID = #{member_id}
-        AND BBM.BOARD_ID =3
+        SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+		        SELECT /* userQuery.queryInfo */
+		        	BBC.TITLE
+		        	, DATE_FORMAT(BBC.REG_DT,'%Y.%m.%d') AS REG_DT
+		        	, CASE (SELECT COUNT(COMMENT_ID) FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID)
+		        	WHEN 0 THEN '미처리'
+		        	ELSE '답변완료' 
+		        	END AS ANSWER_YN
+		        FROM BG_BOARD_CONTENTS BBC, BG_BOARD_MASTER BBM
+		        WHERE 1=1
+		        AND BBM.BOARD_ID = BBC.BOARD_ID        
+		        AND BBC.MEMBER_ID = #{member_id}
+		        AND BBM.BOARD_ID =3
+        ) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC
         
     </select>
     
     <select id="top" resultType="hashmap" >
-		SELECT /* userQuery.list */
+		SELECT /* userQuery.top */
 			IDX,
 			MEMBER_ID,
 			MEMBER_NM,

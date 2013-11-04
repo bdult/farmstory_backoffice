@@ -152,32 +152,17 @@
 						<th>이름</th>
 						<th>회원구분</th>
 						<th>휴대폰번호</th>
-						<%-- <th>이메일</th>
-						<th>상태</th>
-						<th>등급</th>
-						<c:if test="${ type == 'userView' }">
-						<th>SMS 수신</th>
-						<th>이메일 수신</th>
-						</c:if> --%>
 						<th>구독 일시</th>
 					</tr>
 				</thead>
-				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
-							<tr>
+				<c:forEach var="userlist" items="${positionMap.memberList}" varStatus="status">
+							<tr> 
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.IDX}</a></td>
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_NM}</a></td>
-								<td></td>
-								<td>${userlist.MEMBER_CEL}</td>
-								<%-- <td>${userlist.MEMBER_EMAIL}</td>
-								<td>${userlist.MEMBER_STATUS_DESC}</td>
 								<td>${userlist.MEMBER_ROLE}</td>
-								<c:if test="${ type == 'userView' }">
-								<td>${userlist.SMS_RECEIVE_DESC}</td>
-								<td>${userlist.EMAIL_RECEIVE_DESC}</td>
-								</c:if> --%>
+								<td>${userlist.MEMBER_CEL}</td>
 								<td>${userlist.REG_DT}</td>
 							</tr>
 				</c:forEach>

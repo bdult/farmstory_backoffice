@@ -43,12 +43,12 @@
 							</a>
 						</li>
 		
-						<li id="side-user-admin">
+						<%-- <li id="side-user-admin">
 							<a href="${ contextPath }/user/admin/manage.do">
 								<i class="icon-double-angle-right"></i>
 								Admin 회원
 							</a>
-						</li>
+						</li> --%>
 					</ul>
 				</li>
 			<li id="side-display">
@@ -215,12 +215,12 @@
 							이벤트 관리
 						</a>
 					</li> 
-					<li id="side-board-board" >
+					<%-- <li id="side-board-board" >
 						<a href="${contextPath }/event/eventManage.do">
 							<i class="icon-double-angle-right"></i>
 							쿠폰 관리
 						</a>
-					</li> 
+					</li>  --%>
 				</ul>
 			</li>
 		</ul><!--/.nav-list-->

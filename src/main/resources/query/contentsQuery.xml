@@ -6,22 +6,56 @@
 
 
 	<select id="list" resultType="hashmap">
+	    SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+			
 		SELECT
 			A.CONTENTS_NM
-			,A.CONTENTS_ID
-			,A.CONTENTS_DESC
-			,A.SRC_PATH
-			,A.IMG_PATH
-			, A.PLAYER_TYPE
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
-			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
-		FROM  BG_CONTENTS A
+			, A.CONTENTS_ID
+			, BB.BRAND_NM
+			, BCS.CONTENTS_SERIES_NM
+			, BCS.CONTENTS_SERIES_ID
+			, A.CONTENTS_DESC
+			, A.SRC_PATH
+			, A.IMG_PATH
+			, A.DISPLAY_YN
+			, BCCR.CATE_ID
+			, BB.BRAND_ID
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		FROM  BG_CONTENTS A,  BG_CATE_CONTENTS_RELATIONSHIPS BCCR, BG_CONTENTS_SERIES BCS, BG_BRAND BB
 		WHERE 1=1
-		<if test="search != null and search != ''">
+		AND A.CONTENTS_ID = BCCR.CONTENTS_ID 
+		AND A.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		AND BCS.BRAND_ID= BB.BRAND_ID 
+		<if test="search_type == 'id'">
+			AND A.CONTENTS_ID = #{search}
+		</if>
+		<if test="search_type == 'name'">
 			AND A.CONTENTS_NM LIKE CONCAT('%', #{search}, '%')
 		</if>
-		ORDER BY CONTENTS_ID DESC
+		
+		<if test="display_yn != null and display_yn != ''">
+			AND A.DISPLAY_YN = #{display_yn}
+		</if>
+		<if test="brand_id != null and brand_id != ''">
+			AND BB.BRAND_ID = #{brand_id}
+		</if>
+		<if test="category_id != null and category_id != ''">
+			AND BCCR.CATE_ID = #{category_id}
+		</if>
+		<if test="series_id != null and series_id != ''">
+			AND BCS.CONTENTS_SERIES_ID = #{series_id}
+		</if>
+		<if test="search_start_date !=null and search_start_date !=''">
+			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+		</if>
+		<if test="search_end_date !=null and search_end_date !=''">
+			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+		</if>
+		GROUP BY A.CONTENTS_ID
+		ORDER BY A.CONTENTS_ID ASC
+		) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC
 		<if test="startNo != null and perPage != null">
 			LIMIT #{startNo}, #{perPage}
 		</if>
@@ -36,6 +70,7 @@
 			, BCCR.ORDERING_NO
 		FROM  BG_CONTENTS A, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
 		WHERE 1=1
+		AND DISPLAY_YN = 'Y'
 		AND A.CONTENTS_ID = BCCR.CONTENTS_ID
 		AND BCCR.CATE_ID = #{categoryId} 
 		ORDER BY BCCR.ORDERING_NO ASC, A.CONTENTS_ID DESC
@@ -48,11 +83,12 @@
 			,A.CONTENTS_DESC
 			,A.SRC_PATH
 			,A.IMG_PATH
-			, A.PLAYER_TYPE
+			
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
 			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
 		FROM  BG_CONTENTS A
+		WHERE 1=1
 		ORDER BY CONTENTS_ID DESC
 		LIMIT 0, #{limitCount}
 	</select>
@@ -76,7 +112,7 @@
 			, A.IMG_PATH
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 			, A.CONTENTS_SERIES_ID
-			, A.PLAYER_TYPE
+			
 			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
 			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
 		FROM  BG_CONTENTS A

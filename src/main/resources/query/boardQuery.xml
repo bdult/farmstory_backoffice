@@ -3,6 +3,78 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardQuery">
+    
+	<select id="boardList" resultType="hashmap">
+		SELECT /* boardQuery.boardList */
+			*
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'		
+		<if test="board_type != null and board_type != ''">
+			AND BOARD_TYPE = #{board_type}
+		</if>
+	</select>
+	
+	<select id="contentsListByBoardId" resultType="hashmap">
+	    SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+				SELECT /* boardQuery.contentsListByBoardId */
+					BBC.CONTENTS_ID
+					, BBC.MEMBER_ID
+					, BBC.TITLE
+					, BBC.REG_DT
+					, (SELECT REG_DT  
+						FROM BG_BOARD_COMMENTS 
+					   WHERE CONTENTS_ID = BBC.CONTENTS_ID
+					   LIMIT 1
+						) AS COMMENT_REG_DT
+					, if(
+						(SELECT COUNT(*)
+						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0, 'Y', 'N'
+					  ) AS COMMENT_YN 
+				FROM BG_BOARD_CONTENTS BBC
+				WHERE 1=1
+				AND BBC.BOARD_ID = #{board_id}
+				<if test="search_type == 'title'">
+					AND ( BBC.TITLE LIKE CONCAT('%', #{search}, '%'))
+				</if>
+				<if test="comment_yn !=null and comment_yn !=''">
+				    <if test="comment_yn == 'Y'">
+				       AND (SELECT COUNT(*)
+						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0 
+				    </if>
+				    <if test="comment_yn == 'N'">
+				       AND (SELECT COUNT(*)
+						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) = 0 
+				    </if>
+				</if>
+				<if test="search_start_date !=null and search_start_date !=''">
+					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+				</if>
+				<if test="search_end_date !=null and search_end_date !=''">
+					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+				</if>
+				ORDER BY BBC.CONTENTS_ID ASC
+			) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC	
+	</select>
+	
+	<select id="contentsDetail" resultType="hashmap">
+	    SELECT /* boardQuery.contentsDetail */
+			BBC.CONTENTS_ID
+			, BBC.TITLE
+			, BM.MEMBER_ID
+			, BM.MEMBER_NM
+			, BM.MEMBER_EMAIL
+			, BM.MEMBER_CEL
+		FROM BG_BOARD_CONTENTS BBC, BG_MEMBER BM
+		WHERE 1=1
+		AND BBC.MEMBER_ID = BM.MEMBER_ID
+		AND BBC.CONTENTS_ID = #{board_contents_id}
+	</select>
+	
+	<!-- 
+    
 	<insert id="create" useGeneratedKeys="true"  keyProperty="board_id">
 		INSERT /* boardQuery.create 2013.08.21 최지순 */ 
 		INTO BG_BOARD_MASTER( 
@@ -19,28 +91,6 @@
 		)
 	</insert>
 	
-	<select id="list" resultType="hashmap">
-		SELECT /* boardQuery.list 2013.08.21 최지순 */
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-		<if test="search != null and search != ''">
-			AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
-		</if>
-		ORDER BY BOARD_ID DESC
-		<if test="startNo != null and perPage != null">
-			LIMIT #{startNo}, #{perPage}
-		</if>
-	</select>
-	
-	<select id="listAll" resultType="hashmap">
-		SELECT /* boardQuery.listAllz */
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-	</select>
 	
 	<select id="top" resultType="hashmap">
 		SELECT /* boardQuery.top */
@@ -133,4 +183,5 @@
 		AND BOARD_ID = #{board_id}
 	</update>
 	
+	 -->
 </mapper>

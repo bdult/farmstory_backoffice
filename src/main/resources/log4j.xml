@@ -33,7 +33,7 @@
 	</logger>
 	
 	<logger name="java.sql">
-        <level value="DEBUG" />
+        <level value="debug" />
     </logger>
 	
 	<logger name="org.apache.http.wire">

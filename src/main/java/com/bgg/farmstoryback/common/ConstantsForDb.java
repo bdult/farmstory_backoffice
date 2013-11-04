@@ -14,9 +14,32 @@ public class ConstantsForDb {
 	public static final String MEMBER_NAME = "MEMBER_NM";
 	public static final String MEMBER_CEL = "MEMBER_CEL";
 	public static final String MEMBER_ROLE = "MEMBER_ROLE";
+
 	
-	//DISPLAY
+	public static final String DISPLAY_YN = "DISPLAY_YN";
+	
+	
+	// CONTENTS
+	public static final String CONTENTS_NM = "CONTENTS_NM";
+	public static final String CONTENTS_ID = "CONTENTS_ID";
 	public static final String CATEGORY_ID = "CATE_ID";
+
+
+	public static final String BRAND_ID = "BRAND_ID";
+
+
+	public static final String SERIES_ID = "CONTENTS_SERIES_ID";
+
+
+	public static final String BOARD_TYPE = "BOARD_TYPE";
+
+
+	public static final String BOARD_CONTENTS_ID = "CONTENTS_ID";
+
+
+
+
+	
 	
 	
 }
