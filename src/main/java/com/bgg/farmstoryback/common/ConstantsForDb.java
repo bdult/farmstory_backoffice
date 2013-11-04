@@ -47,6 +47,9 @@ public class ConstantsForDb {
 	public static final String IDX = "IDX";
 
 
+	public static final String ORDERING_NO = "ORDERING_NO";
+
+
 
 
 

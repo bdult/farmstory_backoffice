@@ -44,4 +44,7 @@ public class ConstantsForParam {
 	public static final String CHILD_BIR_MONTH = "birth_month";
 	public static final String CHILD_BIR_DAY = "birth_day";
 	
+	public static final String CONTENTS_ID = "contents_id";
+	public static final String ORDERING_NO = "ordering_no";
+	
 }
