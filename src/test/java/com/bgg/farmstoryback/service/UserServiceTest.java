@@ -51,8 +51,8 @@ public class UserServiceTest {
 		testId = "te";
 		testName = "test";
 		testCelNo = "01011111111";
-		testJoinStartDate = "20130903";
-		testJoinEndDate = "20130905";
+		testJoinStartDate = "2013-09-03";
+		testJoinEndDate = "2013-09-05";
 		searchRole = "1"; // 무료회원
 	}
 

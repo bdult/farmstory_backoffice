@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.UserService;
@@ -44,7 +45,7 @@ public class UserController {
   }
   
   @RequestMapping(value = "user/login.do")
-    public String loginView(@RequestParam Map<String,Object> paramMap, HttpSession session) {
+    public String loginView(Model model, HttpSession session) {
 	      
 	      
 	      return "pure-user/login";
@@ -87,14 +88,15 @@ public class UserController {
   }
 	
   
-  @RequestMapping(value = "/user/user/manage.do")
-  public String userManage(Model model, @RequestParam Map parameter) {
-    
-	Map pageInfo = pageUtil.pageLink(userService.totalCount(parameter), parameter);
+  @RequestMapping(value = "/user/user/manage.do", method = RequestMethod.GET)
+  public String userManage(Model model, @RequestParam Map paramMap) {
+	  Map userList = userService.list(paramMap);
+	Map pageInfo = pageUtil.pageLink((Integer)userList.get("memberListCount"), paramMap);
 	model.addAttribute("pageInfo", pageInfo);
 	model.addAttribute("pageList", pageInfo.get("pageList"));
-    
-    model.addAttribute("positionMap", userService.list(pageInfo));
+	pageInfo.putAll(paramMap);
+	
+	model.addAttribute("positionMap", userService.list(pageInfo));
     model.addAttribute("type", "userView");
     return "user/manage";
   }
@@ -112,8 +114,8 @@ public class UserController {
 //  }
   
 	@RequestMapping(value = "user/detail.do", method = RequestMethod.GET)
-	public String detail(Model model, @RequestParam Map<String,Object> paramMap) {
-	 
+	public String detail(Model model, @RequestParam Map paramMap) {
+
 		model.addAttribute("detail",userService.detail(paramMap));
 	    model.addAttribute("type", "userView");
 	    model.addAttribute("childInfo",  userService.childInfo(paramMap));
@@ -123,13 +125,19 @@ public class UserController {
 		return "user/info";
 	}
 
-  @RequestMapping(value = "user/userModify.do", method = RequestMethod.GET)
-  public String userModify(Model model, @RequestParam Map<String,Object> paramMap) {
-	  	
+  @RequestMapping(value = "user/userModifyView.do", method = RequestMethod.GET)
+  public String userModifyView(Model model, @RequestParam Map paramMap) {
+
+		model.addAttribute("detail",userService.detail(paramMap));
 	  
 	  	return "user/addInfo";
 	}
 	
+  @RequestMapping(value = "user/userModify.do", method = RequestMethod.GET)
+  public String userModify(Model model, @RequestParam Map paramMap) {
+	  
+	return null;
+  }
 //  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
 //  public String childDetail(Model model, @RequestParam Map<String,Object> paramMap) {
 //	  

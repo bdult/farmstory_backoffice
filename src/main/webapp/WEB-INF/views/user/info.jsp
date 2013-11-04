@@ -239,7 +239,7 @@
 					<tbody>
 						<c:forEach var="paymentsInfo" items="${paymentsInfo}" varStatus="status">
 							<tr>
-								<td>${ paymentsInfo.IDX }</td>
+								<td>${ paymentsInfo.ROWNUM }</td>
 								<td>${ paymentsInfo.REG_DT }</td>
 								<td>${ paymentsInfo.PAYMENT_CODE }</td>
 								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
@@ -287,7 +287,7 @@
 				<tbody>
 					<c:forEach var="questionInfo" items="${ questionInfo }" varStatus="status">
 						<tr>
-							<td>${ questionInfo.IDX }</td>
+							<td>${ questionInfo.ROWNUM }</td>
 							<td>${ questionInfo.TITLE }</td>
 							<td>${ questionInfo.REG_DT }</td>
 							<td>${ questionInfo.ANSWER_YN }</td>
@@ -298,7 +298,7 @@
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">
-					<a class="btn btn-primary" href="${ contextPath }/user/userModify.do?member_id=${detail.userDetail.MEMBER_ID}">회원정보 수정</a>
+					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">회원정보 수정</a>
 				</div>
 			</div>
 		</c:if>

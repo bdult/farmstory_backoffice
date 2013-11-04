@@ -54,24 +54,23 @@
 		<!--/.page-header-->
 		
 				<!-- search -->
-				<form class="form-horizontal well">
+				<form id="searchForm" class="form-horizontal well">
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
    								<label class="control-label">회원검색</label>
     							<div class="controls">
-									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									<select name="search_type" class="span12">
+									  <option value="id">아이디</option>
+									  <option value="name">이름</option>
+									  <option value="cel">휴대폰번호</option>
+									  <option>구독 일시</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="span8">
-							<input class="input-xxlarge" type="text" placeholder="검색어를 입력하세요">
+							<input class="input-xxlarge" name="search" type="text" placeholder="검색어를 입력하세요">
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -79,12 +78,9 @@
 							<div class="control-group">
    								<label class="control-label">회원구분</label>
     							<div class="controls">
-									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									<select name="member_role" class="span12">
+									  <option value="0">무료회원</option>
+									  <option value="1">유료회원</option>
 									</select>
 								</div>
 							</div>
@@ -100,14 +96,14 @@
     							<div class="controls">
     								<div class="span6">
 										<div class="input-append">
-											<input class="date-picker-1 input-medium" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
+											<input class="date-picker-1 input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
-											<input class="date-picker-2 input-medium" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
+											<input class="date-picker-2 input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
@@ -128,7 +124,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large" href="#">검색</a>
+							<a class="btn btn-info input-large" id="search" href="#">검색</a>
 						</div>
 					</div>
 				</form>
@@ -161,7 +157,7 @@
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.IDX}</a></td>
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_ID}</a></td>
 								<td><a href="${ contextPath }/user/detail.do?member_id=${userlist.MEMBER_ID}">${userlist.MEMBER_NM}</a></td>
-								<td>${userlist.MEMBER_ROLE}</td>
+								<td>${userlist.MEMBER_ROLE_DESC}</td>
 								<td>${userlist.MEMBER_CEL}</td>
 								<td>${userlist.REG_DT}</td>
 							</tr>
@@ -186,10 +182,10 @@
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=${pageInfo.search_type}&search=${pageInfo.search}&member_role=${pageInfo.member_role}&search_start_date=${pageInfo.search_start_date}&search_end_date=${pageInfo.search_end_date}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=${pageInfo.search_type}&search=${pageInfo.search}&member_role=${pageInfo.member_role}&search_start_date=${pageInfo.search_start_date}&search_end_date=${pageInfo.search_end_date}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -214,6 +210,13 @@ jQuery(function($){
 	$('.date-picker-1').datepicker();
 	$('.date-picker-2').datepicker();
 });
+	$("#search").click(function(){
+		$("#searchForm").attr({
+			method: 'get',
+			action: '${ contextPath }/user/user/manage.do'			
+		}).submit();
+	});
+		
 
 	$(function(){
 		var dspType = "${type}";

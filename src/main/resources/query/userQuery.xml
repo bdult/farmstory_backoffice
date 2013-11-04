@@ -92,6 +92,7 @@
     <select id="childInfo" resultType="hashmap">
         SELECT /* userQuery.childInfo */
 	         CHILD_NM
+	         , IDX
 	         , PHOTO
 	         , GENDER
 	         , BIRTH_YEAR
