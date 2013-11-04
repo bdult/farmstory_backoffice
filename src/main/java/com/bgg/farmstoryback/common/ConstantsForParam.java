@@ -25,6 +25,9 @@ public class ConstantsForParam {
 	public static final String PAGE_PER_PAGE = "perPage";
 	public static final String BRAND_ID = "brand_id";
 	public static final String SERIES_ID = "series_id";
+	public static final String BOARD_TYPE = "board_type";
+	public static final String BOARD_ID = "board_id";
+	public static final Object BOARD_CONTENTS_ID = "board_contents_id";
 	
 	
 }

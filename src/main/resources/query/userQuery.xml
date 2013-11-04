@@ -51,11 +51,33 @@
 			LIMIT #{startNo}, #{perPage}
 		</if>
 	</select>
-    <select id="totalCount" resultType="int" >
-		SELECT /* userQuery.totalCount */
-			COUNT(IDX)
+	
+    <select id="listCount" resultType="int">
+		SELECT /* userQuery.listCount */
+			COUNT(*) AS LIST_COUNT
 		FROM BG_MEMBER 
-	</select>
+		WHERE 1=1 
+		<if test="search_type != null and search_type != ''">
+			<if test="search_type == 'id'">
+				AND ( MEMBER_ID LIKE CONCAT('%', #{search}, '%'))
+			</if>
+			<if test="search_type == 'name'">
+				AND ( MEMBER_NM LIKE CONCAT('%', #{search}, '%'))
+			</if>
+			<if test="search_type == 'cel'">
+				AND ( REPLACE(MEMBER_CEL, '-', '')  LIKE CONCAT('%', #{search}, '%'))
+			</if>
+		</if>
+		<if test="member_role !=null and member_role !=''">
+		    AND MEMBER_ROLE = #{member_role}
+		</if>
+		<if test="search_start_date !=null and search_start_date !=''">
+			AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+		</if>
+		<if test="search_end_date !=null and search_end_date !=''">
+			AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+		</if>
+    </select>
 
     
     <select id="adminMemberInfo" resultType="hashmap">
@@ -91,7 +113,8 @@
     
     <select id="childInfo" resultType="hashmap">
         SELECT /* userQuery.childInfo */
-	         CHILD_NM
+        	 IDX
+	         , CHILD_NM
 	         , PHOTO
 	         , GENDER
 	         , BIRTH_YEAR
