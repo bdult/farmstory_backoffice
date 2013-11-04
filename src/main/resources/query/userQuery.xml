@@ -106,7 +106,10 @@
 				when 1 then '유료회원'
 		      else '무료회원'
 			  end AS MEMBER_ROLE
-			, '2013-10-31' AS PAYDAY
+			, (SELECT REG_DT FROM BG_PAYMENT_HIS
+		        WHERE 1=1
+		        AND MEMBER_ID = #{member_id}
+		        ORDER BY REG_DT DESC LIMIT 1 ) AS PAYDAY
         FROM BG_MEMBER
         WHERE MEMBER_ID = #{ member_id }
     </select>
@@ -184,6 +187,37 @@
 		ORDER BY IDX DESC
 		LIMIT #{limitCount}
 	</select>
+	
+    <update id="modifyUserInfo">
+        UPDATE BG_MEMBER 
+        SET
+        	MEMBER_NM = #{member_name}
+        	, MEMBER_EMAIL = #{member_email}
+        	, MEMBER_CEL = #{member_cel}
+        	, MEMBER_ADDR_1 = #{member_addr_1}
+        	, MEMBER_ADDR_2 = #{member_addr_2}
+        	, MEMBER_GENDER = #{member_gender}
+        	, MEMBER_YEAR = #{member_year}
+        	, MEMBER_MONTH = #{member_month}
+        	, MEMBER_DAY = #{member_day}
+        WHERE 1=1
+        AND MEMBER_ID = #{member_id}
+        
+    </update>
+    
+    <update id="modifyChildInfo">
+        UPDATE BG_CHILDREN
+        SET
+        	CHILD_NM = #{child_name}
+        	, PHOTO = #{img_path}
+        	, GENDER = #{gender}
+        	, BIRTH_YEAR = #{birth_year}
+        	, BIRTH_MONTH = #{birth_month}
+        	, BIRTH_DAY = #{birth_day}
+        WHERE 1=1
+        AND IDX = #{child_idx}
+        
+    </update>
     
     <!-- 
     

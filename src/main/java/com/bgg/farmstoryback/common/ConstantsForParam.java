@@ -9,6 +9,13 @@ public class ConstantsForParam {
 	public final static String MEMBER_PWD = "member_pwd";
 	public static final String MEMBER_NAME = "member_name";
 	public static final String MEMBER_CEL = "member_cel";
+	public static final String MEMBER_EMAIL = "member_email";
+	public static final String MEMBER_ADDR_1 = "member_addr_1";
+	public static final String MEMBER_ADDR_2 = "member_addr_2";
+	public static final String MEMBER_GENDER = "member_gender";
+	public static final String MEMBER_YEAR = "member_year";
+	public static final String MEMBER_MONTH = "member_month";
+	public static final String MEMBER_DAY = "member_day";
 	public static final String SEARCH = "search";
 	public static final String SEARCH_START_DT = "search_start_date";
 	public static final String SEARCH_TYPE = "search_type";
@@ -27,7 +34,14 @@ public class ConstantsForParam {
 	public static final String SERIES_ID = "series_id";
 	public static final String BOARD_TYPE = "board_type";
 	public static final String BOARD_ID = "board_id";
-	public static final Object BOARD_CONTENTS_ID = "board_contents_id";
+	public static final String BOARD_CONTENTS_ID = "board_contents_id";
 	
+	public static final String CHILD_IDX = "child_idx";
+	public static final String CHILD_NAME = "child_name";
+	public static final String IMG_PATH = "img_path";
+	public static final String CHILD_GENDER = "gender";
+	public static final String CHILD_BIR_YEAR = "birth_year";
+	public static final String CHILD_BIR_MONTH = "birth_month";
+	public static final String CHILD_BIR_DAY = "birth_day";
 	
 }

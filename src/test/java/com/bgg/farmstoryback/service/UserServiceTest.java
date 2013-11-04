@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
+import com.bgg.farmstoryback.common.ConstantsForResponse;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +29,7 @@ public class UserServiceTest {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@SuppressWarnings("rawtypes")
-	Map requeryParamMap = null;
+	Map requestParamMap = null;
 	
 	@SuppressWarnings("rawtypes")
 	Map result = null;
@@ -46,7 +47,7 @@ public class UserServiceTest {
 	
 	@Before
 	public void before() {
-		requeryParamMap = new HashMap<String, Object>();
+		requestParamMap = new HashMap<String, Object>();
 		
 		testId = "te";
 		testName = "test";
@@ -66,11 +67,11 @@ public class UserServiceTest {
 	public void testAdminMemberInfo() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.MEMBER_ID, "master");
-		requeryParamMap.put(ConstantsForParam.MEMBER_PWD, "123");
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, "master");
+		requestParamMap.put(ConstantsForParam.MEMBER_PWD, "123");
 
 		// when
-		Map memberInfo = userService.adminMemberInfo(requeryParamMap);
+		Map memberInfo = userService.adminMemberInfo(requestParamMap);
 
 		// then
 		assertThat(memberInfo, is(notNullValue()));
@@ -82,11 +83,11 @@ public class UserServiceTest {
 	public void testUserListTotal(){
 		
 		//when
-		requeryParamMap.put(ConstantsForParam.PAGE_START_NO, "1");
-		requeryParamMap.put(ConstantsForParam.PAGE_PER_PAGE, "10");
+		requestParamMap.put(ConstantsForParam.PAGE_START_NO, "1");
+		requestParamMap.put(ConstantsForParam.PAGE_PER_PAGE, "10");
 		result = userService.list();
 		
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
 	}
 	
 	@Test
@@ -94,15 +95,15 @@ public class UserServiceTest {
 	public void testSearchByMemberId() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		requeryParamMap.put(ConstantsForParam.SEARCH, testId);
+		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
+		requestParamMap.put(ConstantsForParam.SEARCH, testId);
 
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			String memberId =(String)memberInfo.get(ConstantsForDb.MEMBER_ID);
 			assertTrue(memberId.toLowerCase().contains(testId));
 		}
@@ -114,15 +115,15 @@ public class UserServiceTest {
 	public void testSearchByMemberName() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
-		requeryParamMap.put(ConstantsForParam.SEARCH, testName);
+		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
+		requestParamMap.put(ConstantsForParam.SEARCH, testName);
 
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			String memberName = (String)memberInfo.get(ConstantsForDb.MEMBER_NAME);
 			assertTrue(memberName.contains(testName));
 		}
@@ -135,15 +136,15 @@ public class UserServiceTest {
 		
 		// given 
 		
-		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
-		requeryParamMap.put(ConstantsForParam.SEARCH, testCelNo);
+		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
+		requestParamMap.put(ConstantsForParam.SEARCH, testCelNo);
 		
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 		
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			String memberCel =(String)memberInfo.get(ConstantsForDb.MEMBER_CEL);
 			assertTrue(memberCel.replaceAll("-", "") .equals(testCelNo));
 		}
@@ -154,17 +155,17 @@ public class UserServiceTest {
 	public void testSearchByJoinDate() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.SEARCH_START_DT, testJoinStartDate);
-		requeryParamMap.put(ConstantsForParam.SEARCH_END_DT, testJoinEndDate);
+		requestParamMap.put(ConstantsForParam.SEARCH_START_DT, testJoinStartDate);
+		requestParamMap.put(ConstantsForParam.SEARCH_END_DT, testJoinEndDate);
 		
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 		
 		// then
 		
 		// 가입일 검증
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			String memberRegDt =(String)memberInfo.get(ConstantsForDb.REG_DT);
 			if(memberRegDt.replaceAll("-", "").contains(testJoinStartDate)
 					|| memberRegDt.replaceAll("-", "").contains(testJoinEndDate)){
@@ -181,14 +182,14 @@ public class UserServiceTest {
 	public void testSearchFreeMember() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.MEMBER_ROLE, searchRole);
+		requestParamMap.put(ConstantsForParam.MEMBER_ROLE, searchRole);
 
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 		
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			int memberRole =(Integer)memberInfo.get(ConstantsForDb.MEMBER_ROLE);
 			assertTrue(memberRole == Integer.parseInt(searchRole));
 		}
@@ -200,16 +201,16 @@ public class UserServiceTest {
 	public void testSearchFullDataByMemberId() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		requeryParamMap.put(ConstantsForParam.SEARCH, testId);
+		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
+		requestParamMap.put(ConstantsForParam.SEARCH, testId);
 		setDefaultSearchData();
 
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 		
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			assertDefaultSearchInfo(memberInfo);
 			String memberId =(String)memberInfo.get("MEMBER_ID");
 			assertTrue(memberId.contains(testId));
@@ -222,16 +223,16 @@ public class UserServiceTest {
 	public void testSearchFullDataByMemberName() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
-		requeryParamMap.put(ConstantsForParam.SEARCH, testName);
+		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
+		requestParamMap.put(ConstantsForParam.SEARCH, testName);
 		setDefaultSearchData();
 		
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 		
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			
 			assertDefaultSearchInfo(memberInfo);
 			
@@ -246,16 +247,16 @@ public class UserServiceTest {
 	public void testSearchFullDataByMemberCel() {
 		
 		// given 
-		requeryParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
-		requeryParamMap.put(ConstantsForParam.SEARCH, testCelNo);
+		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "cel");
+		requestParamMap.put(ConstantsForParam.SEARCH, testCelNo);
 		setDefaultSearchData();
 		
 		// when
-		result = userService.list(requeryParamMap);
+		result = userService.list(requestParamMap);
 		
 		// then
-		assertThat((Integer)result.get(ConstantsForDb.MEMBER_LIST_COUNT), is(not(0)));
-		for(Map memberInfo : (List<Map>)result.get(ConstantsForDb.MEMBER_LIST)){
+		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
+		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			
 			assertDefaultSearchInfo(memberInfo);
 			
@@ -273,7 +274,7 @@ public class UserServiceTest {
 		setTestMemberId();
 
 		// when
-		Map memberDetail = userService.detail(requeryParamMap);
+		Map memberDetail = userService.detail(requestParamMap);
 
 		// then
 		assertThat(memberDetail, is(notNullValue()));
@@ -288,7 +289,7 @@ public class UserServiceTest {
 		setTestMemberId();
 
 		// when
-		List<Map> childInfo = userService.childInfo(requeryParamMap);
+		List<Map> childInfo = userService.childInfo(requestParamMap);
 
 		// then
 		assertThat(childInfo, is(notNullValue()));
@@ -303,7 +304,7 @@ public class UserServiceTest {
 		setTestMemberId();
 		
 		// when
-		List<Map> paymentsInfo = userService.paymentsInfo(requeryParamMap);
+		List<Map> paymentsInfo = userService.paymentsInfo(requestParamMap);
 		
 		// then
 		assertThat(paymentsInfo, is(notNullValue()));
@@ -317,7 +318,7 @@ public class UserServiceTest {
 		setTestMemberId();
 
 		// when
-		List<Map> queryInfo = userService.queryInfo(requeryParamMap);
+		List<Map> queryInfo = userService.queryInfo(requestParamMap);
 
 		// then
 		assertThat(queryInfo, is(notNullValue()));
@@ -340,13 +341,113 @@ public class UserServiceTest {
 
 	}
 	
+	@Test
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void testModifyUserName() {
+		
+		// given
+		String testMemberId = "0";
+		List<Map> memberList = (List<Map>)userService.list().get(ConstantsForResponse.MEMBER_LIST);
+		if(memberList.size() > 0){
+			testMemberId = (String)memberList.get(0).get(ConstantsForDb.MEMBER_ID);
+		}
+		
+		String testModifyUserName = "modify_user";
+		String testModifyUserGender = "남";
+		String testModifyMemberCel = "010-1111-2222";
+		String testModifyMemberEmail = "test@test.com";
+		String testModifyMemberAddr1 = "modify_addr_1";
+		String testModifyMemberAddr2 = "modify_addr_2";
+		String testModifyMemberYear = "2013";
+		String testModifyMemberMonth = "10";
+		String testModifyMemberDay = "31";
+		
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+		requestParamMap.put(ConstantsForParam.MEMBER_NAME, testModifyUserName);
+		requestParamMap.put(ConstantsForParam.MEMBER_GENDER, testModifyUserGender);
+		requestParamMap.put(ConstantsForParam.MEMBER_CEL, testModifyMemberCel);
+		requestParamMap.put(ConstantsForParam.MEMBER_EMAIL, testModifyMemberEmail);
+		requestParamMap.put(ConstantsForParam.MEMBER_ADDR_1, testModifyMemberAddr1);
+		requestParamMap.put(ConstantsForParam.MEMBER_ADDR_2, testModifyMemberAddr2);
+		requestParamMap.put(ConstantsForParam.MEMBER_YEAR, testModifyMemberYear);
+		requestParamMap.put(ConstantsForParam.MEMBER_MONTH, testModifyMemberMonth);
+		requestParamMap.put(ConstantsForParam.MEMBER_DAY, testModifyMemberDay);
+
+		// when
+		userService.modifyUserInfo(requestParamMap);
+
+		// then
+		Map memberDetail = userService.detail(requestParamMap);
+		assertThat(memberDetail, is(notNullValue()));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_NAME), is(testModifyUserName));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_CEL), is(testModifyMemberCel));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_GENDER), is(testModifyUserGender));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_EMAIL), is(testModifyMemberEmail));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_ADDR_1), is(testModifyMemberAddr1));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_ADDR_2), is(testModifyMemberAddr2));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_YEAR), is(testModifyMemberYear));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_MONTH), is(testModifyMemberMonth));
+		assertThat((String)memberDetail.get(ConstantsForDb.MEMBER_DAY), is(testModifyMemberDay));
+
+	}
+	
+	@Test
+	public void testChildInfoModify() {
+		
+		// given
+		// DB 에서 자녀가 있는 사용자 정보로 테슽 데이터 세팅
+		String testMemberId = "0";
+		List<Map> memberList = (List<Map>)userService.list().get(ConstantsForResponse.MEMBER_LIST);
+		if(memberList.size() > 0){
+			for(Map memberInfo : memberList){
+				testMemberId = (String)memberInfo.get(ConstantsForDb.MEMBER_ID);
+				requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+				if(userService.childInfo(requestParamMap).size() > 0){
+					Map childDetailInfo = userService.childInfo(requestParamMap).get(0);
+					requestParamMap.put(ConstantsForParam.CHILD_IDX, childDetailInfo.get(ConstantsForDb.IDX));
+					break;
+				}
+			}
+		}
+		
+		
+		String testModifyChildName = "modify_child2";
+		String testModifyChildImg = "temp/temp2.gif";
+		String testModifyChildGender = "남";
+		String testModifyChildYear = "2002";
+		String testModifyChildMonth = "02";
+		String testModifyChildDay = "31";
+		
+		requestParamMap.put(ConstantsForParam.CHILD_NAME, testModifyChildName);
+		requestParamMap.put(ConstantsForParam.IMG_PATH, testModifyChildImg);
+		requestParamMap.put(ConstantsForParam.CHILD_GENDER, testModifyChildGender);
+		requestParamMap.put(ConstantsForParam.CHILD_BIR_YEAR, testModifyChildYear);
+		requestParamMap.put(ConstantsForParam.CHILD_BIR_MONTH, testModifyChildMonth);
+		requestParamMap.put(ConstantsForParam.CHILD_BIR_DAY, testModifyChildDay);
+		
+
+		// when
+		userService.modifyChildInfo(requestParamMap);
+
+		// then
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+		Map modifyDetailInfo = userService.childInfo(requestParamMap).get(0);
+		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_NM), is(testModifyChildName));
+		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_BIRTH_DAY), is(testModifyChildDay));
+		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_BIRTH_YEAR), is(testModifyChildYear));
+		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_BIRTH_MONTH), is(testModifyChildMonth));
+		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_GENDER), is(testModifyChildGender));
+		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_PHOTO), is(testModifyChildImg));
+
+	}
+	
 	
 	
 
 	@SuppressWarnings("unchecked")
 	private void setTestMemberId() {
 		testId = "test";
-		requeryParamMap.put(ConstantsForParam.MEMBER_ID, testId);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testId);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -366,9 +467,9 @@ public class UserServiceTest {
 
 	@SuppressWarnings("unchecked")
 	private void setDefaultSearchData() {
-		requeryParamMap.put(ConstantsForParam.MEMBER_ROLE, searchRole);
-		requeryParamMap.put(ConstantsForParam.SEARCH_START_DT, testJoinStartDate);
-		requeryParamMap.put(ConstantsForParam.SEARCH_END_DT, testJoinEndDate);
+		requestParamMap.put(ConstantsForParam.MEMBER_ROLE, searchRole);
+		requestParamMap.put(ConstantsForParam.SEARCH_START_DT, testJoinStartDate);
+		requestParamMap.put(ConstantsForParam.SEARCH_END_DT, testJoinEndDate);
 	}
 	
 	
