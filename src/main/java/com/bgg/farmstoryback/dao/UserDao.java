@@ -72,6 +72,14 @@ public class UserDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("userQuery.listCount", search);
 	}
 
+	public void modifyUserInfo(Map requestParamMap) {
+		getSqlSession().update("userQuery.modifyUserInfo", requestParamMap);
+	}
+
+	public void modifyChildInfo(Map requestParamMap) {
+		getSqlSession().update("userQuery.modifyChildInfo", requestParamMap);
+	}
+
 	
 
 //	/** 아이디와 비밀번호로 유저정보(id, pwd, role)가져오기
