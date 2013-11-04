@@ -9,7 +9,7 @@
 	    SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
 			FROM(
 			
-		SELECT
+		SELECT /* contenstQuery.list */
 			A.CONTENTS_NM
 			, A.CONTENTS_ID
 			, BB.BRAND_NM
@@ -62,7 +62,7 @@
 	</select>
 	
 	<select id="listByCategory" resultType="hashmap">
-		SELECT
+		SELECT /* contenstQuery.listByCategory */
 			A.CONTENTS_ID
 			,A.CONTENTS_NM
 			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
@@ -77,7 +77,7 @@
 	</select>
 	
 	<select id="top" resultType="hashmap">
-		SELECT
+		SELECT /* contenstQuery.top */
 			A.CONTENTS_NM
 			,A.CONTENTS_ID
 			,A.CONTENTS_DESC
@@ -94,7 +94,7 @@
 	</select>
 	
 	<select id="totalCount" resultType="int">
-		SELECT
+		SELECT /* contenstQuery.totalCount */
 			count(*)
 		FROM  BG_CONTENTS 
 		WHERE 1=1
@@ -104,7 +104,7 @@
 	</select>
 	
 	<select id="detail"  resultType="hashmap">
-		SELECT
+		SELECT /* contenstQuery.detail */
 			A.CONTENTS_NM
 			, A.CONTENTS_ID
 			, A.CONTENTS_DESC
@@ -120,8 +120,19 @@
 		ORDER BY CONTENTS_ID DESC
 	</select>
 	
+	<update id="modifyOrderingNo">
+	    UPDATE BG_CATE_CONTENTS_RELATIONSHIPS
+	    SET ORDERING_NO = #{ordering_no}
+	    WHERE 1=1 
+	    AND CATE_ID = #{category_id}
+	    AND CONTENTS_ID = #{contents_id}
+	</update>
+	
+	<!-- 
 	<select id="checkContentsCate" resultType="int">
-	    SELECT COUNT(*) FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    SELECT /* contenstQuery.checkContentsCate */ 
+	    	COUNT(*) 
+	    FROM BG_CATE_CONTENTS_RELATIONSHIPS
 	    WHERE 1=1
 	    AND CATE_ID = #{cate_id}
 	    AND CONTENTS_ID = #{contents_id}
@@ -137,9 +148,11 @@
 	    AND BC.CATE_ID = CCR.CATE_ID
 	    AND CCR.CONTENTS_ID = #{contents_id}
 	    ORDER BY CCR.REG_DT DESC
-	    
 	</select>
+	 -->
 	
+
+	<!-- 
 	<insert id="create" parameterType="map"  keyProperty="contents_id">
    		INSERT BG_CONTENTS(
 			CONTENTS_NM,
@@ -210,5 +223,6 @@
    		WHERE 1=1 
    		AND CONTENTS_ID = #{contents_id}
    </delete>
+	 -->
 	
 </mapper>

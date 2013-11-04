@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.common.ConstantsForResponse;
 
@@ -118,6 +119,32 @@ public class DispalyServiceTest {
 		Map popupDisplayDetail = displayService.popupDetail(requestParamMap);
 
 		// then
+		assertThat(popupDisplayDetail, is(notNullValue()));
 
 	}
+	
+	@Test
+	public void testModifyContentsOrdering() {
+		
+		// given
+		String testOrdering  = "1";
+		requestParamMap.put(ConstantsForParam.CATEGORY_ID, "32");
+		List<Map> contentsList = displayService.contentsList(requestParamMap);
+		Map contentsInfo = contentsList.get(0);
+		requestParamMap.put(ConstantsForParam.CONTENTS_ID, contentsInfo.get(ConstantsForDb.CONTENTS_ID));
+		requestParamMap.put(ConstantsForParam.ORDERING_NO, testOrdering);
+		
+		// when
+		displayService.modifyOrderingNo(requestParamMap);
+		
+
+		// then
+		List<Map> moddifyContentsList = displayService.contentsList(requestParamMap);
+		Map modidfyContentsInfo = moddifyContentsList.get(0);
+		assertThat(modidfyContentsInfo, is(notNullValue()));
+		assertThat(String.valueOf(modidfyContentsInfo.get(ConstantsForDb.ORDERING_NO)), is(testOrdering));
+
+	}
+	
+	
 }
