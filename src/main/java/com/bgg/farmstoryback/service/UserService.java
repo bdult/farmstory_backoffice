@@ -39,7 +39,7 @@ public class UserService {
 		Map resultInfo = new HashMap();
 		List<Map> userList = userDao.userList(search);
 		resultInfo.put(ConstantsForDb.MEMBER_LIST, userList);
-		resultInfo.put(ConstantsForDb.MEMBER_LIST_COUNT, userDao.userListCount(search));
+		resultInfo.put(ConstantsForDb.MEMBER_LIST_COUNT, userList.size());
 		return resultInfo;
 	}
 

@@ -90,7 +90,7 @@ public class UserController {
   
   @RequestMapping(value = "/user/user/manage.do", method = RequestMethod.GET)
   public String userManage(Model model, @RequestParam Map paramMap) {
-	  Map userList = userService.list(paramMap);
+	Map userList = userService.list(paramMap);
 	Map pageInfo = pageUtil.pageLink((Integer)userList.get("memberListCount"), paramMap);
 	model.addAttribute("pageInfo", pageInfo);
 	model.addAttribute("pageList", pageInfo.get("pageList"));

@@ -211,6 +211,9 @@ jQuery(function($){
 	$('.date-picker-2').datepicker();
 });
 	$("#search").click(function(){
+		$("#date-picker-first").val($("#date-picker-first").val().replace(/-/g, ""));
+		$("#date-picker-last").val($("#date-picker-last").val().replace(/-/g, ""));
+		
 		$("#searchForm").attr({
 			method: 'get',
 			action: '${ contextPath }/user/user/manage.do'			
