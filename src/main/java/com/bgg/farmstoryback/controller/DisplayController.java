@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
+import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.common.FileUtil;
+import com.bgg.farmstoryback.service.CategoryService;
 import com.bgg.farmstoryback.service.DisplayService;
 
 
@@ -27,6 +31,9 @@ public class DisplayController {
 	
 	@Autowired
 	private DisplayService displayService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping(value = "display/mainImgUpdate.do")
 	public @ResponseBody String mainImgUpdate(Model model,
@@ -72,12 +79,41 @@ public class DisplayController {
 	
 	@RequestMapping(value = "display/contents/manage.do")
 	public String contents(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		model.addAttribute("parameter", parameter);
+		
+		List<Map> categoryList = categoryService.list();
+		model.addAttribute("categories", categoryList);
+
+		Object obj = parameter.get(ConstantsForParam.CATEGORY_ID);
+		
+		if(obj == null){
+			if(categoryList.size() > 0){
+				Map cate = categoryList.get(0);
+				parameter.put(ConstantsForParam.CATEGORY_ID, String.valueOf(cate.get(ConstantsForDb.CATEGORY_ID)));
+			}
+		}
+		
+		model.addAttribute("contents", displayService.contentsList(parameter));
 		return "display/contents";
 	}
 	
 	@RequestMapping(value = "display/popup/manage.do")
 	public String popup(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		model.addAttribute("popupList", displayService.popupList());
 		return "display/popup";
+	}
+	
+	@RequestMapping(value = "display/popup/create.do")
+	public String popupCreate(Model model, @RequestParam Map<String,Object> parameter) {
+		return "display/popupCreate";
+	}
+	
+	@RequestMapping(value = "display/popup/update.do")
+	public String popupUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+		model.addAttribute("obj", displayService.popupDetail(parameter));
+		return "display/popupUpdate";
 	}
 	
 	

@@ -13,7 +13,13 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">Sub</li>
+			<li>
+				전시관리
+				<span class="divider">
+					<i class="icon-angle-right arrow-icon"></i>
+				</span>
+			</li>
+			<li class="active">팝업관리</li>
 		</ul><!--.breadcrumb-->
 
 		<div class="nav-search" id="nav-search">
@@ -27,17 +33,41 @@
 	</div>
 
 	<div class="page-content">
-		<div class="page-header position-relative">
-			<h1>
-				Category
-				<small>
-					<i class="icon-double-angle-right"></i>
-					overview &amp; stats
-				</small>
-			</h1>
-		</div><!--/.page-header-->
-
 		<div class="row-fluid">
+			<h3 class="header smaller lighter blue">팝업관리</h3>
+			<div class="table-header">
+				<span>팝업목록</span>
+				<div class="text-right">
+					<a href="${ contextPath }/display/popup/create.do" class="btn btn-success">등록</a>
+				</div>
+			</div><!-- /. table-header -->
+			<table class="table table-striped table-bordered table-hover">
+
+				<tbody>
+					<c:forEach items="${ popupList }" var="obj" varStatus="status">
+						<tr>
+							<td>
+								${ status.count }
+							</td>
+							<td>${ obj.TITLE }</td>
+							<td>
+								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+									<label>
+										<input name="form-field-radio" type="radio" class="ace" value="Y">
+										<span class="lbl"> 노출중 </span>
+										<input name="form-field-radio" type="radio" class="ace" value="N">
+										<span class="lbl"> 노출안함 </span>
+									</label>
+								</div>
+							</td>
+							<td>
+								<a href="${ contextPath }/display/popup/update.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+								<button class="btn btn-minier btn-yellow">삭제</button>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->
 </div>

@@ -33,7 +33,7 @@
 	</logger>
 	
 	<logger name="java.sql">
-        <level value="info" />
+        <level value="DEBUG" />
     </logger>
 	
 	<logger name="org.apache.http.wire">
@@ -42,7 +42,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="INFO" />
 		<appender-ref ref="console" />
 	</root>
 	

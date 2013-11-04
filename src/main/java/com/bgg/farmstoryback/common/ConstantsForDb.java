@@ -15,6 +15,8 @@ public class ConstantsForDb {
 	public static final String MEMBER_CEL = "MEMBER_CEL";
 	public static final String MEMBER_ROLE = "MEMBER_ROLE";
 	
+	//DISPLAY
+	public static final String CATEGORY_ID = "CATE_ID";
 	
 	
 }
