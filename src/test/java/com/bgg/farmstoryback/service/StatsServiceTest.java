@@ -2,6 +2,7 @@ package com.bgg.farmstoryback.service;
 
 import java.io.IOException;
 
+import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,8 +34,8 @@ public class StatsServiceTest {
 		
 		//필수! 구글 로긴하고 받은 코드 입력
 		String _code = "";
-		String _token = googleApiUtil.getAccessTokenByGoogle(_code);
-		Assert.assertThat(_token, IsNot.not(""));
+		int responseCode = googleApiUtil.getAccessTokenByGoogle(_code);
+		Assert.assertThat(responseCode, Is.is(200));
 	}
 	
 	@Test

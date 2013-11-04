@@ -41,72 +41,28 @@
 			<table class="table table-striped table-bordered table-hover">
 
 				<tbody>
-					<tr>
-						<td>
-							메인 1
-						</td>
-						<td>
-							ABC 픽쳐북
-						</td>
-						<td>
-							<div class="radio-inline">
-								<label>
-									<input name="form-field-radio" type="radio" class="ace">
-									<span class="lbl"> HTML </span>
-									<input name="form-field-radio" type="radio" class="ace">
-									<span class="lbl"> CSS </span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<button class="btn btn-minier btn-yellow">수정</button>
-							<button class="btn btn-minier btn-yellow">삭제</button>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							메인 2
-						</td>
-						<td>
-							피트 앤 바바
-						</td>
-						<td>
-							<div class="radio-inline">
-								<label>
-									<input name="form-field-radio" type="radio" class="ace">
-									<span class="lbl"> HTML </span>
-									<input name="form-field-radio" type="radio" class="ace">
-									<span class="lbl"> CSS </span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<button class="btn btn-minier btn-yellow">수정</button>
-							<button class="btn btn-minier btn-yellow">삭제</button>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							메인 3
-						</td>
-						<td>
-							디노 테일즈
-						</td>
-						<td>
-							<div class="radio-inline">
-								<label>
-									<input name="form-field-radio" type="radio" class="ace">
-									<span class="lbl"> HTML </span>
-									<input name="form-field-radio" type="radio" class="ace">
-									<span class="lbl"> CSS </span>
-								</label>
-							</div>
-						</td>
-						<td>
-							<button class="btn btn-minier btn-yellow">수정</button>
-							<button class="btn btn-minier btn-yellow">삭제</button>
-						</td>
-					</tr>
+					<c:forEach items="${ topDisplay }" var="obj" varStatus="status">
+						<tr>
+							<td>
+								메인 ${ status.count }
+							</td>
+							<td>${ obj.TITLE }</td>
+							<td>
+								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+									<label>
+										<input name="form-field-radio" type="radio" class="ace" value="Y" disabled>
+										<span class="lbl"> 노출함 </span>
+										<input name="form-field-radio" type="radio" class="ace" value="N" disabled>
+										<span class="lbl"> 노출안함 </span>
+									</label>
+								</div>
+							</td>
+							<td>
+								<a href="${ contextPath }/display/main/update.do?display_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+								<button class="btn btn-minier btn-yellow">삭제</button>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div><!--/.row-fluid-->
@@ -114,7 +70,7 @@
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">배너 비주얼</h3>
 			<div class="table-header" align="right">
-				<button id="create-contents-btn" class="btn btn-success">등록</button>
+				<a href="${ contextPath }/display/main/bannerCreate.do" id="create-contents-btn" class="btn btn-success">등록</a>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
 
@@ -124,19 +80,19 @@
 							배너
 						</td>
 						<td>
-							배너1
+							${ bannerDisplay[0].TITLE }
 						</td>
 						<td>
-							<button class="btn btn-minier btn-yellow">수정</button>
+							<a href="${ contextPath }/display/main/bannerUpdate.do?display_id=${ bannerDisplay[0].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
 							<button class="btn btn-minier btn-yellow">삭제</button>
 						</td>
 					</tr>
 					<tr>
 						<td>
-							배너2
+							${ bannerDisplay[1].TITLE }
 						</td>
 						<td>
-							<button class="btn btn-minier btn-yellow">수정</button>
+							<a href="${ contextPath }/display/main/bannerUpdate.do?display_id=${ bannerDisplay[1].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
 							<button class="btn btn-minier btn-yellow">삭제</button>
 						</td>
 					</tr>
@@ -151,6 +107,16 @@ $(function(){
 	//사이드바 활성화
 	$("#side-display-main").addClass("active");
 	$("#side-display").addClass("open active");
+	
+	//노출 Y/N 체크 
+	$("div.display-yn").each(function(){
+		var $this = $(this);
+		var displayYn = $this.data("displayYn");
+		
+		$this.find(":radio[value='" + displayYn + "']").prop("checked", true)
+
+	});
+	
 });
 </script>
 

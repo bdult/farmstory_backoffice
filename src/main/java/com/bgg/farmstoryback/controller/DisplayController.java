@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.common.FileUtil;
+import com.bgg.farmstoryback.service.DisplayService;
 
 
 @Controller
@@ -22,6 +24,9 @@ public class DisplayController {
 	
 	@Autowired
 	private FileUtil fileUtil;
+	
+	@Autowired
+	private DisplayService displayService;
 	
 	@RequestMapping(value = "display/mainImgUpdate.do")
 	public @ResponseBody String mainImgUpdate(Model model,
@@ -34,12 +39,35 @@ public class DisplayController {
 	
 	@RequestMapping(value = "display/main/manage.do")
 	public String manage(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		Map map = displayService.listInfo();
+		model.addAttribute(ConstantsForResponse.TOP_DISPLAY, map.get(ConstantsForResponse.TOP_DISPLAY));
+		model.addAttribute(ConstantsForResponse.BANNER_DISPLAY, map.get(ConstantsForResponse.BANNER_DISPLAY));
+		
 		return "display/main";
 	}
 	
 	@RequestMapping(value = "display/main/create.do")
-	public String create(Model model, @RequestParam Map<String,Object> parameter) {
-		return "display/create";
+	public String mainCreate(Model model, @RequestParam Map<String,Object> parameter) {
+		return "display/mainCreate";
+	}
+	
+	@RequestMapping(value = "display/main/update.do")
+	public String mainUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+		model.addAttribute("displayInfo", displayService.detail(parameter));
+		return "display/mainUpdate";
+	}
+	
+	@RequestMapping(value = "display/main/bannerCreate.do")
+	public String bannerCreate(Model model, @RequestParam Map<String,Object> parameter) {
+		return "display/bannerCreate";
+	}
+	
+	@RequestMapping(value = "display/main/bannerUpdate.do")
+	public String bannerUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		model.addAttribute("displayInfo", displayService.detail(parameter));
+		return "display/bannerUpdate";
 	}
 	
 	@RequestMapping(value = "display/contents/manage.do")

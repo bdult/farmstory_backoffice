@@ -57,6 +57,7 @@ public class StatsController {
 	@RequestMapping(value = "/stats/view.do")
 	public String view(Model model,  @RequestParam Map parameter) {
 		
+		logger.debug("My access token is {}", statsService.getAccessToken());
 		{//선차트용 데이터 가져오기
 			String dimension = "ga:date"; //year,month,week
 			model.addAttribute("lineChartData", statsService.getVisitor(dimension, dateUtil.add(-30), dateUtil.today()));
