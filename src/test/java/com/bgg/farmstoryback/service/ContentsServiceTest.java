@@ -89,7 +89,7 @@ public class ContentsServiceTest {
 	public void testSearchListByContentsName() {
 		
 		// given 
-		String testContentsName = "준비";
+		String testContentsName = "What";
 		setDefaultPageParam();
 		requestParamMap.put(ConstantsForParam.SEARCH, testContentsName);
 		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "name");
@@ -106,26 +106,26 @@ public class ContentsServiceTest {
 		}
 	}
 	
-	@Test
-	public void testSearchListByContentsId() {
-		
-		// given 
-		int testContentsId = 1330;
-		setDefaultPageParam();
-		requestParamMap.put(ConstantsForParam.SEARCH, testContentsId);
-		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
-		
-		
-		// when
-		List<Map> contentsList = contentsService.list(requestParamMap);
-		
-		assertContentList(contentsList);
-		for(Map contentsInfo : contentsList){
-			int contentsId= (Integer)contentsInfo.get(ConstantsForDb.CONTENTS_ID);
-			assertTrue(contentsId == testContentsId);
-			
-		}
-	}
+//	@Test
+//	public void testSearchListByContentsId() {
+//		
+//		// given 
+//		int testContentsId = 699;
+//		setDefaultPageParam();
+//		requestParamMap.put(ConstantsForParam.SEARCH, testContentsId);
+//		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "id");
+//		
+//		
+//		// when
+//		List<Map> contentsList = contentsService.list(requestParamMap);
+//		
+//		assertContentList(contentsList);
+//		for(Map contentsInfo : contentsList){
+//			int contentsId= (Integer)contentsInfo.get(ConstantsForDb.CONTENTS_ID);
+//			assertTrue(contentsId == testContentsId);
+//			
+//		}
+//	}
 	
 	@Test
 	public void testSearchListByCategory() {
@@ -206,6 +206,26 @@ public class ContentsServiceTest {
 			}
 		}
 		
+	}
+	
+	@Test
+	public void testSearchListByDisplayYn() {
+		
+		// given 
+		setDefaultPageParam();
+		String testDisplayYn = "Y";
+		requestParamMap.put(ConstantsForParam.DISPLAY_YN, testDisplayYn);
+		
+
+		// when
+		List<Map> contentsList = contentsService.list(requestParamMap);
+
+		// then
+		assertContentList(contentsList);
+		for(Map contentsInfo : contentsList){
+				assertTrue(contentsInfo.get(ConstantsForDb.DISPLAY_YN).equals(testDisplayYn));
+		}
+
 	}
 
 	private void assertContentList(List<Map> contentsList) {
