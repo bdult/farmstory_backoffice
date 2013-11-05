@@ -79,7 +79,6 @@
 		</if>
     </select>
 
-    
     <select id="adminMemberInfo" resultType="hashmap">
         SELECT /* userQuery.adminMemberInfo  */
         	MEMBER_TYPE, MEMBER_ID
@@ -127,7 +126,6 @@
         FROM BG_CHILDREN
         WHERE 1=1
         AND PARENT_MEMBER_ID = #{member_id}
-        ORDER BY IDX DESC 
         LIMIT 2
     </select>
     
