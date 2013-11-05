@@ -61,7 +61,7 @@
    								<label class="control-label">회원검색</label>
     							<div class="controls">
 									<select name="search_type" class="span12">
-									  <option value="">전체</option>
+									  <option value="">목록 선택</option>
 									  <option value="id">아이디</option>
 									  <option value="name">이름</option>
 									  <option value="cel">휴대폰번호</option>
@@ -207,6 +207,20 @@
 </div>
 
 <script type="text/javascript">
+	//validate
+	setValid();
+	$("#searchForm").validate({
+		rules: {
+			search_type: {
+				required: true
+			}
+		},
+		messages: {
+			search_type: {
+				required: "회원검색 목록을 선택해 주세요."
+			}
+		}
+	});
 
 	jQuery(function($){
 		$('#date-picker-first').datepicker();

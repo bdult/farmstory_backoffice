@@ -105,7 +105,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large" href="#">검색</a>
+							<a class="btn btn-info input-large">검색</a>
 						</div>
 					</div>
 				</form>

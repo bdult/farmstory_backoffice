@@ -134,42 +134,53 @@
 		<c:if test="${type == 'userView' }">
 		<!-- clidren nav -->
 			<ul class="nav nav-tabs" id="myTab">
+				<c:if test="${ !empty childInfo }">
 				<li class="active" id="navTab1">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						자녀방설정
 					</a>
 				</li>
+				</c:if>
 
+				<c:if test="${ !empty paymentsInfo }">
 				<li class="" id="navTab2">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						결제내역
 					</a>
 				</li>
+				</c:if>
+				
+				<c:if test="${ !empty couponInfo }">
 				<li class="" id="navTab3">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						쿠폰내역
 					</a>
 				</li>
+				</c:if>
+				
+				<c:if test="${ !empty questionInfo }">
 				<li class="" id="navTab4">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						1:1문의
 					</a>
 				</li>
+				</c:if>
 			</ul>
 
 		<!--/.page-header-->
+			<c:if test="${ !empty childInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList1">
 				<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="1">
 					<thead>
 						<tr>
-							<c:if test="${ status.count == 1 }">
+							<c:if test="${ status.index == 0 }">
 								<th colspan="4">자녀A 정보<button href="#child-modal-form-A" id="child-modal-btn-A" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
 							</c:if>
-							<c:if test="${ status.count == 2 }">
+							<c:if test="${ status.index == 1 }">
 								<th colspan="4">자녀B 정보<button href="#child-modal-form-B" id="child-modal-btn-B" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
 							</c:if>
 						</tr>
@@ -190,7 +201,9 @@
 					</tbody>
 				</c:forEach>
 			</table>
+			</c:if>
 			
+			<c:if test="${ !empty paymentsInfo}">
 			<table class="table table-striped table-bordered table-hover" id="navTabList2" style="display: none;">
 					<thead>
 						<tr>
@@ -215,7 +228,9 @@
 						</c:forEach>
 					</tbody>
 			</table>
+			</c:if>
 			
+			<c:if test="${ !empty couponInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
 				<thead>
 					<tr>
@@ -240,7 +255,9 @@
 					</tr>
 				</tbody>
 			</table>
+			</c:if>
 			
+			<c:if test="${ !empty questionInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList4" style="display: none;">
 				<thead>
 					<tr>
@@ -261,6 +278,7 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			</c:if>
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">
@@ -311,8 +329,8 @@
 				<div class="control-group">
 					<label class="control-label" for="form-field-username">썸네일</label>
 
-					<div class="controls">
-						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" />
+					<div class="controls" style="height:40px;">
+						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" style="margin-bottom:0;"/>
 						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
 					</div>
 				</div>
