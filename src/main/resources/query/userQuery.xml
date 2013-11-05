@@ -38,10 +38,10 @@
 				    AND MEMBER_ROLE = #{member_role}
 				</if>
 				<if test="search_start_date !=null and search_start_date !=''">
-					AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+					AND DATE_FORMAT(REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 				</if>
 				<if test="search_end_date !=null and search_end_date !=''">
-					AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+					AND DATE_FORMAT(REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 				</if>
 				
 				ORDER BY IDX ASC
@@ -194,10 +194,12 @@
         	, MEMBER_CEL = #{member_cel}
         	, MEMBER_ADDR_1 = #{member_addr_1}
         	, MEMBER_ADDR_2 = #{member_addr_2}
+        	<!-- 
         	, MEMBER_GENDER = #{member_gender}
         	, MEMBER_YEAR = #{member_year}
         	, MEMBER_MONTH = #{member_month}
         	, MEMBER_DAY = #{member_day}
+        	 -->
         WHERE 1=1
         AND MEMBER_ID = #{member_id}
         
@@ -217,183 +219,5 @@
         
     </update>
     
-    <!-- 
-    
-    <select id="totalCount" resultType="int" >
-        SELECT /* userQuery.normalUserTotalCount 2013.09.09 김운호 */ 
-        	count(*)
-        FROM BG_MEMBER
-        WHERE 1=1 
-        AND MEMBER_TYPE = #{whereType}
-        <if test="search != null and search != ''">
-			AND ( MEMBER_NM LIKE CONCAT('%', #{search}, '%')  OR MEMBER_ID LIKE CONCAT('%', #{search}, '%') )
-		</if>
-    </select>
-
-    
-
-    <select id="childDetail" resultType="hashmap" parameterType="hashmap">
-        SELECT /* userQuery.childDetail 2013.09.09 김운호 */ 
-        	*
-        FROM BG_CHILDREN
-        WHERE IDX = #{ idx }
-    </select>
-    
-    <select id="typeCheck" resultType="hashmap" parameterType="hashmap">
-    	SELECT /* userQuery.typeCheck 2013.09.09 김운호 */ 
-    	MEMBER_TYPE
-    	FROM
-    	BG_MEMBER
-        WHERE MEMBER_ID = #{ member_id }
-    </select>
-    
-    <select id="top5" resultType="hashmap" >
-        SELECT /* userQuery.top5 2013.09.24 최지순 */ 
-			* 
-		FROM BG_MEMBER 
-		WHERE 1=1 
-		AND MEMBER_STATUS = 0
-		ORDER BY IDX DESC
-		LIMIT 5
-    </select>
-    
-<<<<<<< HEAD
-	
-=======
-	<select id="userList" resultType="hashmap" >
-		SELECT /* userQuery.userList 2013.09.09 김운호 */ 
-			MB.IDX,
-			MB.MEMBER_ID,
-			MB.MEMBER_NM,
-			MB.MEMBER_EMAIL,
-			MB.MEMBER_STATUS,
-			MB.MEMBER_Cel,
-			MB.EMAIL_RECEIVE,
-			MB.SMS_RECEIVE,
-			case (MEMBER_STATUS)
-				when 0 then '이용'
-				when 1 then '중지'
-				when 2 then '탈퇴'
-			end AS MEMBER_STATUS_DESC,
-			case (MB.SMS_RECEIVE)
-				when 0 then '수신'
-				when 1 then '거절'
-			end AS SMS_RECEIVE_DESC,
-			case (MB.EMAIL_RECEIVE)
-				when 0 then '수신'
-				when 1 then '거절'
-			end AS EMAIL_RECEIVE_DESC,
-			DATE_FORMAT(MB.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-		FROM BG_MEMBER MB 
-		WHERE 1=1 
-		AND MB.MEMBER_TYPE = #{whereType}
-		<if test="search != null and search != ''">
-			AND ( MB.MEMBER_NM LIKE CONCAT('%', #{search}, '%')  OR MB.MEMBER_ID LIKE CONCAT('%', #{search}, '%') )
-		</if>
-		ORDER BY MB.IDX DESC
-		<if test="startNo != null and perPage != null">
-			LIMIT #{startNo}, #{perPage}
-		</if>
-	</select>
->>>>>>> Unho
-    
-	<select id="childList" resultType="hashmap">
-		SELECT /* userQuery.childList 2013.09.09 김운호 */ 
-			CD.IDX,
-			CD.PARENT_MEMBER_ID,
-			CD.CHILD_NM,
-			CD.PHOTO,
-			CD.GENDER,
-			CD.BIRTH_YEAR,
-			CD.BIRTH_MONTH,
-			CD.BIRTH_DAY
-		FROM BG_CHILDREN CD LEFT OUTER JOIN BG_MEMBER MB 
-			ON CD.PARENT_MEMBER_ID = MB.MEMBER_ID
-		WHERE MB.MEMBER_ID = #{ member_id }
-	</select>
-	
-	<select id="adminUserCheckCount" resultType="int">
-		SELECT /* userQuery.adminUserCheckCount 2013.09.09 최지순 */ 
-			count(*)
-		FROM BG_MEMBER
-		WHERE 1=1
-		AND MEMBER_ID = #{ id}
-		AND MEMBER_TYPE = 0
-	</select>
-	
-	<select id="userIdCheckCount" resultType="int">
-		SELECT /* userQuery.userIdCheckCount 2013.09.09 최지순 */ 
-			count(*)
-		FROM BG_MEMBER
-		WHERE 1=1
-		AND MEMBER_ID = #{ id}
-	</select>
-     -->
-	
-	
-	
-	<!-- insert 
-	<insert id="addAdminUser"  parameterType="hashmap">
-		INSERT  /* userQuery.addAdminUser 2013.09.09 김운호 */ 
-		INTO BG_MEMBER (
-			MEMBER_ID,
-			MEMBER_NM,
-			MEMBER_PW,
-			MEMBER_ROLE,
-			MEMBER_EMAIL,
-			MEMBER_CEL,
-			MEMBER_TEL,
-			MEMBER_ADDR_1,
-			MEMBER_ADDR_2,
-			REG_DT,
-			MOD_DT
-		)
-		VALUES (
-	        #{ member_id },
-	        #{ member_nm },
-	        #{ member_pw },
-	        #{ member_role },
-	        #{ member_email },
-	        #{ member_cel },
-	        #{ member_tel },
-	        #{ member_addr_1 },
-	        #{ member_addr_2 },
-	        NOW(),
-	        NOW()
-		)
-	</insert>
-	-->
-	
-	<!-- UPDATE USER 
-	<update id="modifyAdminUser" parameterType="hashmap">
-		UPDATE /* userQuery.modifyAdminUser 2013.09.09 김운호 */  
-			BG_MEMBER
-		<set>
-			MEMBER_ID = #{ member_id },
-			MEMBER_NM = #{ member_nm },
-			MEMBER_PW = #{ member_pw },
-			MEMBER_ROLE = #{ member_role },
-			MEMBER_EMAIL = #{ member_email },
-			MEMBER_CEL = #{ member_cel },
-			MEMBER_TEL = #{ member_tel },
-			MEMBER_ADDR_1 = #{ member_addr_1 },
-			MEMBER_ADDR_2 = #{ member_addr_2 },
-			MEMBER_STATUS = #{ member_status },
-			MOD_DT = NOW()
-		</set>
-		WHERE MEMBER_ID = #{ member_id }
-	</update>
-	-->
-	
-	<!-- DELETE USER 
-	<update id="deleteUser" parameterType="hashmap">
-		UPDATE
-			BG_MEMBER
-		<set>
-			MEMBER_STATUS = 2
-		</set>
-		WHERE MEMBER_ID = #{ member_id }
-	</update>
-	-->
 	
 </mapper>

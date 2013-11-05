@@ -72,52 +72,60 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	public List top(int limitCount) {
 		return getSqlSession().selectList("contentsQuery.top", limitCount);
 	}
-
-	/** 컨텐츠 카테고리 추가
-	 * @param parameter
-	 */
-	public void addContentsCate(Map<String, Object> parameter) {
-		getSqlSession().insert("contentsQuery.addContentsCate", parameter);
+	
+	public void modifyOrderingNo(Map requestParamMap) {
+		getSqlSession().update("contentsQuery.modifyOrderingNo", requestParamMap);
 	}
-
-	/** 컨텐츠 카테고리 존재 여부 카운트
-	 * @param parameter
-	 * @return
-	 */
-	public int checkContentsCate(Map<String, Object> parameter) {
-		return (Integer)getSqlSession().selectOne("contentsQuery.checkContentsCate", parameter);
-	}
-
-	/** 컨텐츠 카테고리 목록 조회
-	 * @param parameter
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	public List contentsCateList(Map parameter) {
-		return getSqlSession().selectList("contentsQuery.contentsCateList", parameter);
-	}
-
-	/** 컨텐츠 카테고리 삭제
-	 * @param parameter
-	 */
-	public void deleteContentsCate(Map parameter) {
-		getSqlSession().delete("contentsQuery.deleteContentsCate", parameter);
-	}
-
-	/**
-	 * 임시 컨텐츠 생성
-	 * @return
-	 */
-	public String createTemp() {
-		Map<String, Integer> tempMap = new HashMap<String, Integer>();
-		tempMap.put("contents_id", 0);
-		getSqlSession().insert("contentsQuery.createTemp", tempMap);
-		return ""+tempMap.get("contents_id");
-	}
-
+	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Map> listByCategory(String categoryId) {
 		return (List<Map>)getSqlSession().selectList("contentsQuery.listByCategory", categoryId);
 	}
+
+//	/** 컨텐츠 카테고리 추가
+//	 * @param parameter
+//	 */
+//	public void addContentsCate(Map<String, Object> parameter) {
+//		getSqlSession().insert("contentsQuery.addContentsCate", parameter);
+//	}
+//
+//	/** 컨텐츠 카테고리 존재 여부 카운트
+//	 * @param parameter
+//	 * @return
+//	 */
+//	public int checkContentsCate(Map<String, Object> parameter) {
+//		return (Integer)getSqlSession().selectOne("contentsQuery.checkContentsCate", parameter);
+//	}
+//
+//	/** 컨텐츠 카테고리 목록 조회
+//	 * @param parameter
+//	 * @return
+//	 */
+//	@SuppressWarnings("rawtypes")
+//	public List contentsCateList(Map parameter) {
+//		return getSqlSession().selectList("contentsQuery.contentsCateList", parameter);
+//	}
+//
+//	/** 컨텐츠 카테고리 삭제
+//	 * @param parameter
+//	 */
+//	public void deleteContentsCate(Map parameter) {
+//		getSqlSession().delete("contentsQuery.deleteContentsCate", parameter);
+//	}
+//
+//	/**
+//	 * 임시 컨텐츠 생성
+//	 * @return
+//	 */
+//	public String createTemp() {
+//		Map<String, Integer> tempMap = new HashMap<String, Integer>();
+//		tempMap.put("contents_id", 0);
+//		getSqlSession().insert("contentsQuery.createTemp", tempMap);
+//		return ""+tempMap.get("contents_id");
+//	}
+//
+
+
+	
 
 }

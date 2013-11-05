@@ -66,6 +66,26 @@ public class DisplayService {
 	public Map popupDetail(Map requestParamMap) {
 		return displayDao.popupDetail(requestParamMap);
 	}
+
+	/**
+	 * 
+	 * @param requestParamMap (category_id, contenst_id, ordering_no 필수)
+	 */
+	public void modifyContentsOrderingNo(Map requestParamMap) {
+		contentsService.moddifyOrderingNo(requestParamMap);
+	}
+
+	public void modify(Map requestParamMap) {
+		displayDao.modify(requestParamMap);
+	}
+
+	public void add(Map requestParamMap) {
+		displayDao.add(requestParamMap);
+	}
+
+	public void delete(Map requestParamMap) {
+		displayDao.delete(requestParamMap);
+	}
 	
 
 //		@Autowired
