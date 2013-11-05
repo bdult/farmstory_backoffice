@@ -190,7 +190,7 @@ public class DispalyServiceTest {
 		String addTopDisImgPath = "addTemp/addTemp.gif";
 		String addTopDisLinkUrl = "addUrl.com";
 		String addTopDisYn = "N";
-		String addDisType = "DIS001";
+		String addDisType = "DIS001"; // 상단 비주얼 코드
 		requestParamMap.put(ConstantsForParam.TITLE, 			addTopDisTitle);
 		requestParamMap.put(ConstantsForParam.IMG_PATH, 		addTopDisImgPath);
 		requestParamMap.put(ConstantsForParam.DISPLAY_LINK_URL, addTopDisLinkUrl);
@@ -216,7 +216,6 @@ public class DispalyServiceTest {
 	
 	@Test
 	public void testDeleteDisplay() {
-		
 		// given 
 		Map displayInfo = displayService.listInfo();
 		List<Map> topDisplay = (List<Map>)displayInfo.get(ConstantsForResponse.TOP_DISPLAY);
@@ -228,8 +227,99 @@ public class DispalyServiceTest {
 		// then
 		Map detailInfo = displayService.detail(requestParamMap);
 		assertThat(detailInfo, is(nullValue()));
+	}
+	
+	
+	@Test
+	public void testInsertPopup() {
+		
+		// given 
+		List<Map> popupDisplay = displayService.popupList();
+		Map popupInfo = popupDisplay.get(0);
+		requestParamMap.put(ConstantsForParam.DISPLAY_ID, popupInfo.get(ConstantsForDb.DISPLAY_ID));
+		
+		String addPopupDisTitle = "addPopupTitle";
+		String addPopupDisImgPath = "addPopupTemp/addTemp.gif";
+		String addPopupDisLinkUrl = "addPopupUrl.com";
+		String addPopupDisYn = "N";
+		String addDisType = "DIS003"; // 팝업 코드
+		requestParamMap.put(ConstantsForParam.TITLE, 			addPopupDisTitle);
+		requestParamMap.put(ConstantsForParam.IMG_PATH, 		addPopupDisImgPath);
+		requestParamMap.put(ConstantsForParam.DISPLAY_LINK_URL, addPopupDisLinkUrl);
+		requestParamMap.put(ConstantsForParam.DISPLAY_YN, 		addPopupDisYn);
+		requestParamMap.put(ConstantsForParam.DISPLAY_CODE, 	addDisType);
+
+		// when
+		displayService.add(requestParamMap);
+
+		// then
+		List<Map> modifyTopDisplay = displayService.popupList();
+		Map modifyTopInfo = modifyTopDisplay.get(0);
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.TITLE), 		is(addPopupDisTitle));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.IMG_PATH), 		is(addPopupDisImgPath));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.LINK_URL), 		is(addPopupDisLinkUrl));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.DISPLAY_YN), 	is(addPopupDisYn));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.DISPLAY_CODE), 	is(addDisType));
 
 	}
 	
+	@Test
+	public void testModifyPopup() {
+		
+		// given 
+		List<Map> popupDisplay = displayService.popupList();
+		Map popupInfo = popupDisplay.get(0);
+		requestParamMap.put(ConstantsForParam.DISPLAY_ID, popupInfo.get(ConstantsForDb.DISPLAY_ID));
+		
+		String modifyPopupDisTitle = "modifyPopupTitle";
+		String modifyPopupDisImgPath = "modifyPopupTemp/addTemp.gif";
+		String modifyPopupDisLinkUrl = "modifyPopupUrl.com";
+		String modifyPopupDisYn = "Y";
+		requestParamMap.put(ConstantsForParam.TITLE, 			modifyPopupDisTitle);
+		requestParamMap.put(ConstantsForParam.IMG_PATH, 		modifyPopupDisImgPath);
+		requestParamMap.put(ConstantsForParam.DISPLAY_LINK_URL, modifyPopupDisLinkUrl);
+		requestParamMap.put(ConstantsForParam.DISPLAY_YN, 		modifyPopupDisYn);
+		
+		// when
+		displayService.modify(requestParamMap);
+		
+		// then
+		List<Map> modifyTopDisplay = displayService.popupList();
+		Map modifyTopInfo = modifyTopDisplay.get(0);
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.TITLE), 		is(modifyPopupDisTitle));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.IMG_PATH), 		is(modifyPopupDisImgPath));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.LINK_URL), 		is(modifyPopupDisLinkUrl));
+		assertThat((String)modifyTopInfo.get(ConstantsForDb.DISPLAY_YN), 	is(modifyPopupDisYn));
+		
+	}
+	
+	@Test
+	public void deletePopup() {
+		// given 
+		List<Map> popupDisplay = displayService.popupList();
+		Map popupInfo = popupDisplay.get(0);
+		requestParamMap.put(ConstantsForParam.DISPLAY_ID, popupInfo.get(ConstantsForDb.DISPLAY_ID));
+		// when
+		displayService.delete(requestParamMap);
+
+		// then
+		Map detailInfo = displayService.detail(requestParamMap);
+		assertThat(detailInfo, is(nullValue()));
+
+	}
+	
+	@Test
+	public void testGetDisplayCode() {
+		
+		// given 
+
+		// when
+		List<Map> displayCodeList = displayService.codeList();
+
+		// then
+		assertThat(displayCodeList, is(notNullValue()));
+		assertThat(displayCodeList.size(), is(not(0)));
+
+	}
 	
 }

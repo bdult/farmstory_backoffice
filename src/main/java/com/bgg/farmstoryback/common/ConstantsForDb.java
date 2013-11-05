@@ -49,6 +49,9 @@ public class ConstantsForDb {
 	public static final Object IMG_PATH = "IMG_PATH";
 
 
+	public static final String CODE = "CODE";
+
+
 
 
 

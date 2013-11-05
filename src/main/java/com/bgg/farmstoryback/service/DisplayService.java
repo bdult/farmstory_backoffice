@@ -24,6 +24,9 @@ public class DisplayService {
 	@Autowired
 	private ContentsService contentsService;
 	
+	@Autowired
+	private CodeService codeService;
+	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
@@ -85,6 +88,10 @@ public class DisplayService {
 
 	public void delete(Map requestParamMap) {
 		displayDao.delete(requestParamMap);
+	}
+
+	public List<Map> codeList() {
+		return codeService.displayCodeList();
 	}
 	
 

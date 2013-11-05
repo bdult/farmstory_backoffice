@@ -49,5 +49,6 @@ public class DisplayDao extends SqlSessionDaoSupport {
 	public void delete(Map requestParamMap) {
 		getSqlSession().delete("displayQuery.delete", requestParamMap);
 	}
+
 	
 }

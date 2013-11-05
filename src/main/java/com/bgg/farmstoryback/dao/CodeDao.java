@@ -13,25 +13,37 @@ public class CodeDao extends SqlSessionDaoSupport {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	public List<Map> list(Map pageInfo) {
-		return getSqlSession().selectList("codeQuery.list", pageInfo);
+	public List<Map> parentCodeList() {
+		return getSqlSession().selectList("codeQuery.parentCodeList");
 	}
 
-	public int totalCount(Map pageInfo) {
-		return (Integer)getSqlSession().selectOne("codeQuery.totalCount", pageInfo);
+	public List<Map> displayCodeList() {
+		return getSqlSession().selectList("codeQuery.displayCodeList");
 	}
 
-	public Map detail(String code_idx) {
-		return (Map)getSqlSession().selectOne("codeQuery.detail", code_idx);
+	public List<Map> paymentCodeList() {
+		return getSqlSession().selectList("codeQuery.paymentCodeList");
+	}
+	
+	public List<Map> payProcessCodeList() {
+		return getSqlSession().selectList("codeQuery.payProcessCodeList");
 	}
 
-	public void delete(Map<String, Object> parameter) {
-		getSqlSession().delete("codeQuery.deleteChild", parameter);
-		getSqlSession().delete("codeQuery.delete", parameter	);
-	}
-
-	public void modify(Map<String, String> parameter) {
-		getSqlSession().update("codeQuery.modify", parameter);
-	}
+//	public int totalCount(Map pageInfo) {
+//		return (Integer)getSqlSession().selectOne("codeQuery.totalCount", pageInfo);
+//	}
+//
+//	public Map detail(String code_idx) {
+//		return (Map)getSqlSession().selectOne("codeQuery.detail", code_idx);
+//	}
+//
+//	public void delete(Map<String, Object> parameter) {
+//		getSqlSession().delete("codeQuery.deleteChild", parameter);
+//		getSqlSession().delete("codeQuery.delete", parameter	);
+//	}
+//
+//	public void modify(Map<String, String> parameter) {
+//		getSqlSession().update("codeQuery.modify", parameter);
+//	}
 
 }
