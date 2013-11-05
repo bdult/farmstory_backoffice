@@ -60,21 +60,15 @@
 								<div class="control-group">
 									<label class="control-label">아이디</label>
 									<div class="controls">
-										<input type="text" readonly="readonly" name="member_id" value="${detail.MEMBER_ID}">
+										<input type="text" readonly="readonly" name="MEMBER_ID" value="${detail.MEMBER_ID}">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">이름</label>
 									<div class="controls">
-										<input type="text" name="member_nm" value="${detail.MEMBER_NM}" />
+										<input type="text" name="MEMBER_NM" value="${detail.MEMBER_NM}" />
 									</div>
 								</div>
-								<%-- <div class="control-group">
-									<label class="control-label">회원 비밀번호</label>
-									<div class="controls">
-										<input type="text" name="member_pw" value="${detail.userDetail.MEMBER_PW}" />
-									</div>
-								</div> --%>
 								<div class="control-group">
 									<label class="control-label">생년월일</label>
 									<div class="controls">
@@ -87,19 +81,19 @@
 								<div class="control-group">
 									<label class="control-label">성별</label>
 									<div class="controls">
-										<input type="text" name="member_gender" value="${detail.MEMBER_GENDER}" readonly="readonly"/>
+										<input type="text" value="${detail.MEMBER_GENDER}" readonly="readonly"/>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">휴대폰</label>
 									<div class="controls">
-										<input type="text" name="member_cel" value="${detail.MEMBER_CEL}" />
+										<input type="text" name="MEMBER_CEL" value="${detail.MEMBER_CEL}" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">이메일</label>
 									<div class="controls">
-										<input type="text" name="member_email" value="${detail.MEMBER_EMAIL}" />
+										<input type="text" name="MEMBER_EMAIL" value="${detail.MEMBER_EMAIL}" />
 									</div>
 								</div>
 								<div class="control-group">
@@ -109,26 +103,11 @@
 										<a class="btn btn-primary">우편번호 검색</a>
 									</div>
 									<div class="controls">
-										<input type="text" name="member_addr_1" value="${detail.MEMBER_ADDR_1}" />&nbsp;&nbsp;
-										<input type="text" name="member_addr_2" value="${detail.MEMBER_ADDR_2}" />
+										<input type="text" name="MEMBER_ADDR_1" value="${detail.MEMBER_ADDR_1}" />&nbsp;&nbsp;
+										<input type="text" name="MEMBER_ADDR_2" value="${detail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
 								
-								<%-- <div class="control-group">
-									<label class="control-label">회원 등급</label>
-
-									<div class="controls">
-										<input type="text" name="member_role" value="${detail.userDetail.MEMBER_ROLE}" />
-									</div>
-								</div> --%>
-								
-								<%-- <div class="control-group">
-									<label class="control-label">회원 상태</label>
-
-									<div class="controls">
-										<input type="text" name="member_status" value="${detail.userDetail.MEMBER_STATUS}" />
-									</div>
-								</div> --%>
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
@@ -161,31 +140,20 @@ $(function(){
 	}
 
 	$("#cancel-btn").click(function(){
-		if(memberType == 1){
-			window.location.href="user/manage.do?pageNum=1";
-		}else {
-			window.location.href="admin/manage.do?pageNum=1";
-		}
+		window.location.href="${ contextPath }/user/detail.do?member_id=${detail.MEMBER_ID}";
 	});
 
 	$("#modify-btn").click(function(){
 		if(confirm("저장 하시겠습니까?")){
 			$("#create-form").attr({
 				method: 'post',
-				action: '${ contextPath }/user/admin/modify.do'
+				action: '${ contextPath }/user/userModify.do'
 			}).submit();
 		}else{
 			return false;
 		}
 	});
 
-	$("#delete-btn").click(function(){
-		if(confirm("삭제 하시겠습니까?")){
-			$("#create-form").attr('action', '${ contextPath }/user/admin/delete.do').submit();
-		}else{
-			return false;
-		}
-	});
 });
 
 </script>

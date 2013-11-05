@@ -64,7 +64,6 @@
 									  <option value="id">아이디</option>
 									  <option value="name">이름</option>
 									  <option value="cel">휴대폰번호</option>
-									  <option>구독 일시</option>
 									</select>
 								</div>
 							</div>
@@ -219,7 +218,6 @@ jQuery(function($){
 			action: '${ contextPath }/user/user/manage.do'			
 		}).submit();
 	});
-		
 
 	$(function(){
 		var dspType = "${type}";

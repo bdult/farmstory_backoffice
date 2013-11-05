@@ -90,8 +90,7 @@ public class UserController {
   
   @RequestMapping(value = "/user/user/manage.do", method = RequestMethod.GET)
   public String userManage(Model model, @RequestParam Map paramMap) {
-	Map userList = userService.list(paramMap);
-	Map pageInfo = pageUtil.pageLink((Integer)userList.get("memberListCount"), paramMap);
+	Map pageInfo = pageUtil.pageLink(userService.totalCount(paramMap), paramMap);
 	model.addAttribute("pageInfo", pageInfo);
 	model.addAttribute("pageList", pageInfo.get("pageList"));
 	pageInfo.putAll(paramMap);
@@ -133,11 +132,21 @@ public class UserController {
 	  	return "user/addInfo";
 	}
 	
-  @RequestMapping(value = "user/userModify.do", method = RequestMethod.GET)
+  @RequestMapping(value = "user/userModify.do", method = RequestMethod.POST)
   public String userModify(Model model, @RequestParam Map paramMap) {
-	  
-	return null;
-  }
+
+		userService.modifyUserInfo(paramMap);
+		
+		return "redirect:/user/detail.do?member_id=" + paramMap.get("MEMBER_ID");
+  	}
+  
+  @RequestMapping(value = "user/childModify.do", method = RequestMethod.POST)
+  public String childModify(Model model, @RequestParam Map paramMap) {
+
+		userService.modifyChildInfo(paramMap);
+		
+		return "redirect:/user/detail.do?member_id=" + paramMap.get("member_id");
+  	}
 //  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
 //  public String childDetail(Model model, @RequestParam Map<String,Object> paramMap) {
 //	  

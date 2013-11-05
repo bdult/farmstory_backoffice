@@ -194,17 +194,17 @@
 					</a>
 				</li>
 			</ul>
-			
+
 		<!--/.page-header-->
 			<table class="table table-striped table-bordered table-hover" id="navTabList1">
 				<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="1">
 					<thead>
 						<tr>
 							<c:if test="${ status.count == 1 }">
-								<th colspan="4">자녀A 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
+								<th colspan="4">자녀A 정보<button href="#child-modal-form-A" id="child-modal-btn-A" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
 							</c:if>
 							<c:if test="${ status.count == 2 }">
-								<th colspan="4">자녀B 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
+								<th colspan="4">자녀B 정보<button href="#child-modal-form-B" id="child-modal-btn-B" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
 							</c:if>
 						</tr>
 					</thead>
@@ -307,8 +307,11 @@
 	<!--/.page-content-->
 <!--/.main-content-->
 
-<!-- clid modify modal form -->
-<div id="child-modal-form" class="modal hide in" tabindex="-1" >
+<!-- clid modify modal form A -->
+<form id="child-modal-form-A" class="modal hide in" tabindex="-1" >
+	<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="0">
+	<input type="hidden" name="child_idx" value="${ childList.IDX }">
+	<input type="hidden" name="member_id" value="${ detail.MEMBER_ID }">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h4 class="blue bigger">아래의 정보를 입력해 주세요</h4>
@@ -321,7 +324,7 @@
 					<label class="control-label" for="form-field-username">자녀명</label>
 
 					<div class="controls">
-						<input type="text" id="form-field-username" value="">
+						<input type="text" name="child_name" id="form-field-username" value="${ childList.CHILD_NM }">
 					</div>
 				</div>
 				<div class="control-group">
@@ -329,11 +332,11 @@
 					<div class="controls">
 						<div class="row-fluid">
 						<label class="span2">
-							<input name="form-field-radio" type="radio">
+							<input id="gender-m" name="gender" type="radio" value="남">
 							<span class="lbl"> 남</span>
 						</label>
 						<label class="span2">
-							<input name="form-field-radio" type="radio">
+							<input id="gender-f" name="gender" type="radio" value="여">
 							<span class="lbl"> 여</span>
 						</label>
 						</div>
@@ -343,7 +346,7 @@
 					<label class="control-label" for="form-field-username">썸네일</label>
 
 					<div class="controls">
-						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" />
 						<input type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
 					</div>
 				</div>
@@ -351,17 +354,18 @@
 					<label class="control-label" for="form-field-username">생년월일</label>
 
 					<div class="controls">
-						<input class="span3" type="text" id="" value="">년
-						<input class="span3" type="text" id="" value="">월
-						<input class="span3" type="text" id="" value="">일
+						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">년
+						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">월
+						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">일
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</c:forEach>
 
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary">
+		<button class="btn btn-small btn-primary" id="child-modify-btn-A">
 			<i class="icon-ok"></i>
 			등록
 		</button>
@@ -371,8 +375,9 @@
 		</button>
 
 	</div>
-</div>
-							
+</form>
+					
+		
 <!--  thumbnail modal -->
 <div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
@@ -392,7 +397,24 @@
 	</form>
 </div>
 <script type="text/javascript">
+$("#child-modal-btn-A").click(function(){
+	 if($("[name=gender]").val() == '남'){
+		 $("#gender-m").attr("checked",true);
+	 }else if($("[name=gender]").val() == '여'){
+		 $("#gender-f").attr("checked",true);
+	 }
+});
+//chlid modal put items
+ $("#child-modify-btn-A").click(function(){
+	 $("#child-modal-form-A").attr({
+		method: 'post',
+		action: '${contextPath}/user/childModify.do'
+	 }).submit();
+ });
 
+$("#create-form input:text").attr({
+	readonly: "readonly"
+});
 
 //child modal thombnail upload
 $(function(){
