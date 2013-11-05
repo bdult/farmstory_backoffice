@@ -40,14 +40,14 @@
 					<tr>
 						<td>제목</td>
 						<td>
-							<input type="text" name="">
+							<input type="text" name="title">
 						</td>
 						<td></td>
 					</tr>
 					<tr>
 						<td>대표이미지</td>
 						<td>
-							<input type="text" name="">
+							<input type="text" name="ima_path">
 						</td>
 						<td>
 							<button id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</button>
@@ -56,7 +56,7 @@
 					<tr>
 						<td>링크 URL</td>
 						<td>
-							http:// <input type="text" name="" /> 
+							http:// <input type="text" name="link_url" /> 
 						</td>
 						<td>
 							<input type="checkbox" /> 링크없음

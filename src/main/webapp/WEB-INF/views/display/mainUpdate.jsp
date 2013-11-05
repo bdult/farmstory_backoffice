@@ -35,38 +35,56 @@
 	<div class="page-content">
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">상단 비주얼 등록</h3>
-			<table class="table table-striped table-bordered table-hover">
-				<tbody>
-					<tr>
-						<td>제목</td>
-						<td>
-							<input type="text" name="" value="${ displayInfo.TITLE }">
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>대표이미지</td>
-						<td>
-							<input type="text" name="" value="${ displayInfo.IMG_PATH }">
-						</td>
-						<td>
-							<button id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</button>
-						</td>
-					</tr>
-					<tr>
-						<td>링크 URL</td>
-						<td>
-							http:// <input type="text" name="" value="${ displayInfo.LINK_URL }"/> 
-						</td>
-						<td>
-							<input type="checkbox" /> 링크없음
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<form id="updateForm" action="${ contextPath }/display/main/update.do" method="POST">
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<td>제목</td>
+							<td>
+								<input type="text" name="title" value="${ displayInfo.TITLE }">
+								<input type="hidden" name="display_id" value="${ displayInfo.DISPLAY_ID }">
+								<input type="hidden" name="display_code" value="${ displayInfo.DISPLAY_CODE }">
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>대표이미지</td>
+							<td>
+								<input type="text" id="img_path" name="img_path" value="${ displayInfo.IMG_PATH }">
+							</td>
+							<td>
+								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+							</td>
+						</tr>
+						<tr>
+							<td>노출여부</td>
+							<td>
+								<div class="display_yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+									<label>
+										<input name="display_yn" type="radio" class="ace" value="Y">
+										<span class="lbl"> 노출함 </span>
+										<input name="display_yn" type="radio" class="ace" value="N" checked>
+										<span class="lbl"> 노출안함 </span>
+									</label>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>링크 URL</td>
+							<td>
+								http:// <input type="text" name="link_url" value="${ displayInfo.LINK_URL }"/> 
+							</td>
+							<td>
+								<input type="checkbox" /> 링크없음
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 			<div class="text-right">
-				<button class="btn btn-sm btn-yellow">수정</button>
-				<button class="btn btn-sm btn-yellow">삭제</button>
+				<button id="updateBtn" class="btn btn-sm btn-yellow">수정</button>
+				<button id="delBtn" class="btn btn-sm btn-yellow">삭제</button>
 			</div>
 		</div><!--/.row-fluid-->
 		
@@ -75,7 +93,7 @@
 
 <!--  대표이미지 modal -->
 <div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+	<form action="${ contextPath }/file/imageUpload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 class="text-center">대표이미지 업로드</h3>
@@ -97,6 +115,27 @@ $(function(){
 	//사이드바 활성화
 	$("#side-display-main").addClass("active");
 	$("#side-display").addClass("open active");
+	
+	//노출 Y/N 체크 
+	$("div.display_yn").each(function(){
+		var $this = $(this);
+		var displayYn = $this.data("displayYn");
+		
+		$this.find(":radio[value='" + displayYn + "']").prop("checked", true)
+
+	});
+	
+	$("#updateBtn").click(function(){
+		if( confirm("수정하시겠습니까?") ) {
+			$("#updateForm").submit();
+		}
+	});
+	
+	$("#delBtn").click(function(){
+		if( confirm("삭제하시겠습니까?") ) {
+			window.location.href = "${ contextPath }/display/main/delete.do?display_id=" + ${ displayInfo.DISPLAY_ID };
+		}
+	});
 	
 	$("#mainImgUploadBtn").click(function(){
 		$("#thumbnail-modal-footer").hide();
@@ -132,6 +171,15 @@ $(function(){
 	}).on('change', function(){
 		$("#thumbnail-modal-footer").show();
 	});
+	
+	$('#thumbnail-upload-form').ajaxForm(
+			 {
+				    success: function(response){
+				      $("#img_path").val(response);
+				      $("#thumbnail-modal").modal('toggle');
+					}
+			 }
+	 );
 });
 </script>
 

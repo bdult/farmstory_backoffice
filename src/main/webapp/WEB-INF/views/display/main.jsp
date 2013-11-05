@@ -36,7 +36,7 @@
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">상단 비주얼</h3>
 			<div class="table-header" align="right">
-				<a href="${ contextPath }/display/main/create.do" class="btn btn-success">등록</a>
+				<a href="${ contextPath }/display/main/createView.do" class="btn btn-success">등록</a>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
 
@@ -48,18 +48,18 @@
 							</td>
 							<td>${ obj.TITLE }</td>
 							<td>
-								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+								<div class="display_yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input name="form-field-radio" type="radio" class="ace" value="Y" disabled>
+										<input type="radio" class="ace" value="Y" disabled>
 										<span class="lbl"> 노출함 </span>
-										<input name="form-field-radio" type="radio" class="ace" value="N" disabled>
+										<input type="radio" class="ace" value="N" disabled>
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
 							</td>
 							<td>
-								<a href="${ contextPath }/display/main/update.do?display_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-								<button class="btn btn-minier btn-yellow">삭제</button>
+								<a href="${ contextPath }/display/main/updateView.do?display_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+								<button data-display-id="${ obj.DISPLAY_ID }" id="mainDelBtn" class="btn btn-minier btn-yellow">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -70,7 +70,9 @@
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">배너 비주얼</h3>
 			<div class="table-header" align="right">
-				<a href="${ contextPath }/display/main/bannerCreate.do" id="create-contents-btn" class="btn btn-success">등록</a>
+				<!-- 
+				<a href="${ contextPath }/display/main/bannerCreateView.do" id="create-contents-btn" class="btn btn-success">등록</a>
+				 -->
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
 
@@ -83,7 +85,7 @@
 							${ bannerDisplay[0].TITLE }
 						</td>
 						<td>
-							<a href="${ contextPath }/display/main/bannerUpdate.do?display_id=${ bannerDisplay[0].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+							<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ bannerDisplay[0].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
 							<button class="btn btn-minier btn-yellow">삭제</button>
 						</td>
 					</tr>
@@ -92,7 +94,7 @@
 							${ bannerDisplay[1].TITLE }
 						</td>
 						<td>
-							<a href="${ contextPath }/display/main/bannerUpdate.do?display_id=${ bannerDisplay[1].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+							<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ bannerDisplay[1].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
 							<button class="btn btn-minier btn-yellow">삭제</button>
 						</td>
 					</tr>
@@ -108,8 +110,15 @@ $(function(){
 	$("#side-display-main").addClass("active");
 	$("#side-display").addClass("open active");
 	
+	$("#mainDelBtn").click(function(){
+		var $this = $(this);
+		if( confirm("삭제하시겠습니까?") ) {
+			window.location.href = "${ contextPath }/display/main/delete.do?display_id=" + $this.data("displayId");
+		}
+	});
+	
 	//노출 Y/N 체크 
-	$("div.display-yn").each(function(){
+	$("div.display_yn").each(function(){
 		var $this = $(this);
 		var displayYn = $this.data("displayYn");
 		

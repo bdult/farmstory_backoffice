@@ -61,19 +61,19 @@
 				</a>
 				<ul class="submenu">
 					<li id="side-display-main">
-						<a href="${ contextPath }/display/main/manage.do">
+						<a href="${ contextPath }/display/main/manageView.do">
 							<i class="icon-double-angle-right"></i>
 							메인화면 관리
 						</a>
 					</li>
 					<li id="side-display-contents">
-						<a href="${ contextPath }/display/contents/manage.do">
+						<a href="${ contextPath }/display/contents/manageView.do">
 							<i class="icon-double-angle-right"></i>
 							컨텐츠 노출 관리
 						</a>
 					</li>
 					<li id="side-display-popup">
-						<a href="${ contextPath }/display/popup/manage.do">
+						<a href="${ contextPath }/display/popup/manageView.do">
 							<i class="icon-double-angle-right"></i>
 							팝업 관리
 						</a>

@@ -35,38 +35,55 @@
 	<div class="page-content">
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">상단 비주얼 등록</h3>
-			<table class="table table-striped table-bordered table-hover">
-				<tbody>
-					<tr>
-						<td>제목</td>
-						<td>
-							<input type="text" name="">
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>대표이미지</td>
-						<td>
-							<input type="text" name="img_path" id="img_path">
-						</td>
-						<td>
-							<button id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</button>
-						</td>
-					</tr>
-					<tr>
-						<td>링크 URL</td>
-						<td>
-							http:// <input type="text" name="" /> 
-						</td>
-						<td>
-							<input type="checkbox" /> 링크없음
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<form id="createForm" action="${ contextPath }/display/main/create.do" method="POST">
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<td>제목</td>
+							<td>
+								<input type="text" name="title">
+								<input type="hidden" name="display_code" value="DIS001">
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>대표이미지</td>
+							<td>
+								<input type="text" name="img_path" id="img_path">
+							</td>
+							<td>
+								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+							</td>
+						</tr>
+						<tr>
+							<td>노출여부</td>
+							<td>
+								<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+									<label>
+										<input name="display_yn" type="radio" class="ace" value="Y">
+										<span class="lbl"> 노출함 </span>
+										<input name="display_yn" type="radio" class="ace" value="N" checked>
+										<span class="lbl"> 노출안함 </span>
+									</label>
+								</div>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>링크 URL</td>
+							<td>
+								http:// <input type="text" name="link_url" /> 
+							</td>
+							<td>
+								<input class="ace" type="checkbox" id="id-disable-check"> 링크없음
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 			<div class="text-right">
-				<button class="btn btn-sm btn-yellow">수정</button>
-				<button class="btn btn-sm btn-yellow">삭제</button>
+				<button id="createBtn" class="btn btn-sm btn-yellow">등록</button>
+				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</a>
 			</div>
 		</div><!--/.row-fluid-->
 		
@@ -97,6 +114,12 @@ $(function(){
 	//사이드바 활성화
 	$("#side-display-main").addClass("active");
 	$("#side-display").addClass("open active");
+	
+	$("#createBtn").click(function(){
+		if( confirm("등록하시겠습니까?") ) {
+			$("#createForm").submit();
+		}
+	});
 	
 	$("#mainImgUploadBtn").click(function(){
 		$("#thumbnail-modal-footer").hide();

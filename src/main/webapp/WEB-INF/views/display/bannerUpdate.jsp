@@ -35,50 +35,53 @@
 	<div class="page-content">
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">상단 비주얼 등록</h3>
-			<table class="table table-striped table-bordered table-hover">
-				<tbody>
-					<tr>
-						<td>제목</td>
-						<td>
-							<input type="text" name="">
-						</td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>대표이미지</td>
-						<td>
-							<input type="text" name="">
-						</td>
-						<td>
-							<button id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</button>
-						</td>
-					</tr>
-					<tr>
-						<td>링크 URL</td>
-						<td>
-							http:// <input type="text" name="" /> 
-						</td>
-						<td>
-							<input type="checkbox" /> 링크없음
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<form id="updateForm" action="${ contextPath }/display/main/bannerUpdate.do" method="POST">
+				<table class="table table-striped table-bordered table-hover">
+					<tbody>
+						<tr>
+							<td>제목</td>
+							<td>
+								<input type="text" name="title" value="${ bannerInfo.TITLE }">
+								<input type="hidden" name="display_id" value="${ bannerInfo.DISPLAY_ID }">
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>대표이미지</td>
+							<td>
+								<input type="text" id="img_path" name="img_path" value="${ bannerInfo.IMG_PATH }">
+							</td>
+							<td>
+								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+							</td>
+						</tr>
+						<tr>
+							<td>링크 URL</td>
+							<td>
+								http:// <input type="text" name="link_url" value="${ bannerInfo.LINK_URL }" /> 
+							</td>
+							<td>
+								<input type="checkbox" /> 링크없음
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
 			<div class="text-right">
-				<button class="btn btn-sm btn-yellow">수정</button>
-				<button class="btn btn-sm btn-yellow">삭제</button>
+				<button id="updateBtn" class="btn btn-sm btn-yellow">수정</button>
+				<button id="delBtn" class="btn btn-sm btn-yellow">삭제</button>
 			</div>
 		</div><!--/.row-fluid-->
 		
 	</div><!--/.page-content-->
 </div>
 
-<!--  대표이미지 modal -->
+<!--  thumbnail modal -->
 <div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+	<form action="${ contextPath }/file/imageUpload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">대표이미지 업로드</h3>
+			<h3 class="text-center">배너이미지 업로드</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="thumbnail-upload-input" name="file" />
@@ -102,6 +105,18 @@ $(function(){
 		$("#thumbnail-modal-footer").hide();
 		$("#thumbnail-modal").modal('toggle');
 	}); // <!-- mainImgUploadBtn event end
+	
+	$("#updateBtn").click(function(){
+		if( confirm("수정하시겠습니까?") ) {
+			$("#updateForm").submit();
+		}
+	});
+	
+	$("#delBtn").click(function(){
+		if( confirm("삭제하시겠습니까?") ) {
+			window.location.href = "${ contextPath }/display/main/bannerDelete.do?display_id=${ displayInfo.DISPLAY_ID }";
+		}
+	});
 	
 	$('#thumbnail-upload-input').ace_file_input({
 		style:'well',
@@ -132,6 +147,15 @@ $(function(){
 	}).on('change', function(){
 		$("#thumbnail-modal-footer").show();
 	});
+	
+	$('#thumbnail-upload-form').ajaxForm(
+			 {
+				    success: function(response){
+				      $("#img_path").val(response);
+				      $("#thumbnail-modal").modal('toggle');
+					}
+			 }
+	 );
 });
 </script>
 

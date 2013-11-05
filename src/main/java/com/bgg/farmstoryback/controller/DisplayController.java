@@ -35,17 +35,8 @@ public class DisplayController {
 	@Autowired
 	private CategoryService categoryService;
 	
-	@RequestMapping(value = "display/mainImgUpdate.do")
-	public @ResponseBody String mainImgUpdate(Model model,
-			@RequestParam("file")MultipartFile file
-			) {
-//		String srcPath = fileUtil.thumbnailUpload(file);
-		String srcPath = ""; //대표이미지 
-		return srcPath;
-	}
-	
-	@RequestMapping(value = "display/main/manage.do")
-	public String manage(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/main/manageView.do")
+	public String manageView(Model model, @RequestParam Map<String,Object> parameter) {
 		
 		Map map = displayService.listInfo();
 		model.addAttribute(ConstantsForResponse.TOP_DISPLAY, map.get(ConstantsForResponse.TOP_DISPLAY));
@@ -54,31 +45,67 @@ public class DisplayController {
 		return "display/main";
 	}
 	
-	@RequestMapping(value = "display/main/create.do")
-	public String mainCreate(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/main/createView.do")
+	public String createView(Model model, @RequestParam Map<String,Object> parameter) {
 		return "display/mainCreate";
 	}
 	
-	@RequestMapping(value = "display/main/update.do")
-	public String mainUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/main/create.do")
+	public String create(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.add(parameter);
+		
+		return "redirect:manageView.do";
+	}
+	
+	@RequestMapping(value = "display/main/updateView.do")
+	public String updateView(Model model, @RequestParam Map<String,Object> parameter) {
 		model.addAttribute("displayInfo", displayService.detail(parameter));
 		return "display/mainUpdate";
 	}
 	
-	@RequestMapping(value = "display/main/bannerCreate.do")
-	public String bannerCreate(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/main/update.do")
+	public String update(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.modify(parameter);
+		
+		return "redirect:manageView.do";
+	}
+	
+	@RequestMapping(value = "display/main/delete.do")
+	public String delete(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.delete(parameter);
+		
+		return "redirect:manageView.do";
+	}
+	
+	@RequestMapping(value = "display/main/bannerCreateView.do")
+	public String bannerCreateView(Model model, @RequestParam Map<String,Object> parameter) {
 		return "display/bannerCreate";
+	}
+	
+	@RequestMapping(value = "display/main/bannerUpdateView.do")
+	public String bannerUpdateView(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		model.addAttribute("bannerInfo", displayService.detail(parameter));
+		return "display/bannerUpdate";
 	}
 	
 	@RequestMapping(value = "display/main/bannerUpdate.do")
 	public String bannerUpdate(Model model, @RequestParam Map<String,Object> parameter) {
-		
-		model.addAttribute("displayInfo", displayService.detail(parameter));
-		return "display/bannerUpdate";
+		displayService.modify(parameter);
+		return "redirect:manageView.do";
 	}
 	
-	@RequestMapping(value = "display/contents/manage.do")
-	public String contents(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/main/bannerDelete.do")
+	public String bannerDelete(Model model, @RequestParam Map<String,Object> parameter) {
+		displayService.delete(parameter);
+		return "redirect:manageView.do";
+	}
+	
+	@RequestMapping(value = "display/contents/manageView.do")
+	public String contentsManageView(Model model, @RequestParam Map<String,Object> parameter) {
 		
 		model.addAttribute("parameter", parameter);
 		
@@ -98,20 +125,20 @@ public class DisplayController {
 		return "display/contents";
 	}
 	
-	@RequestMapping(value = "display/popup/manage.do")
-	public String popup(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/popup/manageView.do")
+	public String popupManageView(Model model, @RequestParam Map<String,Object> parameter) {
 		
 		model.addAttribute("popupList", displayService.popupList());
 		return "display/popup";
 	}
 	
-	@RequestMapping(value = "display/popup/create.do")
-	public String popupCreate(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/popup/createView.do")
+	public String popupCreateView(Model model, @RequestParam Map<String,Object> parameter) {
 		return "display/popupCreate";
 	}
 	
-	@RequestMapping(value = "display/popup/update.do")
-	public String popupUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+	@RequestMapping(value = "display/popup/updateView.do")
+	public String popupUpdateView(Model model, @RequestParam Map<String,Object> parameter) {
 		model.addAttribute("obj", displayService.popupDetail(parameter));
 		return "display/popupUpdate";
 	}
