@@ -38,10 +38,10 @@
 				    AND MEMBER_ROLE = #{member_role}
 				</if>
 				<if test="search_start_date !=null and search_start_date !=''">
-					AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+					AND DATE_FORMAT(REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 				</if>
 				<if test="search_end_date !=null and search_end_date !=''">
-					AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+					AND DATE_FORMAT(REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 				</if>
 				
 				ORDER BY IDX ASC
@@ -72,14 +72,13 @@
 		    AND MEMBER_ROLE = #{member_role}
 		</if>
 		<if test="search_start_date !=null and search_start_date !=''">
-			AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+			AND DATE_FORMAT(REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 		</if>
 		<if test="search_end_date !=null and search_end_date !=''">
-			AND DATE_FORMAT(REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+			AND DATE_FORMAT(REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
     </select>
 
-    
     <select id="adminMemberInfo" resultType="hashmap">
         SELECT /* userQuery.adminMemberInfo  */
         	MEMBER_TYPE, MEMBER_ID
@@ -127,7 +126,6 @@
         FROM BG_CHILDREN
         WHERE 1=1
         AND PARENT_MEMBER_ID = #{member_id}
-        ORDER BY IDX DESC 
         LIMIT 2
     </select>
     

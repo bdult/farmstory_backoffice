@@ -25,47 +25,47 @@ import com.mysql.jdbc.StringUtils;
 @Controller
 public class CodeController {
 	
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	@Autowired
-	private CodeService codeService;
-	
-	@Autowired
-	private JsonResponseMaker jsonMaker;
-	
-	@Autowired
-	private PageUtil pageUtil;
-	
-	@RequestMapping(value = "code/manage.do")
-	public String manage(Model model,  @RequestParam Map parameter) {
-		
-		Map pageInfo = pageUtil.pageLink(codeService.totalCount(parameter), parameter);
-		model.addAttribute("pageInfo", pageInfo);
-		model.addAttribute("pageList", pageInfo.get("pageList"));
-		model.addAttribute("list", codeService.list(pageInfo));
-		return "code/manage";
-	}
-	
-	@RequestMapping(value = "code/detail.do")
-	public String detail(Model model, @RequestParam Map<String,String> parameter) {
-		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
-		model.addAttribute("data", codeDetail);
-		return "code/info";
-	}
-	
-	@RequestMapping(value = "code/delete.do")
-	public String delete(Model model, @RequestParam Map<String,Object> parameter){
-		codeService.delete(parameter);
-		return "redirect:manage.do";
-	}
-	
-	@RequestMapping(value = "code/modify.do")
-	public String modify(Model model, @RequestParam Map<String,String> parameter) {
-		logger.info("modify = {}", parameter);
-		codeService.modify(parameter);
-		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
-		model.addAttribute("data", codeDetail);
-		return "code/info";
-	}
+//	private Logger logger = LoggerFactory.getLogger(getClass());
+//	
+//	@Autowired
+//	private CodeService codeService;
+//	
+//	@Autowired
+//	private JsonResponseMaker jsonMaker;
+//	
+//	@Autowired
+//	private PageUtil pageUtil;
+//	
+//	@RequestMapping(value = "code/manage.do")
+//	public String manage(Model model,  @RequestParam Map parameter) {
+//		
+//		Map pageInfo = pageUtil.pageLink(codeService.totalCount(parameter), parameter);
+//		model.addAttribute("pageInfo", pageInfo);
+//		model.addAttribute("pageList", pageInfo.get("pageList"));
+//		model.addAttribute("list", codeService.list(pageInfo));
+//		return "code/manage";
+//	}
+//	
+//	@RequestMapping(value = "code/detail.do")
+//	public String detail(Model model, @RequestParam Map<String,String> parameter) {
+//		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
+//		model.addAttribute("data", codeDetail);
+//		return "code/info";
+//	}
+//	
+//	@RequestMapping(value = "code/delete.do")
+//	public String delete(Model model, @RequestParam Map<String,Object> parameter){
+//		codeService.delete(parameter);
+//		return "redirect:manage.do";
+//	}
+//	
+//	@RequestMapping(value = "code/modify.do")
+//	public String modify(Model model, @RequestParam Map<String,String> parameter) {
+//		logger.info("modify = {}", parameter);
+//		codeService.modify(parameter);
+//		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
+//		model.addAttribute("data", codeDetail);
+//		return "code/info";
+//	}
 
 }

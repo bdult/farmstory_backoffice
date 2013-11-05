@@ -49,11 +49,44 @@ public class BoardService {
 		return boardDao.contentsDetail(requestParamMap);
 	}
 	
-	
+	public void modifyContents(Map requestParamMap) {
+		boardDao.modifyContents(requestParamMap);
+	}
 	
 	private List<Map> boardList(Map requestParam){
 		return boardDao.boardList(requestParam);
 	}
+
+	public List<Map> commentList(Map requestParamMap) {
+		return boardDao.commentList(requestParamMap);
+	}
+
+	public void addComment(Map requestParamMap) {
+		boardDao.addComment(requestParamMap);
+	}
+
+	public Map commentDetail(Map requestParamMap) {
+		return boardDao.commentDetail(requestParamMap);
+	}
+
+	public void modifyComment(Map requestParamMap) {
+		boardDao.modifyComment(requestParamMap);
+	}
+
+	public void deleteComment(Map requestParamMap) {
+		boardDao.deleteComment(requestParamMap);
+	}
+
+	public void addContents(Map requestParamMap) {
+		boardDao.addContents(requestParamMap);
+	}
+
+	public void deleteContents(Map requestParamMap) {
+		boardDao.deleteCommentByContentsId(requestParamMap);
+		boardDao.deleteContents(requestParamMap);
+	}
+
+	
 
 //	public void create(Map boardInfo) {
 //		boardDao.create(boardInfo);

@@ -19,27 +19,49 @@ public class CodeService {
 	
 	@Autowired
 	private CodeDao codeDao;
+
+	public List<Map> parentCodeList() {
+		return codeDao.parentCodeList();
+	}
+
+	public List<Map> displayCodeList() {
+		return codeDao.displayCodeList();
+	}
 	
-	@Autowired
-	private PageUtil pageUtil;
-
-	public List<Map> list(Map paramInfo) {
-		return codeDao.list(paramInfo);
+	public List<Map> paymentCodeList() {
+		return codeDao.paymentCodeList();
+	}
+	
+	public List<Map> payProcessCodeList() {
+		return codeDao.payProcessCodeList();
 	}
 
-	public int totalCount(Map paramInfo) {
-		return codeDao.totalCount(paramInfo);
+	public List<Map> locationCodeList() {
+		return codeDao.locationCodeList();
 	}
-
-	public Map detail(String code_idx) {
-		return codeDao.detail(code_idx);
-	}
-
-	public void delete(Map<String, Object> parameter) {
-		codeDao.delete(parameter);
-	}
-
-	public void modify(Map<String, String> parameter) {
-		codeDao.modify(parameter);
-	}
+	
+	
+	
+//	@Autowired
+//	private PageUtil pageUtil;
+//
+//	public List<Map> list(Map paramInfo) {
+//		return codeDao.list(paramInfo);
+//	}
+//
+//	public int totalCount(Map paramInfo) {
+//		return codeDao.totalCount(paramInfo);
+//	}
+//
+//	public Map detail(String code_idx) {
+//		return codeDao.detail(code_idx);
+//	}
+//
+//	public void delete(Map<String, Object> parameter) {
+//		codeDao.delete(parameter);
+//	}
+//
+//	public void modify(Map<String, String> parameter) {
+//		codeDao.modify(parameter);
+//	}
 }

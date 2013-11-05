@@ -52,8 +52,8 @@ public class UserServiceTest {
 		testId = "te";
 		testName = "test";
 		testCelNo = "01011111111";
-		testJoinStartDate = "20130903";
-		testJoinEndDate = "20130905";
+		testJoinStartDate = "2013-09-03";
+		testJoinEndDate = "2013-09-05";
 		searchRole = "1"; // 무료회원
 	}
 
@@ -167,8 +167,8 @@ public class UserServiceTest {
 		assertThat((Integer)result.get(ConstantsForResponse.MEMBER_LIST_COUNT), is(not(0)));
 		for(Map memberInfo : (List<Map>)result.get(ConstantsForResponse.MEMBER_LIST)){
 			String memberRegDt =(String)memberInfo.get(ConstantsForDb.REG_DT);
-			if(memberRegDt.replaceAll("-", "").contains(testJoinStartDate)
-					|| memberRegDt.replaceAll("-", "").contains(testJoinEndDate)){
+			if(memberRegDt.contains(testJoinStartDate)
+					|| memberRegDt.contains(testJoinEndDate)){
 				assertTrue(true);
 			}else{
 				assertTrue(false);
@@ -457,8 +457,8 @@ public class UserServiceTest {
 		
 		// 가입일 검증
 		String memberRegDt =(String)result.get(ConstantsForDb.REG_DT);
-		if(memberRegDt.replaceAll("-", "").contains(testJoinStartDate)
-				|| memberRegDt.replaceAll("-", "").contains(testJoinEndDate)){
+		if(memberRegDt.contains(testJoinStartDate)
+				|| memberRegDt.contains(testJoinEndDate)){
 			assertTrue(true);
 		}else{
 			assertTrue(false);
