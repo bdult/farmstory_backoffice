@@ -34,8 +34,6 @@ public class ConstantsForDb {
 	public static final String CATEGORY_ID = "CATE_ID";
 	public static final String BRAND_ID = "BRAND_ID";
 	public static final String SERIES_ID = "CONTENTS_SERIES_ID";
-	public static final String BOARD_TYPE = "BOARD_TYPE";
-	public static final String BOARD_CONTENTS_ID = "CONTENTS_ID";
 
 	// DISPLAY
 	public static final String DISPLAY_YN = "DISPLAY_YN";
@@ -47,9 +45,18 @@ public class ConstantsForDb {
 	public static final String ORDERING_NO = "ORDERING_NO";
 	public static final String TITLE = "TITLE";
 	public static final Object IMG_PATH = "IMG_PATH";
-
+	public static final String CONTENTS = "CONTENTS";
 
 	public static final String CODE = "CODE";
+
+	public static final String BOARD_TYPE = "BOARD_TYPE";
+	public static final String BOARD_CONTENTS_ID = "CONTENTS_ID";
+	public static final String BOARD_ID = "BOARD_ID";
+
+	public static final String COMMENT_ID = "COMMENT_ID";
+	public static final String COMMENT = "COMMENT";
+
+
 
 
 
