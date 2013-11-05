@@ -60,13 +60,13 @@
 								<div class="control-group">
 									<label class="control-label">아이디</label>
 									<div class="controls">
-										<input type="text" readonly="readonly" name="MEMBER_ID" value="${detail.MEMBER_ID}">
+										<input type="text" readonly="readonly" name="member_id" value="${detail.MEMBER_ID}">
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">이름</label>
 									<div class="controls">
-										<input type="text" name="MEMBER_NM" value="${detail.MEMBER_NM}" />
+										<input type="text" name="member_name" value="${detail.MEMBER_NM}" />
 									</div>
 								</div>
 								<div class="control-group">
@@ -87,13 +87,13 @@
 								<div class="control-group">
 									<label class="control-label">휴대폰</label>
 									<div class="controls">
-										<input type="text" name="MEMBER_CEL" value="${detail.MEMBER_CEL}" />
+										<input type="text" name="member_cel" value="${detail.MEMBER_CEL}" />
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">이메일</label>
 									<div class="controls">
-										<input type="text" name="MEMBER_EMAIL" value="${detail.MEMBER_EMAIL}" />
+										<input type="text" name="member_email" value="${detail.MEMBER_EMAIL}" />
 									</div>
 								</div>
 								<div class="control-group">
@@ -103,8 +103,8 @@
 										<a class="btn btn-primary">우편번호 검색</a>
 									</div>
 									<div class="controls">
-										<input type="text" name="MEMBER_ADDR_1" value="${detail.MEMBER_ADDR_1}" />&nbsp;&nbsp;
-										<input type="text" name="MEMBER_ADDR_2" value="${detail.MEMBER_ADDR_2}" />
+										<input type="text" name="member_addr_1" value="${detail.MEMBER_ADDR_1}" />&nbsp;&nbsp;
+										<input type="text" name="member_addr_2" value="${detail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
 								

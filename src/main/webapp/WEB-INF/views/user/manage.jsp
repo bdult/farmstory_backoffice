@@ -61,6 +61,7 @@
    								<label class="control-label">회원검색</label>
     							<div class="controls">
 									<select name="search_type" class="span12">
+									  <option value="">전체</option>
 									  <option value="id">아이디</option>
 									  <option value="name">이름</option>
 									  <option value="cel">휴대폰번호</option>
@@ -78,6 +79,7 @@
    								<label class="control-label">회원구분</label>
     							<div class="controls">
 									<select name="member_role" class="span12">
+									  <option value="">전체</option>
 									  <option value="0">무료회원</option>
 									  <option value="1">유료회원</option>
 									</select>
@@ -123,7 +125,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large" id="search" href="#">검색</a>
+							<a class="btn btn-info input-large" id="search">검색</a>
 						</div>
 					</div>
 				</form>
@@ -209,10 +211,18 @@ jQuery(function($){
 	$('.date-picker-1').datepicker();
 	$('.date-picker-2').datepicker();
 });
+
+//search init 
+$("#searchForm input[name=search").val("${ pageInfo.search }");
+$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
+$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
+$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
+$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+
 	$("#search").click(function(){
 		$("#searchForm").attr({
-			method: 'get',
-			action: '${ contextPath }/user/user/manage.do'			
+			method: 'post',
+			action: '${ contextPath }/user/user/manage.do'
 		}).submit();
 	});
 

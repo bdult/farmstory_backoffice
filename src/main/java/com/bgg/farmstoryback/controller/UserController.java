@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.UserService;
@@ -31,7 +33,10 @@ public class UserController {
   
   @Autowired
   private PageUtil pageUtil;
-
+  
+  @Autowired
+  private FileUtil fileUtil;
+	
   @Autowired
   private JsonResponseMaker jsonResMaker;
 
@@ -88,7 +93,7 @@ public class UserController {
   }
 	
   
-  @RequestMapping(value = "/user/user/manage.do", method = RequestMethod.GET)
+  @RequestMapping(value = "/user/user/manage.do", method = {RequestMethod.GET, RequestMethod.POST})
   public String userManage(Model model, @RequestParam Map paramMap) {
 	Map pageInfo = pageUtil.pageLink(userService.totalCount(paramMap), paramMap);
 	model.addAttribute("pageInfo", pageInfo);
@@ -123,6 +128,14 @@ public class UserController {
 	    
 		return "user/info";
 	}
+	
+	@RequestMapping(value = "user/thumbnail-upload.do")
+	public @ResponseBody String thumbnailUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		String srcPath = fileUtil.thumbnailUpload(file);
+		return srcPath;
+	}
 
   @RequestMapping(value = "user/userModifyView.do", method = RequestMethod.GET)
   public String userModifyView(Model model, @RequestParam Map paramMap) {
@@ -137,7 +150,7 @@ public class UserController {
 
 		userService.modifyUserInfo(paramMap);
 		
-		return "redirect:/user/detail.do?member_id=" + paramMap.get("MEMBER_ID");
+		return "redirect:/user/detail.do?member_id=" + paramMap.get("member_id");
   	}
   
   @RequestMapping(value = "user/childModify.do", method = RequestMethod.POST)
