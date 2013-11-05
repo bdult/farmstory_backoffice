@@ -9,7 +9,6 @@
 			IDX
 			, CODE
 			, CODE_DETAIL
-			, CODE_TYPE
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 		FROM  BG_CODE
 		WHERE 1=1
@@ -21,7 +20,6 @@
 			IDX
 			, CODE
 			, CODE_DETAIL
-			, CODE_TYPE
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 		FROM  BG_CODE
 		WHERE 1=1
@@ -33,7 +31,6 @@
 			IDX
 			, CODE
 			, CODE_DETAIL
-			, CODE_TYPE
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 		FROM  BG_CODE
 		WHERE 1=1
@@ -45,77 +42,21 @@
 			IDX
 			, CODE
 			, CODE_DETAIL
-			, CODE_TYPE
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 		FROM  BG_CODE
 		WHERE 1=1
 		AND PARENT_CODE = 'PRO'	
 	</select>
-<!-- 
-	<select id="list" resultType="hashmap">
-		SELECT /* codeQuery.list 2013.08.21 최지순 */
-			CODE
-			, IDX
-			, CODE_DETAIL
-			
-			, PARENT_CODE
+	
+	<select id="locationCodeList" resultType="hashmap">
+	    SELECT /* codeQuery.locationCodeList */
+			IDX
+			, CODE
 			, CODE_DETAIL
 			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 		FROM  BG_CODE
 		WHERE 1=1
-		<if test="search != null and search != ''">
-			AND (CODE LIKE CONCAT('%', #{search}, '%') OR CODE_DETAIL LIKE CONCAT('%', #{search}, '%'))
-		</if>
-		ORDER BY IDX DESC
-		<if test="startNo != null and perPage != null">
-			LIMIT #{startNo}, #{perPage}
-		</if>
+		AND PARENT_CODE = 'LOC'	
 	</select>
-	
-	<select id="totalCount" resultType="int">
-		SELECT /* codeQuery.totalCount 2013.08.21 최지순 */
-			count(*)
-		FROM  BG_CODE
-		WHERE 1=1
-		<if test="search != null and search != ''">
-			AND (CODE LIKE CONCAT('%', #{search}, '%') OR CODE_DETAIL LIKE CONCAT('%', #{search}, '%'))
-		</if>
-	</select>
-	
-	<select id="detail" resultType="hashmap">
-		SELECT /* codeQuery.detail 2013.08.21 최지순 */
-			CODE
-			, IDX
-			, CODE_DETAIL
-			, PARENT_CODE
-			, CODE_DETAIL
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-		FROM  BG_CODE
-		WHERE IDX = #{code_idx}
-	</select>
-	
-	<update id="modify">
-		UPDATE /* codeQuery.modify 2013.08.21 최지순 */
-			BG_CODE
-		SET
-			CODE_DETAIL = #{code_detail}
-			 ,CODE_LEVEL=#{code_level}
-			 ,PARENT_CODE=#{parent_code}
-		WHERE 1=1
-		AND CODE = #{code}
-	</update>
-	 
-	<delete id="deleteChild">
-		DELETE  /* codeQuery.deleteChild 2013.08.21 최지순 */
-		FROM BG_CODE
-		WHERE PARENT_CODE IN (SELECT CODE FROM (SELECT CODE FROM BG_CODE WHERE IDX = #{code_idx}) A)
-	</delete>
-	 
-	<delete id="delete">
-		DELETE  /* codeQuery.delete 2013.08.21 최지순 */
-		FROM BG_CODE
-		WHERE IDX = #{code_idx}
-	</delete> 
- -->
 	
 </mapper>

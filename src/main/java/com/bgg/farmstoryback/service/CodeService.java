@@ -35,6 +35,10 @@ public class CodeService {
 	public List<Map> payProcessCodeList() {
 		return codeDao.payProcessCodeList();
 	}
+
+	public List<Map> locationCodeList() {
+		return codeDao.locationCodeList();
+	}
 	
 	
 	

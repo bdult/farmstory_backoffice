@@ -92,5 +92,19 @@ public class CodeServiceTest {
 		assertTrue(code.contains("PAY"));
 		
 	}
+	
+	@Test
+	public void testLocationCodeList() {
+		
+		// given 
+
+		// when
+		List<Map> locationCodeList = codeService.locationCodeList();
+
+		// then
+		assertThat(locationCodeList, is(notNullValue()));
+		assertThat(locationCodeList.size(), is(not(0)));
+
+	}
 
 }
