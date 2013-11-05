@@ -47,7 +47,7 @@
 					<tr>
 						<td>대표이미지</td>
 						<td>
-							<input type="text" name="">
+							<input type="text" name="img_path" id="img_path">
 						</td>
 						<td>
 							<button id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</button>
@@ -73,9 +73,9 @@
 	</div><!--/.page-content-->
 </div>
 
-<!--  대표이미지 modal -->
+<!--  thumbnail modal -->
 <div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+	<form action="${ contextPath }/file/imageUpload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 class="text-center">대표이미지 업로드</h3>
@@ -132,6 +132,15 @@ $(function(){
 	}).on('change', function(){
 		$("#thumbnail-modal-footer").show();
 	});
+	
+	$('#thumbnail-upload-form').ajaxForm(
+			 {
+				    success: function(response){
+				      $("#img_path").val(response);
+				      $("#thumbnail-modal").modal('toggle');
+					}
+			 }
+	 );
 });
 </script>
 
