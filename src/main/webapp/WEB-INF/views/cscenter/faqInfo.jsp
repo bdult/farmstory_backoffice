@@ -101,3 +101,11 @@
 	</div>
 	
 </div>
+
+<script type="text/javascript">
+
+//side active
+$("#side-cscenter").addClass("open active");
+	$("#side-cscenter-faq").addClass("active");
+
+</script>

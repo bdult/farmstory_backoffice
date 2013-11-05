@@ -137,6 +137,11 @@
 </div>
 
 <script type="text/javascript">
+
+	//side active
+	$("#side-cscenter").addClass("open active");
+		$("#side-cscenter-question").addClass("active");
+
 	$("input:text").attr({
 		readonly : 'readonly'
 	});

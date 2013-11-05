@@ -128,16 +128,9 @@
 
 <script type="text/javascript">
 
-$(function(){
-	var memberType = "${detail.userDetail.MEMBER_TYPE}";
-	$("#side-user").attr("class", "open active");
-	if(memberType == 1){
-		$("input:text").attr({
-		});
-		$("#side-user-user").attr("class", "active");
-	}else{
-		$("#side-user-admin").attr("class", "active");
-	}
+	//side active
+	$("#side-user").addClass("open active");
+		$("#side-user-user").addClass("active");
 
 	$("#cancel-btn").click(function(){
 		window.location.href="${ contextPath }/user/detail.do?member_id=${detail.MEMBER_ID}";
@@ -153,7 +146,5 @@ $(function(){
 			return false;
 		}
 	});
-
-});
 
 </script>

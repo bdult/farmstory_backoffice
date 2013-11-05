@@ -89,3 +89,11 @@
 	</div>
 	
 </div>
+
+<script type="text/javascript">
+
+//side active
+$("#side-cscenter").addClass("open active");
+	$("#side-cscenter-notice").addClass("active");
+
+</script>

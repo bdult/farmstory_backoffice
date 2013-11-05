@@ -434,41 +434,71 @@
 	</form>
 </div>
 <script type="text/javascript">
-
-//chlid modal put items
-$("#child-modal-btn-A").click(function(){
-	$("[name=gender]").each(function(){
-		var $this = $(this);
-		if( $this.val() ==  $(".tdGender").eq(0).text() ) {
-			$this.prop("checked", true);
-		}
+	
+	//side active
+	$("#side-user").addClass("open active");
+		$("#side-user-user").addClass("active");
+	
+	//chlid modal put items
+	$("#child-modal-btn-A").click(function(){
+		$("[name=gender]").each(function(){
+			var $this = $(this);
+			if( $this.val() ==  $(".tdGender").eq(0).text() ) {
+				$this.prop("checked", true);
+			}
+		});
 	});
-});
-$("#child-modal-btn-B").click(function(){
-	$("[name=gender]").each(function(){
-		var $this = $(this);
-		if( $this.val() ==  $(".tdGender").eq(1).text() ) {
-			$this.prop("checked", true);
-		}
+	$("#child-modal-btn-B").click(function(){
+		$("[name=gender]").each(function(){
+			var $this = $(this);
+			if( $this.val() ==  $(".tdGender").eq(1).text() ) {
+				$this.prop("checked", true);
+			}
+		});
+	}); 
+	
+	 $("#child-modify-btn-A").click(function(){
+		 $("#child-modal-form-A").attr({
+			method: 'post',
+			action: '${contextPath}/user/childModify.do'
+		 }).submit();
+	 });
+	 $("#child-modify-btn-B").click(function(){
+		 $("#child-modal-form-B").attr({
+			method: 'post',
+			action: '${contextPath}/user/childModify.do'
+		 }).submit();
+	 });
+	
+	$("#create-form input:text").attr({
+		readonly: "readonly"
 	});
-}); 
 
- $("#child-modify-btn-A").click(function(){
-	 $("#child-modal-form-A").attr({
-		method: 'post',
-		action: '${contextPath}/user/childModify.do'
-	 }).submit();
- });
- $("#child-modify-btn-B").click(function(){
-	 $("#child-modal-form-B").attr({
-		method: 'post',
-		action: '${contextPath}/user/childModify.do'
-	 }).submit();
- });
-
-$("#create-form input:text").attr({
-	readonly: "readonly"
-});
+	//child nav btn
+	$("#navTab1").click(function(){
+		$("#navTabList1").show();
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab2").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").show();
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab3").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").show();
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab4").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").show();
+	});
 
 //child modal thombnail upload
 $(function(){
@@ -519,68 +549,4 @@ $(function(){
 	
 	
 }); // <!-- function() end 
-
-$("#navTab1").click(function(){
-	$("#navTabList1").show();
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab2").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").show();
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab3").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").show();
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab4").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").show();
-});
-
-/* $(document).ready(function(){
-	
-	var dspType = "${detail.type}";
-	$("#side-user").attr("class", "open active");
-	if(dspType == "userView"){
-		$("#side-user-user").attr("class", "active");
-	}else{
-		$("#side-user-admin").attr("class", "active");
-	}
-	
-	var $genderBox = $("#genderBox");
-	var genderData = $genderBox.data("gender_value");
-	$genderBox.find("option").each(function(){
-		
-		var $this = $(this);
-		
-		if( genderData == $this.val() ) {
-			$this.prop("selected", true);
-		}
-		
-	});
-	
-	
-	for(var i=1995; i <= 2014; i++){
-		$("#yearBox").append("<option value=" + i +">" + i + "</option>");
-		$("#yearBox").val(${childListOne.BIRTH_YEAR});
-	}
-	for(var i=1; i <= 12; i++){
-		$("#monthBox").append("<option value=" + i +">" + i + "</option>");
-		$("#monthBox").val(${childListOne.BIRTH_MONTH});
-	}
-	for(var i=1; i <= 31; i++){
-		$("#dayBox").append("<option value=" + i +">" + i + "</option>");
-		$("#dayBox").val(${childListOne.BIRTH_DAY});
-	}
-		
-}); */
-
 </script>

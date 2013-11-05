@@ -97,14 +97,14 @@
     							<div class="controls">
     								<div class="span6">
 										<div class="input-append">
-											<input class="date-picker-1 input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
-											<input class="date-picker-2 input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
@@ -206,95 +206,92 @@
 	<!--/.page-content-->
 </div>
 
-<script>
-jQuery(function($){
-	$('.date-picker-1').datepicker();
-	$('.date-picker-2').datepicker();
-});
+<script type="text/javascript">
 
-//search init 
-$("#searchForm input[name=search").val("${ pageInfo.search }");
-$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
-$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
-$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
-$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	jQuery(function($){
+		$('#date-picker-first').datepicker();
+		$('#date-picker-last').datepicker();
+	});
+	
+	//side active
+	$(function(){
+		$("#side-user").addClass("open active");
+			$("#side-user-user").addClass("active");
+	});
+	
+	//search init 
+	$("#searchForm input[name=search").val("${ pageInfo.search }");
+	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
+	$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
+	$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
+	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
 
 	$("#search").click(function(){
 		$("#searchForm").attr({
 			method: 'post',
-			action: '${ contextPath }/user/user/manage.do'
+			action: '${ contextPath }/user/manage.do'
 		}).submit();
 	});
 
-	$(function(){
-		var dspType = "${type}";
-		$("#side-user").attr("class", "open active");
-		if(dspType == "userView"){
-			$("#side-user-user").attr("class", "active");
-		}else{
-			$("#side-user-admin").attr("class", "active");
+	function getTimeStamp(type) {
+
+		var mydate = new Date();
+
+		switch (type) {
+		case 'today':
+			new Date(mydate);
+			break;
+		case 'week':
+			var day = mydate.getDate();
+			mydate.setDate(day - 7);
+			break;
+		case 'month':
+			var month = mydate.getMonth();
+			mydate.setMonth(month - 1);
+			break;
+		case 'year':
+			var year = mydate.getFullYear();
+			mydate.setFullYear(year - 1);
+			break;
 		}
+		
+		var fdate = 
+		    leadingZeros(mydate.getFullYear(), 4) + '-' +
+		    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
+		    leadingZeros(mydate.getDate(), 2)
+		
+		return fdate;
+	}
+	
+	function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
+
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		 return zero + n;
+	}
+	
+	$("#todayCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('today'));
+		$("#date-picker-last").val(getTimeStamp('today'));
 	});
-
-		function getTimeStamp(type) {
-
-			var mydate = new Date();
-
-			switch (type) {
-			case 'today':
-				new Date(mydate);
-				break;
-			case 'week':
-				var day = mydate.getDate();
-				mydate.setDate(day - 7);
-				break;
-			case 'month':
-				var month = mydate.getMonth();
-				mydate.setMonth(month - 1);
-				break;
-			case 'year':
-				var year = mydate.getFullYear();
-				mydate.setFullYear(year - 1);
-				break;
-			}
-			
-			var fdate = 
-			    leadingZeros(mydate.getFullYear(), 4) + '-' +
-			    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
-			    leadingZeros(mydate.getDate(), 2)
-			
-			return fdate;
-		}
-		
-		function leadingZeros(n, digits) {
-			  var zero = '';
-			  n = n.toString();
-
-			  if (n.length < digits) {
-			    for (i = 0; i < digits - n.length; i++)
-			      zero += '0';
-			  }
-			 return zero + n;
-		}
-		
-		$("#todayCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('today'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#weekCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('week'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#monthCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('month'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#yearCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('year'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#allCalenderBtn").click(function() {
-			$("#date-picker-first").val(null);
-			$("#date-picker-last").val(null);
-		});
+	$("#weekCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('week'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#monthCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('month'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#yearCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('year'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#allCalenderBtn").click(function() {
+		$("#date-picker-first").val(null);
+		$("#date-picker-last").val(null);
+	});
 </script>

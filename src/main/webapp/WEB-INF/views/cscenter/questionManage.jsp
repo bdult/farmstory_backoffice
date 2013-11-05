@@ -42,11 +42,9 @@
    								<label class="control-label">검색</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>전체</option>
+									  <option>작성자</option>
+									  <option>제목</option>
 									</select>
 								</div>
 							</div>
@@ -61,11 +59,9 @@
    								<label class="control-label">처리여부</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>전체</option>
+									  <option>미처리</option>
+									  <option>처리완료</option>
 									</select>
 								</div>
 							</div>
@@ -81,14 +77,14 @@
     							<div class="controls">
     								<div class="span6">
 										<div class="input-append">
-											<input class="date-picker-1 input-medium" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
-											<input class="date-picker-2 input-medium" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
@@ -115,7 +111,7 @@
 				</form>
 				
 			<div class="table-header" align="right">
-				<a class="btn btn-info btn-success" href="${ contextPath }/">추가</a>
+				<a class="btn btn-info btn-success" href="${ contextPath }/cscenter/questionInfo.do">추가</a>
 			</div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
@@ -184,9 +180,14 @@
 
 <script type="text/javascript">
 jQuery(function($){
-	$('.date-picker-1').datepicker();
-	$('.date-picker-2').datepicker();
+	$('#date-picker-first').datepicker();
+	$('#date-picker-last').datepicker();
 });
+
+//side active
+$("#side-cscenter").addClass("open active");
+	$("#side-cscenter-question").addClass("active");
+
 	function getTimeStamp(type) {
 
 		var mydate = new Date();
