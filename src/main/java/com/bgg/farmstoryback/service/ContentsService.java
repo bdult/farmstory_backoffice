@@ -2,6 +2,7 @@ package com.bgg.farmstoryback.service;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -61,7 +62,10 @@ public class ContentsService {
 	}
 
 	public List top(int limitCount) {
-		return conDao.top(limitCount);
+		Map parameter  = new HashMap();
+		parameter.put(ConstantsForParam.PAGE_START_NO, 1);
+		parameter.put(ConstantsForParam.PAGE_PER_PAGE, limitCount);
+		return list(parameter);
 	}
 	
 	/**
@@ -71,9 +75,6 @@ public class ContentsService {
 		String orderingNo = String.valueOf(requestParamMap.get(ConstantsForParam.ORDERING_NO));
 		String contentsId = String.valueOf(requestParamMap.get(ConstantsForParam.CONTENTS_ID));
 		String categoryId = String.valueOf(requestParamMap.get(ConstantsForParam.CATEGORY_ID));
-		logger.info("{}", orderingNo);
-		logger.info("{}", contentsId);
-		logger.info("{}", categoryId);
 		if(StringUtils.isNullOrEmpty(orderingNo) ||
 			StringUtils.isNullOrEmpty(contentsId) ||
 			StringUtils.isNullOrEmpty(categoryId)){
@@ -81,6 +82,15 @@ public class ContentsService {
 		}else{
 			conDao.modifyOrderingNo(requestParamMap);
 		}
+	}
+
+	public void addContents(Map contentsInfo) {
+		// insert contents
+		
+		// insert contents detail
+		
+		// insert cate-contents relationship
+		
 	}
 	
 //	public void modify(Map<String, String> parameter) {

@@ -19,6 +19,9 @@ public class CodeService {
 	
 	@Autowired
 	private CodeDao codeDao;
+	
+	@Autowired
+	private PageUtil pageUtil;
 
 	public List<Map> parentCodeList() {
 		return codeDao.parentCodeList();
@@ -40,28 +43,23 @@ public class CodeService {
 		return codeDao.locationCodeList();
 	}
 	
-	
-	
-//	@Autowired
-//	private PageUtil pageUtil;
-//
-//	public List<Map> list(Map paramInfo) {
-//		return codeDao.list(paramInfo);
-//	}
-//
-//	public int totalCount(Map paramInfo) {
-//		return codeDao.totalCount(paramInfo);
-//	}
-//
-//	public Map detail(String code_idx) {
-//		return codeDao.detail(code_idx);
-//	}
-//
-//	public void delete(Map<String, Object> parameter) {
-//		codeDao.delete(parameter);
-//	}
-//
-//	public void modify(Map<String, String> parameter) {
-//		codeDao.modify(parameter);
-//	}
+	public List<Map> list(Map paramInfo) {
+		return codeDao.list(paramInfo);
+	}
+
+	public int totalCount(Map paramInfo) {
+		return codeDao.totalCount(paramInfo);
+	}
+
+	public Map detail(String code_idx) {
+		return codeDao.detail(code_idx);
+	}
+
+	public void delete(Map<String, Object> parameter) {
+		codeDao.delete(parameter);
+	}
+
+	public void modify(Map<String, String> parameter) {
+		codeDao.modify(parameter);
+	}
 }

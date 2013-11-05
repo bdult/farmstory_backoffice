@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,31 +9,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.dao.SeriesDao;
 import com.mysql.jdbc.StringUtils;
 
 @Service
 public class SeriesService {
 	
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	private static final String SERIES_ID_TAG = "series_id";
-	
-
 	@Autowired
 	private SeriesDao seriesDao;
+	
+	public List<Map> listByBrandId(Map requestParamMap) {
+		return seriesDao.listByBrandId(requestParamMap);
+	}
+
+	public List top(int limitCount) {
+		Map pageInfo = new HashMap();
+		pageInfo.put(ConstantsForParam.PAGE_START_NO, 1);
+		pageInfo.put(ConstantsForParam.PAGE_PER_PAGE, limitCount);
+		return seriesDao.list(pageInfo);
+	}
 	
 	public List<Map> list(Map pageInfo) {
 		return seriesDao.list(pageInfo);
 	}
+
+	
+	
 	
 	public Map detail(Map parameter) {
-		return seriesDao.detail(""+parameter.get(SERIES_ID_TAG));
+		return seriesDao.detail(""+parameter.get(ConstantsForParam.SERIES_ID));
 	}
 	
 	public void create(Map parameter) {
 		if(hasSeries(parameter)){
-			parameter.put(SERIES_ID_TAG, seriesIdByName(parameter));
+			parameter.put(ConstantsForParam.SERIES_ID, seriesIdByName(parameter));
 			seriesDao.modify(parameter);
 		}else{
 			seriesDao.create(parameter);
@@ -61,7 +72,7 @@ public class SeriesService {
 	}
 
 	private boolean hasSeriesId(Map parameter) {
-		String seriesId = (String)parameter.get(SERIES_ID_TAG);
+		String seriesId = (String)parameter.get(ConstantsForParam.SERIES_ID);
 		if(seriesId == null || seriesId.equals("")){
 			return false;
 		}
@@ -79,15 +90,9 @@ public class SeriesService {
 		return seriesDao.searchByName(searchName);
 	}
 
-	public List<Map> listOfTop() {
-		return seriesDao.listOfTop();
-	}
-
 	public int totalCount(Map parameter) {
 		return seriesDao.totalCount(parameter);
 	}
 
-	public List<Map> top(int limitCount) {
-		return seriesDao.top(limitCount);
-	}
+	
 }
