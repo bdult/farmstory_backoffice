@@ -83,6 +83,9 @@
 		<if test="search_end_date !=null and search_end_date !=''">
 			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
+		<if test="startNo != null and perPage != null">
+			LIMIT #{startNo}, #{perPage}
+		</if>
 	</select>
 	
 	<select id="contentsDetail" resultType="hashmap">
