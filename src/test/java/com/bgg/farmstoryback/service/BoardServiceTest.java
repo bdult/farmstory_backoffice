@@ -281,6 +281,20 @@ public class BoardServiceTest {
 		assertThat(commentDetail, is(nullValue()));
 
 	}
+	
+	@Test
+	public void testContentsTtotalCount() {
+		
+		// given 
+		setBoardInfo();
+		
+		// when
+		int totalCount = boardService.contentsTotalCount(requestParamMap);
+
+		// then
+		assertThat(totalCount, is(not(0)));
+
+	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void setCommentInfo() {
