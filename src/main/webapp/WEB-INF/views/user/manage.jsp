@@ -29,8 +29,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<c:if test="${ type == 'userView' }"><li class="active">일반 회원 관리</li></c:if>
-			<c:if test="${ type == 'adminView' }"><li class="active">관리자 회원 관리</li></c:if>
+			<li class="active">일반 회원 관리</li>
 		</ul>
 		<div class="nav-search" id="nav-search">
 			<form class="form-search" action="manage.do" method="post">
@@ -44,12 +43,10 @@
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<c:if test="${ type == 'userView' }">
-				<h3 class="header smaller lighter blue">일반 회원 정보 리스트</h3></li>
-			</c:if>
-			<c:if test="${ type == 'adminView' }">
+			<h3 class="header smaller lighter blue">일반 회원 정보 리스트</h3>
+			<%-- <c:if test="${ type == 'adminView' }">
 				<h3 class="header smaller lighter blue">관리자 회원 정보 리스트</h3></li>
-			</c:if>
+			</c:if> --%>
 			<!-- /. table-header -->
 		<!--/.page-header-->
 		
@@ -136,11 +133,11 @@
 				
 			<%-- <c:if test="${ type == 'userView' }">
 			</c:if> --%>
-			<c:if test="${ type == 'adminView' }">
+			<%-- <c:if test="${ type == 'adminView' }">
 				<div class="table-header" align="right">
 					<a class="btn btn-info btn-success" href="${ contextPath }/user/admin/createView.do">추가</a>
 				</div>
-			</c:if>
+			</c:if> --%>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -208,7 +205,7 @@
 
 <script type="text/javascript">
 	//validate
-	setValid();
+	/* setValid();
 	$("#searchForm").validate({
 		rules: {
 			search_type: {
@@ -220,7 +217,7 @@
 				required: "회원검색 목록을 선택해 주세요."
 			}
 		}
-	});
+	}); */
 
 	jQuery(function($){
 		$('#date-picker-first').datepicker();
@@ -228,10 +225,7 @@
 	});
 	
 	//side active
-	$(function(){
-		$("#side-user").addClass("open active");
-			$("#side-user-user").addClass("active");
-	});
+	$("#side-user").addClass("open active");
 	
 	//search init 
 	$("#searchForm input[name=search").val("${ pageInfo.search }");

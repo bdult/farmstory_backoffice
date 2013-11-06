@@ -19,12 +19,7 @@
 				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li class="active">
-				<c:if test="${detail.type == 'userView' }">
-					일반 회원 정보 상세
-				</c:if>
-				<c:if test="${detail.type == 'adminView' }">
-					관리자 회원 정보 상세
-				</c:if>
+				일반 회원 정보 상세
 			</li>
 		</ul>
 		<!--.breadcrumb-->
@@ -104,7 +99,7 @@
 										<input type="text" name="" value="${detail.PAYDAY}" />
 									</div>
 								</div>
-								<c:if test="${detail.type == 'adminView' }">
+								<%-- <c:if test="${detail.type == 'adminView' }">
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
@@ -119,7 +114,7 @@
 										취소
 									</a>
 								</div>
-								</c:if>
+								</c:if> --%>
 								<%-- <c:if test="${detail.type == 'userView' }">
 									<div class="form-actions">
 										<a class="btn btn-inverse" id="cancel-btn">
@@ -131,7 +126,6 @@
 							</form>
 					</div>
 			</div>
-		<c:if test="${type == 'userView' }">
 		<!-- clidren nav -->
 			<ul class="nav nav-tabs" id="myTab">
 				<c:if test="${ !empty childInfo }">
@@ -285,7 +279,6 @@
 					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">회원정보 수정</a>
 				</div>
 			</div>
-		</c:if>
 		</div>
 	</div>
 	<!--/.page-content-->
@@ -350,14 +343,14 @@
 
 	
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary" id="child-modify-btn-A">
+		<a class="btn btn-small btn-primary" id="child-modify-btn-A">
 			<i class="icon-ok"></i>
 			등록
-		</button>
-		<button class="btn btn-small" data-dismiss="modal">
+		</a>
+		<a class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
 			취소
-		</button>
+		</a>
 
 	</div>
 </form>
@@ -421,14 +414,14 @@
 
 	
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary" id="child-modify-btn-B">
+		<a class="btn btn-small btn-primary" id="child-modify-btn-B">
 			<i class="icon-ok"></i>
 			등록
-		</button>
-		<button class="btn btn-small" data-dismiss="modal">
+		</a>
+		<a class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
 			취소
-		</button>
+		</a>
 
 	</div>
 </form>			
@@ -452,10 +445,83 @@
 	</form>
 </div>
 <script type="text/javascript">
-	
+	//validate
+	setValid();
+	$("#child-modal-form-A").validate({
+		rules: {
+			child_name: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			birth_year: {
+				required: true
+			},
+			birth_month: {
+				required: true
+			},
+			birth_day: {
+				required: true
+			}
+		},
+		messages: {
+			child_name: {
+				required: "이름을 입력해 주세요."
+			},
+			gender: {
+				required: "성별을 선택해 주세요."
+			},
+			birth_year: {
+				required: "생년을 입력해 주세요."
+			},
+			birth_month: {
+				required: "월을 입력해 주세요."
+			},
+			birth_day: {
+				required: "일을 입력해 주세요."
+			}
+		}
+	});
+	$("#child-modal-form-B").validate({
+		rules: {
+			child_name: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			birth_year: {
+				required: true
+			},
+			birth_month: {
+				required: true
+			},
+			birth_day: {
+				required: true
+			}
+		},
+		messages: {
+			child_name: {
+				required: "이름을 입력해 주세요."
+			},
+			gender: {
+				required: "성별을 선택해 주세요."
+			},
+			birth_year: {
+				required: "생년을 입력해 주세요."
+			},
+			birth_month: {
+				required: "월을 입력해 주세요."
+			},
+			birth_day: {
+				required: "일을 입력해 주세요."
+			}
+		}
+	});
+
 	//side active
 	$("#side-user").addClass("open active");
-		$("#side-user-user").addClass("active");
 	
 	//chlid modal put items
 	$("#child-modal-btn-A").click(function(){
