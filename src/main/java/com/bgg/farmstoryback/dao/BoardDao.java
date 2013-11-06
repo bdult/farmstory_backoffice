@@ -68,4 +68,8 @@ public class BoardDao extends SqlSessionDaoSupport {
 		getSqlSession().delete("boardQuery.deleteCommentByContentsId", requestParamMap);
 	}
 
+	public int contentsTotalCount(Map requestParamMap) {
+		return (Integer)getSqlSession().selectOne("boardQuery.contentsTotalCount", requestParamMap);
+	}
+
 }

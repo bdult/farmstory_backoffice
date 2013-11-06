@@ -86,45 +86,7 @@ public class BoardService {
 		boardDao.deleteContents(requestParamMap);
 	}
 
-	
-
-//	public void create(Map boardInfo) {
-//		boardDao.create(boardInfo);
-//	}
-//
-//	public Map detail(Map boardInfo) {
-//		return boardDao.detail(boardInfo);
-//	}
-//
-//	public void deleteByName(String boardName) {
-//		boardDao.deleteByName(boardName);
-//	}
-//
-//	
-//	public List<Map> list(Map pageInfo) {
-//		return boardDao.list(pageInfo);
-//	}
-//	
-//	public Map boardInfoByName(String boardName) {
-//		return boardDao.boardInfoByName(boardName);
-//	}
-//
-//	public void delete(Map boardInfo) {
-//		boardDao.delete(boardInfo);
-//	}
-//
-//	public void modify(Map boardInfo) {
-//		boardDao.modify(boardInfo);
-//	}
-//
-//	public int totalCount(Map parameter) {
-//		return boardDao.totalCount(parameter);
-//	}
-
-
-	
-
-	
-
-	
+	public int contentsTotalCount(Map requestParamMap) {
+		return boardDao.contentsTotalCount(requestParamMap);
+	}
 }

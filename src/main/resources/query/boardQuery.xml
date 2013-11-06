@@ -58,6 +58,32 @@
 			) t, ( SELECT @RNUM := 0 ) R
 		ORDER BY @RNUM DESC	
 	</select>
+	<select id="contentsTotalCount" resultType="int">
+		SELECT /* boardQuery.contentsTotalCount */
+			COUNT(BBC.CONTENTS_ID)
+		FROM BG_BOARD_CONTENTS BBC
+		WHERE 1=1
+		AND BBC.BOARD_ID = #{board_id}
+		<if test="search_type == 'title'">
+			AND ( BBC.TITLE LIKE CONCAT('%', #{search}, '%'))
+		</if>
+		<if test="comment_yn !=null and comment_yn !=''">
+		    <if test="comment_yn == 'Y'">
+		       AND (SELECT COUNT(*)
+				FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0 
+		    </if>
+		    <if test="comment_yn == 'N'">
+		       AND (SELECT COUNT(*)
+				FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) = 0 
+		    </if>
+		</if>
+		<if test="search_start_date !=null and search_start_date !=''">
+			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+		</if>
+		<if test="search_end_date !=null and search_end_date !=''">
+			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+		</if>
+	</select>
 	
 	<select id="contentsDetail" resultType="hashmap">
 	    SELECT /* boardQuery.contentsDetail */
