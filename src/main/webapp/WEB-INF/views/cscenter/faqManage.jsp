@@ -53,11 +53,11 @@
    								<label class="control-label">카테고리</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>자주묻는질문 TOP10</option>
+									  <option>회원/가입안내</option>
+									  <option>결제안내</option>
+									  <option>서비스안내</option>
+									  <option>이용장애안내</option>
 									</select>
 								</div>
 							</div>
@@ -86,12 +86,11 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="faqList" items="${faqList}" varStatus="status">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CONTENTS_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CATE }</a></td>
+						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.TITLE }</a></td>
 					</tr>
 				</c:forEach>
 				</tbody>

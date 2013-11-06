@@ -20,10 +20,10 @@
 				</span>
 			</li>
 			<li class="active">
-				<c:if test="true">
+				<c:if test="${ contentsList.CONTENTS_ID ne null }">
 					문의하기 상세
 				</c:if>
-				<c:if test="true">
+				<c:if test="${ contentsList.CONTENTS_ID eq null }">
 					문의하기 등록
 				</c:if>
 			</li>
@@ -40,43 +40,50 @@
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<c:if test="true">
+			<c:if test="${ contentsList.CONTENTS_ID ne null }">
 				<h3 class="header smaller lighter blue">문의하기 상세</h3>
 			</c:if>
-			<c:if test="true">
+			<c:if test="${ contentsList.CONTENTS_ID eq null }">
 				<h3 class="header smaller lighter blue">문의하기 등록</h3>
 			</c:if>
 			<!-- /. table-header -->
 			
 		<div class="row-fluid">
 			<div class="span12 form-horizontal">
-			
-						<form id="create-form" method="get" class="form-horizontal" >
+						<form id="create-form" class="form-horizontal" >
+							<input type="hidden" name="member_id" value="${ login_session.MEMBER_ID }">
+							
 							<div class="control-group">
 								<label class="control-label">제목</label>
 								<div class="controls">
-									<input type="text" name="" value="" style="width:80%">
+									<input type="text" name="title" value="${ contentsList.TITLE }" style="width:80%">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">내용</label>
 								<div class="controls">
-									<textarea rows="5" cols="50" style="width:80%;"></textarea>
+									<textarea name="contents" rows="5" cols="50" style="width:80%;">${ contentsList.CONTENTS }</textarea>
 								</div>
 							</div>
 							
 							<div class="form-actions">
-								<c:if test="true">
-									<button class="btn btn-danger" type="submit" id="delete-btn">
-										<i class="icon-trash bigger-110"></i>
-										삭제
-									</button>
-								</c:if>
-								<button class="btn btn-primary" type="submit" id="modify-btn">
+								<a class="btn btn-danger" id="delete-btn" disabled>
+									<i class="icon-trash bigger-110"></i>
+									삭제
+								</a>
+								<c:if test="${ contentsList.CONTENTS_ID ne null }">
+								<a class="btn btn-primary" href="${ contextPath }/cscenter/noticeManage.do">
 									<i class="icon-wrench bigger-110"></i>
 									확인
-								</button>
-								<a class="btn btn-inverse" id="cancel-btn">
+								</a>
+								</c:if>
+								<c:if test="${ contentsList.CONTENTS_ID eq null }">
+								<a class="btn btn-primary" id="modify-btn">
+									<i class="icon-wrench bigger-110"></i>
+									확인
+									</a>
+								</c:if>
+								<a class="btn btn-inverse" id="cancel-btn" href="javascript:history.back();">
 									<i class="icon-undo bigger-110"></i>
 									취소
 								</a>
@@ -92,8 +99,24 @@
 
 <script type="text/javascript">
 
-//side active
-$("#side-cscenter").addClass("open active");
-	$("#side-cscenter-notice").addClass("active");
-
+	//side active
+	$("#side-cscenter").addClass("open active");
+		$("#side-cscenter-notice").addClass("active");
+	
+	//page init
+	if("${ contentsList.CONTENTS_ID }" != ''){
+		$("input:text").attr({
+			readonly : 'readonly'
+		});
+		$("textarea").attr({
+			readonly : 'readonly'
+		});
+	}
+	
+	$("#modify-btn").click(function(){
+		$("#create-form").attr({
+			method: 'post',
+			action: '${ contextPath }/cscenter/noticeAddContents.do'
+		}).submit();
+	});
 </script>

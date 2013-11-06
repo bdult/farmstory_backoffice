@@ -35,7 +35,7 @@ public class CscenterController {
 		
 		paramMap.put("board_id", "3");
 
-		Map pageInfo = pageUtil.pageLink(boardService.totalCount(paramMap), paramMap);
+		Map pageInfo = pageUtil.pageLink(boardService.contentsTotalCount(paramMap), paramMap);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
 		pageInfo.putAll(paramMap);
@@ -48,36 +48,89 @@ public class CscenterController {
 	@RequestMapping(value = "cscenter/questionInfo.do")
 	public String questionInfo(Model model, @RequestParam Map<String,Object> paramMap) {
 		
-		if(paramMap.get("member_id") == null){
-			model.addAttribute("viewType", "detailView");
-		}else {
-			model.addAttribute("viewType", "modifyView");
-		}
+		model.addAttribute("comment_yn", paramMap.get("comment_yn"));
+		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
+		model.addAttribute("commentsList", boardService.commentList(paramMap));
+		
+//		if(paramMap.get("member_id") == null){
+//			model.addAttribute("viewType", "detailView");
+//		}else {
+//			model.addAttribute("viewType", "modifyView");
+//		}
 		
 		return "cscenter/questionInfo";
 	}
 
+	@RequestMapping(value = "cscenter/questionAddComments.do")
+	public String questionAddComments(Model model, @RequestParam Map<String,Object> paramMap) {
+		
+		boardService.addComment(paramMap);
+		
+		return "redirect:/cscenter/questionManage.do";
+	}
+	
 	@RequestMapping(value = "cscenter/noticeManage.do")
 	public String noticeManage(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		paramMap.put("board_id", "1");
+
+		Map pageInfo = pageUtil.pageLink(boardService.contentsTotalCount(paramMap), paramMap);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
+		pageInfo.putAll(paramMap);
+
+		model.addAttribute("noticeList", boardService.contentsListByBoardId(pageInfo));
 		
 		return "cscenter/noticeManage";
 	}
 	
 	@RequestMapping(value = "cscenter/noticeInfo.do")
 	public String noticeInfo(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
 		
 		return "cscenter/noticeInfo";
 	}
+	
+	@RequestMapping(value = "cscenter/noticeAddContents.do")
+	public String noticeAddContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		paramMap.put("board_id", "1");
+		boardService.addContents(paramMap);
+		
+		return "redirect:/cscenter/noticeManage.do";
+	}
+
 
 	@RequestMapping(value = "cscenter/faqManage.do")
 	public String faqManage(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		paramMap.put("board_id", "5");
+
+		Map pageInfo = pageUtil.pageLink(boardService.contentsTotalCount(paramMap), paramMap);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
+		pageInfo.putAll(paramMap);
+
+		model.addAttribute("faqList", boardService.contentsListByBoardId(pageInfo));
 		
 		return "cscenter/faqManage";
 	}
 	
 	@RequestMapping(value = "cscenter/faqInfo.do")
 	public String faqInfo(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
 		
 		return "cscenter/faqInfo";
+	}
+	
+	@RequestMapping(value = "cscenter/faqAddContents.do")
+	public String faqAddContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		paramMap.put("board_id", "5");
+		boardService.addContents(paramMap);
+		
+		return "redirect:/cscenter/faqManage.do";
 	}
 }

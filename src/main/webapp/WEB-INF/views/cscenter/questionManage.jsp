@@ -110,9 +110,6 @@
 					</div>
 				</form>
 				
-			<div class="table-header" align="right">
-				<a class="btn btn-info btn-success" href="${ contextPath }/cscenter/questionInfo.do">추가</a>
-			</div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -128,9 +125,9 @@
 				<tbody>
 				<c:forEach var="questionList" items="${ questionList }" varStatus="status">
 					<tr>
-						<td><a href="${ contextPath }/cscenter/questionInfo.do">${ questionList.ROWNUM }</a></td>
-						<td><a href="${ contextPath }/cscenter/questionInfo.do">${ questionList.MEMBER_ID }</a></td>
-						<td><a href="${ contextPath }/cscenter/questionInfo.do">${ questionList.TITLE }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.CONTENTS_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.MEMBER_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.TITLE }</a></td>
 						<td>${ questionList.REG_DT }</td>
 						<td>${ questionList.COMMENT_REG_DT }</td>
 						<td>

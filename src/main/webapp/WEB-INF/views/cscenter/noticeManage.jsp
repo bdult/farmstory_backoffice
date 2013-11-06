@@ -68,12 +68,12 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="noticeList" items="${noticeList}" varStatus="status">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><a href="${ contextPath }/cscenter/noticeInfo.do?board_contents_id=${ noticeList.CONTENTS_ID }">${ noticeList.CONTENTS_ID }</td>
+						<td><a href="${ contextPath }/cscenter/noticeInfo.do?board_contents_id=${ noticeList.CONTENTS_ID }">${ noticeList.TITLE }</a></td>
+						<td>${ noticeList.REG_DT }</td>
+						<td>${ noticeList.HITS }</td>
 					</tr>
 				</c:forEach>
 				</tbody>
