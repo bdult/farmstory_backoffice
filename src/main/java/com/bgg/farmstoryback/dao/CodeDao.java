@@ -29,6 +29,10 @@ public class CodeDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("codeQuery.payProcessCodeList");
 	}
 
+	public List<Map> locationCodeList() {
+		return getSqlSession().selectList("codeQuery.locationCodeList");
+	}
+
 //	public int totalCount(Map pageInfo) {
 //		return (Integer)getSqlSession().selectOne("codeQuery.totalCount", pageInfo);
 //	}
