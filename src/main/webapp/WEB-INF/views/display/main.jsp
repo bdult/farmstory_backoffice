@@ -50,9 +50,9 @@
 							<td>
 								<div class="display_yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input type="radio" class="ace" value="Y" disabled>
+										<input disabled type="radio" class="ace" value="Y" >
 										<span class="lbl"> 노출함 </span>
-										<input type="radio" class="ace" value="N" disabled>
+										<input disabled type="radio" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
@@ -86,7 +86,9 @@
 						</td>
 						<td>
 							<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ bannerDisplay[0].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+							<!-- 
 							<button class="btn btn-minier btn-yellow">삭제</button>
+							 -->
 						</td>
 					</tr>
 					<tr>
@@ -95,7 +97,9 @@
 						</td>
 						<td>
 							<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ bannerDisplay[1].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+							<!-- 
 							<button class="btn btn-minier btn-yellow">삭제</button>
+							 -->
 						</td>
 					</tr>
 				</tbody>

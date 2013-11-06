@@ -36,7 +36,6 @@
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">팝업관리</h3>
 			<div class="table-header">
-				<span>팝업목록</span>
 				<div class="text-right">
 					<a href="${ contextPath }/display/popup/createView.do" class="btn btn-success">등록</a>
 				</div>
@@ -53,16 +52,16 @@
 							<td>
 								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input type="radio" class="ace" value="Y">
+										<input disabled type="radio" class="ace" value="Y">
 										<span class="lbl"> 노출중 </span>
-										<input type="radio" class="ace" value="N">
+										<input disabled type="radio" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
 							</td>
 							<td>
 								<a href="${ contextPath }/display/popup/updateView.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-								<button class="btn btn-minier btn-yellow">삭제</button>
+								<button id="delBtn" class="btn btn-minier btn-yellow">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>

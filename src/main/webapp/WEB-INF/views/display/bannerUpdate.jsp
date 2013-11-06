@@ -41,7 +41,7 @@
 						<tr>
 							<td>제목</td>
 							<td>
-								<input type="text" name="title" value="${ bannerInfo.TITLE }">
+								<input class="no-magin-bottom" type="text" name="title" value="${ bannerInfo.TITLE }">
 								<input type="hidden" name="display_id" value="${ bannerInfo.DISPLAY_ID }">
 							</td>
 							<td></td>
@@ -49,16 +49,16 @@
 						<tr>
 							<td>대표이미지</td>
 							<td>
-								<input type="text" id="img_path" name="img_path" value="${ bannerInfo.IMG_PATH }" readonly>
+								<input class="no-magin-bottom" type="text" id="img_path" name="img_path" value="${ bannerInfo.IMG_PATH }" readonly>
 							</td>
 							<td>
-								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
 							</td>
 						</tr>
 						<tr>
 							<td>링크 URL</td>
 							<td>
-								http:// <input type="text" name="link_url" value="${ bannerInfo.LINK_URL }" /> 
+								http:// <input class="no-magin-bottom" type="text" name="link_url" value="${ bannerInfo.LINK_URL }" /> 
 							</td>
 							<td>
 								<input type="checkbox" /> 링크없음
