@@ -57,6 +57,12 @@ public class ConstantsForDb {
 	public static final String COMMENT = "COMMENT";
 
 
+	public static final String MOVIE_PATH = "SRC_PATH";
+
+
+	public static final String CONTENTS_IDX = "DETAIL_IDX";
+
+
 
 
 

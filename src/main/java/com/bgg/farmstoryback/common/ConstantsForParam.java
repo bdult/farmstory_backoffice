@@ -58,5 +58,6 @@ public class ConstantsForParam {
 	public static final String CONTENTS_DESC = "contents_desc";
 	public static final String CATEGORY_LIST = "category_list";
 	public static final String CONTENTS_DETAIL_LIST = "contents_detail_list";
+	public static final String CONTENTS_DETAIL_IDX = "contents_detail_idx";
 	
 }

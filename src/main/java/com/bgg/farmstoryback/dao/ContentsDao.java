@@ -8,6 +8,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @Repository
 public class ContentsDao extends SqlSessionDaoSupport {
@@ -35,10 +36,10 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	 * @param contents_id
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	public Map detail(String contents_id) {
-		return (Map)getSqlSession().selectOne("contentsQuery.detail", contents_id);
-	}
+//	@SuppressWarnings("rawtypes")
+//	public List<Map> detail(Map requestParamMap) {
+//		return (List<Map>)getSqlSession().selectList("contentsQuery.detail", requestParamMap);
+//	}
 	
 	/** 컨텐츠 삭제
 	 * @param contents_id
@@ -73,6 +74,55 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	public List<Map> listByCategory(String categoryId) {
 		return (List<Map>)getSqlSession().selectList("contentsQuery.listByCategory", categoryId);
 	}
+
+	public void addContentsInfo(Map contentsInfo) {
+		getSqlSession().insert("contentsQuery.addContentsInfo", contentsInfo);
+	}
+
+	public void addContentsDetailInfo(Map contentsDetail) {
+		getSqlSession().insert("contentsQuery.addContentsDetailInfo", contentsDetail);
+	}
+
+	public void addContentsCate(Map contentsCate) {
+		getSqlSession().insert("contentsQuery.addContentsCate", contentsCate);
+	}
+
+	public void modifyContentsInfo(Map contentsInfo) {
+		getSqlSession().update("contentsQuery.modifyContentsInfo", contentsInfo);
+	}
+
+	public void modifyContentsDetailInfo(Map contentsDetail) {
+		getSqlSession().update("contentsQuery.modifyContentsDetailInfo", contentsDetail);
+	}
+
+	public void deleteContentsCate(Map contentsCate) {
+		getSqlSession().delete("contentsQuery.deleteContentsCate", contentsCate);
+	}
+
+	public void deleteContentsCateByContentsIs(Map requestParamMap) {
+		getSqlSession().delete("contentsQuery.deleteContentsCateByContentsIs", requestParamMap);
+	}
+
+	public void deleteContentsDetail(Map requestParamMap) {
+		getSqlSession().delete("contentsQuery.deleteContentsDetail", requestParamMap);
+	}
+
+	public void deleteContents(Map requestParamMap) {
+		getSqlSession().delete("contentsQuery.deleteContents", requestParamMap);
+	}
+
+	public Map contentsInfo(Map requestParamMap) {
+		return (Map)getSqlSession().selectOne("contentsQuery.contentsInfo", requestParamMap);
+	}
+
+	public List<Map> contentsDetailList(Map requestParamMap) {
+		return (List<Map>)getSqlSession().selectList("contentsQuery.contentsDetailList", requestParamMap);
+	}
+
+	public Object contentsCateList(long contentsDetail) {
+		return (List<Map>)getSqlSession().selectList("contentsQuery.contentsCateList", contentsDetail);
+	}
+
 
 //	/** 컨텐츠 카테고리 추가
 //	 * @param parameter
