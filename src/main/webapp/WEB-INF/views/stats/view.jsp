@@ -29,9 +29,22 @@
 
 		<div class="row-fluid">
 			<div class="span12">
-				<div id="lineChart" data-line-chart='${ lineChartData }'></div>
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							일 방문자 선 차트
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="lineChart" data-line-chart='${ lineChartData }'></div>
+					</div><!-- /widget-body -->
+				</div>
 			</div>
 		</div>
+		
+		<br />
 		
 		<div class="row-fluid">
 			<div class="span7 infobox-container" id="avgBox" data-avg='${ averageData }'>
@@ -78,8 +91,18 @@
 				</div>
 			</div>
 			<div class="span5">
-				<!--  -->
-				<div id="pieChart" data-line-chart='${pieChartData }'></div>
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							방문자 비교
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="pieChart" data-line-chart='${pieChartData }'></div>
+					</div><!-- /widget-body -->
+				</div>
 			</div>
 		</div>
 	
