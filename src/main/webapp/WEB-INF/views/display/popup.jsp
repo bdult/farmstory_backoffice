@@ -38,7 +38,7 @@
 			<div class="table-header">
 				<span>팝업목록</span>
 				<div class="text-right">
-					<a href="${ contextPath }/display/popup/create.do" class="btn btn-success">등록</a>
+					<a href="${ contextPath }/display/popup/createView.do" class="btn btn-success">등록</a>
 				</div>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
@@ -53,15 +53,15 @@
 							<td>
 								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input name="form-field-radio" type="radio" class="ace" value="Y">
+										<input type="radio" class="ace" value="Y">
 										<span class="lbl"> 노출중 </span>
-										<input name="form-field-radio" type="radio" class="ace" value="N">
+										<input type="radio" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
 							</td>
 							<td>
-								<a href="${ contextPath }/display/popup/update.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+								<a href="${ contextPath }/display/popup/updateView.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
 								<button class="btn btn-minier btn-yellow">삭제</button>
 							</td>
 						</tr>
@@ -77,6 +77,15 @@ $(function(){
 	//사이드바 활성화
 	$("#side-display-popup").addClass("active");
 	$("#side-display").addClass("open active");
+	
+	//노출 Y/N 체크 
+	$("div.display-yn").each(function(){
+		var $this = $(this);
+		var displayYn = $this.data("displayYn");
+		
+		$this.find(":radio[value='" + displayYn + "']").prop("checked", true)
+
+	});
 });
 </script>
 

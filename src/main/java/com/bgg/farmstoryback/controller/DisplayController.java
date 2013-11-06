@@ -1,5 +1,6 @@
 package com.bgg.farmstoryback.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +86,14 @@ public class DisplayController {
 		return "display/bannerCreate";
 	}
 	
+	@RequestMapping(value = "display/main/bannerCreate.do")
+	public String bannerCreate(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.add(parameter);
+		
+		return "redirect:manageView.do";
+	}
+	
 	@RequestMapping(value = "display/main/bannerUpdateView.do")
 	public String bannerUpdateView(Model model, @RequestParam Map<String,Object> parameter) {
 		
@@ -124,6 +133,25 @@ public class DisplayController {
 		model.addAttribute("contents", displayService.contentsList(parameter));
 		return "display/contents";
 	}
+	@RequestMapping(value = "display/contents/orderingUpdate.do")
+	public String orderingUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		String cateId = String.valueOf(parameter.get(ConstantsForParam.CATEGORY_ID));
+		
+		String[] contentsIdList = String.valueOf(parameter.get(ConstantsForParam.CONTENTS_ID)).split("&");
+		String[] orderingNoList = String.valueOf(parameter.get(ConstantsForParam.ORDERING_NO)).split("&");
+		
+		int contentsIdCount = contentsIdList.length;
+		for(int idx = 0; idx < contentsIdCount; idx++) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put(ConstantsForParam.CATEGORY_ID, cateId);
+			paramMap.put(ConstantsForParam.CONTENTS_ID, contentsIdList[idx]);
+			paramMap.put(ConstantsForParam.ORDERING_NO, orderingNoList[idx]);
+			displayService.modifyContentsOrderingNo(paramMap);
+		}
+		
+		return String.format("redirect:manageView.do?category_id=%s", cateId);
+	}
 	
 	@RequestMapping(value = "display/popup/manageView.do")
 	public String popupManageView(Model model, @RequestParam Map<String,Object> parameter) {
@@ -137,10 +165,34 @@ public class DisplayController {
 		return "display/popupCreate";
 	}
 	
+	@RequestMapping(value = "display/popup/create.do")
+	public String popupCreate(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.add(parameter);
+		
+		return "redirect:manageView.do";
+	}
+	
 	@RequestMapping(value = "display/popup/updateView.do")
 	public String popupUpdateView(Model model, @RequestParam Map<String,Object> parameter) {
 		model.addAttribute("obj", displayService.popupDetail(parameter));
 		return "display/popupUpdate";
+	}
+	
+	@RequestMapping(value = "display/popup/update.do")
+	public String popupUpdate(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.modify(parameter);
+		
+		return "redirect:manageView.do";
+	}
+	
+	@RequestMapping(value = "display/popup/delete.do")
+	public String popupDelete(Model model, @RequestParam Map<String,Object> parameter) {
+		
+		displayService.delete(parameter);
+		
+		return "redirect:manageView.do";
 	}
 	
 	

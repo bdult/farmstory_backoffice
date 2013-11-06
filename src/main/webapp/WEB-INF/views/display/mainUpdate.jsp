@@ -50,7 +50,7 @@
 						<tr>
 							<td>대표이미지</td>
 							<td>
-								<input type="text" id="img_path" name="img_path" value="${ displayInfo.IMG_PATH }">
+								<input type="text" id="img_path" name="img_path" value="${ displayInfo.IMG_PATH }" readonly>
 							</td>
 							<td>
 								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
@@ -73,10 +73,15 @@
 						<tr>
 							<td>링크 URL</td>
 							<td>
-								http:// <input type="text" name="link_url" value="${ displayInfo.LINK_URL }"/> 
+								http:// <input type="text" id="link_url" name="link_url" value="${ displayInfo.LINK_URL }"/> 
 							</td>
 							<td>
-								<input type="checkbox" /> 링크없음
+								<div class="checkbox">
+									<label>
+										<input class="ace" type="checkbox" id="noLink">
+										<span class="lbl"> 링크없음</span>
+									</label>
+								</div>
 							</td>
 						</tr>
 					</tbody>
@@ -112,74 +117,127 @@
 
 <script>
 $(function(){
-	//사이드바 활성화
-	$("#side-display-main").addClass("active");
-	$("#side-display").addClass("open active");
 	
-	//노출 Y/N 체크 
-	$("div.display_yn").each(function(){
-		var $this = $(this);
-		var displayYn = $this.data("displayYn");
+	{//init
 		
-		$this.find(":radio[value='" + displayYn + "']").prop("checked", true)
-
-	});
-	
-	$("#updateBtn").click(function(){
-		if( confirm("수정하시겠습니까?") ) {
-			$("#updateForm").submit();
-		}
-	});
-	
-	$("#delBtn").click(function(){
-		if( confirm("삭제하시겠습니까?") ) {
-			window.location.href = "${ contextPath }/display/main/delete.do?display_id=" + ${ displayInfo.DISPLAY_ID };
-		}
-	});
-	
-	$("#mainImgUploadBtn").click(function(){
-		$("#thumbnail-modal-footer").hide();
-		$("#thumbnail-modal").modal('toggle');
-	}); // <!-- mainImgUploadBtn event end
-	
-	$('#thumbnail-upload-input').ace_file_input({
-		style:'well',
-		btn_choose:'Drop files here or click to choose',
-		btn_change:null,
-		no_icon:'icon-cloud-upload',
-		droppable:true,
-		thumbnail:'large'//large | fit
-		//,icon_remove:null//set null, to hide remove/reset button
-		/**,before_change:function(files, dropped) {
-			//Check an example below
-			//or examples/file-upload.html
-			return true;
-		}*/
-		/**,before_remove : function() {
-			return true;
-		}*/
-		,
-		preview_error : function(filename, error_code) {
-			//name of the file that failed
-			//error_code values
-			//1 = 'FILE_LOAD_FAILED',
-			//2 = 'IMAGE_LOAD_FAILED',
-			//3 = 'THUMBNAIL_FAILED'
-			//alert(error_code);
+		//사이드바 활성화
+		$("#side-display-main").addClass("active");
+		$("#side-display").addClass("open active");
+		
+		if( $("#link_url").val().length == 0 ){
+			$("#link_url").prop("disabled", true);
+			$("#noLink").prop("checked", true);
 		}
 
-	}).on('change', function(){
-		$("#thumbnail-modal-footer").show();
-	});
+		//노출 Y/N 체크 
+		$("div.display_yn").each(function(){
+			var $this = $(this);
+			var displayYn = $this.data("displayYn");
+			
+			$this.find(":radio[value='" + displayYn + "']").prop("checked", true);
 	
-	$('#thumbnail-upload-form').ajaxForm(
-			 {
-				    success: function(response){
-				      $("#img_path").val(response);
-				      $("#thumbnail-modal").modal('toggle');
-					}
-			 }
-	 );
+		});
+	}//init
+	
+	{//event
+		
+		//링크없음 체크 이벤트
+		$("#noLink").click(function(){
+			var $this = $(this);
+			
+			var $link_url = $("#link_url");
+			if( $this.prop("checked") ) {
+				$link_url.prop("disabled", true).val("");
+			} else {
+				$link_url.prop("disabled", false);
+			}
+		});
+
+		$("#updateBtn").click(function(){
+			
+			//validation
+			var $title = $("input[name='title']");
+			if( isEmpty( $title.val() ) ) {
+				alert("제목을 입력해 주세요.");
+				$title.focus();
+				return false;
+			}
+
+			var $img_path = $("input[name='img_path']");
+			if( isEmpty( $img_path.val() ) ) {
+				alert("찾아보기 버튼을 눌러 이미지를 등록해 주세요.");
+				return false;
+			}
+			
+			var $noLink = $("#noLink");
+			if( $noLink.prop("checked") == false ) {
+				var $link_url = $("input[name='link_url']");
+				if( isEmpty( $link_url.val() ) ) {
+					alert("링크 URL을 입력해 주세요.");
+					$link_url.focus();
+					return false;
+				}
+			}
+			
+			if( confirm("수정하시겠습니까?") ) {
+				$("#updateForm").submit();
+			}
+		});
+
+		$("#delBtn").click(function(){
+			if( confirm("삭제하시겠습니까?") ) {
+				window.location.href = "${ contextPath }/display/main/delete.do?display_id=" + ${ displayInfo.DISPLAY_ID };
+			}
+		});
+		
+		$("#mainImgUploadBtn").click(function(){
+			$("#thumbnail-modal-footer").hide();
+			$("#thumbnail-modal").modal('toggle');
+		}); // <!-- mainImgUploadBtn event end
+		
+		$('#thumbnail-upload-input').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'large'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
+	
+		}).on('change', function(){
+			$("#thumbnail-modal-footer").show();
+		});
+		
+		$('#thumbnail-upload-form').ajaxForm(
+				 {
+					    success: function(response){
+					      $("#img_path").val(response);
+					      $("#thumbnail-modal").modal('toggle');
+						}
+				 }
+		 );
+	}//event
+	
+	
+	
+	
 });
 </script>
 
