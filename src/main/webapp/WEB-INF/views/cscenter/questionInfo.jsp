@@ -83,28 +83,7 @@
 			
 			<div class="row-fluid">
 				<div class="span12">
-					<c:if test="true">
-						<form id="create-form" method="get" class="form-horizontal" >
-							<div class="control-group">
-								<label class="control-label">답변</label>
-								<div class="controls">
-									<textarea rows="5" cols="50" style="width:80%;"></textarea>
-								</div>
-							</div>
-							
-							<div class="form-actions">
-								<button class="btn btn-primary" type="submit" id="modify-btn">
-									<i class="icon-wrench bigger-110"></i>
-									확인
-								</button>
-								<a class="btn btn-inverse" id="cancel-btn">
-									<i class="icon-undo bigger-110"></i>
-									취소
-								</a>
-							</div>
-						</form>
-					</c:if>
-					<c:if test="true">
+					<c:if test="${ viewType eq 'detailView' }">
 						<form id="create-form" method="get" class="form-horizontal" >
 							<div class="control-group">
 								<label class="control-label">답변</label>
@@ -124,6 +103,27 @@
 									<i class="icon-wrench bigger-110"></i>
 									목록
 								</button>
+							</div>
+						</form>
+					</c:if>
+					<c:if test="${ viewType eq 'modifyView' }">
+						<form id="create-form" method="get" class="form-horizontal" >
+							<div class="control-group">
+								<label class="control-label">답변</label>
+								<div class="controls">
+									<textarea rows="5" cols="50" style="width:80%;"></textarea>
+								</div>
+							</div>
+							
+							<div class="form-actions">
+								<button class="btn btn-primary" type="submit" id="modify-btn">
+									<i class="icon-wrench bigger-110"></i>
+									확인
+								</button>
+								<a class="btn btn-inverse" id="cancel-btn">
+									<i class="icon-undo bigger-110"></i>
+									취소
+								</a>
 							</div>
 						</form>
 					</c:if>

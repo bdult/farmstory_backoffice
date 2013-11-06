@@ -16,19 +16,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.PageUtil;
+import com.bgg.farmstoryback.service.BoardService;
+
 @Controller
 public class CscenterController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	@Autowired
+	private BoardService boardService;
+
+	@Autowired
+	private PageUtil pageUtil;
 	
 	@RequestMapping(value = "cscenter/questionManage.do")
 	public String questionManage(Model model, @RequestParam Map<String,Object> paramMap) {
+		
+		paramMap.put("board_id", "3");
+
+		Map pageInfo = pageUtil.pageLink(boardService.totalCount(paramMap), paramMap);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
+		pageInfo.putAll(paramMap);
+		
+		model.addAttribute("questionList", boardService.contentsListByBoardId(pageInfo));
 		
 		return "cscenter/questionManage";
 	}
 	
 	@RequestMapping(value = "cscenter/questionInfo.do")
 	public String questionInfo(Model model, @RequestParam Map<String,Object> paramMap) {
+		
+		if(paramMap.get("member_id") == null){
+			model.addAttribute("viewType", "detailView");
+		}else {
+			model.addAttribute("viewType", "modifyView");
+		}
 		
 		return "cscenter/questionInfo";
 	}

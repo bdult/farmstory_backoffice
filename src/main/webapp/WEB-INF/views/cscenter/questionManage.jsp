@@ -126,14 +126,19 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="questionList" items="${ questionList }" varStatus="status">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do">${ questionList.ROWNUM }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do">${ questionList.MEMBER_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do">${ questionList.TITLE }</a></td>
+						<td>${ questionList.REG_DT }</td>
+						<td>${ questionList.COMMENT_REG_DT }</td>
+						<td>
+							<c:choose>
+								<c:when test="${ questionList.COMMENT_YN eq 'Y' }">처리완료</c:when>
+								<c:otherwise>미완료</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
