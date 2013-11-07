@@ -67,10 +67,10 @@ public class ConstantsForDb {
 	public static final String CONTENTS_IDX = "DETAIL_IDX";
 
 
+	public static final String STATUS = "STATUS";
 
 
-
-
+	public static final String STATUS_DESC = "STATUS_DESC";
 
 
 

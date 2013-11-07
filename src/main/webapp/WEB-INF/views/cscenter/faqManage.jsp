@@ -46,18 +46,16 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
    								<label class="control-label">카테고리</label>
     							<div class="controls">
-									<select class="span12">
-									  <option>자주묻는질문 TOP10</option>
-									  <option>회원/가입안내</option>
-									  <option>결제안내</option>
-									  <option>서비스안내</option>
-									  <option>이용장애안내</option>
+									<select class="span12" name="board_contents_code">
+    								<c:forEach var="cateList" items="${ cateList }">
+									  <option value="${cateList.CODE }" >${ cateList.CODE_DETAIL }</option>
+    								</c:forEach>
 									</select>
 								</div>
 							</div>
@@ -84,12 +82,12 @@
 						<th>제목</th>
 					</tr>
 				</thead>
-				
+
 				<tbody>
 				<c:forEach var="faqList" items="${faqList}" varStatus="status">
 					<tr>
 						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CONTENTS_ID }</a></td>
-						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CATE }</a></td>
+						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CONTENTS_CODE }</a></td>
 						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.TITLE }</a></td>
 					</tr>
 				</c:forEach>

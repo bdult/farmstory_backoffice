@@ -53,11 +53,9 @@
    								<label class="control-label">이벤트상태</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>전체</option>
+									  <option>진행중</option>
+									  <option>준비중</option>
 									</select>
 								</div>
 							</div>
@@ -85,20 +83,18 @@
 						<th>이벤트기간</th>
 						<th>등록일시</th>
 						<th>조회수</th>
-						<th>당첨발표</th>
 					</tr>
 				</thead>
-				${ eventList }
+
 				<tbody>
 				<c:forEach var="eventList" items="${ eventList }" varStatus="status">
 					<tr>
-						<td>${ eventList.CONTENTS_ID }</td>
-						<td>${ eventList.TITLE }</td>
-						<td>${ eventList.STATUS }</td>
-						<td></td>
+						<td><a href="${ contextPath }/event/eventInfo.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.CONTENTS_ID }</a></td>
+						<td><a href="${ contextPath }/event/eventInfo.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.TITLE }</a></td>
+						<td>${ eventList.DETAIL_CONTENTS_CODE }</td>
+						<td>${ eventList.EVENT_START_DT } ~ ${ eventList.EVENT_END_DT }</td>
 						<td>${ eventList.REG_DT }</td>
 						<td>${ eventList.HITS }</td>
-						<td></td>
 					</tr>
 				</c:forEach>
 				</tbody>

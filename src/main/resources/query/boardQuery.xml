@@ -28,13 +28,13 @@
 					, BBC.EVENT_END_DT
 					, BBC.SUB_CONTENTS
 					, BBC.HITS
-					, BBC.STATUS
+					, ifnull(BBC.STATUS, 1) AS STATUS
 					, CASE (STATUS)
 						WHEN 0 THEN '준비중'  
 						WHEN 1 THEN '진행중'  
 						WHEN 2 THEN '완료'
 						ELSE '준비중'
-						END  AS DETAIL_CONTENTS_CODE
+						END  AS STATUS_DESC
 					, (SELECT REG_DT  
 						FROM BG_BOARD_COMMENTS 
 					   WHERE CONTENTS_ID = BBC.CONTENTS_ID
@@ -108,14 +108,15 @@
 			, BBC.CONTENTS_CODE
 			, BBC.SUB_CONTENTS
 			, BBC.HITS
-			, CASE (CONTENTS_CODE)
-						WHEN 0 THEN '준비'  
-						WHEN 1 THEN '진행중'  
-						WHEN 2 THEN '완료'
-			  END  AS DETAIL_CONTENTS_CODE
+			, CASE (BBC.STATUS)
+				WHEN 0 THEN '준비'  
+				WHEN 1 THEN '진행중'  
+				WHEN 2 THEN '완료'
+			  	ELSE '준비'
+			  END  AS STATUS_DESC
 			, BBC.EVENT_START_DT
 			, BBC.EVENT_END_DT
-			, BBC.STATUS
+			, ifnull(BBC.STATUS, 1) AS STATUS
 			, BM.MEMBER_ID
 			, BM.MEMBER_NM
 			, BM.MEMBER_EMAIL
@@ -169,6 +170,7 @@
 			, EVENT_START_DT
 			, EVENT_END_DT
 			, SUB_CONTENTS
+			, STATUS
 	    )
 	    VALUES(
 	    	#{board_id}
@@ -180,6 +182,7 @@
 			, #{event_start_dt}
 			, #{event_end_dt}
 			, #{sub_contents}
+			, #{status}
 	    )
 	</insert>
 	
@@ -201,6 +204,7 @@
 	    	, IMG_PATH = #{img_path}
 			, CONTENTS_CODE = #{contents_code}	    
 			, SUB_CONTENTS = #{sub_contents}
+			, STATUS = #{status}
 	    WHERE 1=1
 	    AND CONTENTS_ID = #{board_contents_id}
 	    AND MEMBER_ID = #{member_id}
