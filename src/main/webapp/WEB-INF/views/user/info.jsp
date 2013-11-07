@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
-
-</style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -19,12 +16,7 @@
 				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li class="active">
-				<c:if test="${detail.type == 'userView' }">
-					일반 회원 정보 상세
-				</c:if>
-				<c:if test="${detail.type == 'adminView' }">
-					관리자 회원 정보 상세
-				</c:if>
+				일반 회원 정보 상세
 			</li>
 		</ul>
 		<!--.breadcrumb-->
@@ -104,7 +96,7 @@
 										<input type="text" name="" value="${detail.PAYDAY}" />
 									</div>
 								</div>
-								<c:if test="${detail.type == 'adminView' }">
+								<%-- <c:if test="${detail.type == 'adminView' }">
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
@@ -119,7 +111,7 @@
 										취소
 									</a>
 								</div>
-								</c:if>
+								</c:if> --%>
 								<%-- <c:if test="${detail.type == 'userView' }">
 									<div class="form-actions">
 										<a class="btn btn-inverse" id="cancel-btn">
@@ -131,45 +123,55 @@
 							</form>
 					</div>
 			</div>
-		<c:if test="${type == 'userView' }">
 		<!-- clidren nav -->
 			<ul class="nav nav-tabs" id="myTab">
+				<c:if test="${ !empty childInfo }">
 				<li class="active" id="navTab1">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						자녀방설정
 					</a>
 				</li>
+				</c:if>
 
+				<c:if test="${ !empty paymentsInfo }">
 				<li class="" id="navTab2">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						결제내역
 					</a>
 				</li>
+				</c:if>
+				
+				<c:if test="${ !empty couponInfo }">
 				<li class="" id="navTab3">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						쿠폰내역
 					</a>
 				</li>
+				</c:if>
+				
+				<c:if test="${ !empty questionInfo }">
 				<li class="" id="navTab4">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						1:1문의
 					</a>
 				</li>
+				</c:if>
 			</ul>
 
 		<!--/.page-header-->
+			<c:if test="${ !empty childInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList1">
 				<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="1">
 					<thead>
 						<tr>
-							<c:if test="${ status.count == 1 }">
+							<c:if test="${ status.index == 0 }">
 								<th colspan="4">자녀A 정보<button href="#child-modal-form-A" id="child-modal-btn-A" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
 							</c:if>
-							<c:if test="${ status.count == 2 }">
+							<c:if test="${ status.index == 1 }">
 								<th colspan="4">자녀B 정보<button href="#child-modal-form-B" id="child-modal-btn-B" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
 							</c:if>
 						</tr>
@@ -190,7 +192,9 @@
 					</tbody>
 				</c:forEach>
 			</table>
+			</c:if>
 			
+			<c:if test="${ !empty paymentsInfo}">
 			<table class="table table-striped table-bordered table-hover" id="navTabList2" style="display: none;">
 					<thead>
 						<tr>
@@ -208,14 +212,16 @@
 								<td>${ paymentsInfo.ROWNUM }</td>
 								<td>${ paymentsInfo.REG_DT }</td>
 								<td>${ paymentsInfo.PAYMENT_CODE }</td>
-								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
 								<td>${ paymentsInfo.PRICE }</td>
+								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
 								<td>${ paymentsInfo.REMINE_DAY }</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 			</table>
+			</c:if>
 			
+			<c:if test="${ !empty couponInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
 				<thead>
 					<tr>
@@ -240,7 +246,9 @@
 					</tr>
 				</tbody>
 			</table>
+			</c:if>
 			
+			<c:if test="${ !empty questionInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList4" style="display: none;">
 				<thead>
 					<tr>
@@ -261,13 +269,13 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			</c:if>
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">
 					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">회원정보 수정</a>
 				</div>
 			</div>
-		</c:if>
 		</div>
 	</div>
 	<!--/.page-content-->
@@ -311,8 +319,8 @@
 				<div class="control-group">
 					<label class="control-label" for="form-field-username">썸네일</label>
 
-					<div class="controls">
-						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" />
+					<div class="controls" style="height:40px;">
+						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" style="margin-bottom:0;"/>
 						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
 					</div>
 				</div>
@@ -332,14 +340,14 @@
 
 	
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary" id="child-modify-btn-A">
+		<a class="btn btn-small btn-primary" id="child-modify-btn-A">
 			<i class="icon-ok"></i>
 			등록
-		</button>
-		<button class="btn btn-small" data-dismiss="modal">
+		</a>
+		<a class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
 			취소
-		</button>
+		</a>
 
 	</div>
 </form>
@@ -403,14 +411,14 @@
 
 	
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary" id="child-modify-btn-B">
+		<a class="btn btn-small btn-primary" id="child-modify-btn-B">
 			<i class="icon-ok"></i>
 			등록
-		</button>
-		<button class="btn btn-small" data-dismiss="modal">
+		</a>
+		<a class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
 			취소
-		</button>
+		</a>
 
 	</div>
 </form>			
@@ -434,41 +442,144 @@
 	</form>
 </div>
 <script type="text/javascript">
-
-//chlid modal put items
-$("#child-modal-btn-A").click(function(){
-	$("[name=gender]").each(function(){
-		var $this = $(this);
-		if( $this.val() ==  $(".tdGender").eq(0).text() ) {
-			$this.prop("checked", true);
+	//validate
+	setValid();
+	$("#child-modal-form-A").validate({
+		rules: {
+			child_name: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			birth_year: {
+				required: true
+			},
+			birth_month: {
+				required: true
+			},
+			birth_day: {
+				required: true
+			}
+		},
+		messages: {
+			child_name: {
+				required: "이름을 입력해 주세요."
+			},
+			gender: {
+				required: "성별을 선택해 주세요."
+			},
+			birth_year: {
+				required: "생년을 입력해 주세요."
+			},
+			birth_month: {
+				required: "월을 입력해 주세요."
+			},
+			birth_day: {
+				required: "일을 입력해 주세요."
+			}
 		}
 	});
-});
-$("#child-modal-btn-B").click(function(){
-	$("[name=gender]").each(function(){
-		var $this = $(this);
-		if( $this.val() ==  $(".tdGender").eq(1).text() ) {
-			$this.prop("checked", true);
+	$("#child-modal-form-B").validate({
+		rules: {
+			child_name: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			birth_year: {
+				required: true
+			},
+			birth_month: {
+				required: true
+			},
+			birth_day: {
+				required: true
+			}
+		},
+		messages: {
+			child_name: {
+				required: "이름을 입력해 주세요."
+			},
+			gender: {
+				required: "성별을 선택해 주세요."
+			},
+			birth_year: {
+				required: "생년을 입력해 주세요."
+			},
+			birth_month: {
+				required: "월을 입력해 주세요."
+			},
+			birth_day: {
+				required: "일을 입력해 주세요."
+			}
 		}
 	});
-}); 
 
- $("#child-modify-btn-A").click(function(){
-	 $("#child-modal-form-A").attr({
-		method: 'post',
-		action: '${contextPath}/user/childModify.do'
-	 }).submit();
- });
- $("#child-modify-btn-B").click(function(){
-	 $("#child-modal-form-B").attr({
-		method: 'post',
-		action: '${contextPath}/user/childModify.do'
-	 }).submit();
- });
+	//side active
+	$("#side-user").addClass("open active");
+	
+	//chlid modal put items
+	$("#child-modal-btn-A").click(function(){
+		$("[name=gender]").each(function(){
+			var $this = $(this);
+			if( $this.val() ==  $(".tdGender").eq(0).text() ) {
+				$this.prop("checked", true);
+			}
+		});
+	});
+	$("#child-modal-btn-B").click(function(){
+		$("[name=gender]").each(function(){
+			var $this = $(this);
+			if( $this.val() ==  $(".tdGender").eq(1).text() ) {
+				$this.prop("checked", true);
+			}
+		});
+	}); 
+	
+	 $("#child-modify-btn-A").click(function(){
+		 $("#child-modal-form-A").attr({
+			method: 'post',
+			action: '${contextPath}/user/childModify.do'
+		 }).submit();
+	 });
+	 $("#child-modify-btn-B").click(function(){
+		 $("#child-modal-form-B").attr({
+			method: 'post',
+			action: '${contextPath}/user/childModify.do'
+		 }).submit();
+	 });
+	
+	$("#create-form input:text").attr({
+		readonly: "readonly"
+	});
 
-$("#create-form input:text").attr({
-	readonly: "readonly"
-});
+	//child nav btn
+	$("#navTab1").click(function(){
+		$("#navTabList1").show();
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab2").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").show();
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab3").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").show();
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab4").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").show();
+	});
 
 //child modal thombnail upload
 $(function(){
@@ -519,68 +630,4 @@ $(function(){
 	
 	
 }); // <!-- function() end 
-
-$("#navTab1").click(function(){
-	$("#navTabList1").show();
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab2").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").show();
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab3").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").show();
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab4").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").show();
-});
-
-/* $(document).ready(function(){
-	
-	var dspType = "${detail.type}";
-	$("#side-user").attr("class", "open active");
-	if(dspType == "userView"){
-		$("#side-user-user").attr("class", "active");
-	}else{
-		$("#side-user-admin").attr("class", "active");
-	}
-	
-	var $genderBox = $("#genderBox");
-	var genderData = $genderBox.data("gender_value");
-	$genderBox.find("option").each(function(){
-		
-		var $this = $(this);
-		
-		if( genderData == $this.val() ) {
-			$this.prop("selected", true);
-		}
-		
-	});
-	
-	
-	for(var i=1995; i <= 2014; i++){
-		$("#yearBox").append("<option value=" + i +">" + i + "</option>");
-		$("#yearBox").val(${childListOne.BIRTH_YEAR});
-	}
-	for(var i=1; i <= 12; i++){
-		$("#monthBox").append("<option value=" + i +">" + i + "</option>");
-		$("#monthBox").val(${childListOne.BIRTH_MONTH});
-	}
-	for(var i=1; i <= 31; i++){
-		$("#dayBox").append("<option value=" + i +">" + i + "</option>");
-		$("#dayBox").val(${childListOne.BIRTH_DAY});
-	}
-		
-}); */
-
 </script>

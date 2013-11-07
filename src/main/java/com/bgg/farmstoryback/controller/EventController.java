@@ -16,13 +16,31 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.PageUtil;
+import com.bgg.farmstoryback.service.BoardService;
+
 @Controller
 public class EventController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
+
+	@Autowired
+	private BoardService boardService;
+
+	@Autowired
+	private PageUtil pageUtil;
 	
 	@RequestMapping(value = "event/eventManage.do")
 	public String eventManage(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		paramMap.put("board_id", "2");
+
+		Map pageInfo = pageUtil.pageLink(boardService.contentsTotalCount(paramMap), paramMap);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
+		pageInfo.putAll(paramMap);
+
+		model.addAttribute("eventList", boardService.contentsListByBoardId(pageInfo));
 		
 		return "event/eventManage";
 	}

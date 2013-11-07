@@ -102,12 +102,6 @@
 							</c:if>
 							
 							<div class="form-actions">
-								<c:if test="true">
-									<button class="btn btn-danger" type="submit" id="delete-btn">
-										<i class="icon-trash bigger-110"></i>
-										삭제
-									</button>
-								</c:if>
 								<button class="btn btn-primary" type="submit" id="modify-btn">
 									<i class="icon-wrench bigger-110"></i>
 									확인
@@ -126,9 +120,15 @@
 	
 </div>
 
-<script>
-jQuery(function($){
-	$('.date-picker-1').datepicker();
-	$('.date-picker-2').datepicker();
-});
+<script type="text/javascript">
+
+	jQuery(function($){
+		$('.date-picker-1').datepicker();
+		$('.date-picker-2').datepicker();
+	});
+	
+	//side active
+	$("#side-event").addClass("open active");
+		$("#side-event-event").addClass("active");
+
 </script>

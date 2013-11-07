@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
+<!-- <style>
 .btn-group form{
 	margin: 0;
 	float: left;
@@ -12,7 +12,7 @@
 	float: right;
 }
 
-</style>
+</style> -->
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -29,8 +29,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<c:if test="${ type == 'userView' }"><li class="active">일반 회원 관리</li></c:if>
-			<c:if test="${ type == 'adminView' }"><li class="active">관리자 회원 관리</li></c:if>
+			<li class="active">일반 회원 관리</li>
 		</ul>
 		<div class="nav-search" id="nav-search">
 			<form class="form-search" action="manage.do" method="post">
@@ -44,12 +43,10 @@
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<c:if test="${ type == 'userView' }">
-				<h3 class="header smaller lighter blue">일반 회원 정보 리스트</h3></li>
-			</c:if>
-			<c:if test="${ type == 'adminView' }">
+			<h3 class="header smaller lighter blue">일반 회원 정보 리스트</h3>
+			<%-- <c:if test="${ type == 'adminView' }">
 				<h3 class="header smaller lighter blue">관리자 회원 정보 리스트</h3></li>
-			</c:if>
+			</c:if> --%>
 			<!-- /. table-header -->
 		<!--/.page-header-->
 		
@@ -61,7 +58,7 @@
    								<label class="control-label">회원검색</label>
     							<div class="controls">
 									<select name="search_type" class="span12">
-									  <option value="">전체</option>
+									  <option value="">목록 선택</option>
 									  <option value="id">아이디</option>
 									  <option value="name">이름</option>
 									  <option value="cel">휴대폰번호</option>
@@ -97,14 +94,14 @@
     							<div class="controls">
     								<div class="span6">
 										<div class="input-append">
-											<input class="date-picker-1 input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
-											<input class="date-picker-2 input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
@@ -136,11 +133,11 @@
 				
 			<%-- <c:if test="${ type == 'userView' }">
 			</c:if> --%>
-			<c:if test="${ type == 'adminView' }">
+			<%-- <c:if test="${ type == 'adminView' }">
 				<div class="table-header" align="right">
 					<a class="btn btn-info btn-success" href="${ contextPath }/user/admin/createView.do">추가</a>
 				</div>
-			</c:if>
+			</c:if> --%>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -206,95 +203,103 @@
 	<!--/.page-content-->
 </div>
 
-<script>
-jQuery(function($){
-	$('.date-picker-1').datepicker();
-	$('.date-picker-2').datepicker();
-});
+<script type="text/javascript">
+	//validate
+	/* setValid();
+	$("#searchForm").validate({
+		rules: {
+			search_type: {
+				required: true
+			}
+		},
+		messages: {
+			search_type: {
+				required: "회원검색 목록을 선택해 주세요."
+			}
+		}
+	}); */
 
-//search init 
-$("#searchForm input[name=search").val("${ pageInfo.search }");
-$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
-$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
-$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
-$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	jQuery(function($){
+		$('#date-picker-first').datepicker();
+		$('#date-picker-last').datepicker();
+	});
+	
+	//side active
+	$("#side-user").addClass("open active");
+
+	//search init 
+	$("#searchForm input[name=search").val("${ pageInfo.search }");
+	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
+	$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
+	$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
+	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
 
 	$("#search").click(function(){
 		$("#searchForm").attr({
 			method: 'post',
-			action: '${ contextPath }/user/user/manage.do'
+			action: '${ contextPath }/user/manage.do'
 		}).submit();
 	});
 
-	$(function(){
-		var dspType = "${type}";
-		$("#side-user").attr("class", "open active");
-		if(dspType == "userView"){
-			$("#side-user-user").attr("class", "active");
-		}else{
-			$("#side-user-admin").attr("class", "active");
+	function getTimeStamp(type) {
+
+		var mydate = new Date();
+
+		switch (type) {
+		case 'today':
+			new Date(mydate);
+			break;
+		case 'week':
+			var day = mydate.getDate();
+			mydate.setDate(day - 7);
+			break;
+		case 'month':
+			var month = mydate.getMonth();
+			mydate.setMonth(month - 1);
+			break;
+		case 'year':
+			var year = mydate.getFullYear();
+			mydate.setFullYear(year - 1);
+			break;
 		}
+		
+		var fdate = 
+		    leadingZeros(mydate.getFullYear(), 4) + '-' +
+		    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
+		    leadingZeros(mydate.getDate(), 2)
+		
+		return fdate;
+	}
+	
+	function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
+
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		 return zero + n;
+	}
+	
+	$("#todayCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('today'));
+		$("#date-picker-last").val(getTimeStamp('today'));
 	});
-
-		function getTimeStamp(type) {
-
-			var mydate = new Date();
-
-			switch (type) {
-			case 'today':
-				new Date(mydate);
-				break;
-			case 'week':
-				var day = mydate.getDate();
-				mydate.setDate(day - 7);
-				break;
-			case 'month':
-				var month = mydate.getMonth();
-				mydate.setMonth(month - 1);
-				break;
-			case 'year':
-				var year = mydate.getFullYear();
-				mydate.setFullYear(year - 1);
-				break;
-			}
-			
-			var fdate = 
-			    leadingZeros(mydate.getFullYear(), 4) + '-' +
-			    leadingZeros(mydate.getMonth() + 1, 2) + '-' +
-			    leadingZeros(mydate.getDate(), 2)
-			
-			return fdate;
-		}
-		
-		function leadingZeros(n, digits) {
-			  var zero = '';
-			  n = n.toString();
-
-			  if (n.length < digits) {
-			    for (i = 0; i < digits - n.length; i++)
-			      zero += '0';
-			  }
-			 return zero + n;
-		}
-		
-		$("#todayCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('today'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#weekCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('week'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#monthCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('month'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#yearCalenderBtn").click(function() {
-			$("#date-picker-first").val(getTimeStamp('year'));
-			$("#date-picker-last").val(getTimeStamp('today'));
-		});
-		$("#allCalenderBtn").click(function() {
-			$("#date-picker-first").val(null);
-			$("#date-picker-last").val(null);
-		});
+	$("#weekCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('week'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#monthCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('month'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#yearCalenderBtn").click(function() {
+		$("#date-picker-first").val(getTimeStamp('year'));
+		$("#date-picker-last").val(getTimeStamp('today'));
+	});
+	$("#allCalenderBtn").click(function() {
+		$("#date-picker-first").val(null);
+		$("#date-picker-last").val(null);
+	});
 </script>

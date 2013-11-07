@@ -93,7 +93,7 @@ public class UserController {
   }
 	
   
-  @RequestMapping(value = "/user/user/manage.do", method = {RequestMethod.GET, RequestMethod.POST})
+  @RequestMapping(value = "/user/manage.do", method = {RequestMethod.GET, RequestMethod.POST})
   public String userManage(Model model, @RequestParam Map paramMap) {
 	Map pageInfo = pageUtil.pageLink(userService.totalCount(paramMap), paramMap);
 	model.addAttribute("pageInfo", pageInfo);
@@ -101,7 +101,7 @@ public class UserController {
 	pageInfo.putAll(paramMap);
 	
 	model.addAttribute("positionMap", userService.list(pageInfo));
-    model.addAttribute("type", "userView");
+	
     return "user/manage";
   }
   
@@ -121,7 +121,6 @@ public class UserController {
 	public String detail(Model model, @RequestParam Map paramMap) {
 
 		model.addAttribute("detail",userService.detail(paramMap));
-	    model.addAttribute("type", "userView");
 	    model.addAttribute("childInfo",  userService.childInfo(paramMap));
 	    model.addAttribute("paymentsInfo",  userService.paymentsInfo(paramMap));
 	    model.addAttribute("questionInfo",  userService.queryInfo(paramMap));

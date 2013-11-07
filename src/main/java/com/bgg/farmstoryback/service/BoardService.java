@@ -129,5 +129,7 @@ public class BoardService {
 //	}
 	
 
-	
+	public int contentsTotalCount(Map requestParamMap) {
+		return boardDao.contentsTotalCount(requestParamMap);
+	}
 }

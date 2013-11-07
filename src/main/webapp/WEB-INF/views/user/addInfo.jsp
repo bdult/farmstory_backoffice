@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
-
-</style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -19,21 +16,11 @@
 				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li>
-				<c:if test="${detail.type == 'userView' }">
-					<a href="#">일반 회원 정보 상세</a>
-				</c:if>
-				<c:if test="${detail.type == 'adminView' }">
-					<a href="#">관리자 회원 정보 상세</a>
-				</c:if>
+				<a href="#">일반 회원 정보 상세</a>
 				<span class="divider"><i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li class="active">
-				<c:if test="${detail.type == 'userView' }">
-					일반 회원 정보 수정
-				</c:if>
-				<c:if test="${detail.type == 'adminView' }">
-					관리자 회원 정보 수정
-				</c:if>
+				일반 회원 정보 수정
 			</li>
 		</ul>
 		<!--.breadcrumb-->
@@ -55,7 +42,7 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
-							<form id="create-form" method="get" class="form-horizontal" >
+							<form id="create-form" class="form-horizontal" >
 
 								<div class="control-group">
 									<label class="control-label">아이디</label>
@@ -109,10 +96,10 @@
 								</div>
 								
 								<div class="form-actions">
-									<button class="btn btn-primary" type="submit" id="modify-btn">
+									<a class="btn btn-primary" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
 										수정
-									</button>
+									</a>
 									<a class="btn btn-inverse" id="cancel-btn">
 										<i class="icon-undo bigger-110"></i>
 										취소
@@ -127,17 +114,47 @@
 <!--/.main-content-->
 
 <script type="text/javascript">
+	//validate
+	setValid();
+	$("#create-form").validate({
+		rules: {
+			member_name: {
+				required: true
+			},
+			member_cel: {
+				required: true
+			},
+			member_email: {
+				required: true
+			},
+			member_addr_1: {
+				required: true
+			},
+			member_addr_2: {
+				required: true
+			}
+		},
+		messages: {
+			member_name: {
+				required: "이름을 입력해 주세요."
+			},
+			member_cel: {
+				required: "휴대폰 번호를 입력해 주세요."
+			},
+			member_email: {
+				required: "이메일 주소를 입력해 주세요."
+			},
+			member_addr_1: {
+				required: "주소를 입력해 주세요."
+			},
+			member_addr_2: {
+				required: "상세 주소를입력해 주세요."
+			}
+		}
+	});
 
-$(function(){
-	var memberType = "${detail.userDetail.MEMBER_TYPE}";
-	$("#side-user").attr("class", "open active");
-	if(memberType == 1){
-		$("input:text").attr({
-		});
-		$("#side-user-user").attr("class", "active");
-	}else{
-		$("#side-user-admin").attr("class", "active");
-	}
+	//side active
+	$("#side-user").addClass("open active");
 
 	$("#cancel-btn").click(function(){
 		window.location.href="${ contextPath }/user/detail.do?member_id=${detail.MEMBER_ID}";
@@ -153,7 +170,5 @@ $(function(){
 			return false;
 		}
 	});
-
-});
 
 </script>

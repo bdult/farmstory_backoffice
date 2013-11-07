@@ -169,7 +169,6 @@ public class BoardServiceTest {
 		long contentsId = (Long)boardContentsList.get(0).get(ConstantsForDb.CONTENTS_ID);
 		requestParamMap.put(ConstantsForParam.BOARD_CONTENTS_ID, contentsId);
 		
-		
 		Map contentsDetail = boardService.contentsDeail(requestParamMap);
 		assertThat(contentsDetail, is(notNullValue()));
 		assertTrue(contentsDetail.get(ConstantsForDb.TITLE).equals(testAddTitle));
@@ -321,6 +320,19 @@ public class BoardServiceTest {
 	
 	
 	
+	public void testContentsTtotalCount() {
+		
+		// given 
+		setBoardInfo();
+		
+		// when
+		int totalCount = boardService.contentsTotalCount(requestParamMap);
+
+		// then
+		assertThat(totalCount, is(not(0)));
+
+	}
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void setCommentInfo() {
 		setBoardContentsInfo();

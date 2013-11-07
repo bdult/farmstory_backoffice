@@ -29,7 +29,7 @@
 			</form>
 		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
-	
+
 	<div class="page-content">
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">이벤트 리스트</h3>
@@ -68,13 +68,13 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large" href="#">검색</a>
+							<a class="btn btn-info input-large">검색</a>
 						</div>
 					</div>
 				</form>
 				
 			<div class="table-header" align="right">
-				<a class="btn btn-info btn-success" href="${ contextPath }/">추가</a>
+				<a class="btn btn-info btn-success" href="${ contextPath }/event/eventInfo.do">추가</a>
 			</div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
@@ -88,16 +88,16 @@
 						<th>당첨발표</th>
 					</tr>
 				</thead>
-				
+				${ eventList }
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="eventList" items="${ eventList }" varStatus="status">
 					<tr>
+						<td>${ eventList.CONTENTS_ID }</td>
+						<td>${ eventList.TITLE }</td>
+						<td>${ eventList.STATUS }</td>
 						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>${ eventList.REG_DT }</td>
+						<td>${ eventList.HITS }</td>
 						<td></td>
 					</tr>
 				</c:forEach>
@@ -142,3 +142,11 @@
 		
 	</div>
 </div>
+
+<script type="text/javascript">
+
+//side active
+$("#side-event").addClass("open active");
+	$("#side-event-event").addClass("active");
+
+</script>
