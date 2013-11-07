@@ -29,7 +29,7 @@
 			</form>
 		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
-	
+
 	<div class="page-content">
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">이벤트 리스트</h3>
@@ -90,14 +90,14 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="eventList" items="${ eventList }" varStatus="status">
 					<tr>
+						<td>${ eventList.CONTENTS_ID }</td>
+						<td>${ eventList.TITLE }</td>
+						<td>${ eventList.STATUS }</td>
 						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td>${ eventList.REG_DT }</td>
+						<td>${ eventList.HITS }</td>
 						<td></td>
 					</tr>
 				</c:forEach>

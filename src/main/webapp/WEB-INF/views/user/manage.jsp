@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
+<!-- <style>
 .btn-group form{
 	margin: 0;
 	float: left;
@@ -12,7 +12,7 @@
 	float: right;
 }
 
-</style>
+</style> -->
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
