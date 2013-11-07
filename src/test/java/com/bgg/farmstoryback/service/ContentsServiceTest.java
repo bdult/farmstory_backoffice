@@ -3,6 +3,7 @@ package com.bgg.farmstoryback.service;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
-import com.bgg.farmstoryback.common.ConstantsForResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
@@ -25,13 +25,22 @@ public class ContentsServiceTest {
 	
 	@Autowired
 	ContentsService contentsService;
+	
+	@Autowired
+	BrandService brandService;
+	
+	@Autowired
+	SeriesService seriesService;
+	
 	String testJoinStartDate = "20130926";
 	String testJoinEndDate = "20130926";
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private Map requestParamMap=null;
 	
 
 	@Before
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void setUp() throws Exception {
 		requestParamMap = new HashMap();
 	}
@@ -57,6 +66,7 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings("rawtypes")
 	public void testList() {
 		
 		// given 
@@ -70,6 +80,7 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testUnDisplayList() {
 		
 		setDefaultPageParam();
@@ -86,6 +97,7 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSearchListByContentsName() {
 		
 		// given 
@@ -128,6 +140,7 @@ public class ContentsServiceTest {
 //	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSearchListByCategory() {
 		// given 
 		long testCategoryId = 32;
@@ -147,6 +160,7 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSearchListByBrand() {
 		// given 
 		long testBrandID = 143;
@@ -166,6 +180,7 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSearchListBySeries() {
 		// given 
 		long testSeries = 33;
@@ -185,6 +200,7 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSearchListByRegDt() {
 		// given 
 		setDefaultPageParam();
@@ -209,13 +225,12 @@ public class ContentsServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testSearchListByDisplayYn() {
-		
 		// given 
 		setDefaultPageParam();
 		String testDisplayYn = "Y";
 		requestParamMap.put(ConstantsForParam.DISPLAY_YN, testDisplayYn);
-		
 
 		// when
 		List<Map> contentsList = contentsService.list(requestParamMap);
@@ -227,15 +242,92 @@ public class ContentsServiceTest {
 		}
 
 	}
+	
+	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testAddContentsJustContentsTable() {
+		
+		
+		// given
+		// root map
+		Map contentsInfo  = new HashMap();
+		
+		// set root info
+		List<Map> publisherList = brandService.listAll();
+		Map publisherInfo = publisherList.get(0);
+		contentsInfo.put(ConstantsForParam.BRAND_ID, publisherInfo.get(ConstantsForDb.BRAND_ID));
+		
+		List<Map> seriesList =  seriesService.listByBrandId(requestParamMap);
+		Map seriesInfo = seriesList.get(0);
+		contentsInfo.put(ConstantsForParam.SERIES_ID, seriesInfo.get(ConstantsForDb.SERIES_ID));
+		
+		String moviePath = "temp/temp.mp4";
+		String imgPath = "temp/temp.gif";
+		
+		contentsInfo.put(ConstantsForParam.MOVIE_PATH, moviePath);
+		contentsInfo.put(ConstantsForParam.IMG_PATH, imgPath);
+		
+		// root > contentsDetail
+		List<Map> contenstDetailList = new ArrayList<Map>();
+		
+		
+			// set root > contentsDetail info(test-data 1)
+			Map contentsDetail01 = new HashMap();
+			String contentsName01 = "addContentsName01";
+			String contentsDesc01 = "addContentsDesc01";
+			contentsDetail01.put(ConstantsForParam.DISPLAY_YN, "N");
+			contentsDetail01.put(ConstantsForParam.CONTENTS_NAME, contentsName01);
+			contentsDetail01.put(ConstantsForParam.CONTENTS_DESC, contentsDesc01);
+			
+				// set root > contentsDetail > Caegory info(test-data 1)
+				List<Map> contentsCategory01 = new ArrayList<Map>();
+				Map category01 = new HashMap();
+				category01.put(ConstantsForParam.CATEGORY_ID, 32);
+				Map category02 = new HashMap();
+				category02.put(ConstantsForParam.CATEGORY_ID, 38);
+				contentsCategory01.add(category01);
+				contentsCategory01.add(category02);
+				contentsDetail01.put(ConstantsForParam.CATEGORY_LIST, contentsCategory01);
+		
+		
+			// set root > contentsDetail info(test-data 2)
+			Map contentsDetail02 = new HashMap();
+			String contentsName02 = "addContentsName02";
+			String contentsDesc02 = "addContentsDesc02";
+			contentsDetail02.put(ConstantsForParam.DISPLAY_YN, "N");
+			contentsDetail02.put(ConstantsForParam.CONTENTS_NAME, contentsName02);
+			contentsDetail02.put(ConstantsForParam.CONTENTS_DESC, contentsDesc02);
+			
+				// set root > contentsDetail > Caegory info(test-data 2)
+				List<Map> contentsCategory02 = new ArrayList<Map>();
+				Map category03 = new HashMap();
+				category01.put(ConstantsForParam.CATEGORY_ID, 54);
+				Map category04 = new HashMap();
+				category02.put(ConstantsForParam.CATEGORY_ID, 68);
+				contentsCategory02.add(category03);
+				contentsCategory02.add(category04);
+				contentsDetail02.put(ConstantsForParam.CATEGORY_LIST, contentsCategory02);
+		
+		contenstDetailList.add(contentsDetail01);
+		contenstDetailList.add(contentsDetail02);
+		
+		contentsInfo.put(ConstantsForParam.CONTENTS_DETAIL_LIST, contenstDetailList);
+		
+		// when
+		contentsService.addContents(contentsInfo);
 
+		// then
+
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void assertContentList(List<Map> contentsList) {
 		assertThat(contentsList, is(notNullValue()));
 		assertThat(contentsList.size(), is(not(0)));
 	}
 	
 	
-	
-
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void setDefaultPageParam() {
 		requestParamMap.put(ConstantsForParam.PAGE_PER_PAGE, 10);
 		requestParamMap.put(ConstantsForParam.PAGE_START_NO, 1);

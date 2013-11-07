@@ -65,14 +65,6 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return (Integer)getSqlSession().selectOne("contentsQuery.totalCount", parameter);
 	}
 
-	/** 최신 등록한 컨텐츠 5개 조회(dashboard 용)
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes")
-	public List top(int limitCount) {
-		return getSqlSession().selectList("contentsQuery.top", limitCount);
-	}
-	
 	public void modifyOrderingNo(Map requestParamMap) {
 		getSqlSession().update("contentsQuery.modifyOrderingNo", requestParamMap);
 	}

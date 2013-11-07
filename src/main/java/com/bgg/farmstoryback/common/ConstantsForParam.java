@@ -52,5 +52,11 @@ public class ConstantsForParam {
 	public static final String COMMENT = "comment";
 	public static final String COMMENT_ID = "comment_id";
 	public static final String CONTENTS = "contents";
+	public static final String MOVIE_PATH = "movie_path";
+	public static final String LOCATION_CODE = "location_code";
+	public static final String CONTENTS_NAME = "contents_nm";
+	public static final String CONTENTS_DESC = "contents_desc";
+	public static final String CATEGORY_LIST = "category_list";
+	public static final String CONTENTS_DETAIL_LIST = "contents_detail_list";
 	
 }
