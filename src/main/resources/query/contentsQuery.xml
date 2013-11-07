@@ -172,11 +172,40 @@
 	
 	<select id="totalCount" resultType="int">
 		SELECT /* contenstQuery.totalCount */
-			count(*)
-		FROM  BG_CONTENTS_DETAIL
+			count(A.CONTENTS_ID)
+		FROM  BG_CONTENTS A, BG_CONTENTS_DETAIL BCD,  BG_CATE_CONTENTS_RELATIONSHIPS BCCR, BG_CONTENTS_SERIES BCS, BG_BRAND BB
 		WHERE 1=1
+		AND A.CONTENTS_ID = BCD.CONTENTS_ID 
+		AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX 
+		AND A.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		AND BCS.BRAND_ID= BB.BRAND_ID 
 		<if test="contents_nm != null and contents_nm != ''">
 			AND CONTENTS_NM LIKE CONCAT('%', #{contents_nm}, '%')
+		</if>
+		<if test="search_type == 'id'">
+			AND A.CONTENTS_ID = #{search}
+		</if>
+		<if test="search_type == 'name'">
+			AND BCD.CONTENTS_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+		
+		<if test="display_yn != null and display_yn != ''">
+			AND BCD.DISPLAY_YN = #{display_yn}
+		</if>
+		<if test="brand_id != null and brand_id != ''">
+			AND BB.BRAND_ID = #{brand_id}
+		</if>
+		<if test="category_id != null and category_id != ''">
+			AND BCCR.CATE_ID = #{category_id}
+		</if>
+		<if test="series_id != null and series_id != ''">
+			AND BCS.CONTENTS_SERIES_ID = #{series_id}
+		</if>
+		<if test="search_start_date !=null and search_start_date !=''">
+			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+		</if>
+		<if test="search_end_date !=null and search_end_date !=''">
+			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
 	</select>
 	
