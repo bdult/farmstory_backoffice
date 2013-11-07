@@ -63,5 +63,6 @@ public class ConstantsForParam {
 	public static final String EVENT_START_DT = "event_start_dt";
 	public static final String EVENT_END_DT = "event_end_dt";
 	public static final String SUB_CONTENTS = "sub_contents";
+	public static final String STATUS = "status";
 	
 }
