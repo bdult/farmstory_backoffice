@@ -41,7 +41,7 @@
 						<tr>
 							<td>제목</td>
 							<td>
-								<input type="text" name="title" value="${ displayInfo.TITLE }">
+								<input class="no-magin-bottom" type="text" name="title" value="${ displayInfo.TITLE }">
 								<input type="hidden" name="display_id" value="${ displayInfo.DISPLAY_ID }">
 								<input type="hidden" name="display_code" value="${ displayInfo.DISPLAY_CODE }">
 							</td>
@@ -50,10 +50,10 @@
 						<tr>
 							<td>대표이미지</td>
 							<td>
-								<input type="text" id="img_path" name="img_path" value="${ displayInfo.IMG_PATH }" readonly>
+								<input class="no-magin-bottom" type="text" id="img_path" name="img_path" value="${ displayInfo.IMG_PATH }" readonly>
 							</td>
 							<td>
-								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
 							</td>
 						</tr>
 						<tr>
@@ -73,7 +73,7 @@
 						<tr>
 							<td>링크 URL</td>
 							<td>
-								http:// <input type="text" id="link_url" name="link_url" value="${ displayInfo.LINK_URL }"/> 
+								http:// <input class="no-magin-bottom" type="text" id="link_url" name="link_url" value="${ displayInfo.LINK_URL }"/> 
 							</td>
 							<td>
 								<div class="checkbox">

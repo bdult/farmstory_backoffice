@@ -41,7 +41,7 @@
 						<tr>
 							<td>제목</td>
 							<td>
-								<input type="text" name="title">
+								<input class="no-magin-bottom" type="text" name="title">
 								<input type="hidden" name="display_code" value="DIS001">
 							</td>
 							<td></td>
@@ -49,10 +49,10 @@
 						<tr>
 							<td>대표이미지</td>
 							<td>
-								<input type="text" name="img_path" id="img_path" readonly>
+								<input class="no-magin-bottom" type="text" name="img_path" id="img_path" readonly>
 							</td>
 							<td>
-								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
 							</td>
 						</tr>
 						<tr>
@@ -72,7 +72,7 @@
 						<tr>
 							<td>링크 URL</td>
 							<td>
-								http:// <input type="text" id="link_url" name="link_url" /> 
+								http:// <input class="no-magin-bottom" type="text" id="link_url" name="link_url" /> 
 							</td>
 							<td>
 								<div class="checkbox">

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
@@ -41,18 +41,18 @@
 			<table class="table table-striped table-bordered table-hover">
 
 				<tbody>
-					<c:forEach items="${ topDisplay }" var="obj" varStatus="status">
+					<c:forEach items="${ topDisplay }" var="obj" varStatus="util">
 						<tr>
 							<td>
-								메인 ${ status.count }
+								메인 ${ util.count }
 							</td>
 							<td>${ obj.TITLE }</td>
 							<td>
 								<div class="display_yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input type="radio" class="ace" value="Y" disabled>
+										<input disabled type="radio" class="ace" value="Y" >
 										<span class="lbl"> 노출함 </span>
-										<input type="radio" class="ace" value="N" disabled>
+										<input disabled type="radio" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
@@ -70,34 +70,24 @@
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">배너 비주얼</h3>
 			<div class="table-header" align="right">
-				<!-- 
 				<a href="${ contextPath }/display/main/bannerCreateView.do" id="create-contents-btn" class="btn btn-success">등록</a>
-				 -->
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
-
 				<tbody>
-					<tr>
-						<td rowspan="2">
-							배너
-						</td>
-						<td>
-							${ bannerDisplay[0].TITLE }
-						</td>
-						<td>
-							<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ bannerDisplay[0].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-							<button class="btn btn-minier btn-yellow">삭제</button>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							${ bannerDisplay[1].TITLE }
-						</td>
-						<td>
-							<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ bannerDisplay[1].DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-							<button class="btn btn-minier btn-yellow">삭제</button>
-						</td>
-					</tr>
+					<c:forEach items="${ bannerDisplay }" var="obj" varStatus="util">
+						<tr>
+							<c:if test="${ util.first }">
+								<td rowspan="${ fn:length( bannerDisplay ) }">배너</td>
+							</c:if>
+							<td>
+								${ obj.TITLE }
+							</td>
+							<td>
+								<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
+								<button data-display-id="${ obj.DISPLAY_ID }" id="bannerDelBtn" class="btn btn-minier btn-yellow">삭제</button>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div><!--/.row-fluid-->
@@ -114,6 +104,13 @@ $(function(){
 		var $this = $(this);
 		if( confirm("삭제하시겠습니까?") ) {
 			window.location.href = "${ contextPath }/display/main/delete.do?display_id=" + $this.data("displayId");
+		}
+	});
+	
+	$("#bannerDelBtn").click(function(){
+		var $this = $(this);
+		if( confirm("삭제하시겠습니까?") ) {
+			window.location.href = "${ contextPath }/display/main/bannerDelete.do?display_id=" + $this.data("displayId");
 		}
 	});
 	

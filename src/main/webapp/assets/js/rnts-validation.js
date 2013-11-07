@@ -1,10 +1,10 @@
 function isEmpty(str){
 	
 	var result = true;
-    var tmp = str.replace(/\s|¡¡/gi, '');
-    // Á¤±Ô½ÄÀ¸·Î °ø¹é, ¿£ÅÍ, ÅÇ, Æ¯¼ö¹®ÀÚ °ø¹é ¹®ÀÚ¸¦ ºó¹®ÀÚ·Î ¹Ù²Þ
-    // ÀÔ·ÂµÈ °ª¿¡ ´ëÇÏ¿© À§ Á¤±Ô½Ä Ã³¸®¸¦ ÇÏ°í ¹º°¡ ³²¾ÆÀÖÁö ¾Ê´Ù¸é
-    // °ªÀÌ ¹«ÀÇ¹Ì ÇÏ´Ù°í ÆÇ´ÜÇÔ.
+    var tmp = str.replace(/\s|ã€€/gi, '');
+    // ì •ê·œì‹ìœ¼ë¡œ ê³µë°±, ì—”í„°, íƒ­, íŠ¹ìˆ˜ë¬¸ìž ê³µë°± ë¬¸ìžë¥¼ ë¹ˆë¬¸ìžë¡œ ë°”ê¿ˆ
+    // ìž…ë ¥ëœ ê°’ì— ëŒ€í•˜ì—¬ ìœ„ ì •ê·œì‹ ì²˜ë¦¬ë¥¼ í•˜ê³  ë­”ê°€ ë‚¨ì•„ìžˆì§€ ì•Šë‹¤ë©´
+    // ê°’ì´ ë¬´ì˜ë¯¸ í•˜ë‹¤ê³  íŒë‹¨í•¨.
     
     if( tmp == '' ) {
     	//do nothing

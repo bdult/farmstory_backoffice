@@ -34,30 +34,31 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">상단 비주얼 등록</h3>
+			<h3 class="header smaller lighter blue">배너 등록</h3>
 			<form id="createForm" action="${ contextPath }/display/main/bannerCreate.do" method="POST">
 				<table class="table table-striped table-bordered table-hover">
 					<tbody>
 						<tr>
 							<td>제목</td>
 							<td>
-								<input type="text" name="title">
+								<input class="no-magin-bottom" type="text" name="title">
+								<input type="hidden" name="display_code" value="DIS002">
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>대표이미지</td>
 							<td>
-								<input type="text" name="ima_path" readonly>
+								<input class="no-magin-bottom" type="text" id="img_path" name="img_path" readonly>
 							</td>
 							<td>
-								<a id="mainImgUploadBtn" class="btn btn-minier btn-yellow">찾아보기</a>
+								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
 							</td>
 						</tr>
 						<tr>
 							<td>링크 URL</td>
 							<td>
-								http:// <input type="text" id="link_url" name="link_url" /> 
+								http:// <input class="no-magin-bottom" type="text" id="link_url" name="link_url" /> 
 							</td>
 							<td>
 								<div class="checkbox">
@@ -112,6 +113,17 @@ $(function(){
 	
 	{//event
 		
+		$("#noLink").click(function(){
+			var $this = $(this);
+			
+			var $link_url = $("#link_url");
+			if( $this.prop("checked") ) {
+				$link_url.prop("disabled", true).val("");
+			} else {
+				$link_url.prop("disabled", false);
+			}
+		});
+		
 		$("#createBtn").click(function(){
 			
 			//validation
@@ -139,7 +151,7 @@ $(function(){
 			}
 			
 			if( confirm("등록하시겠습니까?") ) {
-				$("createForm").submit();		
+				$("#createForm").submit();		
 			}
 		});
 	
