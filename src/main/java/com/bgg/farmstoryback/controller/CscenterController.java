@@ -128,6 +128,7 @@ public class CscenterController {
 		model.addAttribute("pageList", pageInfo.get("pageList"));
 		pageInfo.putAll(paramMap);
 
+		model.addAttribute("cateList",boardService.categoryList());
 		model.addAttribute("faqList", boardService.contentsListByBoardId(pageInfo));
 		
 		return "cscenter/faqManage";
@@ -136,16 +137,33 @@ public class CscenterController {
 	@RequestMapping(value = "cscenter/faqInfo.do")
 	public String faqInfo(Model model, @RequestParam Map<String,Object> paramMap) {
 
+		model.addAttribute("cateList",boardService.categoryList());
 		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
 		
 		return "cscenter/faqInfo";
 	}
 	
-	@RequestMapping(value = "cscenter/faqAddContents.do")
-	public String faqAddContents(Model model, @RequestParam Map<String,Object> paramMap) {
+	@RequestMapping(value = "cscenter/faqCreateContents.do")
+	public String faqCreateContents(Model model, @RequestParam Map<String,Object> paramMap) {
 
 		paramMap.put("board_id", "5");
 		boardService.addContents(paramMap);
+		
+		return "redirect:/cscenter/faqManage.do";
+	}
+	
+	@RequestMapping(value = "cscenter/faqModifyContents.do")
+	public String faqModifyContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		boardService.modifyContents(paramMap);
+		
+		return "redirect:/cscenter/faqManage.do";
+	}
+	
+	@RequestMapping(value = "cscenter/faqDeleteContents.do")
+	public String faqDeleteContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		boardService.deleteContents(paramMap);
 		
 		return "redirect:/cscenter/faqManage.do";
 	}
