@@ -60,22 +60,10 @@ public class ConstantsForDb {
 	public static final String EVENT_END_DT = "EVENT_END_DT";
 	public static final String SUB_CONTENTS = "SUB_CONTENTS";
 
-
 	public static final String MOVIE_PATH = "SRC_PATH";
-
-
 	public static final String CONTENTS_IDX = "DETAIL_IDX";
-
-
-<<<<<<< HEAD
-=======
 	public static final String STATUS = "STATUS";
-
-
 	public static final String STATUS_DESC = "STATUS_DESC";
-
-
->>>>>>> 736f47c80d8a90808f839abdbcbdbe1dfced4626
 
 
 

@@ -43,7 +43,7 @@
 									<label class="control-label" for="code_idx">코드 IDX</label>
 
 									<div class="controls">
-										<input readonly="readonly" type="text" id="code_idx" name="code_idx" value="${data.IDX}" />
+										<input readonly="readonly" type="text" id="idx" name="idx" value="${data.IDX}" />
 									</div>
 								</div>
 
@@ -67,7 +67,7 @@
 									<label class="control-label" for="PARENT_CODE">상위 코드</label>
 
 									<div class="controls">
-										<input type="text" id="PARENT_CODE" name="PARENT_CODE" value="${data.PARENT_CODE== null? "" : data.PARENT_CODE}" />
+										<input type="text" id="code_detail" name="code_detail" value="${data.PARENT_CODE== null? "" : data.PARENT_CODE}" />
 									</div>
 								</div>
 								
