@@ -169,6 +169,7 @@ public class BoardServiceTest {
 		long contentsId = (Long)boardContentsList.get(0).get(ConstantsForDb.CONTENTS_ID);
 		requestParamMap.put(ConstantsForParam.BOARD_CONTENTS_ID, contentsId);
 		
+		
 		Map contentsDetail = boardService.contentsDeail(requestParamMap);
 		assertThat(contentsDetail, is(notNullValue()));
 		assertTrue(contentsDetail.get(ConstantsForDb.TITLE).equals(testAddTitle));
@@ -333,6 +334,9 @@ public class BoardServiceTest {
 
 	}
 
+	
+	
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void setCommentInfo() {
 		setBoardContentsInfo();
