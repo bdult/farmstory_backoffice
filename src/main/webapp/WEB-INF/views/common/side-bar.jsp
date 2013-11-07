@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
-	
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-shortcuts" id="sidebar-shortcuts">
 	
@@ -26,30 +24,30 @@
 			</li>
 			
 			<li id="side-user">
-				<a href="#null" class="dropdown-toggle">
+				<a href="${ contextPath }/user/manage.do" class="dropdown-toggle">
 						<i class="icon-file-alt"></i>
 						<span class="menu-text">  회원관리 
-							<span class="badge badge-primary ">2</span> 
+							<span class="badge badge-primary "></span> 
 						</span>
-						<b class="arrow icon-angle-down"></b>
+						<!-- <b class="arrow icon-angle-down"></b> -->
 						
 					</a>
-					<ul class="submenu">
+					<%-- <ul class="submenu">
 		
 						<li id="side-user-user">
-							<a href="${ contextPath }/user/user/manage.do">
+							<a href="${ contextPath }/user/manage.do">
 								<i class="icon-double-angle-right"></i>
 								일반 회원
 							</a>
 						</li>
 		
-						<%-- <li id="side-user-admin">
+						<li id="side-user-admin">
 							<a href="${ contextPath }/user/admin/manage.do">
 								<i class="icon-double-angle-right"></i>
 								Admin 회원
 							</a>
-						</li> --%>
-					</ul>
+						</li> 
+					</ul>--%>
 				</li>
 			<li id="side-display">
 				<a href="#null" class="dropdown-toggle">
@@ -180,19 +178,19 @@
 					<b class="arrow icon-angle-down"></b>
 				</a>
 				<ul class="submenu">
-					<li id="side-board-master" >
+					<li id="side-cscenter-question" >
 						<a href="${contextPath }/cscenter/questionManage.do">
 							<i class="icon-double-angle-right"></i>
 							문의하기 관리
 						</a>
 					</li> 
-					<li id="side-board-board" >
+					<li id="side-cscenter-notice" >
 						<a href="${contextPath }/cscenter/noticeManage.do">
 							<i class="icon-double-angle-right"></i>
 							공지사항 관리
 						</a>
 					</li> 
-					<li id="side-board-board" >
+					<li id="side-cscenter-faq" >
 						<a href="${contextPath }/cscenter/faqManage.do">
 							<i class="icon-double-angle-right"></i>
 							FAQ 관리
@@ -209,7 +207,7 @@
 					<b class="arrow icon-angle-down"></b>
 				</a>
 				<ul class="submenu">
-					<li id="side-board-master" >
+					<li id="side-event-event" >
 						<a href="${contextPath }/event/eventManage.do">
 							<i class="icon-double-angle-right"></i>
 							이벤트 관리
@@ -229,8 +227,3 @@
 			<i class="icon-double-angle-left"></i>
 		</div>
 	</div>
-
-<script>
-$(function(){
-});
-</script>

@@ -49,13 +49,13 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large" href="#">검색</a>
+							<a class="btn btn-info input-large">검색</a>
 						</div>
 					</div>
 				</form>
 				
 			<div class="table-header" align="right">
-				<a class="btn btn-info btn-success" href="${ contextPath }/">추가</a>
+				<a class="btn btn-info btn-success" href="${ contextPath }/cscenter/noticeInfo.do">추가</a>
 			</div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
@@ -68,12 +68,12 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="noticeList" items="${noticeList}" varStatus="status">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><a href="${ contextPath }/cscenter/noticeInfo.do?board_contents_id=${ noticeList.CONTENTS_ID }">${ noticeList.CONTENTS_ID }</td>
+						<td><a href="${ contextPath }/cscenter/noticeInfo.do?board_contents_id=${ noticeList.CONTENTS_ID }">${ noticeList.TITLE }</a></td>
+						<td>${ noticeList.REG_DT }</td>
+						<td>${ noticeList.HITS }</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -117,3 +117,11 @@
 		
 	</div>
 </div>
+
+<script type="text/javascript">
+
+//side active
+$("#side-cscenter").addClass("open active");
+	$("#side-cscenter-notice").addClass("active");
+
+</script>

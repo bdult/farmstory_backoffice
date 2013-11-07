@@ -2,153 +2,153 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 
-			<div class="main-content">
-				<div class="breadcrumbs" id="breadcrumbs">
-					<ul class="breadcrumb">
-						<li>
-							<i class="icon-home home-icon"></i>
-							<a href="${contextPath }/">Home</a>
+<div class="main-content">
+	<div class="breadcrumbs" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li>
+				<i class="icon-home home-icon"></i>
+				<a href="${contextPath }/">Home</a>
 
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li>
-							컨텐츠 관리
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li>
-							컨텐츠
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						</li>
-						<li class="active">상세</li>
-					</ul><!--.breadcrumb-->
-				</div>
+				<span class="divider">
+					<i class="icon-angle-right arrow-icon"></i>
+				</span>
+			</li>
+			<li>
+				컨텐츠 관리
+				<span class="divider">
+					<i class="icon-angle-right arrow-icon"></i>
+				</span>
+			</li>
+			<li>
+				컨텐츠
+				<span class="divider">
+					<i class="icon-angle-right arrow-icon"></i>
+				</span>
+			</li>
+			<li class="active">상세</li>
+		</ul><!--.breadcrumb-->
+	</div>
 
-				<div class="page-content">
-					<div class="page-header position-relative">
-						<h1>
-							컨텐츠 상세
-							<small>
-								<i class="icon-double-angle-right"></i>
-								컨텐츠에 대한 상세한 정보를 입력한다
-							</small>
-						</h1>
-					</div><!--/.page-header-->
+	<div class="page-content">
+		<div class="page-header position-relative">
+			<h1>
+				컨텐츠 상세
+				<small>
+					<i class="icon-double-angle-right"></i>
+					컨텐츠에 대한 상세한 정보를 입력한다
+				</small>
+			</h1>
+		</div><!--/.page-header-->
 
-					<div class="row-fluid">
-						<div class="span12">
-							<!--PAGE CONTENT BEGINS-->
+		<div class="row-fluid">
+			<div class="span12">
+				<!--PAGE CONTENT BEGINS-->
 
-							<form id="modify-form" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
-								<input type="hidden" name="mode" value="${mode}" />
-								
-								<div class="control-group">
-									<label class="control-label" for="contents_id">컨텐츠 ID</label>
+				<form id="modify-form" method="post" action="${contextPath }/contents/modify.do" class="form-horizontal" >
+					<input type="hidden" name="mode" value="${mode}" />
+					
+					<div class="control-group">
+						<label class="control-label" for="contents_id">컨텐츠 ID</label>
 
-									<div class="controls">
-										<input readonly="readonly" type="text" id="contents_id" name="contents_id" value="${data.CONTENTS_ID}" />
-									</div>
-								</div>
+						<div class="controls">
+							<input readonly="readonly" type="text" id="contents_id" name="contents_id" value="${data.CONTENTS_ID}" />
+						</div>
+					</div>
 
-								<div class="control-group">
-									<label class="control-label" for="contents_nm">컨텐츠 명</label>
+					<div class="control-group">
+						<label class="control-label" for="contents_nm">컨텐츠 명</label>
 
-									<div class="controls">
-										<input type="text" id="contents_nm" name="contents_nm" placeholder="컨텐츠 명" value="${data.CONTENTS_NM}" />
-									</div>
-								</div>
-								
-								<!-- 
-								<div class="control-group">
-									<label class="control-label" for="contents_nm">시리얼 번호</label>
-									<div class="controls">
-										<input type="text" id="serial_num" name="serial_num" placeholder="시리얼 번호" value="${data.SERIAL_NUM}" />
-									</div>
-								</div>
-								 -->
-								
-								<div class="control-group">
-									<label class="control-label" for="contents_series_id">시리즈 명</label>
+						<div class="controls">
+							<input type="text" id="contents_nm" name="contents_nm" placeholder="컨텐츠 명" value="${data.CONTENTS_NM}" />
+						</div>
+					</div>
+					
+					<!-- 
+					<div class="control-group">
+						<label class="control-label" for="contents_nm">시리얼 번호</label>
+						<div class="controls">
+							<input type="text" id="serial_num" name="serial_num" placeholder="시리얼 번호" value="${data.SERIAL_NUM}" />
+						</div>
+					</div>
+					 -->
+					
+					<div class="control-group">
+						<label class="control-label" for="contents_series_id">시리즈 명</label>
 
-									<div class="controls">
-										<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID == null? 0 : data.CONTENTS_SERIES_ID}" />
-										<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM}" />
-										<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="src_path">동영상</label>
-									<div class="controls">
-										<input readonly="readonly" class="span5" type="text" id="src_path" name="src_path" value="${data.SRC_PATH }" />
-										<input  type="button" id="movie-mod-btn" class="btn btn-primary" value="동영상 변경" />
-										<input  type="button" id="confirm-btn" class="btn btn-info" value="확인" />
-										<div class="help-block" id="input-span-slider"></div>
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">썸네일 이미지</label>
-									<div class="controls">
-										<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
-										<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">카테고리 </label>
-									<div class="controls">
-										<div id="contents-cate-list">
-										<c:forEach items="${contentsCateList }" var="contentsCate">
-										<input readonly="readonly" class="span1" type="text" value="${contentsCate.CATE_NM }" />
-										</c:forEach>
-										</div>
-										<input  type="button" id="category-mod-btn" class="btn btn-primary" value="카테고리 변경" />
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label class="control-label" for="form-field-2">컨텐츠 설명</label>
+						<div class="controls">
+							<input  type="hidden" id="contents_series_id" name="contents_series_id" value="${data.CONTENTS_SERIES_ID == null? 0 : data.CONTENTS_SERIES_ID}" />
+							<input readonly="readonly" type="text" id="contents_series_nm" name="contents_series_nm" value="${data.SERIES_NM}" />
+							<input  type="button" id="series-mod-btn" class="btn btn-primary" value="시리즈 변경" />
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="src_path">동영상</label>
+						<div class="controls">
+							<input readonly="readonly" class="span5" type="text" id="src_path" name="src_path" value="${data.SRC_PATH }" />
+							<input  type="button" id="movie-mod-btn" class="btn btn-primary" value="동영상 변경" />
+							<input  type="button" id="confirm-btn" class="btn btn-info" value="확인" />
+							<div class="help-block" id="input-span-slider"></div>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="form-field-2">썸네일 이미지</label>
+						<div class="controls">
+							<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
+							<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="form-field-2">카테고리 </label>
+						<div class="controls">
+							<div id="contents-cate-list">
+							<c:forEach items="${contentsCateList }" var="contentsCate">
+							<input readonly="readonly" class="span1" type="text" value="${contentsCate.CATE_NM }" />
+							</c:forEach>
+							</div>
+							<input  type="button" id="category-mod-btn" class="btn btn-primary" value="카테고리 변경" />
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="form-field-2">컨텐츠 설명</label>
 
-									<div class="controls">
-										<c:choose>
-											<c:when test="${data.CONTENTS_DESC != null}">
-												<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc">${data.CONTENTS_DESC }</textarea>
-											</c:when>
-											<c:otherwise>
-												<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</div>
-								
-								<div class="form-actions">
-									<button id="submit-btn" class="btn btn-primary" type="button">
-										<i class="icon-ok bigger-110"></i>
-										저장
-									</button>
+						<div class="controls">
+							<c:choose>
+								<c:when test="${data.CONTENTS_DESC != null}">
+									<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc">${data.CONTENTS_DESC }</textarea>
+								</c:when>
+								<c:otherwise>
+									<textarea rows="20" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+					
+					<div class="form-actions">
+						<button id="submit-btn" class="btn btn-primary" type="button">
+							<i class="icon-ok bigger-110"></i>
+							저장
+						</button>
 
-									&nbsp; &nbsp; &nbsp;
-									<button id="cancel-btn" class="btn btn-inverse" type="button">
-										<i class="icon-undo bigger-110"></i>
-										취소
-									</button>
-									&nbsp; &nbsp; &nbsp;
-									<button id="delete-btn" class="btn btn-danger" type="button">
-										<i class="icon-remove-sign bigger-110"></i>
-										삭제
-									</button>
-								</div>
-							</form>
-						</div><!--/.span-->
-					</div><!--/.row-fluid-->
-				</div><!--/.page-content-->
-			</div><!--/.main-content-->
+						&nbsp; &nbsp; &nbsp;
+						<button id="cancel-btn" class="btn btn-inverse" type="button">
+							<i class="icon-undo bigger-110"></i>
+							취소
+						</button>
+						&nbsp; &nbsp; &nbsp;
+						<button id="delete-btn" class="btn btn-danger" type="button">
+							<i class="icon-remove-sign bigger-110"></i>
+							삭제
+						</button>
+					</div>
+				</form>
+			</div><!--/.span-->
+		</div><!--/.row-fluid-->
+	</div><!--/.page-content-->
+</div><!--/.main-content-->
 			
 <form id="delete-form" method="post" action="delete.do">
 	<input type="hidden" name="contents_id" value="${data.CONTENTS_ID }">

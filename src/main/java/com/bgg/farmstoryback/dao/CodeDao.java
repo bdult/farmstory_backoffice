@@ -35,6 +35,10 @@ public class CodeDao extends SqlSessionDaoSupport {
 	public List<Map> locationCodeList() {
 		return getSqlSession().selectList("codeQuery.locationCodeList");
 	}
+	
+	public List<Map> boardContentsCategoryList() {
+		return getSqlSession().selectList("codeQuery.boardContentsCategoryList");
+	}
 
 	public int totalCount(Map pageInfo) {
 		return (Integer)getSqlSession().selectOne("codeQuery.totalCount", pageInfo);
@@ -52,5 +56,7 @@ public class CodeDao extends SqlSessionDaoSupport {
 	public void modify(Map<String, String> parameter) {
 		getSqlSession().update("codeQuery.modify", parameter);
 	}
+
+
 
 }

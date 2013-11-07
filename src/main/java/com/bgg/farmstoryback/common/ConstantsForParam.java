@@ -44,6 +44,7 @@ public class ConstantsForParam {
 	public static final String CHILD_BIR_MONTH = "birth_month";
 	public static final String CHILD_BIR_DAY = "birth_day";
 	
+	public static final String CONTENTS_DETAIL_IDX = "contents_detail_idx";
 	public static final String CONTENTS_ID = "contents_id";
 	public static final String ORDERING_NO = "ordering_no";
 	public static final String DISPLAY_LINK_URL = "link_url";
@@ -58,5 +59,9 @@ public class ConstantsForParam {
 	public static final String CONTENTS_DESC = "contents_desc";
 	public static final String CATEGORY_LIST = "category_list";
 	public static final String CONTENTS_DETAIL_LIST = "contents_detail_list";
+	public static final String CONTENTS_CODE = "contents_code";
+	public static final String EVENT_START_DT = "event_start_dt";
+	public static final String EVENT_END_DT = "event_end_dt";
+	public static final String SUB_CONTENTS = "sub_contents";
 	
 }

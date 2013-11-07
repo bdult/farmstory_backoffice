@@ -56,25 +56,25 @@
 					</select>
 					 -->
 					<div class="span10">
-						<input class="input-xxlarge" name="search" type="text" placeholder="검색어를 입력하세요">
+						<input class="input-xxlarge" name="search" type="text" value="${ pageInfo.search }" placeholder="검색어를 입력하세요">
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
 					<div class="span2 text-right">카테고리</div>
 					<div class="span2">
-						<select name="category_id" class="span12">
+						<select id="selectCategoryBox" name="category_id" class="span12">
 							<option value="">전체</option>
 							<c:forEach items="${ categoryList }" var="obj">
-								<option value="${ obj.CATE_ID }">${ obj.name }</option>
+								<option <c:if test="${ obj.CATE_ID eq pageInfo.category_id }">selected</c:if> value="${ obj.CATE_ID }">${ obj.name }</option>
 							</c:forEach>
 						</select>
 					</div>
 					<div class="span1 text-right">출판사</div>
 					<div class="span2">
-						<select id="brandSelectBox" name="brand_id" class="span12">
+						<select id="selectBrandBox" name="brand_id" class="span12">
 							<option value="">전체</option>
 							<c:forEach items="${ brandList }" var="obj">
-								<option value="${ obj.BRAND_ID }">${ obj.BRAND_NM }</option>
+								<option <c:if test="${ obj.BRAND_ID eq pageInfo.brand_id }">selected</c:if> value="${ obj.BRAND_ID }" >${ obj.BRAND_NM }</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -82,8 +82,6 @@
 					<div class="span2">
 						<select name="member_role" class="span12">
 							<option value="">전체</option>
-							<option value="0">무료회원</option>
-							<option value="1">유료회원</option>
 						</select>
 					</div>
 				</div>
@@ -91,12 +89,12 @@
 					<div class="span2 text-right">등록일자</div>
 					<div class="span5">
 						<div class="input-append ">
-							<input class="span10" name="search_start_date" id="start_date" type="text" data-date-format="yyyy-mm-dd"> 
+							<input class="span10" name="search_start_date" id="start_date" type="text" data-date-format="yyyy-mm-dd" value="${ pageInfo.search_start_date }"> 
 							<span class="add-on start_date"><i class="icon-calendar"></i></span>
 						</div>
 						~
 						<div class="input-append">
-							<input class="span10" name="search_end_date" id="end_date" type="text" data-date-format="yyyy-mm-dd"> 
+							<input class="span10" name="search_end_date" id="end_date" type="text" data-date-format="yyyy-mm-dd" value="${ pageInfo.search_end_date }"> 
 							<span class="add-on end_date"><i class="icon-calendar"></i></span>
 						</div>
 					</div>
@@ -104,15 +102,13 @@
 					<div class="span2">
 						<select name="member_role" class="span12">
 							<option value="">전체</option>
-							<option value="0">무료회원</option>
-							<option value="1">유료회원</option>
 						</select>
 					</div>
 				</div>
 				<div class="row-fluid">
 					<div class="span2 text-right">노출여부</div>
 					<div class="span3">
-						<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+						<div id="displayBox" class="radio-inline" data-display-yn="${ pageInfo.display_yn }">
 							<label>
 								<input name="display_yn" type="radio" class="ace" value="" checked>
 								<span class="lbl"> 전체 </span>
@@ -227,6 +223,7 @@ $(function(){
 		$("#side-contents-contents").addClass("active");
 		$("#side-contents").addClass("open active");
 		
+		//검색 시작일 초기화
 		$('#start_date').datepicker();
 		$('span.start_date')
 			.click(function(){
@@ -236,6 +233,7 @@ $(function(){
 				$(this).css("cursor", "pointer");
 			});
 
+		//검색 종료일 초기화
 		$('#end_date').datepicker();
 		$('span.end_date')
 			.click(function(){
@@ -245,13 +243,22 @@ $(function(){
 				$(this).css("cursor", "pointer");
 			});
 		
+		console.info("pageInfo ${ pageInfo }");
+		
+		var $displayBox = $("#displayBox");
+		var displayYn = $displayBox.data("displayYn");
+		$displayBox.find(":radio").each(function(){
+			var $this = $(this);
+			if( $this.val() == displayYn ) {
+				$this.prop("checked", true);
+			}
+		});
 		
 	}//init
 	
 	{//event
 
-		$("#brandSelectBox").change(function(){
-			console.info("aa");
+		$("#selectBrandBox").change(function(){
 			$.getJSON("${ contextPath }/", function( data ) {
 				var items = [];
 				$.each( data, function( key, val ) {

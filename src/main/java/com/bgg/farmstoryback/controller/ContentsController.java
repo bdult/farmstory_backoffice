@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
@@ -49,33 +50,34 @@ public class ContentsController {
 	private FileUtil fileUtil;
 	
 	@RequestMapping(value = "contents/manage.do")
-	public String manage(Model model,  @RequestParam Map parameter) {
+	public String manage(Model model,  @RequestParam Map reqParamMap) {
 		
 		model.addAttribute("categoryList", cateService.list());
 		model.addAttribute("brandList", brandService.listAll());
 		
-		Map pageInfo = pageUtil.pageLink(contentsService.totalCount(parameter), parameter);
+		Map pageInfo = pageUtil.pageLink(contentsService.totalCount(reqParamMap), reqParamMap);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("pageList", pageInfo.get("pageList"));
 		model.addAttribute("list", contentsService.list(pageInfo));
 		return "contents/manage";
 	}
-//	
-//	
-//	@RequestMapping(value = "contents/detail.do")
-//	public String detail(Model model, @RequestParam Map parameter) {
-//		Map contentsDetail =  contentsService.detail((String)parameter.get("contents_id"));
+	
+	
+	@RequestMapping(value = "contents/detail.do")
+	public String detail(Model model, @RequestParam Map reqParamMap) {
+		Map contentMap =  contentsService.detail(reqParamMap);
+		
+		//출판사
 //		model.addAttribute("cateList", cateService.listByLevel(1));
-//		model.addAttribute("contentsCateList", contentsService.contentsCateList(parameter));
-//		model.addAttribute("data", contentsDetail);
-//		if((String)parameter.get("pageNum") == null){
-//			model.addAttribute("pageNum", 1);
-//		}else{
-//			model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
-//		}
-//		return "contents/info";
-//	}
-//	
+		
+		//시리즈
+//		model.addAttribute("cateList", cateService.listByLevel(1));
+		
+		model.addAttribute("contentInfo", contentMap.get(ConstantsForResponse.CONTENTS_INFO));
+		model.addAttribute("detailList", contentMap.get(ConstantsForResponse.CONTENTS_DETAIL_LIST));
+		return "contents/info";
+	}
+	
 //	@RequestMapping(value = "contents/modify.do")
 //	public String modify(Model model, @RequestParam Map<String,String> parameter) {
 //		if(parameter.get("contents_id") == null || parameter.get("contents_id").equals("")){
@@ -87,18 +89,13 @@ public class ContentsController {
 //		}
 //	}
 //	
-//	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
-//	public String createView(Model model) {
-//		
-//		// 컨텐츠 생성시 미리 DB 에 ROW 를 추가후 변경하는 걸로
-//		String contentsId = contentsService.createTemp();
-//		Map contentsDetail =  contentsService.detail(contentsId);
-//		
-//		// 카테고리 변경 시 필요한 카테고리 리스트
-//		model.addAttribute("cateList", cateService.listByLevel(1));
-//		model.addAttribute("data", contentsDetail);
-//		return "contents/info";
-//	}
+	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
+	public String createView(Model model) {
+		
+		// 카테고리 변경 시 필요한 카테고리 리스트
+		model.addAttribute("categoryList", cateService.listByLevel(1));
+		return "contents/createView";
+	}
 //	
 //	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
 //	public String createdb(Model model, @RequestParam Map<String,String> parameter) {

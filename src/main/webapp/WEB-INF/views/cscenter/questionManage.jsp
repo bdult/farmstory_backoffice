@@ -42,11 +42,9 @@
    								<label class="control-label">검색</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>전체</option>
+									  <option>작성자</option>
+									  <option>제목</option>
 									</select>
 								</div>
 							</div>
@@ -61,11 +59,9 @@
    								<label class="control-label">처리여부</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>전체</option>
+									  <option>미처리</option>
+									  <option>처리완료</option>
 									</select>
 								</div>
 							</div>
@@ -81,14 +77,14 @@
     							<div class="controls">
     								<div class="span6">
 										<div class="input-append">
-											<input class="date-picker-1 input-medium" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
-											<input class="date-picker-2 input-medium" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
@@ -109,14 +105,11 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large" href="#">검색</a>
+							<a class="btn btn-info input-large">검색</a>
 						</div>
 					</div>
 				</form>
 				
-			<div class="table-header" align="right">
-				<a class="btn btn-info btn-success" href="${ contextPath }/">추가</a>
-			</div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -130,14 +123,19 @@
 				</thead>
 				
 				<tbody>
-				<c:forEach var="userlist" items="${positionList}" varStatus="status">
+				<c:forEach var="questionList" items="${ questionList }" varStatus="status">
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.CONTENTS_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.MEMBER_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.TITLE }</a></td>
+						<td>${ questionList.REG_DT }</td>
+						<td>${ questionList.COMMENT_REG_DT }</td>
+						<td>
+							<c:choose>
+								<c:when test="${ questionList.COMMENT_YN eq 'Y' }">처리완료</c:when>
+								<c:otherwise>미완료</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -184,9 +182,14 @@
 
 <script type="text/javascript">
 jQuery(function($){
-	$('.date-picker-1').datepicker();
-	$('.date-picker-2').datepicker();
+	$('#date-picker-first').datepicker();
+	$('#date-picker-last').datepicker();
 });
+
+//side active
+$("#side-cscenter").addClass("open active");
+	$("#side-cscenter-question").addClass("active");
+
 	function getTimeStamp(type) {
 
 		var mydate = new Date();
