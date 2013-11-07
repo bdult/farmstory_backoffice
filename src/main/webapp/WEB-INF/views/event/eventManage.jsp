@@ -53,11 +53,9 @@
    								<label class="control-label">이벤트상태</label>
     							<div class="controls">
 									<select class="span12">
-									  <option>1</option>
-									  <option>2</option>
-									  <option>3</option>
-									  <option>4</option>
-									  <option>5</option>
+									  <option>전체</option>
+									  <option>진행중</option>
+									  <option>준비중</option>
 									</select>
 								</div>
 							</div>
@@ -91,8 +89,8 @@
 				<tbody>
 				<c:forEach var="eventList" items="${ eventList }" varStatus="status">
 					<tr>
-						<td><a href="${ contextPath }/event/eventManage.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.CONTENTS_ID }</a></td>
-						<td><a href="${ contextPath }/event/eventManage.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.TITLE }</a></td>
+						<td><a href="${ contextPath }/event/eventInfo.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.CONTENTS_ID }</a></td>
+						<td><a href="${ contextPath }/event/eventInfo.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.TITLE }</a></td>
 						<td>${ eventList.DETAIL_CONTENTS_CODE }</td>
 						<td>${ eventList.EVENT_START_DT } ~ ${ eventList.EVENT_END_DT }</td>
 						<td>${ eventList.REG_DT }</td>

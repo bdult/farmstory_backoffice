@@ -47,7 +47,34 @@ public class EventController {
 	
 	@RequestMapping(value = "event/eventInfo.do")
 	public String eventInfo(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
 		
 		return "event/eventInfo";
+	}
+	
+	@RequestMapping(value = "event/eventCreateContents.do")
+	public String eventCreateContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		paramMap.put("board_id", "2");
+		boardService.addContents(paramMap);
+		
+		return "redirect:/event/eventManage.do";
+	}
+	
+	@RequestMapping(value = "event/eventModifyContents.do")
+	public String eventModifyContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		boardService.modifyContents(paramMap);
+		
+		return "redirect:/event/eventManage.do";
+	}
+	
+	@RequestMapping(value = "event/eventDeleteContents.do")
+	public String eventDeleteContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		boardService.deleteContents(paramMap);
+		
+		return "redirect:/event/eventManage.do";
 	}
 }

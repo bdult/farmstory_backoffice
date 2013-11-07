@@ -52,6 +52,9 @@
 			<div class="span12 form-horizontal">
 						<form id="create-form" method="get" class="form-horizontal" >
 							<input type="hidden" name="member_id" value="${ login_session.MEMBER_ID }">
+							<c:if test="${ contentsList.CONTENTS_ID ne null }">
+								<input type="hidden" name="board_contents_id" value="${ contentsList.CONTENTS_ID }">
+							</c:if>
 							
 							<div class="control-group">
 								<label class="control-label">제목</label>
@@ -126,6 +129,26 @@
 		</div>
 	</div>
 	
+</div>
+
+
+<!--  thumbnail modal -->
+<div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">썸네일 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="thumbnail-upload-input" name="file" />
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
 </div>
 
 <script type="text/javascript">
