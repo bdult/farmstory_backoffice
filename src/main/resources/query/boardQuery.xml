@@ -24,7 +24,10 @@
 					, BBC.TITLE
 					, BBC.REG_DT
 					, BBC.CONTENTS_CODE
+					, BBC.EVENT_START_DT
+					, BBC.EVENT_END_DT
 					, BBC.SUB_CONTENTS
+					, BBC.HITS
 					, BBC.STATUS
 					, CASE (STATUS)
 						WHEN 0 THEN '준비중'  
@@ -64,6 +67,9 @@
 					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
 				</if>
 				ORDER BY BBC.CONTENTS_ID ASC
+				<if test="startNo != null and perPage != null">
+					LIMIT #{startNo}, #{perPage}
+				</if>
 			) t, ( SELECT @RNUM := 0 ) R
 		ORDER BY @RNUM DESC	
 	</select>
@@ -101,6 +107,7 @@
 			, BBC.CONTENTS
 			, BBC.CONTENTS_CODE
 			, BBC.SUB_CONTENTS
+			, BBC.HITS
 			, CASE (CONTENTS_CODE)
 						WHEN 0 THEN '준비'  
 						WHEN 1 THEN '진행중'  

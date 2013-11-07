@@ -76,17 +76,20 @@ public class BoardServiceTest {
 	}
 	
 	@Test
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testBoardContentsList() {
 		
 		// given 
 		setBoardInfo();
+		requestParamMap.put(ConstantsForParam.PAGE_START_NO, 1);
+		requestParamMap.put(ConstantsForParam.PAGE_PER_PAGE, 10);
 
 		// when
 		List<Map> boardContentsList = boardService.contentsListByBoardId(requestParamMap);
 
 		// then
 		assertThat(boardContentsList.size(), is(not(0)));
+		assertTrue(boardContentsList.size() <= 10);
 
 	}
 
@@ -181,6 +184,7 @@ public class BoardServiceTest {
 
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testDeleteBoardContents() {
 		
@@ -284,7 +288,7 @@ public class BoardServiceTest {
 	}
 	
 	@Test
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void deleteComment() {
 		
 		// given 
@@ -317,9 +321,6 @@ public class BoardServiceTest {
 		assertThat(boardContentsCategoryList.size(), is(not(0)));
 
 	}
-
-	
-	
 	
 	public void testContentsTtotalCount() {
 		

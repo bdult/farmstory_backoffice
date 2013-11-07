@@ -19,10 +19,6 @@ public class SeriesService {
 	@Autowired
 	private SeriesDao seriesDao;
 	
-	public List<Map> listByBrandId(Map requestParamMap) {
-		return seriesDao.listByBrandId(requestParamMap);
-	}
-
 	public List top(int limitCount) {
 		Map pageInfo = new HashMap();
 		pageInfo.put(ConstantsForParam.PAGE_START_NO, 1);
