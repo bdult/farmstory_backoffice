@@ -98,11 +98,32 @@
 <script>
 $(function(){
 	
-	//사이드바 활성화
-	$("#side-display-contents").addClass("active");
-	$("#side-display").addClass("open active");
+	{//init
+
+		//사이드바 활성화
+		$("#side-display-contents").addClass("active");
+		$("#side-display").addClass("open active");
+		
+	}//init
 	
-	{//체크박스 전체 선택/해제 이벤트
+	{//event
+		
+		//노출 카테고리 이벤트
+		var $categoryBox = $("#categoryBox");
+		$categoryBox
+			.find("option").each(function(){
+				var $this = $(this);
+				var cateId = $categoryBox.data("parameter");
+				if( $this.val() == cateId ) {
+					$this.prop("selected", true );
+				}
+			})
+			.end()
+			.change(function(){
+				window.location.href = "${ contextPath }/display/contents/manageView.do?category_id=" + $categoryBox.val();
+			});
+		
+		//체크박스 전체 선택/해제 이벤트
 		$("input[name=cb_all]").click( function(){
 			
 			// false is default value 
@@ -123,10 +144,8 @@ $(function(){
 			}
 			
 		});
-	}//체크박스 전체 선택/해제 이벤트
-	
-	{//순서적용 이벤트
-		
+
+		//순서적용 이벤트
 		$("#orderUpdateBtn").click(function(){
 			var $checkedList = $("input[name='cb']:checked");
 			
@@ -169,23 +188,8 @@ $(function(){
 			}
 			
 		});
-		
-	}//순서적용 이벤트
+	}//event
 	
-	//노출 카테고리 이벤트
-	var $categoryBox = $("#categoryBox");
-	$categoryBox
-		.find("option").each(function(){
-			var $this = $(this);
-			var cateId = $categoryBox.data("parameter");
-			if( $this.val() == cateId ) {
-				$this.prop("selected", true );
-			}
-		})
-		.end()
-		.change(function(){
-			window.location.href = "${ contextPath }/display/contents/manageView.do?category_id=" + $categoryBox.val();
-		});
 });
 </script>
 

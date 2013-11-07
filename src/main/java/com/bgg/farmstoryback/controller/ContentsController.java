@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
+import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.CategoryService;
 import com.bgg.farmstoryback.service.ContentsService;
 import com.mysql.jdbc.StringUtils;
@@ -36,6 +37,9 @@ public class ContentsController {
 	private CategoryService cateService;
 	
 	@Autowired
+	private BrandService brandService;
+	
+	@Autowired
 	private JsonResponseMaker jsonMaker;
 	
 	@Autowired
@@ -46,11 +50,14 @@ public class ContentsController {
 	
 	@RequestMapping(value = "contents/manage.do")
 	public String manage(Model model,  @RequestParam Map parameter) {
-//		
-//		Map pageInfo = pageUtil.pageLink(contentsService.totalCount(parameter), parameter);
-//		model.addAttribute("pageInfo", pageInfo);
-//		model.addAttribute("pageList", pageInfo.get("pageList"));
-//		model.addAttribute("list", contentsService.list(pageInfo));
+		
+		model.addAttribute("categoryList", cateService.list());
+		model.addAttribute("brandList", brandService.listAll());
+		
+		Map pageInfo = pageUtil.pageLink(contentsService.totalCount(parameter), parameter);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("pageList", pageInfo.get("pageList"));
+		model.addAttribute("list", contentsService.list(pageInfo));
 		return "contents/manage";
 	}
 //	
