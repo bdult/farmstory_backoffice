@@ -88,7 +88,7 @@
 						<th>당첨발표</th>
 					</tr>
 				</thead>
-				
+				${ eventList }
 				<tbody>
 				<c:forEach var="eventList" items="${ eventList }" varStatus="status">
 					<tr>
