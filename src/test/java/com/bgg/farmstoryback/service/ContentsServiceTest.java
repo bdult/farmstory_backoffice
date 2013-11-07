@@ -463,6 +463,26 @@ public class ContentsServiceTest {
 		logger.info("{}", contentsDetailList);
 
 	}
+	
+	@Test
+	public void testTotalCoutn() {
+		
+		// given 
+		String contenstName = "안녕";
+		requestParamMap.put(ConstantsForParam.CONTENTS_NAME, contenstName);
+				
+		
+		// when
+		int contentsTotalCountByName = contentsService.totalCount(requestParamMap);
+		
+		requestParamMap.put(ConstantsForParam.CONTENTS_NAME, null);
+		int contentsTotalCountAll = contentsService.totalCount(requestParamMap);
+
+		// then
+		assertThat(contentsTotalCountByName, is(not(0)));
+		assertThat(contentsTotalCountAll, is(not(0)));
+
+	}
 
 	@SuppressWarnings({ "rawtypes", })
 	private void assertContentList(List<Map> contentsList) {

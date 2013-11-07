@@ -90,6 +90,12 @@ public class BoardServiceTest {
 		// then
 		assertThat(boardContentsList.size(), is(not(0)));
 		assertTrue(boardContentsList.size() <= 10);
+		Map boardContentsInfo = boardContentsList.get(0);
+		assertThat(boardContentsInfo, is(notNullValue()));
+		assertThat(boardContentsInfo.get(ConstantsForDb.STATUS), is(notNullValue()));
+		assertThat(boardContentsInfo.get(ConstantsForDb.TITLE), is(notNullValue()));
+		assertThat(boardContentsInfo.get(ConstantsForDb.STATUS_DESC), is(notNullValue()));
+		assertThat(boardContentsInfo.get(ConstantsForDb.REG_DT), is(notNullValue()));
 
 	}
 
@@ -120,11 +126,15 @@ public class BoardServiceTest {
 		String boardContentsType = "BOT002";
 		String testEvent_start_dt = "2013-10-31";
 		String testEvent_end_dt = "2013-11-31";
+		String testSubContents = "당첨자 발표 목록 입니다."; 
+		long testStatus = 1; 
 		requestParamMap.put(ConstantsForParam.CONTENTS, testModifyContents);
 		requestParamMap.put(ConstantsForParam.TITLE, testModifyTitle);
 		requestParamMap.put(ConstantsForParam.CONTENTS_CODE, boardContentsType);
 		requestParamMap.put(ConstantsForParam.EVENT_START_DT, testEvent_start_dt);
 		requestParamMap.put(ConstantsForParam.EVENT_END_DT, testEvent_end_dt);
+		requestParamMap.put(ConstantsForParam.SUB_CONTENTS, testSubContents);
+		requestParamMap.put(ConstantsForParam.STATUS, testStatus);
 		
 		// when
 		boardService.modifyContents(requestParamMap);
@@ -140,6 +150,8 @@ public class BoardServiceTest {
 		assertTrue(boardDetail.get(ConstantsForDb.CONTENTS_CODE).equals(boardContentsType));
 		assertTrue(boardDetail.get(ConstantsForDb.EVENT_START_DT).equals(testEvent_start_dt));
 		assertTrue(boardDetail.get(ConstantsForDb.EVENT_END_DT).equals(testEvent_end_dt));
+		assertTrue((Long)boardDetail.get(ConstantsForDb.STATUS) == testStatus);
+		assertTrue(boardDetail.get(ConstantsForDb.SUB_CONTENTS).equals(testSubContents));
 	}
 	
 	@Test
@@ -156,6 +168,7 @@ public class BoardServiceTest {
 		String testEvent_start_dt = "2013-10-31";
 		String testEvent_end_dt = "2013-11-31";
 		String testSubContents = "당첨자 발표 목록 입니다."; 
+		long testStatus = 1; 
 		requestParamMap.put(ConstantsForParam.CONTENTS, testAddContents);
 		requestParamMap.put(ConstantsForParam.TITLE, testAddTitle);
 		requestParamMap.put(ConstantsForParam.MEMBER_ID, testAddMemberId);
@@ -163,6 +176,8 @@ public class BoardServiceTest {
 		requestParamMap.put(ConstantsForParam.EVENT_START_DT, testEvent_start_dt);
 		requestParamMap.put(ConstantsForParam.EVENT_END_DT, testEvent_end_dt);
 		requestParamMap.put(ConstantsForParam.SUB_CONTENTS, testSubContents);
+		requestParamMap.put(ConstantsForParam.SUB_CONTENTS, testSubContents);
+		requestParamMap.put(ConstantsForParam.STATUS, testStatus);
 
 		// when
 		boardService.addContents(requestParamMap);
@@ -181,6 +196,7 @@ public class BoardServiceTest {
 		assertTrue(contentsDetail.get(ConstantsForDb.EVENT_START_DT).equals(testEvent_start_dt));
 		assertTrue(contentsDetail.get(ConstantsForDb.EVENT_END_DT).equals(testEvent_end_dt));
 		assertTrue(contentsDetail.get(ConstantsForDb.SUB_CONTENTS).equals(testSubContents));
+		assertTrue((Long)contentsDetail.get(ConstantsForDb.STATUS) == testStatus);
 
 	}
 	
