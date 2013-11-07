@@ -108,6 +108,7 @@
 			, BBC.CONTENTS_CODE
 			, BBC.SUB_CONTENTS
 			, BBC.HITS
+			, BBC.IMG_PATH
 			, CASE (BBC.STATUS)
 				WHEN 0 THEN '준비'  
 				WHEN 1 THEN '진행중'  
