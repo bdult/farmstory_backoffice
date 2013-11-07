@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
+import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.dao.ContentsDao;
 import com.mysql.jdbc.StringUtils;
 
@@ -43,10 +45,51 @@ public class ContentsService {
 	}
 	
 	/**
-	 * 컨텐츠 상세
+	 * 
+	 * 
+	 * @param requestParamMap
+	 * @return
+	 * contentsInfo = {
+	 * 	REG_DT=2013-11-06 15:43:45.0, 
+	 * 	CONTENTS_SERIES_NM=Little Baby PictureBook, 
+	 * 	BRAND_NM=한국삐아제, 
+	 * 	BRAND_ID=138, 
+	 * 	PREFIX_URL=http://115.71.237.215/, 
+	 * 	SRC_PATH=temp/temp.mp4, 
+	 * 	IMG_PATH=temp/temp.gif, 
+	 * 	CONTENTS_SERIES_ID=48, 
+	 * 	CONTENTS_ID=1339
+	 * }
+	 * 
+	 * detailList = [
+	 *  	{
+	 *  		LOCATION_CODE=kr, 
+	 *  		REG_DT=2013-11-06 15:43:45.0, 
+	 *  		CONTENTS_DESC=addContentsDesc01,
+	 *  		DISPLAY_YN=N, 
+	 *  		DETAIL_IDX=345, 
+	 *  		CONTENTS_NM=addContentsName01 
+	 *  		contentsCateList=[{CATE_NM=English, REG_DT=2013-11-06 15:43:45.0, CATE_ID=32}, {CATE_NM=Mathmatics, REG_DT=2013-11-06 15:43:45.0, CATE_ID=38}], 
+	 * 		}
+	 *  ]
 	 */
-	public Map detail(String contents_id) {
-		return conDao.detail(contents_id);
+	@SuppressWarnings("unchecked")
+	public Map detail(Map requestParamMap) {
+		Map detailInfo = new HashMap();
+		
+		// make contents info
+		Map contentsInfo = conDao.contentsInfo(requestParamMap);
+		detailInfo.put(ConstantsForResponse.CONTENTS_INFO, contentsInfo);
+		
+		// make contents detail List
+		List<Map> contentsDetailList = conDao.contentsDetailList(requestParamMap);
+		for(Map contentsDetail : contentsDetailList){
+			long contentsDetailIdx = (Long)contentsDetail.get(ConstantsForDb.CONTENTS_IDX);
+			contentsDetail.put(ConstantsForResponse.CONTENTS_CATE_LIST, conDao.contentsCateList(contentsDetailIdx));
+		}
+		detailInfo.put(ConstantsForResponse.CONTENTS_DETAIL_LIST, contentsDetailList);
+		
+		return detailInfo;
 	}
 	
 	public String create(Map parameter) {
@@ -54,9 +97,6 @@ public class ContentsService {
 		return null;
 	}
 	
-	
-
-
 	public int totalCount(Map parameter) {
 		return conDao.totalCount(parameter);
 	}
@@ -86,10 +126,50 @@ public class ContentsService {
 
 	public void addContents(Map contentsInfo) {
 		// insert contents
+		conDao.addContentsInfo(contentsInfo);
 		
-		// insert contents detail
+		for(Map contentsDetail : (List<Map>)contentsInfo.get(ConstantsForParam.CONTENTS_DETAIL_LIST)){
+			// insert contents detail
+			contentsDetail.put(ConstantsForParam.CONTENTS_ID, contentsInfo.get(ConstantsForParam.CONTENTS_ID));
+			conDao.addContentsDetailInfo(contentsDetail);
+			// insert cate-contents relationship
+			for(Map contentsCate : (List<Map>)contentsDetail.get(ConstantsForParam.CATEGORY_LIST)){
+				contentsCate.put(ConstantsForParam.CONTENTS_DETAIL_IDX, contentsDetail.get(ConstantsForParam.CONTENTS_DETAIL_IDX));
+				conDao.addContentsCate(contentsCate);
+			}
+		}
 		
-		// insert cate-contents relationship
+	}
+
+	public void modifyContents(Map contentsInfo) {
+		conDao.modifyContentsInfo(contentsInfo);
+		
+		for(Map contentsDetail : (List<Map>)contentsInfo.get(ConstantsForParam.CONTENTS_DETAIL_LIST)){
+			// update contents detail
+			conDao.modifyContentsDetailInfo(contentsDetail);
+			// update cate-contents relationship
+			// delete > insert
+			for(Map contentsCate : (List<Map>)contentsDetail.get(ConstantsForParam.CATEGORY_LIST)){
+				contentsCate.put(ConstantsForParam.CONTENTS_DETAIL_IDX, contentsDetail.get(ConstantsForParam.CONTENTS_DETAIL_IDX));
+				conDao.deleteContentsCate(contentsCate);
+				conDao.addContentsCate(contentsCate);
+			}
+		}
+		
+	}
+
+	public void delete(Map requestParamMap) {
+		// 동영상 및 이미지 삭제 정책이 결정되지 않아 DB 만 삭제
+		
+		// 아래의 delete 순서는 바뀌면 error 가 발생 할 수 있음
+		// delete contents category 
+		conDao.deleteContentsCateByContentsIs(requestParamMap);
+		
+		// delete contents detail
+		conDao.deleteContentsDetail(requestParamMap);
+		
+		// delete contents
+		conDao.deleteContents(requestParamMap);
 		
 	}
 	

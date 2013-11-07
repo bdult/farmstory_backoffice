@@ -89,11 +89,14 @@ public class BoardService {
 		boardDao.deleteContents(requestParamMap);
 	}
 
+	public int contentsTotalCount(Map requestParamMap) {
+		return boardDao.contentsTotalCount(requestParamMap);
+	}
+	
 	public List<Map> categoryList() {
 		return codeService.boardContentsCategoryList();
 	}
 
-	
 
 //	public void createMaster(Map boardInfo) {
 //		boardDao.create(boardInfo);
@@ -129,7 +132,4 @@ public class BoardService {
 //	}
 	
 
-	public int contentsTotalCount(Map requestParamMap) {
-		return boardDao.contentsTotalCount(requestParamMap);
-	}
 }

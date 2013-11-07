@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
 
 
@@ -48,15 +49,16 @@ public class SeriesServiceTest {
 	public void testSeriesListByBrandId() {
 		
 		// given 
-		int brandId = 137;
+		long brandId = 137;
 		requestParam.put(ConstantsForParam.BRAND_ID, brandId);
 
 		// when
-		List<Map> seriesList = seriesService.listByBrandId(requestParam);
+		List<Map> seriesList = seriesService.list(requestParam);
 
 		// then
 		assertThat(seriesList, is(notNullValue()));
 		assertThat(seriesList.size(), is(not(0)));
+		assertThat((Long)seriesList.get(0).get(ConstantsForDb.BRAND_ID), is(brandId));
 
 	}
 

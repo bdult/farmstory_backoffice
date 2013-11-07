@@ -65,36 +65,110 @@
 	<select id="listByCategory" resultType="hashmap">
 		SELECT /* contenstQuery.listByCategory */
 			A.CONTENTS_ID
-			,A.CONTENTS_NM
+			,BCD.CONTENTS_NM
 			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
 			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
 			, BCCR.ORDERING_NO
-		FROM  BG_CONTENTS A, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
+		FROM  BG_CONTENTS A, BG_CONTENTS_DETAIL BCD, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
 		WHERE 1=1
 		AND DISPLAY_YN = 'Y'
-		AND A.CONTENTS_ID = BCCR.CONTENTS_ID
+		AND A.CONTENTS_ID = BCD.CONTENTS_ID
+		AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
 		AND BCCR.CATE_ID = #{categoryId} 
 		ORDER BY BCCR.ORDERING_NO ASC, A.CONTENTS_ID DESC
 	</select>
 	
-	<!-- 
-	<select id="top" resultType="hashmap">
-		SELECT /* contenstQuery.top */
-			BCD.CONTENTS_NM
-			,BC.CONTENTS_ID
-			,BCD.CONTENTS_DESC
-			,BC.SRC_PATH
-			,BC.IMG_PATH
-			, DATE_FORMAT(BC.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = BC.CONTENTS_SERIES_ID) AS SERIES_NM
-			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = BC.CONTENTS_SERIES_ID)) AS BRAND_NM
-		FROM  BG_CONTENTS BC, BG_CONTENTS_DETAIL BCD
-		WHERE 1=1
-		AND BC.CONTENTS_ID = BCD.CONTENTS_ID
-		ORDER BY BC.CONTENTS_ID DESC
-		LIMIT 0, #{limitCount}
-	</select>
-	 -->
+	<insert id="addContentsInfo" keyProperty="contents_id">
+	    INSERT INTO BG_CONTENTS(
+	    	SRC_PATH
+	    	, IMG_PATH
+	    	, CONTENTS_SERIES_ID
+	    )
+	    VALUES(
+	    	#{movie_path}
+	    	, #{img_path}
+	    	, #{series_id}
+	    )
+	</insert>
+	
+	<insert id="addContentsDetailInfo" keyProperty="contents_detail_idx">
+	    INSERT INTO BG_CONTENTS_DETAIL(
+	    	CONTENTS_ID
+	    	, CONTENTS_NM
+	    	, CONTENTS_DESC
+	    	, DISPLAY_YN
+	    	, LOCATION_CODE
+	    )
+	    VALUES(
+	    	#{contents_id}
+	    	, #{contents_nm}
+	    	, #{contents_desc}
+	    	, #{display_yn}
+	    	, #{location_code}
+	    )
+	</insert>
+	
+	<insert id="addContentsCate" >
+	    INSERT INTO BG_CATE_CONTENTS_RELATIONSHIPS(
+	    	CATE_ID
+	    	, CONTENTS_DETAIL_IDX
+	    )
+	    VALUES(
+	    	#{category_id}
+	    	, #{contents_detail_idx}
+	    )
+	</insert>
+	
+	<update id="modifyContentsInfo">
+	    UPDATE BG_CONTENTS
+	    SET
+	    	SRC_PATH = #{movie_path}
+	    	, IMG_PATH = #{img_path}
+	    	, CONTENTS_SERIES_ID = #{series_id}
+	    	, MOD_DT = now()
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{contents_id}
+	</update>
+	
+	<update id="modifyContentsDetailInfo">
+	    UPDATE BG_CONTENTS_DETAIL
+	    SET 
+	    	CONTENTS_NM  = #{contents_nm}
+	    	, CONTENTS_DESC = #{contents_desc}
+	    	, DISPLAY_YN = #{display_yn}
+	    	, LOCATION_CODE = #{location_code}
+	    	, MOD_DT = now()
+	    WHERE 1=1
+	    AND IDX = #{contents_detail_idx}
+	    
+	</update>
+	
+	<delete id="deleteContentsCate">
+	    DELETE FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    WHERE 1=1
+	    AND CONTENTS_DETAIL_IDX = #{contents_detail_idx}
+	</delete>
+		
+	<delete id="deleteContentsCateByContentsIs">
+	    DELETE FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    WHERE 1=1
+	    AND CONTENTS_DETAIL_IDX in (
+	    	SELECT IDX FROM BG_CONTENTS_DETAIL WHERE CONTENTS_ID = #{contents_id} 
+	    )
+	</delete>
+		
+	<delete id="deleteContentsDetail">
+	    DELETE FROM BG_CONTENTS_DETAIL
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{contents_id}
+	</delete>
+		
+	<delete id="deleteContents">
+	    DELETE FROM BG_CONTENTS
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{contents_id}
+	</delete>	
+	
 	
 	<select id="totalCount" resultType="int">
 		SELECT /* contenstQuery.totalCount */
@@ -106,22 +180,52 @@
 		</if>
 	</select>
 	
-	<select id="detail"  resultType="hashmap">
-		SELECT /* contenstQuery.detail */
-			A.CONTENTS_NM
-			, A.CONTENTS_ID
-			, A.CONTENTS_DESC
-			, A.SRC_PATH
-			, A.IMG_PATH
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-			, A.CONTENTS_SERIES_ID
-			
-			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
-			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
-		FROM  BG_CONTENTS A
-		WHERE CONTENTS_ID = #{contents_id}
-		ORDER BY CONTENTS_ID DESC
+	<select id="contentsInfo" resultType="hashmap">
+	    select 
+			BC.CONTENTS_ID
+			, BC.CONTENTS_SERIES_ID
+			, BC.SRC_PATH
+			, BC.IMG_PATH
+			, BC.PREFIX_URL
+			, BC.REG_DT
+			, BCS.CONTENTS_SERIES_NM
+			, BB.BRAND_ID
+			, BB.BRAND_NM
+		from 
+			BG_CONTENTS BC, BG_CONTENTS_SERIES BCS, BG_BRAND BB 
+		where 1=1
+		and BC.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		and BCS.BRAND_ID = BB.BRAND_ID
+		and BC.CONTENTS_ID = #{contents_id}
 	</select>
+	
+	<select id="contentsDetailList" resultType="hashmap">
+	    select 
+			IDX AS DETAIL_IDX
+			, CONTENTS_NM
+			, CONTENTS_DESC
+			, DISPLAY_YN
+			, LOCATION_CODE
+			, REG_DT
+		from 
+			BG_CONTENTS_DETAIL 
+		where 1=1
+		and CONTENTS_ID = #{contents_id}
+	</select>
+	
+	<select id="contentsCateList" resultType="hashmap">
+	    select 
+			BCCR.CATE_ID
+			, BC.CATE_NM
+			, BCCR.REG_DT
+		from 
+			BG_CATE_CONTENTS_RELATIONSHIPS BCCR,  BG_CATE BC
+		where 1=1
+		and BCCR.CATE_ID = BC.CATE_ID
+		and CONTENTS_DETAIL_IDX = #{detail_idx}
+	</select>
+	
+	
 	
 	<update id="modifyOrderingNo">
 	    UPDATE BG_CATE_CONTENTS_RELATIONSHIPS
@@ -132,6 +236,36 @@
 	</update>
 	
 	<!-- 
+	
+	<select id="detail"  resultType="hashmap">
+		select /* contenstQuery.detail */
+			BC.CONTENTS_ID
+			, BCD.IDX AS DETAIL_IDX
+			, BCD.CONTENTS_NM
+			, BCD.CONTENTS_DESC
+			, BCD.DISPLAY_YN
+			, BCD.LOCATION_CODE
+			, BCS.CONTENTS_SERIES_ID
+			, BCS.CONTENTS_SERIES_NM 
+		    , BB.BRAND_ID
+		    , BB.BRAND_NM
+		    , BCATE.CATE_ID
+		    , BCATE.CATE_NM
+		from 
+			BG_CONTENTS BC
+			, BG_CONTENTS_DETAIL BCD
+			, BG_CONTENTS_SERIES BCS
+			, BG_BRAND BB
+			, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
+			, BG_CATE BCATE
+		where 1=1
+		and BC.CONTENTS_ID = BCD.CONTENTS_ID
+		and BC.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		and BCS.BRAND_ID = BB.BRAND_ID
+		and BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
+		and BCCR.CATE_ID = BCATE.CATE_ID
+		and BC.CONTENTS_ID = 1339
+	</select>
 	<select id="checkContentsCate" resultType="int">
 	    SELECT /* contenstQuery.checkContentsCate */ 
 	    	COUNT(*) 
