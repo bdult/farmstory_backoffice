@@ -51,6 +51,35 @@
 						</li> --%>
 					</ul>
 				</li>
+			<li id="side-display">
+				<a href="#null" class="dropdown-toggle">
+					<i class="icon-file-alt"></i>
+					<span class="menu-text">  전시 관리
+						<span class="badge badge-primary ">3</span> 
+					</span>
+					<b class="arrow icon-angle-down"></b>
+				</a>
+				<ul class="submenu">
+					<li id="side-display-main">
+						<a href="${ contextPath }/display/main/manageView.do">
+							<i class="icon-double-angle-right"></i>
+							메인화면 관리
+						</a>
+					</li>
+					<li id="side-display-contents">
+						<a href="${ contextPath }/display/contents/manageView.do">
+							<i class="icon-double-angle-right"></i>
+							컨텐츠 노출 관리
+						</a>
+					</li>
+					<li id="side-display-popup">
+						<a href="${ contextPath }/display/popup/manageView.do">
+							<i class="icon-double-angle-right"></i>
+							팝업 관리
+						</a>
+					</li>
+				</ul>
+			</li>
 			
 			<li id="side-contents">
 				<a href="#" class="dropdown-toggle">
@@ -122,22 +151,22 @@
 			<li id="side-stats">
 				<a href="#" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 통계 관리
+					<span class="menu-text"> 통계
 						<span class="badge badge-primary ">2</span> 
 					</span>
 					<b class="arrow icon-angle-down"></b>
 				</a>
 				<ul class="submenu">
-					<li id="side-board-master" >
+					<li id="side-stats-setting" >
 						<a href="${contextPath }/stats/setting.do">
 							<i class="icon-double-angle-right"></i>
 							설정
 						</a>
 					</li> 
-					<li id="side-board-board" >
-						<a href="${contextPath }/stats/manage.do">
+					<li id="side-stats-view" >
+						<a href="${contextPath }/stats/view.do">
 							<i class="icon-double-angle-right"></i>
-							통계 조회
+							조회
 						</a>
 					</li>
 				</ul>

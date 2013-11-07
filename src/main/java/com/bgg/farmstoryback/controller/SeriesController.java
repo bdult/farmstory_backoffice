@@ -91,15 +91,6 @@ public class SeriesController {
 		return "{code:ok}";
 	}
 	
-	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody String listAjax(Model model) {
-		List<Map> seriesList = null;
-			seriesList = seriesService.listOfTop();
-//			seriesList = seriesService.listOfChild(id);
-		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
-		logger.info(seriesListJson);
-		return seriesListJson;
-	}
 	
 	@RequestMapping(value = "series/search.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String listAjax(Model model, String series_nm) {

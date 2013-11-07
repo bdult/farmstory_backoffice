@@ -11,8 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -26,15 +24,14 @@ import com.bgg.farmstoryback.common.ConstantsForParam;
 public class BoardServiceTest {
 	
 	
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	
+	@SuppressWarnings("rawtypes")
 	Map requestParamMap = null;
-	
 	
 	@Autowired
 	BoardService boardService;
 
 	@Before
+	@SuppressWarnings("rawtypes")
 	public void setUp() throws Exception {
 		requestParamMap = new HashMap();
 	}
@@ -46,10 +43,10 @@ public class BoardServiceTest {
 	
 	
 	@Test
+	@SuppressWarnings("rawtypes")
 	public void testBoardList() {
 		
 		// given 
-		
 
 		// when
 		List<Map> boardList = boardService.boardList();
@@ -61,6 +58,7 @@ public class BoardServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings("rawtypes")
 	public void testCsBoardList() {
 		
 		// given 
@@ -78,11 +76,11 @@ public class BoardServiceTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes" })
 	public void testBoardContentsList() {
 		
 		// given 
-		int testBoardId = 3;
-		requestParamMap.put(ConstantsForParam.BOARD_ID, testBoardId);
+		setBoardInfo();
 
 		// when
 		List<Map> boardContentsList = boardService.contentsListByBoardId(requestParamMap);
@@ -91,115 +89,272 @@ public class BoardServiceTest {
 		assertThat(boardContentsList.size(), is(not(0)));
 
 	}
-	
+
 	@Test
+	@SuppressWarnings({ "rawtypes" })
 	public void testBoardContentsDetail() {
 		
 		// given 
-		long testBoardContentsId = 149;
-		requestParamMap.put(ConstantsForParam.BOARD_CONTENTS_ID, testBoardContentsId);
+		setBoardContentsInfo();
 
 		// when
 		Map boardDetail = boardService.contentsDeail(requestParamMap);
 
 		// then
 		assertThat(boardDetail, is(notNullValue()));
-		assertThat((Long)boardDetail.get(ConstantsForDb.BOARD_CONTENTS_ID), is(testBoardContentsId));
+
+	}
+	
+	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testModifyBoardContents() {
+		
+		// given 
+		setBoardContentsInfo();
+		
+		String testModifyTitle = "modifyTitle";
+		String testModifyContents = "modifyContents";
+		String boardContentsType = "BOT002";
+		String testEvent_start_dt = "2013-10-31";
+		String testEvent_end_dt = "2013-11-31";
+		requestParamMap.put(ConstantsForParam.CONTENTS, testModifyContents);
+		requestParamMap.put(ConstantsForParam.TITLE, testModifyTitle);
+		requestParamMap.put(ConstantsForParam.CONTENTS_CODE, boardContentsType);
+		requestParamMap.put(ConstantsForParam.EVENT_START_DT, testEvent_start_dt);
+		requestParamMap.put(ConstantsForParam.EVENT_END_DT, testEvent_end_dt);
+		
+		// when
+		boardService.modifyContents(requestParamMap);
+
+		// then
+		Map boardDetail = boardService.contentsDeail(requestParamMap);
+		assertThat(boardDetail, is(notNullValue()));
+		String boardContents = (String)boardDetail.get(ConstantsForDb.CONTENTS);
+		String boardContentsTitle = (String)boardDetail.get(ConstantsForDb.TITLE);
+		
+		assertThat(boardContentsTitle, is(testModifyTitle));
+		assertThat(boardContents, is(testModifyContents));
+		assertTrue(boardDetail.get(ConstantsForDb.CONTENTS_CODE).equals(boardContentsType));
+		assertTrue(boardDetail.get(ConstantsForDb.EVENT_START_DT).equals(testEvent_start_dt));
+		assertTrue(boardDetail.get(ConstantsForDb.EVENT_END_DT).equals(testEvent_end_dt));
+	}
+	
+	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testAddBoardContents() {
+		
+		// given 
+		setBoardInfo();
+		
+		String testAddTitle = "AddTitle";
+		String testAddContents = "AddContents";
+		String testAddMemberId = "master";
+		String boardContentsType = "BOT001";
+		String testEvent_start_dt = "2013-10-31";
+		String testEvent_end_dt = "2013-11-31";
+		String testSubContents = "당첨자 발표 목록 입니다."; 
+		requestParamMap.put(ConstantsForParam.CONTENTS, testAddContents);
+		requestParamMap.put(ConstantsForParam.TITLE, testAddTitle);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testAddMemberId);
+		requestParamMap.put(ConstantsForParam.CONTENTS_CODE, boardContentsType);
+		requestParamMap.put(ConstantsForParam.EVENT_START_DT, testEvent_start_dt);
+		requestParamMap.put(ConstantsForParam.EVENT_END_DT, testEvent_end_dt);
+		requestParamMap.put(ConstantsForParam.SUB_CONTENTS, testSubContents);
+
+		// when
+		boardService.addContents(requestParamMap);
+
+		// then
+		List<Map> boardContentsList = boardService.contentsListByBoardId(requestParamMap);
+		long contentsId = (Long)boardContentsList.get(0).get(ConstantsForDb.CONTENTS_ID);
+		requestParamMap.put(ConstantsForParam.BOARD_CONTENTS_ID, contentsId);
+		
+		
+		Map contentsDetail = boardService.contentsDeail(requestParamMap);
+		assertThat(contentsDetail, is(notNullValue()));
+		assertTrue(contentsDetail.get(ConstantsForDb.TITLE).equals(testAddTitle));
+		assertTrue(contentsDetail.get(ConstantsForDb.CONTENTS).equals(testAddContents));
+		assertTrue(contentsDetail.get(ConstantsForDb.CONTENTS_CODE).equals(boardContentsType));
+		assertTrue(contentsDetail.get(ConstantsForDb.EVENT_START_DT).equals(testEvent_start_dt));
+		assertTrue(contentsDetail.get(ConstantsForDb.EVENT_END_DT).equals(testEvent_end_dt));
+		assertTrue(contentsDetail.get(ConstantsForDb.SUB_CONTENTS).equals(testSubContents));
+
+	}
+	
+	@Test
+	public void testDeleteBoardContents() {
+		
+		// given
+		setBoardContentsInfo();
+
+		// when
+		boardService.deleteContents(requestParamMap);
+
+		// then
+		Map contentsDetail = boardService.contentsDeail(requestParamMap);
+		assertThat(contentsDetail, is(nullValue()));
+		
 
 	}
 	
 	
+	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testBoardContentsCommentList() {
+		
+		// given
+		String testComment ="Comment";
+		String testMemberId = "master";
+		
+		setBoardContentsInfo();
+		requestParamMap.put(ConstantsForParam.COMMENT, testComment);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+		
+		boardService.addComment(requestParamMap);
 
-//	@Test
-//	public void testCreate() {
-//
-//		// given
-//		
-//		Map boardInfo = new HashMap();
-//		boardInfo.put("board_nm", "test");
-//		boardInfo.put("reg_member_id", "test");
-//		boardInfo.put("mod_member_id", "test");
-//		boardService.deleteByName((String)boardInfo.get("board_nm"));
-//
-//		// when
-//		boardService.create(boardInfo);
-//
-//		// then
-//		Map boardDetailInfo = boardService.detail(boardInfo);
-//		assertNotNull(boardDetailInfo);
-//	}
-//	
-//	@Test
-//	public void testList() {
-//
-//		// given
-//		 testCreate();
-//
-//		// when
-//		List<Map> boardList = boardService.list(null);
-//
-//		// then
-//		assertNotNull(boardList);
-//		assertThat(boardList.size(), is(not(0)));
-//	}
-//	
-//	@Test
-//	public void testDelete() {
-//
-//		// given 
-//		Map boardInfo = boardService.boardInfoByName("test");
-//
-//		// when
-//		boardService.delete(boardInfo);
-//
-//		// then
-//		Map boardDetailInfo = boardService.detail(boardInfo);
-//		assertNull(boardDetailInfo);
-//		
-//	}
-//	
-//	@Test
-//	public void testModify() {
-//
-//		// given 
-//		String boardMasterId = null;
-//		List<Map> boardList = boardService.list(null);
-//		Map boardModifyInfo = new HashMap();
-//		if(boardList.size() > 0){
-//			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
-//		}else{
-//			testCreate();
-//			boardList = boardService.list(null);
-//			boardMasterId = ""+boardList.get(0).get("BOARD_ID");
-//		}
-//		
-//		boardModifyInfo.put("board_id", boardMasterId);
-//		boardModifyInfo.put("board_nm", "test_modify");
-//		
-//		// when
-//		boardService.modify(boardModifyInfo);
-//
-//		// then
-//		Map boardDetailInfo = boardService.detail(boardModifyInfo);
-//		assertNotNull(boardDetailInfo);
-//		assertEquals(boardModifyInfo.get("board_nm"), boardDetailInfo.get("BOARD_NM"));
-//		
-//	}
-//	
-//	@Test
-//	public void testTopList() {
-//		
-//		// given 
-//		int limitCount = 5;
-//
-//		// when
-//		List<Map> topList = boardService.top(limitCount);
-//
-//		// then
-//		assertThat(topList, is(notNullValue()));
-//		assertTrue(topList.size() <= limitCount);
-//
-//	}
+		// when
+		List<Map> commentList = boardService.commentList(requestParamMap);
+
+		// then
+		assertThat(commentList, is(notNullValue()));
+		assertThat(commentList.size(), is(not(0)));
+
+	}
+	
+	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void testBoardCommentDetail() {
+		
+		// given 
+		String testComment ="Comment";
+		String testMemberId = "master";
+		
+		setCommentInfo();
+		requestParamMap.put(ConstantsForParam.COMMENT, testComment);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+		
+
+		// when
+		Map commentDetail = boardService.commentDetail(requestParamMap);
+
+		// then
+		assertThat(commentDetail, is(notNullValue()));
+
+	}
+	
+	
+	@Test
+	@SuppressWarnings({ "unchecked" })
+	public void testAddCommnet() {
+		
+		// given
+		setBoardContentsInfo();
+		
+		String testComment ="Comment";
+		String testMemberId = "master";
+		
+		requestParamMap.put(ConstantsForParam.COMMENT, testComment);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+
+		// when
+		boardService.addComment(requestParamMap);
+
+		assertComment(testComment);
+
+	}
+	
+	@Test
+	@SuppressWarnings({ "unchecked" })
+	public void modifyComment() {
+		
+		// given 
+		setCommentInfo();
+		
+		String testComment ="ModifyComment";
+		String testMemberId = "master";
+		requestParamMap.put(ConstantsForParam.COMMENT, testComment);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+
+		// when
+		boardService.modifyComment(requestParamMap);
+
+		// then
+		assertComment(testComment);
+
+	}
+	
+	@Test
+	@SuppressWarnings({ "unchecked" })
+	public void deleteComment() {
+		
+		// given 
+		setCommentInfo();
+		
+		String testMemberId = "master";
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, testMemberId);
+		
+
+		// when
+		boardService.deleteComment(requestParamMap);
+		
+		
+		// then
+		Map commentDetail = boardService.commentDetail(requestParamMap);
+		assertThat(commentDetail, is(nullValue()));
+
+	}
+	
+	@Test
+	public void testBoardContentsCategory() {
+		
+		// given 
+
+		// when
+		List<Map> boardContentsCategoryList = boardService.categoryList();
+
+		// then
+		assertThat(boardContentsCategoryList, is(notNullValue()));
+		assertThat(boardContentsCategoryList.size(), is(not(0)));
+
+	}
+
+	
+	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void setCommentInfo() {
+		setBoardContentsInfo();
+		List<Map> commentList = boardService.commentList(requestParamMap);
+		long commentId = (Long)commentList.get(0).get(ConstantsForDb.COMMENT_ID);
+		requestParamMap.put(ConstantsForParam.COMMENT_ID, commentId);
+	}
+
+	
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void setBoardContentsInfo() {
+		setBoardInfo();
+		List<Map> boardContentsList = boardService.contentsListByBoardId(requestParamMap);
+		long testBoardContentsId = (Long)boardContentsList.get(0).get(ConstantsForDb.BOARD_CONTENTS_ID);
+		requestParamMap.put(ConstantsForParam.BOARD_CONTENTS_ID, testBoardContentsId);
+		requestParamMap.put(ConstantsForParam.MEMBER_ID, (String)boardContentsList.get(0).get(ConstantsForDb.MEMBER_ID));
+		
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void setBoardInfo() {
+		List<Map> boardList = boardService.boardList();
+		long testBoardId = (Long)boardList.get(0).get(ConstantsForDb.BOARD_ID);
+		requestParamMap.put(ConstantsForParam.BOARD_ID, testBoardId);
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	private void assertComment(String testComment) {
+		setCommentInfo();
+		
+		Map commentDetail = boardService.commentDetail(requestParamMap);
+		assertTrue(commentDetail.get(ConstantsForDb.COMMENT).equals(testComment));
+	}
 	
 	
 	

@@ -48,6 +48,21 @@ public class ConstantsForParam {
 	public static final String ORDERING_NO = "ordering_no";
 	public static final String DISPLAY_LINK_URL = "link_url";
 	public static final String TITLE = "title";
-	public static final Object DISPLAY_CODE = "display_code";
+	public static final String DISPLAY_CODE = "display_code";
+	public static final String COMMENT = "comment";
+	public static final String COMMENT_ID = "comment_id";
+	public static final String CONTENTS = "contents";
+	public static final String MOVIE_PATH = "movie_path";
+	public static final String LOCATION_CODE = "location_code";
+	public static final String CONTENTS_NAME = "contents_nm";
+	public static final String CONTENTS_DESC = "contents_desc";
+	public static final String CATEGORY_LIST = "category_list";
+	public static final String CONTENTS_DETAIL_LIST = "contents_detail_list";
+	public static final String CONTENTS_CODE = "contents_code";
+	public static final String EVENT_START_DT = "event_start_dt";
+	public static final String EVENT_END_DT = "event_end_dt";
+	public static final String SUB_CONTENTS = "sub_contents";
+	
+	
 	
 }

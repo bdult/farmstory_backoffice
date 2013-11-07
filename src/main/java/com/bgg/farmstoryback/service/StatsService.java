@@ -18,20 +18,19 @@ public class StatsService {
 	@Autowired
 	private GoogleApiUtil googleApiUtil;
 
-	/** 구글에서 토큰 받아오기
+	/** 구글에서 받은 토큰 저장
 	 * @param code
 	 * @return
 	 */
-	public String getAccessToken(String code) {
-		//구글로 부터 엑세스 토큰 받아오기
-		return googleApiUtil.getAccessToken(code);
+	public int saveAccessToken(String code) {
+		return googleApiUtil.getAccessTokenByGoogle(code);
 	}
 	
-	/** 파일에서 토큰 가져오기
+	/** 파일에서 토큰 읽어오기
 	 * @return
 	 */
 	public String getAccessToken() {
-		return googleApiUtil.getAccessToken();
+		return googleApiUtil.getAccessTokenByFile();
 	}
 
 	public String getCodeUrl() {
@@ -45,12 +44,34 @@ public class StatsService {
 	
 	public GaData getVisitor(String dimension, String startDate, String endDate){
 		
-		return googleApiUtil.getVisitor(dimension, startDate, endDate);
+		GaData result = googleApiUtil.getVisitor(dimension, startDate, endDate);
+		
+		if(result == null){
+			//token 재생성
+			int refreshResult = googleApiUtil.refreshTokenByGoogle();
+			
+			if(refreshResult == 200){
+				result = googleApiUtil.getVisitor(dimension, startDate, endDate);
+			}
+		}
+		
+		return result;
 	}
 	
 	public GaData getAverage(String metrics, String startDate, String endDate){
 		
-		return googleApiUtil.getAverage(metrics, startDate, endDate);
+		GaData result = googleApiUtil.getAverage(metrics, startDate, endDate);
+		
+		if(result == null){
+			//token 재생성
+			int refreshResult = googleApiUtil.refreshTokenByGoogle();
+			
+			if(refreshResult == 200){
+				result = googleApiUtil.getAverage(metrics, startDate, endDate);
+			}
+		}
+		
+		return result;
 	}
 	
 	

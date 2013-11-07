@@ -23,6 +23,15 @@
 					, BBC.MEMBER_ID
 					, BBC.TITLE
 					, BBC.REG_DT
+					, BBC.CONTENTS_CODE
+					, BBC.SUB_CONTENTS
+					, BBC.STATUS
+					, CASE (STATUS)
+						WHEN 0 THEN '준비중'  
+						WHEN 1 THEN '진행중'  
+						WHEN 2 THEN '완료'
+						ELSE '준비중'
+						END  AS DETAIL_CONTENTS_CODE
 					, (SELECT REG_DT  
 						FROM BG_BOARD_COMMENTS 
 					   WHERE CONTENTS_ID = BBC.CONTENTS_ID
@@ -31,7 +40,7 @@
 					, if(
 						(SELECT COUNT(*)
 						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0, 'Y', 'N'
-					  ) AS COMMENT_YN 
+					  ) AS COMMENT_YN
 				FROM BG_BOARD_CONTENTS BBC
 				WHERE 1=1
 				AND BBC.BOARD_ID = #{board_id}
@@ -63,6 +72,17 @@
 	    SELECT /* boardQuery.contentsDetail */
 			BBC.CONTENTS_ID
 			, BBC.TITLE
+			, BBC.CONTENTS
+			, BBC.CONTENTS_CODE
+			, BBC.SUB_CONTENTS
+			, CASE (CONTENTS_CODE)
+						WHEN 0 THEN '준비'  
+						WHEN 1 THEN '진행중'  
+						WHEN 2 THEN '완료'
+			  END  AS DETAIL_CONTENTS_CODE
+			, BBC.EVENT_START_DT
+			, BBC.EVENT_END_DT
+			, BBC.STATUS
 			, BM.MEMBER_ID
 			, BM.MEMBER_NM
 			, BM.MEMBER_EMAIL
@@ -73,115 +93,105 @@
 		AND BBC.CONTENTS_ID = #{board_contents_id}
 	</select>
 	
-	<!-- 
-    
-	<insert id="create" useGeneratedKeys="true"  keyProperty="board_id">
-		INSERT /* boardQuery.create 2013.08.21 최지순 */ 
-		INTO BG_BOARD_MASTER( 
-			BOARD_NM,
-			BOARD_DESC,
-			REG_MEMBER_ID,
-			MOD_DT
-			)
-		VALUES(
-			#{board_nm},
-			#{board_desc},
-			#{reg_member_id},
-			now()
-		)
+	<select id="commentList" resultType="hashmap">
+	    SELECT /* boardQuery.commentList */
+	    	*
+	    FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND DEL_YN = 'N'
+	    AND CONTENTS_ID = #{board_contents_id}
+	    ORDER BY COMMENT_ID DESC
+	</select>
+	
+	<select id="commentDetail" resultType="hashmap">
+	    SELECT /* boardQuery.commentDetail */
+	    	*
+	    FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND DEL_YN = 'N'
+	    AND COMMENT_ID = #{comment_id}
+	</select>
+	
+	<insert id="addComment">
+	    INSERT INTO BG_BOARD_COMMENTS(
+			CONTENTS_ID
+			, MEMBER_ID
+			, COMMENT
+	    )
+	    VALUES(
+			#{board_contents_id}
+			, #{member_id}
+			, #{comment}	    
+	    )
 	</insert>
 	
-	
-	<select id="top" resultType="hashmap">
-		SELECT /* boardQuery.top */
+	<insert id="addContents">
+	    INSERT INTO BG_BOARD_CONTENTS(
 			BOARD_ID
-			, BOARD_NM
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND USE_YN = 'Y'
-		ORDER BY BOARD_ID DESC
-		LIMIT 0, #{limitCount}	
-	</select>
+			, MEMBER_ID
+			, TITLE
+			, CONTENTS
+			, IMG_PATH
+			, CONTENTS_CODE
+			, EVENT_START_DT
+			, EVENT_END_DT
+			, SUB_CONTENTS
+	    )
+	    VALUES(
+	    	#{board_id}
+			, #{member_id}
+			, #{title}
+			, #{contents}	    
+			, #{img_path}	    
+			, #{contents_code}	    
+			, #{event_start_dt}
+			, #{event_end_dt}
+			, #{sub_contents}
+	    )
+	</insert>
 	
-	<select id="searchByName" resultType="hashmap">
-		SELECT /* boardQuery.searchByName 2013.08.21 최지순 */ 
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-		AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
-		ORDER BY BOARD_ID DESC
-	</select>
-	
-	<select id="listByPageNum" resultType="hashmap">
-		SELECT  /* boardQuery.listByPageNum 2013.08.21 최지순 */ 
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'
-		ORDER BY BOARD_ID DESC
-		LIMIT #{startNo}, #{perPage}	
-	</select>
-	
-	<select id="totalCount" resultType="int">
-		SELECT  /* boardQuery.totalCount 2013.08.21 최지순 */  
-			count(*) 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-		<if test="search != null and search != ''">
-			AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
-		</if>
-	</select>
-	
-	<select id="detail" resultType="hashmap">
-		SELECT  /* boardQuery.detail 2013.08.21 최지순 */  
-			* 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND BOARD_ID = #{board_id}
-		AND USE_YN = 'Y'
-	</select>
-	
-	<select id="boardInfoByName" resultType="hashmap">
-		SELECT  /* boardQuery.boardInfoByName 2013.08.21 최지순 */  
-			* 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND BOARD_ID = #{boardName}
-		AND USE_YN = 'Y'
-		ORDER BY BOARD_ID DESC
-	</select>
-	
-	
-	<update id="delete">
-		UPDATE  /* boardQuery.delete 2013.08.21 최지순 */  
-			BG_BOARD_MASTER 
-		SET 
-			USE_YN = 'N'
-		WHERE 1=1
-		AND BOARD_ID = #{board_id}
+	<update id="modifyComment">
+	    UPDATE BG_BOARD_COMMENTS
+	    SET 
+	    	COMMENT = #{comment}
+	    WHERE 1=1
+	    AND COMMENT_ID = #{comment_id}
+	    AND MEMBER_ID = #{member_id}
 	</update>
 	
-	<update id="deleteByName">
-		UPDATE  /* boardQuery.deleteByName 2013.08.21 최지순 */  
-			BG_BOARD_MASTER 
-		SET 
-			USE_YN = 'N'
-		WHERE 1=1
-		AND BOARD_NM = #{boardName}
+	<update id="modifyContents">
+	    UPDATE BG_BOARD_CONTENTS
+	    SET 
+	    	TITLE = #{title}
+	    	, CONTENTS = #{contents}
+	    	, MOD_DT = now()
+	    	, IMG_PATH = #{img_path}
+			, CONTENTS_CODE = #{contents_code}	    
+			, SUB_CONTENTS = #{sub_contents}
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{board_contents_id}
+	    AND MEMBER_ID = #{member_id}
 	</update>
 	
-	<update id="modify">
-		UPDATE  /* boardQuery.modify 2013.08.21 최지순 */  
-			BG_BOARD_MASTER 
-		SET 
-			BOARD_NM = #{board_nm}
-			, BOARD_DESC = #{board_desc}
-		WHERE 1=1
-		AND BOARD_ID = #{board_id}
-	</update>
+	<delete id="deleteComment">
+	    DELETE FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND MEMBER_ID = #{member_id}
+	    AND COMMENT_ID = #{comment_id}
+	</delete>
 	
-	 -->
+	<delete id="deleteCommentByContentsId">
+	    DELETE FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND MEMBER_ID = #{member_id}
+	    AND CONTENTS_ID = #{board_contents_id}
+	</delete>
+	
+	<delete id="deleteContents">
+	    DELETE FROM BG_BOARD_CONTENTS
+	    WHERE 1=1
+	    AND MEMBER_ID = #{member_id}
+	    AND CONTENTS_ID = #{board_contents_id}
+	</delete>
+	
 </mapper>

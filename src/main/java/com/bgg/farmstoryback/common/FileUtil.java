@@ -33,6 +33,10 @@ public class FileUtil {
 		return makeFilePath("thumbnail/board/",file);
 	}
 	
+	public String displayImageUpload(MultipartFile file) {
+		return makeFilePath("images/display/",file);
+	}
+	
 	private String makeFilePath(String prefix, MultipartFile file) {
 		try {
 			
@@ -41,7 +45,7 @@ public class FileUtil {
 
 		  //해당 디렉토리의 존재여부를 확인
 			if(!desti.exists()){
-				desti.mkdirs(); 
+				desti.mkdirs();
 			}
 			String extenstion = file.getOriginalFilename().substring(file.getOriginalFilename().length()-3);
 			String fileName = UUID.randomUUID().toString().replace("-", "").substring(0, 9)+"."+extenstion;

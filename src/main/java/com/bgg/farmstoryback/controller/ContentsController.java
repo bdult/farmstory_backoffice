@@ -44,15 +44,15 @@ public class ContentsController {
 	@Autowired
 	private FileUtil fileUtil;
 	
-//	@RequestMapping(value = "contents/manage.do")
-//	public String manage(Model model,  @RequestParam Map parameter) {
+	@RequestMapping(value = "contents/manage.do")
+	public String manage(Model model,  @RequestParam Map parameter) {
 //		
 //		Map pageInfo = pageUtil.pageLink(contentsService.totalCount(parameter), parameter);
 //		model.addAttribute("pageInfo", pageInfo);
 //		model.addAttribute("pageList", pageInfo.get("pageList"));
 //		model.addAttribute("list", contentsService.list(pageInfo));
-//		return "contents/manage";
-//	}
+		return "contents/manage";
+	}
 //	
 //	
 //	@RequestMapping(value = "contents/detail.do")

@@ -18,10 +18,13 @@ public class BoardService {
 	
 	
 	@Autowired
-	BoardDao boardDao;
+	private BoardDao boardDao;
 	
 	@Autowired
 	private PageUtil pageUtil;
+	
+	@Autowired
+	private CodeService codeService;
 	
 	public List<Map> boardList() {
 		return boardList(null);
@@ -49,21 +52,58 @@ public class BoardService {
 		return boardDao.contentsDetail(requestParamMap);
 	}
 	
-	
+	public void modifyContents(Map requestParamMap) {
+		boardDao.modifyContents(requestParamMap);
+	}
 	
 	private List<Map> boardList(Map requestParam){
 		return boardDao.boardList(requestParam);
 	}
 
-//	public void create(Map boardInfo) {
+	public List<Map> commentList(Map requestParamMap) {
+		return boardDao.commentList(requestParamMap);
+	}
+
+	public void addComment(Map requestParamMap) {
+		boardDao.addComment(requestParamMap);
+	}
+
+	public Map commentDetail(Map requestParamMap) {
+		return boardDao.commentDetail(requestParamMap);
+	}
+
+	public void modifyComment(Map requestParamMap) {
+		boardDao.modifyComment(requestParamMap);
+	}
+
+	public void deleteComment(Map requestParamMap) {
+		boardDao.deleteComment(requestParamMap);
+	}
+
+	public void addContents(Map requestParamMap) {
+		boardDao.addContents(requestParamMap);
+	}
+
+	public void deleteContents(Map requestParamMap) {
+		boardDao.deleteCommentByContentsId(requestParamMap);
+		boardDao.deleteContents(requestParamMap);
+	}
+
+	public List<Map> categoryList() {
+		return codeService.boardContentsCategoryList();
+	}
+
+	
+
+//	public void createMaster(Map boardInfo) {
 //		boardDao.create(boardInfo);
 //	}
 //
-//	public Map detail(Map boardInfo) {
+//	public Map detailBoard(Map boardInfo) {
 //		return boardDao.detail(boardInfo);
 //	}
 //
-//	public void deleteByName(String boardName) {
+//	public void deleteByNameMaster(String boardName) {
 //		boardDao.deleteByName(boardName);
 //	}
 //
@@ -87,10 +127,6 @@ public class BoardService {
 //	public int totalCount(Map parameter) {
 //		return boardDao.totalCount(parameter);
 //	}
-
-
-	
-
 	
 
 	

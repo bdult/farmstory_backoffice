@@ -79,6 +79,7 @@
 <script src="${contextPath}/assets/js/bootstrap-wysiwyg.min.js"></script>
 <script src="${contextPath}/assets/js/bootbox.min.js"></script>
 <script src="${contextPath}/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="${contextPath}/assets/js/rnts-validation.js"></script>
 
 <!--ace scripts-->
 
