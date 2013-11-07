@@ -29,12 +29,6 @@ public class GoogleApiUtilTest {
 	}
 	
 	@Test
-	public void testWriteAccessToken(){
-		String at = "ya29.AHES6ZRzzqKUSXGSO59DgTl1rVD-bxl4Fj2j1lesAcFimgs";
-		googleApiUtil.writeAccessToken(at);
-	}
-	
-	@Test
 	public void testGetDailyVisitor(){
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

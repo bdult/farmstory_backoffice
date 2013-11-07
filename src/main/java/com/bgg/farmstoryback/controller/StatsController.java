@@ -33,10 +33,11 @@ public class StatsController {
 		return String.format("redirect:%s", statsService.getCodeUrl());
 	}
 	
-	@RequestMapping(value = "/stats/getAccessToken.do")
-	public String getAccessToken(Model model,  @RequestParam Map<String, String> parameter) {
+	@RequestMapping(value = "/stats/saveAccessToken.do")
+	public String saveAccessToken(Model model,  @RequestParam Map<String, String> parameter) {
 		
-		model.addAttribute("accessToken", statsService.getAccessToken(parameter.get("code")));
+		//TODO 엑세스 토큰 생성 실패시 시나리오?
+		model.addAttribute("accessToken", statsService.saveAccessToken(parameter.get("code")));
 		return "stats/setting";
 	}
 	
@@ -53,9 +54,10 @@ public class StatsController {
 		return String.format("redirect:https://accounts.google.com/o/oauth2/revoke?token=%s", statsService.getAccessToken());
 	}
 	
-	@RequestMapping(value = "/stats/manage.do")
-	public String manage(Model model,  @RequestParam Map parameter) {
+	@RequestMapping(value = "/stats/view.do")
+	public String view(Model model,  @RequestParam Map parameter) {
 		
+		logger.debug("My access token is {}", statsService.getAccessToken());
 		{//선차트용 데이터 가져오기
 			String dimension = "ga:date"; //year,month,week
 			model.addAttribute("lineChartData", statsService.getVisitor(dimension, dateUtil.add(-30), dateUtil.today()));
@@ -67,38 +69,13 @@ public class StatsController {
 			model.addAttribute("averageData", statsService.getAverage(metrics, dateUtil.add(-30), dateUtil.today()));
 		}
 		
-		return "stats/manage";
+		return "stats/view";
 	}
 	
 	@RequestMapping(value = "/stats/setting.do")
 	public String setting(Model model,  @RequestParam Map parameter) {
 		
 		return "stats/setting";
-	}
-	
-	private static void printGaData(GaData results) {
-		System.out.println("printing results for profile: " + results.getProfileInfo().getProfileName());
-
-		if (results.getRows() == null || results.getRows().isEmpty()) {
-			System.out.println("No results Found.");
-		} else {
-
-			// Print column headers.
-			for (ColumnHeaders header : results.getColumnHeaders()) {
-				System.out.printf("%30s", header.getName());
-			}
-			System.out.println();
-
-			// Print actual data.
-			for (List<String> row : results.getRows()) {
-				for (String column : row) {
-					System.out.printf("%30s", column);
-				}
-				System.out.println();
-			}
-
-			System.out.println();
-		}
 	}
 	
 }

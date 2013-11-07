@@ -33,6 +33,10 @@ public class FileUtil {
 		return makeFilePath("thumbnail/board/",file);
 	}
 	
+	public String displayImageUpload(MultipartFile file) {
+		return makeFilePath("images/display/",file);
+	}
+	
 	private String makeFilePath(String prefix, MultipartFile file) {
 		try {
 			

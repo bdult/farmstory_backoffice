@@ -81,6 +81,7 @@
 <script src="${contextPath}/assets/js/date-time/bootstrap-datepicker.min.js"></script>
 <script src="${contextPath}/assets/js/jquery.validate.min.js"></script>
 <script src="${contextPath}/assets/js/validate.js"></script>
+<script src="${contextPath}/assets/js/rnts-validation.js"></script>
 
 <!--ace scripts-->
 
