@@ -67,10 +67,11 @@ public class ContentsController {
 	public String detail(Model model, @RequestParam Map reqParamMap) {
 		Map contentMap =  contentsService.detail(reqParamMap);
 		
-		//출판사
-//		model.addAttribute("cateList", cateService.listByLevel(1));
+		// 카테고리 변경 시 필요한 카테고리 리스트
+		model.addAttribute("categoryList", cateService.listByLevel(1));
 		
-		//시리즈
+		//출판사 필요
+		//시리즈 필요
 //		model.addAttribute("cateList", cateService.listByLevel(1));
 		
 		model.addAttribute("contentInfo", contentMap.get(ConstantsForResponse.CONTENTS_INFO));
@@ -92,9 +93,10 @@ public class ContentsController {
 	@RequestMapping(value = "contents/createView.do", method = RequestMethod.GET)
 	public String createView(Model model) {
 		
-		// 카테고리 변경 시 필요한 카테고리 리스트
-		model.addAttribute("categoryList", cateService.listByLevel(1));
-		return "contents/createView";
+		model.addAttribute("categoryList", cateService.list());
+		model.addAttribute("brandList", brandService.listAll());
+		
+		return "contents/info";
 	}
 //	
 //	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)
