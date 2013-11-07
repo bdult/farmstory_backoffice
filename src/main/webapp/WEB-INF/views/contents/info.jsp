@@ -37,8 +37,8 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">출판사 선택</label>
 					<div class="span3">
 						<select id="selectBrandBox" name="brand_id" class="span12">
-							<c:forEach items="${ categoryList }" var="obj">
-								<option value="${ obj.CATE_ID }">${ obj.name }</option>
+							<c:forEach items="${ brandList }" var="obj">
+								<option value="${ obj.BRAND_ID }">${ obj.BRAND_NM }</option>
 							</c:forEach>
 						</select>
 					</div>
@@ -263,46 +263,47 @@ $(function(){
 	{//event
 		
 		$("#selectBrandBox").change(function(){
-			$.getJSON( "${ contextPath }/series/list.ajax", { name: "John", time: "2pm" } )
-			  .done(function( json ) {
-			    console.log( "JSON Data: " + json );
-			  })
-			  .fail(function( jqxhr, textStatus, error ) {
-			    var err = textStatus + ", " + error;
-			    console.log( "Request Failed: " + err );
-			});
+			var $this = $(this);
+			
+			$.getJSON("${ contextPath }/series/list.ajax", { brand_id : $this.val() })
+				.done(function(json) {
+						console.log(json);
+				}).fail(function(jqxhr, textStatus, error) {
+					var err = textStatus + ", " + error;
+					console.log("Request Failed: " + err);
+				});
 		});
-	
-		$("#chkKR").click(function(){
+
+		$("#chkKR").click(function() {
 			var $this = $(this);
 			var $boxKR = $("#boxKR");
-			if( $this.prop("checked") ) {
+			if ($this.prop("checked")) {
 				$boxKR.show();
 			} else {
 				$boxKR.hide();
 			}
 		});
-		
-		$("#chkUS").click(function(){
+
+		$("#chkUS").click(function() {
 			var $this = $(this);
 			var $boxUS = $("#boxUS");
-			if( $this.prop("checked") ) {
+			if ($this.prop("checked")) {
 				$boxUS.show();
 			} else {
 				$boxUS.hide();
 			}
 		});
-		
-		$("#chkRU").click(function(){
+
+		$("#chkRU").click(function() {
 			var $this = $(this);
 			var $boxRU = $("#boxRU");
-			if( $this.prop("checked") ) {
+			if ($this.prop("checked")) {
 				$boxRU.show();
 			} else {
 				$boxRU.hide();
 			}
 		});
-		
+
 	}//event
 });
 </script>
