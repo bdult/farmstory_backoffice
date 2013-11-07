@@ -34,7 +34,7 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">상단 비주얼 등록</h3>
+			<h3 class="header smaller lighter blue">배너 수정</h3>
 			<form id="updateForm" action="${ contextPath }/display/main/bannerUpdate.do" method="POST">
 				<table class="table table-striped table-bordered table-hover">
 					<tbody>
@@ -58,10 +58,15 @@
 						<tr>
 							<td>링크 URL</td>
 							<td>
-								http:// <input class="no-magin-bottom" type="text" name="link_url" value="${ bannerInfo.LINK_URL }" /> 
+								http:// <input class="no-magin-bottom" type="text" id="link_url" name="link_url" value="${ bannerInfo.LINK_URL }" /> 
 							</td>
 							<td>
-								<input type="checkbox" /> 링크없음
+								<div class="checkbox">
+									<label>
+										<input class="ace" type="checkbox" id="noLink">
+										<span class="lbl"> 링크없음</span>
+									</label>
+								</div>
 							</td>
 						</tr>
 					</tbody>
@@ -106,6 +111,17 @@ $(function(){
 	}//init
 	
 	{//event
+		
+		$("#noLink").click(function(){
+			var $this = $(this);
+			
+			var $link_url = $("#link_url");
+			if( $this.prop("checked") ) {
+				$link_url.prop("disabled", true).val("");
+			} else {
+				$link_url.prop("disabled", false);
+			}
+		});
 		
 		$("#mainImgUploadBtn").click(function(){
 			$("#thumbnail-modal-footer").hide();
