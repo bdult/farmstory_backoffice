@@ -18,10 +18,13 @@ public class BoardService {
 	
 	
 	@Autowired
-	BoardDao boardDao;
+	private BoardDao boardDao;
 	
 	@Autowired
 	private PageUtil pageUtil;
+	
+	@Autowired
+	private CodeService codeService;
 	
 	public List<Map> boardList() {
 		return boardList(null);
@@ -89,4 +92,10 @@ public class BoardService {
 	public int contentsTotalCount(Map requestParamMap) {
 		return boardDao.contentsTotalCount(requestParamMap);
 	}
+	
+	public List<Map> categoryList() {
+		return codeService.boardContentsCategoryList();
+	}
+
+
 }

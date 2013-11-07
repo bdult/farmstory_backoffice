@@ -262,7 +262,7 @@ public class ContentsServiceTest {
 		Map publisherInfo = publisherList.get(0);
 		contentsInfo.put(ConstantsForParam.BRAND_ID, publisherInfo.get(ConstantsForDb.BRAND_ID));
 		
-		List<Map> seriesList =  seriesService.listByBrandId(requestParamMap);
+		List<Map> seriesList =  seriesService.list(requestParamMap);
 		Map seriesInfo = seriesList.get(0);
 		contentsInfo.put(ConstantsForParam.SERIES_ID, seriesInfo.get(ConstantsForDb.SERIES_ID));
 		
@@ -345,7 +345,7 @@ public class ContentsServiceTest {
 		Map publisherInfo = publisherList.get(0);
 		contentsInfo.put(ConstantsForParam.BRAND_ID, publisherInfo.get(ConstantsForDb.BRAND_ID));
 		
-		List<Map> seriesList =  seriesService.listByBrandId(requestParamMap);
+		List<Map> seriesList =  seriesService.list(requestParamMap);
 		Map seriesInfo = seriesList.get(0);
 		contentsInfo.put(ConstantsForParam.SERIES_ID, seriesInfo.get(ConstantsForDb.SERIES_ID));
 		

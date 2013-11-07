@@ -13,10 +13,6 @@ public class SeriesDao extends SqlSessionDaoSupport {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	public List<Map> listByBrandId(Map requestParamMap) {
-		return getSqlSession().selectList("seriesQuery.listByBrandId", requestParamMap);
-	}
-	
 	public List<Map> list(Map pageInfo) {
 		return (List<Map>)getSqlSession().selectList("seriesQuery.list", pageInfo);
 	}

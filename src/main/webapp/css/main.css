@@ -4,3 +4,7 @@
 	cursor: pointer;
 	background: gray;
 }
+
+.no-magin-bottom {
+	margin-bottom: 0px !important;
+}

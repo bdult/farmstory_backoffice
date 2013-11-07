@@ -35,6 +35,10 @@ public class CodeService {
 		return codeDao.paymentCodeList();
 	}
 	
+	public List<Map> boardContentsCategoryList() {
+		return codeDao.boardContentsCategoryList();
+	}
+	
 	public List<Map> payProcessCodeList() {
 		return codeDao.payProcessCodeList();
 	}
@@ -62,4 +66,5 @@ public class CodeService {
 	public void modify(Map<String, String> parameter) {
 		codeDao.modify(parameter);
 	}
+
 }
