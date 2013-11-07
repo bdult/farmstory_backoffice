@@ -473,10 +473,14 @@ public class ContentsServiceTest {
 				
 		
 		// when
-		int contentsTotalCount = contentsService.totalCount(requestParamMap);
+		int contentsTotalCountByName = contentsService.totalCount(requestParamMap);
+		
+		requestParamMap.put(ConstantsForParam.CONTENTS_NAME, null);
+		int contentsTotalCountAll = contentsService.totalCount(requestParamMap);
 
 		// then
-		assertThat(contentsTotalCount, is(not(0)));
+		assertThat(contentsTotalCountByName, is(not(0)));
+		assertThat(contentsTotalCountAll, is(not(0)));
 
 	}
 

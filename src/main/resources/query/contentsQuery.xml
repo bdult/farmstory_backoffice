@@ -178,7 +178,6 @@
 		<if test="contents_nm != null and contents_nm != ''">
 			AND CONTENTS_NM LIKE CONCAT('%', #{contents_nm}, '%')
 		</if>
-		GROUP BY CONTENTS_ID
 	</select>
 	
 	<select id="contentsInfo" resultType="hashmap">
