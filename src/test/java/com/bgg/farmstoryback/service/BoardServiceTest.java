@@ -114,8 +114,14 @@ public class BoardServiceTest {
 		
 		String testModifyTitle = "modifyTitle";
 		String testModifyContents = "modifyContents";
+		String boardContentsType = "BOT002";
+		String testEvent_start_dt = "2013-10-31";
+		String testEvent_end_dt = "2013-11-31";
 		requestParamMap.put(ConstantsForParam.CONTENTS, testModifyContents);
 		requestParamMap.put(ConstantsForParam.TITLE, testModifyTitle);
+		requestParamMap.put(ConstantsForParam.CONTENTS_CODE, boardContentsType);
+		requestParamMap.put(ConstantsForParam.EVENT_START_DT, testEvent_start_dt);
+		requestParamMap.put(ConstantsForParam.EVENT_END_DT, testEvent_end_dt);
 		
 		// when
 		boardService.modifyContents(requestParamMap);
@@ -128,6 +134,9 @@ public class BoardServiceTest {
 		
 		assertThat(boardContentsTitle, is(testModifyTitle));
 		assertThat(boardContents, is(testModifyContents));
+		assertTrue(boardDetail.get(ConstantsForDb.CONTENTS_CODE).equals(boardContentsType));
+		assertTrue(boardDetail.get(ConstantsForDb.EVENT_START_DT).equals(testEvent_start_dt));
+		assertTrue(boardDetail.get(ConstantsForDb.EVENT_END_DT).equals(testEvent_end_dt));
 	}
 	
 	@Test
@@ -140,9 +149,17 @@ public class BoardServiceTest {
 		String testAddTitle = "AddTitle";
 		String testAddContents = "AddContents";
 		String testAddMemberId = "master";
+		String boardContentsType = "BOT001";
+		String testEvent_start_dt = "2013-10-31";
+		String testEvent_end_dt = "2013-11-31";
+		String testSubContents = "당첨자 발표 목록 입니다."; 
 		requestParamMap.put(ConstantsForParam.CONTENTS, testAddContents);
 		requestParamMap.put(ConstantsForParam.TITLE, testAddTitle);
 		requestParamMap.put(ConstantsForParam.MEMBER_ID, testAddMemberId);
+		requestParamMap.put(ConstantsForParam.CONTENTS_CODE, boardContentsType);
+		requestParamMap.put(ConstantsForParam.EVENT_START_DT, testEvent_start_dt);
+		requestParamMap.put(ConstantsForParam.EVENT_END_DT, testEvent_end_dt);
+		requestParamMap.put(ConstantsForParam.SUB_CONTENTS, testSubContents);
 
 		// when
 		boardService.addContents(requestParamMap);
@@ -152,10 +169,15 @@ public class BoardServiceTest {
 		long contentsId = (Long)boardContentsList.get(0).get(ConstantsForDb.CONTENTS_ID);
 		requestParamMap.put(ConstantsForParam.BOARD_CONTENTS_ID, contentsId);
 		
+		
 		Map contentsDetail = boardService.contentsDeail(requestParamMap);
 		assertThat(contentsDetail, is(notNullValue()));
 		assertTrue(contentsDetail.get(ConstantsForDb.TITLE).equals(testAddTitle));
 		assertTrue(contentsDetail.get(ConstantsForDb.CONTENTS).equals(testAddContents));
+		assertTrue(contentsDetail.get(ConstantsForDb.CONTENTS_CODE).equals(boardContentsType));
+		assertTrue(contentsDetail.get(ConstantsForDb.EVENT_START_DT).equals(testEvent_start_dt));
+		assertTrue(contentsDetail.get(ConstantsForDb.EVENT_END_DT).equals(testEvent_end_dt));
+		assertTrue(contentsDetail.get(ConstantsForDb.SUB_CONTENTS).equals(testSubContents));
 
 	}
 	
@@ -281,7 +303,24 @@ public class BoardServiceTest {
 		assertThat(commentDetail, is(nullValue()));
 
 	}
+	
+	@Test
+	public void testBoardContentsCategory() {
+		
+		// given 
 
+		// when
+		List<Map> boardContentsCategoryList = boardService.categoryList();
+
+		// then
+		assertThat(boardContentsCategoryList, is(notNullValue()));
+		assertThat(boardContentsCategoryList.size(), is(not(0)));
+
+	}
+
+	
+	
+	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void setCommentInfo() {
 		setBoardContentsInfo();

@@ -59,6 +59,17 @@
 		AND PARENT_CODE = 'LOC'	
 	</select>
 	
+	<select id="boardContentsCategoryList" resultType="hashmap">
+	    SELECT /* codeQuery.locationCodeList */
+			IDX
+			, CODE
+			, CODE_DETAIL
+			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		FROM  BG_CODE
+		WHERE 1=1
+		AND PARENT_CODE = 'BOT'	
+	</select>
+	
 	 <select id="list" resultType="hashmap">
                 SELECT /* codeQuery.list 2013.08.21 최지순 */
                         CODE

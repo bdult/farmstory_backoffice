@@ -18,10 +18,13 @@ public class BoardService {
 	
 	
 	@Autowired
-	BoardDao boardDao;
+	private BoardDao boardDao;
 	
 	@Autowired
 	private PageUtil pageUtil;
+	
+	@Autowired
+	private CodeService codeService;
 	
 	public List<Map> boardList() {
 		return boardList(null);
@@ -86,17 +89,21 @@ public class BoardService {
 		boardDao.deleteContents(requestParamMap);
 	}
 
+	public List<Map> categoryList() {
+		return codeService.boardContentsCategoryList();
+	}
+
 	
 
-//	public void create(Map boardInfo) {
+//	public void createMaster(Map boardInfo) {
 //		boardDao.create(boardInfo);
 //	}
 //
-//	public Map detail(Map boardInfo) {
+//	public Map detailBoard(Map boardInfo) {
 //		return boardDao.detail(boardInfo);
 //	}
 //
-//	public void deleteByName(String boardName) {
+//	public void deleteByNameMaster(String boardName) {
 //		boardDao.deleteByName(boardName);
 //	}
 //
@@ -120,10 +127,6 @@ public class BoardService {
 //	public int totalCount(Map parameter) {
 //		return boardDao.totalCount(parameter);
 //	}
-
-
-	
-
 	
 
 	

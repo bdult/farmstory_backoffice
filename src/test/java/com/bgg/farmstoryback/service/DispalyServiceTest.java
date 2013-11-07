@@ -193,8 +193,8 @@ public class DispalyServiceTest {
 		String addDisType = "DIS001"; // 상단 비주얼 코드
 		requestParamMap.put(ConstantsForParam.TITLE, 			addTopDisTitle);
 		requestParamMap.put(ConstantsForParam.IMG_PATH, 		addTopDisImgPath);
-		requestParamMap.put(ConstantsForParam.DISPLAY_LINK_URL, addTopDisLinkUrl);
-		requestParamMap.put(ConstantsForParam.DISPLAY_YN, 		addTopDisYn);
+		//requestParamMap.put(ConstantsForParam.DISPLAY_LINK_URL, addTopDisLinkUrl);
+		//requestParamMap.put(ConstantsForParam.DISPLAY_YN, 		addTopDisYn);
 		requestParamMap.put(ConstantsForParam.DISPLAY_CODE, 	addDisType);
 		
 		// when
@@ -208,8 +208,8 @@ public class DispalyServiceTest {
 		assertThat(modifyTopInfo, is(notNullValue()));
 		assertThat((String)modifyTopInfo.get(ConstantsForDb.TITLE), 		is(addTopDisTitle));
 		assertThat((String)modifyTopInfo.get(ConstantsForDb.IMG_PATH), 		is(addTopDisImgPath));
-		assertThat((String)modifyTopInfo.get(ConstantsForDb.LINK_URL), 		is(addTopDisLinkUrl));
-		assertThat((String)modifyTopInfo.get(ConstantsForDb.DISPLAY_YN), 	is(addTopDisYn));
+//		assertThat((String)modifyTopInfo.get(ConstantsForDb.LINK_URL), 		is(addTopDisLinkUrl));
+//		assertThat((String)modifyTopInfo.get(ConstantsForDb.DISPLAY_YN), 	is(addTopDisYn));
 		assertThat((String)modifyTopInfo.get(ConstantsForDb.DISPLAY_CODE), 	is(addDisType));
 		
 	}

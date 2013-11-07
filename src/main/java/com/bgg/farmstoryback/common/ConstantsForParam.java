@@ -58,5 +58,11 @@ public class ConstantsForParam {
 	public static final String CONTENTS_DESC = "contents_desc";
 	public static final String CATEGORY_LIST = "category_list";
 	public static final String CONTENTS_DETAIL_LIST = "contents_detail_list";
+	public static final String CONTENTS_CODE = "contents_code";
+	public static final String EVENT_START_DT = "event_start_dt";
+	public static final String EVENT_END_DT = "event_end_dt";
+	public static final String SUB_CONTENTS = "sub_contents";
+	
+	
 	
 }
