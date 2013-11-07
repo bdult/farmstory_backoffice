@@ -55,6 +55,10 @@ public class ConstantsForDb {
 
 	public static final String COMMENT_ID = "COMMENT_ID";
 	public static final String COMMENT = "COMMENT";
+	public static final String CONTENTS_CODE = "CONTENTS_CODE";
+	public static final String EVENT_START_DT = "EVENT_START_DT";
+	public static final String EVENT_END_DT = "EVENT_END_DT";
+	public static final String SUB_CONTENTS = "SUB_CONTENTS";
 
 
 

@@ -37,7 +37,7 @@
 			<h3 class="header smaller lighter blue">컨텐츠 노출 관리</h3>
 			<div class="table-header">
 				노출 카테고리 선택 
-				<select id="categoryBox" name="category_id" data-parameter="${ parameter.category_id }">
+				<select style="margin-bottom: 3px" id="categoryBox" name="category_id" data-parameter="${ parameter.category_id }">
 					<c:forEach items="${ categories }" var="obj">
 						<option value="${ obj.CATE_ID }">${ obj.name }</option>
 					</c:forEach>
@@ -76,7 +76,7 @@
 						<td>${ obj.CONTENTS_NM }</td>
 						<td>${ obj.SERIES_NM }</td>
 						<td>${ obj.BRAND_NM }</td>
-						<td><input type="text" class="ordering-no" value="${ obj.ORDERING_NO }"/></td>
+						<td><input class="no-magin-bottom" type="text" class="ordering-no" value="${ obj.ORDERING_NO }"/></td>
 					</tr>
 					</c:forEach>
 				</tbody>	
