@@ -92,11 +92,27 @@ public class CscenterController {
 		return "cscenter/noticeInfo";
 	}
 	
-	@RequestMapping(value = "cscenter/noticeAddContents.do")
-	public String noticeAddContents(Model model, @RequestParam Map<String,Object> paramMap) {
+	@RequestMapping(value = "cscenter/noticeCreateContents.do")
+	public String noticeCreateContents(Model model, @RequestParam Map<String,Object> paramMap) {
 
 		paramMap.put("board_id", "1");
 		boardService.addContents(paramMap);
+		
+		return "redirect:/cscenter/noticeManage.do";
+	}
+	
+	@RequestMapping(value = "cscenter/noticeModifyContents.do")
+	public String noticeModifyContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		boardService.modifyContents(paramMap);
+		
+		return "redirect:/cscenter/noticeManage.do";
+	}
+	
+	@RequestMapping(value = "cscenter/noticeDeleteContents.do")
+	public String noticeDeleteContents(Model model, @RequestParam Map<String,Object> paramMap) {
+
+		boardService.deleteContents(paramMap);
 		
 		return "redirect:/cscenter/noticeManage.do";
 	}

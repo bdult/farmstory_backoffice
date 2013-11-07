@@ -226,7 +226,7 @@
 	
 	//side active
 	$("#side-user").addClass("open active");
-	
+
 	//search init 
 	$("#searchForm input[name=search").val("${ pageInfo.search }");
 	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");

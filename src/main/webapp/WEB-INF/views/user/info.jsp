@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
-
-</style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -215,8 +212,8 @@
 								<td>${ paymentsInfo.ROWNUM }</td>
 								<td>${ paymentsInfo.REG_DT }</td>
 								<td>${ paymentsInfo.PAYMENT_CODE }</td>
-								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
 								<td>${ paymentsInfo.PRICE }</td>
+								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
 								<td>${ paymentsInfo.REMINE_DAY }</td>
 							</tr>
 						</c:forEach>

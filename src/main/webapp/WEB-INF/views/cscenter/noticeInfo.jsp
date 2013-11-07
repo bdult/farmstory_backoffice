@@ -52,6 +52,9 @@
 			<div class="span12 form-horizontal">
 						<form id="create-form" class="form-horizontal" >
 							<input type="hidden" name="member_id" value="${ login_session.MEMBER_ID }">
+							<c:if test="${ contentsList.CONTENTS_ID ne null }">
+								<input type="hidden" name="board_contents_id" value="${ contentsList.CONTENTS_ID }">
+							</c:if>
 							
 							<div class="control-group">
 								<label class="control-label">제목</label>
@@ -66,28 +69,35 @@
 								</div>
 							</div>
 							
+							<c:if test="${ contentsList.CONTENTS_ID ne null }">
 							<div class="form-actions">
 								<a class="btn btn-danger" id="delete-btn" disabled>
 									<i class="icon-trash bigger-110"></i>
 									삭제
 								</a>
-								<c:if test="${ contentsList.CONTENTS_ID ne null }">
-								<a class="btn btn-primary" href="${ contextPath }/cscenter/noticeManage.do">
-									<i class="icon-wrench bigger-110"></i>
-									확인
-								</a>
-								</c:if>
-								<c:if test="${ contentsList.CONTENTS_ID eq null }">
 								<a class="btn btn-primary" id="modify-btn">
 									<i class="icon-wrench bigger-110"></i>
 									확인
-									</a>
-								</c:if>
+								</a>
 								<a class="btn btn-inverse" id="cancel-btn" href="javascript:history.back();">
 									<i class="icon-undo bigger-110"></i>
 									취소
 								</a>
 							</div>
+							</c:if>
+							
+							<c:if test="${ contentsList.CONTENTS_ID eq null }">
+							<div class="form-actions">
+								<a class="btn btn-primary" id="create-btn">
+									<i class="icon-wrench bigger-110"></i>
+									확인
+									</a>
+								<a class="btn btn-inverse" id="cancel-btn" href="javascript:history.back();">
+									<i class="icon-undo bigger-110"></i>
+									취소
+								</a>
+							</div>
+							</c:if>
 						</form>
 			</div>
 		</div>
@@ -104,19 +114,31 @@
 		$("#side-cscenter-notice").addClass("active");
 	
 	//page init
-	if("${ contentsList.CONTENTS_ID }" != ''){
+	/* if("${ contentsList.CONTENTS_ID }" != ''){
 		$("input:text").attr({
 			readonly : 'readonly'
 		});
 		$("textarea").attr({
 			readonly : 'readonly'
 		});
-	}
-	
+	} */
+
+	$("#create-btn").click(function(){
+		$("#create-form").attr({
+			method: 'post',
+			action: '${ contextPath }/cscenter/noticeCreateContents.do'
+		}).submit();
+	});
 	$("#modify-btn").click(function(){
 		$("#create-form").attr({
 			method: 'post',
-			action: '${ contextPath }/cscenter/noticeAddContents.do'
+			action: '${ contextPath }/cscenter/noticeModifyContents.do'
+		}).submit();
+	});
+	$("#delete-btn").click(function(){
+		$("#create-form").attr({
+			method: 'post',
+			action: '${ contextPath }/cscenter/noticeDeleteContents.do'
 		}).submit();
 	});
 </script>
