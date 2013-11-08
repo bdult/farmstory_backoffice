@@ -459,8 +459,6 @@ public class ContentsServiceTest {
 		assertThat(contentsDetailMap.size(), is(not(0)));
 		assertThat(categoryMap.size(), is(not(0)));
 		
-		logger.info("{}", contentsInfo);
-		logger.info("{}", contentsDetailMap);
 
 	}
 	
