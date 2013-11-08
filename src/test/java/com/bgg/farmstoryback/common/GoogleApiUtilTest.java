@@ -38,4 +38,9 @@ public class GoogleApiUtilTest {
 		//googleApiUtil.getDailyVisitor(startDate, endDate)
 	}
 
+	@Test
+	public void testStr(){
+		String str = "LOC001";
+		logger.info( str.substring(str.length()-1) );
+	}
 }
