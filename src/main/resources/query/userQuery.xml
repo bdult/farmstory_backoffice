@@ -151,7 +151,8 @@
         SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
 			FROM(
 		        SELECT /* userQuery.queryInfo */
-		        	BBC.TITLE
+		        	CONTENTS_ID
+		        	, BBC.TITLE
 		        	, DATE_FORMAT(BBC.REG_DT,'%Y.%m.%d') AS REG_DT
 		        	, CASE (SELECT COUNT(COMMENT_ID) FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID)
 		        	WHEN 0 THEN '미처리'

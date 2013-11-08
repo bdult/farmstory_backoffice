@@ -253,8 +253,8 @@
 				<tbody>
 					<c:forEach var="questionInfo" items="${ questionInfo }" varStatus="status">
 						<tr>
-							<td>${ questionInfo.ROWNUM }</td>
-							<td>${ questionInfo.TITLE }</td>
+							<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionInfo.CONTENTS_ID }">${ questionInfo.ROWNUM }</a></td>
+							<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionInfo.CONTENTS_ID }">${ questionInfo.TITLE }</a></td>
 							<td>${ questionInfo.REG_DT }</td>
 							<td>${ questionInfo.ANSWER_YN }</td>
 						</tr>
