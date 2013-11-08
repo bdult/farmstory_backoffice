@@ -102,16 +102,30 @@
 									<input  type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
 								</div>
 							</div>
-							<div class="control-group">
+							<c:if test="${ contentsList.CONTENTS_ID ne null }">
+							<div class="control-group" id="img-control-group">
 								<label class="control-label" for="form-field-2">이미지</label>
 								<div class="controls">
-									<img id="img-thumbnail-src" height="94" >
+									<img id="img-thumbnail-src" width="300" height="300" src="${ httpPath }/${ contentsList.IMG_PATH }">
 									<a class="btn btn-app btn-danger btn-small" id="deleteImg">
 										<i class="icon-trash bigger-200"></i>
-										이미지 <br>삭제
+										삭제
 									</a>
 								</div>
 							</div>
+							</c:if>
+							<c:if test="${ contentsList.CONTENTS_ID eq null }">
+							<div class="control-group" id="img-control-group" style="display: none;">
+								<label class="control-label" for="form-field-2">이미지</label>
+								<div class="controls">
+									<img id="img-thumbnail-src" width="300" height="300">
+									<a class="btn btn-app btn-danger btn-small" id="deleteImg">
+										<i class="icon-trash bigger-200"></i>
+										삭제
+									</a>
+								</div>
+							</div>
+							</c:if>
 							<div class="control-group">
 								<label class="control-label">내용</label>
 								<div class="controls">
@@ -191,8 +205,7 @@
 		$('.date-picker-2').datepicker();
 	});
 	$("[name=status]").val("${ contentsList.STATUS }");
-	
-	
+
 	//child modal thombnail upload
 	$(function(){
 		
@@ -231,8 +244,9 @@
 					    success: function(response){
 					      $("#img_path").val(response);
 					      $("#img-thumbnail-src").attr({
-					    	 src : "http://115.71.237.215/" + (response)
+					    	 src : "${ httpPath }" + (response)
 					      });
+					      $("#img-control-group").show();
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
@@ -247,10 +261,13 @@
 	}); // <!-- function() end 
 	
 	$("#deleteImg").click(function(){
-		$("#img_path").val();
+		$("#img_path").val('');
 		$("#img-thumbnail-src").attr({
 			src : ''
 		});
+	    $("#img-control-group").attr({
+	    	style : "display:none;"
+	    });
 	});
 
 	$("#create-btn").click(function(){

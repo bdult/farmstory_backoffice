@@ -44,8 +44,7 @@
 					</div>
 					<label class="span3 control-label no-padding-right" for="form-field-1">시리즈 선택</label>
 					<div class="span3">
-						<select name="" class="span12">
-							<option value="">선택</option>
+						<select id="selectSeriesBox" name="series_id" class="span12">
 						</select>
 					</div>
 				</div>
@@ -53,7 +52,7 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
 					<div class="span9">
-						<input type="text" id="" placeholder="" class="" value="${ contentInfo.PREFIX_URL  }">
+						<input type="text" id="" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
 						<a class="btn">찾아보기</a>
 					</div>
 				</div>
@@ -61,7 +60,7 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
-						<input type="text" id="" placeholder="" class="">
+						<input type="text" id="" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
 						<a class="btn">찾아보기</a>
 					</div>
 				</div>
@@ -71,18 +70,10 @@
 					<div class="span9">
 						<div class="checkbox-inline">
 							<label>
-								<input class="ace" type="checkbox" id="chkKR">
-								<span class="lbl"> 한국</span>
-								<input class="ace" type="checkbox" id="chkUS">
-								<span class="lbl"> 미국</span>
-								<input class="ace" type="checkbox" id="chkRU">
-								<span class="lbl"> 러시아</span>
-								<!-- 
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 중국</span>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 독일</span>
-								 -->
+								<c:forEach items="${ locationList }" var="obj">
+									<input class="ace checkboxLocationList" type="checkbox" id="chk${ obj.CODE }">
+									<span class="lbl"> ${ obj.CODE_DETAIL }</span>
+								</c:forEach>
 							</label>
 						</div>
 					</div>
@@ -91,161 +82,69 @@
 			</form>
 		</div><!--/.row-fluid-->
 		
-		<div id="boxKR" style="display: none">
-			<hr />
-			<form action="" class="form-horizontal">
-				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">한국</label>
-				</div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
-					<div class="span9">
-						<div class="checkbox-inline">
-							<label>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 한글</span>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 영어</span>
-							</label>
+		<c:forEach items="${ locationList }" var="obj">
+			
+			<c:forEach items="${ detailList }" var="detail">
+				<c:if test="${ obj.CODE eq detail.LOCATION_CODE }">
+					<c:set var="item" value="${ detail }"></c:set>
+				</c:if>
+			</c:forEach>
+			<div id="box${ obj.CODE }" style="display: none">
+				<hr />
+				<form action="" class="form-horizontal">
+					<div class="form-group row-fluid">
+						<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">${ obj.CODE_DETAIL }</label>
+					</div>
+					<div class="form-group row-fluid">
+						<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+						<div class="span9">
+							<div class="checkbox-inline">
+								<label>
+									<c:forEach items="${ categoryList }" var="obj">
+										<input 
+										<c:if test="${ obj.name eq item }"></c:if>
+										class="ace" name="category_id" type="checkbox" value="${ obj.CATE_ID }">
+										<span class="lbl"> ${ obj.name }</span>
+									</c:forEach>
+								</label>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
-					<div class="span9">
-						<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
-							<label>
-								<input name="display_yn" type="radio" class="ace" value="Y">
-								<span class="lbl"> 노출함 </span>
-								<input name="display_yn" type="radio" class="ace" value="N" checked>
-								<span class="lbl"> 노출안함 </span>
-							</label>
+					<div class="space-4"></div>
+					<div class="form-group row-fluid">
+						<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+						<div class="span9">
+							<div class="radio-inline">
+								<label>
+									<input name="display_yn" type="radio" class="ace" value="Y">
+									<span class="lbl"> 노출함 </span>
+									<input name="display_yn" type="radio" class="ace" value="N" checked>
+									<span class="lbl"> 노출안함 </span>
+								</label>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
-					<div class="span9">
-						<input type="text" id="nm" placeholder="컨텐츠명" class="">
-					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
-					<div class="span9">
-						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
-					</div>
-				</div>
-				<div class="space-4"></div>
-			</form>
-		</div>
-		
-		<div id="boxUS" style="display: none">
-			<hr />
-			<form action="" class="form-horizontal">
-				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">영어</label>
-				</div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
-					<div class="span9">
-						<div class="checkbox-inline">
-							<label>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 한글</span>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 영어</span>
-							</label>
+					<div class="space-4"></div>
+					<div class="form-group row-fluid">
+						<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+						<div class="span9">
+							<input type="text" id="nm" placeholder="컨텐츠명" class="" value="${ item.CONTENTS_NM }">
 						</div>
 					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
-					<div class="span9">
-						<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
-							<label>
-								<input name="display_yn" type="radio" class="ace" value="Y">
-								<span class="lbl"> 노출함 </span>
-								<input name="display_yn" type="radio" class="ace" value="N" checked>
-								<span class="lbl"> 노출안함 </span>
-							</label>
+					<div class="space-4"></div>
+					<div class="form-group row-fluid">
+						<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+						<div class="span9">
+							<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ item.CONTENTS_DESC }</textarea>
 						</div>
 					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
-					<div class="span9">
-						<input type="text" id="nm" placeholder="컨텐츠명" class="">
-					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
-					<div class="span9">
-						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
-					</div>
-				</div>
-				<div class="space-4"></div>
-			</form>
-		</div>
-		
-		<div id="boxRU" style="display: none">
-			<hr />
-			<form action="" class="form-horizontal">
-				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">러시아</label>
-				</div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
-					<div class="span9">
-						<div class="checkbox-inline">
-							<label>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 한글</span>
-								<input class="ace" type="checkbox" id="noLink">
-								<span class="lbl"> 영어</span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
-					<div class="span9">
-						<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
-							<label>
-								<input name="display_yn" type="radio" class="ace" value="Y">
-								<span class="lbl"> 노출함 </span>
-								<input name="display_yn" type="radio" class="ace" value="N" checked>
-								<span class="lbl"> 노출안함 </span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
-					<div class="span9">
-						<input type="text" id="nm" placeholder="컨텐츠명" class="">
-					</div>
-				</div>
-				<div class="space-4"></div>
-				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
-					<div class="span9">
-						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" ></textarea>
-					</div>
-				</div>
-				<div class="space-4"></div>
-			</form>
-		</div>
+				</form>
+			</div>
+		</c:forEach>
 		
 		<div class="row-fluid text-center">
-			<a class="btn">컨텐츠 등록</a>
+			<a id="updateBtn" class="btn">수정</a>
+			<a href="javascript:history.back(-1);" class="btn">뒤로가기</a>
 		</div>
 	</div><!--/.page-content-->
 </div><!--/.main-content-->
@@ -253,57 +152,96 @@
 <script>
 $(function(){
 	
-	{//init
-		
-		$("#side-contents-contents").addClass("active");
-		$("#side-contents").addClass("open active");
-		
-	}//init
-	
 	{//event
 		
 		$("#selectBrandBox").change(function(){
 			var $this = $(this);
 			
+			//기존 시리즈 셀렉트 전체 제외하고 삭제
+			$("#selectSeriesBox").find("option").remove();
+			
 			$.getJSON("${ contextPath }/series/list.ajax", { brand_id : $this.val() })
 				.done(function(json) {
-						console.log(json);
+					if( json.status == 200 && json.data.length > 0) {
+						$.each( json.data, function( idx, item ){
+							$("#selectSeriesBox").append("<option value='" + item.CONTENTS_SERIES_ID + "'>" + item.CONTENTS_SERIES_NM + "</option>");
+						});
+					}
+					
 				}).fail(function(jqxhr, textStatus, error) {
 					var err = textStatus + ", " + error;
 					console.log("Request Failed: " + err);
 				});
+			
 		});
-
-		$("#chkKR").click(function() {
-			var $this = $(this);
-			var $boxKR = $("#boxKR");
-			if ($this.prop("checked")) {
-				$boxKR.show();
-			} else {
-				$boxKR.hide();
-			}
+		
+		if( "${ contentInfo.BRAND_ID }" != "" ) {
+			$("#selectBrandBox").trigger("change");
+		}
+		
+		//한국
+		$("#chkLOC001").click(function() {
+			locationToggle( $(this), $("#boxLOC001") );
 		});
-
-		$("#chkUS").click(function() {
-			var $this = $(this);
-			var $boxUS = $("#boxUS");
-			if ($this.prop("checked")) {
-				$boxUS.show();
-			} else {
-				$boxUS.hide();
-			}
+		
+		//미국
+		$("#chkLOC002").click(function() {
+			locationToggle( $(this), $("#boxLOC002") );
 		});
-
-		$("#chkRU").click(function() {
-			var $this = $(this);
-			var $boxRU = $("#boxRU");
-			if ($this.prop("checked")) {
-				$boxRU.show();
-			} else {
-				$boxRU.hide();
-			}
+		
+		//중국
+		$("#chkLOC003").click(function() {
+			locationToggle( $(this), $("#boxLOC003") );
 		});
-
+		
+		//러시아
+		$("#chkLOC004").click(function() {
+			locationToggle( $(this), $("#boxLOC004") );
+		});
+		
+		//인도
+		$("#chkLOC005").click(function() {
+			locationToggle( $(this), $("#boxLOC005") );
+		});
+		
+		//사우디아라비아
+		$("#chkLOC006").click(function() {
+			locationToggle( $(this), $("#boxLOC006") );
+		});
+		
+		//일본
+		$("#chkLOC007").click(function() {
+			locationToggle( $(this), $("#boxLOC007") );
+		});
+		
 	}//event
+	
+	{//init
+		
+		$("#side-contents-contents").addClass("active");
+		$("#side-contents").addClass("open active");
+		
+		$(".checkboxLocationList").each(function(){
+			var $this = $(this);
+			console.info( $this.attr("id") );
+			
+			console.info( "${ contentsDetailList }" );
+		});
+		
+	}//init
+	
+	{//function
+		
+		//param체크박스 여부에 따라 target show/hide
+		var locationToggle = function( param, target ) {
+			if (param.prop("checked")) {
+				target.show();
+			} else {
+				target.hide();
+			}
+		};
+
+	}//function
+	
 });
 </script>
