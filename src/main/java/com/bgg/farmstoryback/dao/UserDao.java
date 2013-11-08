@@ -81,7 +81,7 @@ public class UserDao extends SqlSessionDaoSupport {
 	}
 
 	public List<Map> latestData() {
-		return getSqlSession().selectList("userquery.latestData");
+		return getSqlSession().selectList("userQuery.latestData");
 	}
 
 	

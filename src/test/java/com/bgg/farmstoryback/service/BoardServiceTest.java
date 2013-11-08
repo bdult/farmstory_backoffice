@@ -81,7 +81,7 @@ public class BoardServiceTest {
 		
 		// given 
 		setBoardInfo();
-		requestParamMap.put(ConstantsForParam.BOARD_ID, 1);
+		requestParamMap.put(ConstantsForParam.BOARD_ID, 3);
 		requestParamMap.put(ConstantsForParam.PAGE_START_NO, 0);
 		requestParamMap.put(ConstantsForParam.PAGE_PER_PAGE, 10);
 		requestParamMap.put(ConstantsForParam.COMPLETE_YN, 'Y');

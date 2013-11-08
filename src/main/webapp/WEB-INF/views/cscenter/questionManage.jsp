@@ -125,11 +125,11 @@
 				<tbody>
 				<c:forEach var="questionList" items="${ questionList }" varStatus="status">
 					<tr>
-						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.CONTENTS_ID }</a></td>
-						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.MEMBER_ID }</a></td>
-						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }&comment_yn=${ questionList.COMMENT_YN }">${ questionList.TITLE }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }">${ questionList.CONTENTS_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }">${ questionList.MEMBER_ID }</a></td>
+						<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionList.CONTENTS_ID }">${ questionList.TITLE }</a></td>
 						<td>${ questionList.REG_DT }</td>
-						<td>${ questionList.COMMENT_REG_DT }</td>
+						<td>${ questionList.MOD_DT }</td>
 						<td>
 							<c:choose>
 								<c:when test="${ questionList.SUB_CONTENTS_YN eq 'Y' }">처리완료</c:when>
