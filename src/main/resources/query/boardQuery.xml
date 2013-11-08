@@ -16,10 +16,10 @@
 	</select>
 	
 	<select id="contentsListByBoardId" resultType="hashmap">
-	    SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+	    SELECT (@RNUM := @RNUM + 1) AS ROWNUM, t.*
 			FROM(
 				SELECT /* boardQuery.contentsListByBoardId */
-					BBC.CONTENTS_ID
+					 BBC.CONTENTS_ID
 					, BBC.MEMBER_ID
 					, BBC.TITLE
 					, BBC.REG_DT
@@ -48,7 +48,13 @@
 				WHERE 1=1
 				AND BBC.BOARD_ID = #{board_id}
 				<if test="search_type == 'title'">
-					AND ( BBC.TITLE LIKE CONCAT('%', #{search}, '%'))
+					AND BBC.TITLE LIKE CONCAT('%', #{search} , '%')
+				</if>
+				<if test="search_type == 'member_id'">
+					AND BBC.MEMBER_ID LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="contents_code !=null and contents_code !=''">
+					AND CONTENTS_CODE = #{contents_code}
 				</if>
 				<if test="comment_yn !=null and comment_yn !=''">
 				    <if test="comment_yn == 'Y'">
@@ -66,12 +72,12 @@
 				<if test="search_end_date !=null and search_end_date !=''">
 					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
 				</if>
-				ORDER BY BBC.CONTENTS_ID ASC
+				ORDER BY BBC.CONTENTS_ID
+			) t, ( SELECT @RNUM := 0 ) R
+			ORDER BY @RNUM DESC	
 				<if test="startNo != null and perPage != null">
 					LIMIT #{startNo}, #{perPage}
 				</if>
-			) t, ( SELECT @RNUM := 0 ) R
-		ORDER BY @RNUM DESC	
 	</select>
 	<select id="contentsTotalCount" resultType="int">
 		SELECT /* boardQuery.contentsTotalCount */
@@ -80,7 +86,13 @@
 		WHERE 1=1
 		AND BBC.BOARD_ID = #{board_id}
 		<if test="search_type == 'title'">
-			AND ( BBC.TITLE LIKE CONCAT('%', #{search}, '%'))
+			AND BBC.TITLE LIKE CONCAT('%', #{search}, '%')
+		</if>
+		<if test="search_type == 'member_id'">
+			AND BBC.MEMBER_ID LIKE CONCAT('%', #{member_id}, '%')
+		</if>
+		<if test="search_type == 'contents_code'">
+			AND CONTENTS_CODE = #{contents_code}
 		</if>
 		<if test="comment_yn !=null and comment_yn !=''">
 		    <if test="comment_yn == 'Y'">

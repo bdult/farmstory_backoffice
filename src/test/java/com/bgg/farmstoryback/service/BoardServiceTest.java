@@ -81,8 +81,11 @@ public class BoardServiceTest {
 		
 		// given 
 		setBoardInfo();
-		requestParamMap.put(ConstantsForParam.PAGE_START_NO, 1);
+		requestParamMap.put(ConstantsForParam.BOARD_ID, 1);
+		requestParamMap.put(ConstantsForParam.PAGE_START_NO, 0);
 		requestParamMap.put(ConstantsForParam.PAGE_PER_PAGE, 10);
+//		requestParamMap.put(ConstantsForParam.SEARCH_TYPE, "title");
+//		requestParamMap.put(ConstantsForParam.SEARCH, "add");
 
 		// when
 		List<Map> boardContentsList = boardService.contentsListByBoardId(requestParamMap);
