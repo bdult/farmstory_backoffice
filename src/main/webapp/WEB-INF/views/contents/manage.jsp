@@ -48,14 +48,13 @@
 			<form action="" id="searchForm" class="form-horizontal well">
 				<div class="row-fluid mg-bt-20">
 					<div class="span2 text-right">컨텐츠검색</div>
-					<!-- 
-					<select name="search_type" class="span12">
-						<option value="">전체</option>
-						<option value="id">아이디</option>
-						<option value="name">이름</option>
-					</select>
-					 -->
-					<div class="span10">
+					<div class="span2">
+						<select name="search_type" class="span12">
+							<option value="name">컨텐츠명</option>
+							<option value="id">아이디</option>
+						</select>
+					</div>
+					<div class="span8">
 						<input class="input-xxlarge" name="search" type="text" value="${ pageInfo.search }" placeholder="검색어를 입력하세요">
 					</div>
 				</div>
@@ -80,7 +79,7 @@
 					</div>
 					<div class="span1 text-right">시리즈</div>
 					<div class="span2">
-						<select name="member_role" class="span12">
+						<select id="selectSeriesBox" name="series_id" class="span12">
 							<option value="">전체</option>
 						</select>
 					</div>
@@ -259,19 +258,29 @@ $(function(){
 	{//event
 
 		$("#selectBrandBox").change(function(){
-			$.getJSON("${ contextPath }/", function( data ) {
-				var items = [];
-				$.each( data, function( key, val ) {
-				  items.push( "<li id='" + key + "'>" + val + "</li>" );
-				});
-				
-				$( "<ul/>", {
-				  "class": "my-new-list",
-				  html: items.join( "" )
-				}).appendTo( "body" );
-			});
+			var $this = $(this);
 			
-		}).trigger("change");
+			//기존 시리즈 셀렉트 전체 제외하고 삭제
+			$("#selectSeriesBox").find("option:not(:first)").remove();
+			
+			$.getJSON("${ contextPath }/series/list.ajax", { brand_id : $this.val() })
+				.done(function(json) {
+					if( json.status == 200 && json.data.length > 0) {
+						$.each( json.data, function( idx, item ){
+							$("#selectSeriesBox").append("<option value='" + item.CONTENTS_SERIES_ID + "'>" + item.CONTENTS_SERIES_NM + "</option>");
+						});
+					}
+					
+				}).fail(function(jqxhr, textStatus, error) {
+					var err = textStatus + ", " + error;
+					console.log("Request Failed: " + err);
+				});
+			
+		});
+		
+		if( "${ pageInfo.brand_id }" != "" ) {
+			$("#selectBrandBox").trigger("change");
+		}
 		
 		$("#create-contents-btn").click(function(){
 			location.href="${ contextPath }/contents/createView.do";
