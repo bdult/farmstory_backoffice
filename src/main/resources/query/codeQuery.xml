@@ -101,7 +101,7 @@
         </select>
         
         <select id="detail" resultType="hashmap">
-                SELECT /* codeQuery.detail 2013.08.21 최지순 */
+                SELECT /* codeQuery.detail */
                         CODE
                         , IDX
                         , CODE_DETAIL
@@ -110,17 +110,16 @@
                         , CODE_DETAIL
                         , DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
                 FROM  BG_CODE
-                WHERE IDX = #{code_idx}
+                WHERE IDX = #{idx}
         </select>
         
         <update id="modify">
-                UPDATE /* codeQuery.modify 2013.08.21 최지순 */
+                UPDATE /* codeQuery.modify */
                         BG_CODE
                 SET
                         CODE_DETAIL = #{code_detail}
                          ,CODE_LEVEL=#{code_level}
                          ,PARENT_CODE=#{parent_code}
-                        , MOD_DT = now()
                 WHERE 1=1
                 AND CODE = #{code}
         </update>
@@ -128,13 +127,36 @@
         <delete id="deleteChild">
                 DELETE  /* codeQuery.deleteChild 2013.08.21 최지순 */
                 FROM BG_CODE
-                WHERE PARENT_CODE IN (SELECT CODE FROM (SELECT CODE FROM BG_CODE WHERE IDX = #{code_idx}) A)
+                WHERE PARENT_CODE IN (SELECT CODE FROM (SELECT CODE FROM BG_CODE WHERE IDX = #{idx}) A)
         </delete>
          
         <delete id="delete">
                 DELETE  /* codeQuery.delete 2013.08.21 최지순 */
                 FROM BG_CODE
-                WHERE IDX = #{code_idx}
-        </delete> 
+                WHERE IDX = #{idx}
+        </delete>
+        
+        <insert id="add" keyProperty="idx">
+            INSERT INTO BG_CODE(
+            	CODE 
+            	, CODE_DETAIL
+            	, PARENT_CODE
+            ) VALUES(
+            	#{code}
+            	, #{code_detail}
+            	, #{parent_code}
+            )
+            
+        </insert>
+        
+        <select id="hasCount" resultType="int">
+            SELECT 
+            	COUNT(*) 
+            FROM BG_CODE
+            WHERE 1=1
+            AND CODE = #{code}
+            
+            
+        </select>
 	
 </mapper>

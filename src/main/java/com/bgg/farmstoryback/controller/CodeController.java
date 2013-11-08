@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.CodeService;
@@ -41,7 +42,7 @@ public class CodeController {
 	
 	@RequestMapping(value = "code/detail.do")
 	public String detail(Model model, @RequestParam Map<String,String> parameter) {
-		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
+		Map codeDetail =  codeService.detail(parameter.get(ConstantsForParam.IDX));
 		model.addAttribute("data", codeDetail);
 		return "code/info";
 	}
@@ -54,10 +55,11 @@ public class CodeController {
 	
 	@RequestMapping(value = "code/modify.do")
 	public String modify(Model model, @RequestParam Map<String,String> parameter) {
-		logger.info("modify = {}", parameter);
 		codeService.modify(parameter);
-		Map codeDetail =  codeService.detail(parameter.get("code_idx"));
-		model.addAttribute("data", codeDetail);
+		return "redirect:detail.do?idx="+parameter.get(ConstantsForParam.IDX);
+	}
+	@RequestMapping(value = "code/createView.do")
+	public String modify() {
 		return "code/info";
 	}
 

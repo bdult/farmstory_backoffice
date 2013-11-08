@@ -57,6 +57,14 @@ public class CodeDao extends SqlSessionDaoSupport {
 		getSqlSession().update("codeQuery.modify", parameter);
 	}
 
+	public int hasCount(Map<String, String> parameter) {
+		return (Integer)getSqlSession().selectOne("codeQuery.hasCount", parameter);
+	}
+
+	public void add(Map<String, String> parameter) {
+		getSqlSession().insert("codeQuery.add", parameter);
+	}
+
 
 
 }

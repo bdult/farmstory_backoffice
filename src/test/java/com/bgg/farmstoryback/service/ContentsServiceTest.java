@@ -468,8 +468,8 @@ public class ContentsServiceTest {
 	public void testTotalCoutn() {
 		
 		// given 
-		String contenstName = "안녕";
-		requestParamMap.put(ConstantsForParam.CONTENTS_NAME, contenstName);
+		String displayYn = "N";
+		requestParamMap.put(ConstantsForParam.DISPLAY_YN, displayYn);
 				
 		
 		// when
