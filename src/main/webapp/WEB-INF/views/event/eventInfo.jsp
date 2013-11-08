@@ -105,9 +105,10 @@
 							<div class="control-group">
 								<label class="control-label" for="form-field-2">이미지</label>
 								<div class="controls">
-									<img src="http://115.71.237.215/${ contentsList.IMG_PATH }">
-									<img src="http://115.71.237.215/ozworld-movie/thumbnail/board/0a38dc3e8.jpg">
-									<img src="http://115.71.237.215/ozworld-movie/thumbnail/39/LittleMathBooks_26.png">
+									<img id="img-thumbnail-src">
+									<img src="http://115.71.237.215/ozworld-movie/thumbnail/contents/b96093787.jpg">
+									<img src="http://115.71.237.215/ozworld-movie/thumbnail/39/LittleMathBooks_26.png" width="155" height="115" alt="">
+									<div id="testImg"></div>
 								</div>
 							</div>
 							<div class="control-group">
@@ -228,6 +229,11 @@
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      $("#img-thumbnail-src").attr({
+					    	 src : "http://115.71.237.215/" + (response)
+					      });
+					      
+					      $("#testImg").text( response )
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
