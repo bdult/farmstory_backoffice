@@ -85,14 +85,12 @@
 		<if test="search_type == 'contents_code'">
 			AND CONTENTS_CODE = #{contents_code}
 		</if>
-		<if test="comment_yn !=null and comment_yn !=''">
-		    <if test="comment_yn == 'Y'">
-		       AND (SELECT COUNT(*)
-				FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0 
+		<if test="complete_yn !=null and complete_yn !=''">
+		    <if test="complete_yn == 'Y'">
+		       AND  BBC.SUB_CONTENTS IS NOT NULL
 		    </if>
-		    <if test="comment_yn == 'N'">
-		       AND (SELECT COUNT(*)
-				FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) = 0 
+		    <if test="complete_yn == 'N'">
+		       AND  BBC.SUB_CONTENTS IS NULL
 		    </if>
 		</if>
 		<if test="search_start_date !=null and search_start_date !=''">
