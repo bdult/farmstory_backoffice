@@ -105,10 +105,11 @@
 							<div class="control-group">
 								<label class="control-label" for="form-field-2">이미지</label>
 								<div class="controls">
-									<img id="img-thumbnail-src">
-									<img src="http://115.71.237.215/ozworld-movie/thumbnail/contents/b96093787.jpg">
-									<img src="http://115.71.237.215/ozworld-movie/thumbnail/39/LittleMathBooks_26.png" width="155" height="115" alt="">
-									<div id="testImg"></div>
+									<img id="img-thumbnail-src" height="94" >
+									<a class="btn btn-app btn-danger btn-small" id="deleteImg">
+										<i class="icon-trash bigger-200"></i>
+										이미지 <br>삭제
+									</a>
 								</div>
 							</div>
 							<div class="control-group">
@@ -232,8 +233,6 @@
 					      $("#img-thumbnail-src").attr({
 					    	 src : "http://115.71.237.215/" + (response)
 					      });
-					      
-					      $("#testImg").text( response )
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
@@ -247,6 +246,12 @@
 		
 	}); // <!-- function() end 
 	
+	$("#deleteImg").click(function(){
+		$("#img_path").val();
+		$("#img-thumbnail-src").attr({
+			src : ''
+		});
+	});
 
 	$("#create-btn").click(function(){
 		$("#create-form").attr({
