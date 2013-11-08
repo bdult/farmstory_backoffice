@@ -205,8 +205,7 @@
 		$('.date-picker-2').datepicker();
 	});
 	$("[name=status]").val("${ contentsList.STATUS }");
-	
-	
+
 	//child modal thombnail upload
 	$(function(){
 		
