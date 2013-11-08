@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.BoardService;
 
@@ -29,6 +30,9 @@ public class EventController {
 
 	@Autowired
 	private PageUtil pageUtil;
+	  
+	@Autowired
+	private FileUtil fileUtil;
 	
 	@RequestMapping(value = "event/eventManage.do")
 	public String eventManage(Model model, @RequestParam Map<String,Object> paramMap) {
@@ -76,5 +80,13 @@ public class EventController {
 		boardService.deleteContents(paramMap);
 		
 		return "redirect:/event/eventManage.do";
+	}
+	
+	@RequestMapping(value = "event/thumbnail-upload.do")
+	public @ResponseBody String thumbnailUpload(Model model,
+			@RequestParam("file")MultipartFile file
+			) {
+		String srcPath = fileUtil.thumbnailUpload(file);
+		return srcPath;
 	}
 }

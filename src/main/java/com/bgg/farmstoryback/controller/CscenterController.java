@@ -52,12 +52,6 @@ public class CscenterController {
 		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
 		model.addAttribute("commentsList", boardService.commentList(paramMap));
 		
-//		if(paramMap.get("member_id") == null){
-//			model.addAttribute("viewType", "detailView");
-//		}else {
-//			model.addAttribute("viewType", "modifyView");
-//		}
-		
 		return "cscenter/questionInfo";
 	}
 

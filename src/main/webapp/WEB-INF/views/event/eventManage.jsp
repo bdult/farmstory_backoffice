@@ -91,7 +91,7 @@
 					<tr>
 						<td><a href="${ contextPath }/event/eventInfo.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.CONTENTS_ID }</a></td>
 						<td><a href="${ contextPath }/event/eventInfo.do?board_contents_id=${ eventList.CONTENTS_ID }">${ eventList.TITLE }</a></td>
-						<td>${ eventList.DETAIL_CONTENTS_CODE }</td>
+						<td>${ eventList.STATUS_DESC }</td>
 						<td>${ eventList.EVENT_START_DT } ~ ${ eventList.EVENT_END_DT }</td>
 						<td>${ eventList.REG_DT }</td>
 						<td>${ eventList.HITS }</td>
