@@ -346,6 +346,7 @@ public class BoardServiceTest {
 		
 		// given 
 		setBoardInfo();
+		requestParamMap.put(ConstantsForParam.COMPLETE_YN, "N");
 		
 		// when
 		int totalCount = boardService.contentsTotalCount(requestParamMap);
