@@ -245,7 +245,7 @@
 					    success: function(response){
 					      $("#img_path").val(response);
 					      $("#img-thumbnail-src").attr({
-					    	 src : "${ httpPath }" + (response),
+					    	 src : "${ httpPath }" + (response)
 					      });
 					      $("#img-control-group").show();
 					      $("#thumbnail-modal").modal('toggle');
