@@ -106,7 +106,7 @@
 							<div class="control-group" id="img-control-group">
 								<label class="control-label" for="form-field-2">이미지</label>
 								<div class="controls">
-									<img id="img-thumbnail-src" width="300" height="300" src="${ contentsList.IMG_PATH }">
+									<img id="img-thumbnail-src" width="300" height="300" src="${ httpPath }/${ contentsList.IMG_PATH }">
 									<a class="btn btn-app btn-danger btn-small" id="deleteImg">
 										<i class="icon-trash bigger-200"></i>
 										삭제
