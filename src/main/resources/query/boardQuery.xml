@@ -47,10 +47,10 @@
 				<if test="search_type == 'member_id'">
 					AND BBC.MEMBER_ID LIKE CONCAT('%', #{search}, '%')
 				</if>
-				<if test="contents_code !=null and contents_code !=''">
+				<if test="contents_code != null and contents_code != ''">
 					AND CONTENTS_CODE = #{contents_code}
 				</if>
-				<if test="complete_yn !=null and complete_yn !=''">
+				<if test="complete_yn != null and complete_yn != ''">
 				    <if test="complete_yn == 'Y'">
 				       AND  BBC.SUB_CONTENTS IS NOT NULL
 				    </if>
@@ -89,7 +89,7 @@
 		<if test="search_type == 'contents_code'">
 			AND CONTENTS_CODE = #{contents_code}
 		</if>
-		<if test="complete_yn !=null and complete_yn !=''">
+		<if test="complete_yn != null and complete_yn != ''">
 		    <if test="complete_yn == 'Y'">
 		       AND  BBC.SUB_CONTENTS IS NOT NULL
 		    </if>

@@ -21,7 +21,7 @@
 			<li class="active">문의하기 리스트</li>
 		</ul>
 		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
+			<form class="form-search">
 				<span class="input-icon">
 					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
 					<i class="icon-search nav-search-icon"></i>
@@ -50,7 +50,7 @@
 							</div>
 						</div>
 						<div class="span8">
-							<input class="input-xxlarge" name="" type="text" placeholder="검색어를 입력하세요">
+							<input class="input-xxlarge" name="search" type="text" placeholder="검색어를 입력하세요">
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -58,7 +58,7 @@
 							<div class="control-group">
    								<label class="control-label">처리여부</label>
     							<div class="controls">
-									<select class="span12" name="comment_yn">
+									<select class="span12" name="complete_yn">
 									  <option value="">전체</option>
 									  <option value="N">미처리</option>
 									  <option value="Y">처리완료</option>
@@ -109,7 +109,7 @@
 						</div>
 					</div>
 				</form>
-				${ questionList }
+
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -151,7 +151,7 @@
 									<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 							<c:forEach items="${pageList }" var="page">
@@ -169,7 +169,7 @@
 									<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
