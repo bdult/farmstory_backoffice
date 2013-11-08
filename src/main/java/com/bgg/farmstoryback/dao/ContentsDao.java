@@ -1,14 +1,12 @@
 package com.bgg.farmstoryback.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestHeader;
+
+import com.bgg.farmstoryback.common.ConstantsForDb;
 
 @Repository
 public class ContentsDao extends SqlSessionDaoSupport {
@@ -115,12 +113,12 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return (Map)getSqlSession().selectOne("contentsQuery.contentsInfo", requestParamMap);
 	}
 
-	public List<Map> contentsDetailList(Map requestParamMap) {
-		return (List<Map>)getSqlSession().selectList("contentsQuery.contentsDetailList", requestParamMap);
+	public Map<String, Object> contentsDetailList(Map requestParamMap) {
+		return getSqlSession().selectMap("contentsQuery.contentsDetailList", requestParamMap, ConstantsForDb.LOCATION_CODE);
 	}
 
-	public Object contentsCateList(long contentsDetail) {
-		return (List<Map>)getSqlSession().selectList("contentsQuery.contentsCateList", contentsDetail);
+	public Map<String, Object> contentsCateList(long contentsDetail) {
+		return getSqlSession().selectMap("contentsQuery.contentsCateList", contentsDetail, ConstantsForDb.CATEGORY_NM);
 	}
 
 

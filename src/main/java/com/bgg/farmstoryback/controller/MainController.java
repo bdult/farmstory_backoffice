@@ -44,6 +44,15 @@ public class MainController {
 	
 	@RequestMapping(value = "dashboard.do", method = RequestMethod.GET)
 	public String dashboard(Model model) {
+		
+		// 회원 가입 현황
+		
+		// 결제내역 현황
+		
+		// 고객문의 현황
+		
+		// 컨텐츠 업로드 현황
+		
 		List contentsTop5 = contentsService.top(5); 
 		List userTop5 = userService.top(5); 
 		List boardTop5 = boardService.top(5); 
@@ -57,6 +66,7 @@ public class MainController {
 		model.addAttribute("brandTop5", brandTop5);
 		model.addAttribute("categoryTop5", categoryTop5);
 		model.addAttribute("seriesTop5", seriesTop5);
+		model.addAttribute("userTop5", userTop5);
 		return "main/dashboard";
 	}
 }

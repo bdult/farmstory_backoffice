@@ -22,6 +22,7 @@ import com.bgg.farmstoryback.common.JsonResponseMaker;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.BrandService;
 import com.bgg.farmstoryback.service.CategoryService;
+import com.bgg.farmstoryback.service.CodeService;
 import com.bgg.farmstoryback.service.ContentsService;
 import com.mysql.jdbc.StringUtils;
 
@@ -39,6 +40,9 @@ public class ContentsController {
 	
 	@Autowired
 	private BrandService brandService;
+	
+	@Autowired
+	private CodeService codeService;
 	
 	@Autowired
 	private JsonResponseMaker jsonMaker;
@@ -67,12 +71,14 @@ public class ContentsController {
 	public String detail(Model model, @RequestParam Map reqParamMap) {
 		Map contentMap =  contentsService.detail(reqParamMap);
 		
-		// 카테고리 변경 시 필요한 카테고리 리스트
+		//출판사
+		model.addAttribute("brandList", brandService.listAll());
+
+		//카테고리 변경 시 필요한 카테고리 리스트
 		model.addAttribute("categoryList", cateService.listByLevel(1));
 		
-		//출판사 필요
-		//시리즈 필요
-//		model.addAttribute("cateList", cateService.listByLevel(1));
+		//국가 목록
+		model.addAttribute("locationList", codeService.locationCodeList());
 		
 		model.addAttribute("contentInfo", contentMap.get(ConstantsForResponse.CONTENTS_INFO));
 		model.addAttribute("detailList", contentMap.get(ConstantsForResponse.CONTENTS_DETAIL_LIST));
@@ -96,7 +102,7 @@ public class ContentsController {
 		model.addAttribute("categoryList", cateService.list());
 		model.addAttribute("brandList", brandService.listAll());
 		
-		return "contents/info";
+		return "contents/createView";
 	}
 //	
 //	@RequestMapping(value = "contents/create.do", method = RequestMethod.POST)

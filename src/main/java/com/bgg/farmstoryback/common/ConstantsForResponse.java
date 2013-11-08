@@ -14,6 +14,9 @@ public class ConstantsForResponse {
 	public static final String CONTENTS_INFO = "contentsInfo";
 	public static final String CONTENTS_CATE_LIST = "contentsCateList";
 	public static final String CONTENTS_DETAIL_LIST = "contentsDetailList";
+
+	public static final String CONTENTS_CATE_MAP = "contentsCateMap";
+	public static final String CONTENTS_DETAIL_MAP = "contentsDetailMap";
 	
 	
 	
