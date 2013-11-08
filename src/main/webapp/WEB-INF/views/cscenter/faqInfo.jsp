@@ -66,7 +66,7 @@
 							<div class="control-group">
 								<label class="control-label">카테고리</label>
 								<div class="controls">
-									<input type="text" name="cate" value="${ contentsList.CATE }">
+									<input type="text" name="cate" value="${ contentsList.CODE_DETAIL }">
 								</div>
 							</div>
 							</c:if>
@@ -75,7 +75,7 @@
 								<div class="span4">
 								<label class="control-label">카테고리</label>
 								<div class="controls">
-									<select class="span12" name="board_contents_code">
+									<select class="span12" name="contents_code">
     								<c:forEach var="cateList" items="${ cateList }">
 									  <option value="${cateList.CODE }" >${ cateList.CODE_DETAIL }</option>
     								</c:forEach>

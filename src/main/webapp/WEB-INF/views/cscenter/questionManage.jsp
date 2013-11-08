@@ -35,22 +35,22 @@
 			<h3 class="header smaller lighter blue">문의하기 리스트</h3>
 			<!-- /. table-header -->
 			
-				<form class="form-horizontal well">
+				<form class="form-horizontal well" id="searchForm">
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
    								<label class="control-label">검색</label>
     							<div class="controls">
-									<select class="span12">
-									  <option>전체</option>
-									  <option>작성자</option>
-									  <option>제목</option>
+									<select class="span12" name="search_type">
+									  <option value="">전체</option>
+									  <option value="member_id">작성자</option>
+									  <option value="title">제목</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="span8">
-							<input class="input-xxlarge" type="text" placeholder="검색어를 입력하세요">
+							<input class="input-xxlarge" name="" type="text" placeholder="검색어를 입력하세요">
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -58,10 +58,10 @@
 							<div class="control-group">
    								<label class="control-label">처리여부</label>
     							<div class="controls">
-									<select class="span12">
-									  <option>전체</option>
-									  <option>미처리</option>
-									  <option>처리완료</option>
+									<select class="span12" name="comment_yn">
+									  <option value="">전체</option>
+									  <option value="N">미처리</option>
+									  <option value="Y">처리완료</option>
 									</select>
 								</div>
 							</div>
@@ -77,14 +77,14 @@
     							<div class="controls">
     								<div class="span6">
 										<div class="input-append">
-											<input class="input-medium" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" id="date-picker-first" name="search_start_date" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
-											<input class="input-medium" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
+											<input class="input-medium" id="date-picker-last" name="search_end_date" type="text" data-date-format="yyyy-mm-dd">
 											<span class="add-on">
 												<i class="icon-calendar"></i>
 											</span>
@@ -105,7 +105,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large">검색</a>
+							<a class="btn btn-info input-large" id="search">검색</a>
 						</div>
 					</div>
 				</form>
@@ -190,6 +190,13 @@ jQuery(function($){
 $("#side-cscenter").addClass("open active");
 	$("#side-cscenter-question").addClass("active");
 
+	$("#search").click(function(){
+		$("#searchForm").attr({
+			method: 'post',
+			action: '${ contextPath }/cscenter/questionManage.do'
+		}).submit();	
+	});
+	
 	function getTimeStamp(type) {
 
 		var mydate = new Date();

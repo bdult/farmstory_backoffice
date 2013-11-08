@@ -35,13 +35,14 @@
 			<h3 class="header smaller lighter blue">FAQ 리스트</h3>
 			<!-- /. table-header -->
 			
-				<form class="form-horizontal well">
+				<form class="form-horizontal well" id="searchForm">
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="control-group">
    								<label class="control-label">제목검색</label>
     							<div class="controls">
-									<input class="input-xxlarge span10" type="text" placeholder="검색어를 입력하세요">
+    								<input type="hidden" name="search_type" value="title">
+									<input class="input-xxlarge span10" type="text" name="search" placeholder="검색어를 입력하세요">
 								</div>
 							</div>
 						</div>
@@ -52,7 +53,7 @@
 							<div class="control-group">
    								<label class="control-label">카테고리</label>
     							<div class="controls">
-									<select class="span12" name="board_contents_code">
+									<select class="span12" name="contents_code">
     								<c:forEach var="cateList" items="${ cateList }">
 									  <option value="${cateList.CODE }" >${ cateList.CODE_DETAIL }</option>
     								</c:forEach>
@@ -66,7 +67,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large">검색</a>
+							<a class="btn btn-info input-large" id="search">검색</a>
 						</div>
 					</div>
 				</form>
@@ -140,4 +141,10 @@
 $("#side-cscenter").addClass("open active");
 	$("#side-cscenter-faq").addClass("active");
 
+	$("#search").click(function(){
+		$("#searchForm").attr({
+			method: 'post',
+			action: '${ contextPath }/cscenter/faqManage.do'
+		}).submit();	
+	});
 </script>
