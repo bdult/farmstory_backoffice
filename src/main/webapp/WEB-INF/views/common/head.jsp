@@ -11,6 +11,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="request"/>
 <c:set var="rootPath" value="/ozworld-admin" scope="request"/>
+<c:set var="httpPath" value="http://115.71.237.215/"/>
 
 <!-- basic styles -->
 
