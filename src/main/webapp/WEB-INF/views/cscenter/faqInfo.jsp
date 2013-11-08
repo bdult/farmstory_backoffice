@@ -64,9 +64,15 @@
 							</div>
 							<c:if test="${ contentsList.CONTENTS_ID ne null }">
 							<div class="control-group">
+								<div class="span4">
 								<label class="control-label">카테고리</label>
 								<div class="controls">
-									<input type="text" name="cate" value="${ contentsList.CODE_DETAIL }">
+									<select class="span12" name="contents_code">
+    								<c:forEach var="cateList" items="${ cateList }">
+									  <option value="${cateList.CODE }" >${ cateList.CODE_DETAIL }</option>
+    								</c:forEach>
+    								</select>
+    							</div>
 								</div>
 							</div>
 							</c:if>
@@ -76,6 +82,7 @@
 								<label class="control-label">카테고리</label>
 								<div class="controls">
 									<select class="span12" name="contents_code">
+									  <option value="">카테고리 선택</option>
     								<c:forEach var="cateList" items="${ cateList }">
 									  <option value="${cateList.CODE }" >${ cateList.CODE_DETAIL }</option>
     								</c:forEach>
@@ -166,6 +173,7 @@
 			readonly : 'readonly'
 		});
 	} */
+	$("select[name=contents_code]").val("${ contentsList.CONTENTS_CODE }").attr("selected", "selected");
 
 	$("#create-btn").click(function(){
 		$("#create-form").attr({

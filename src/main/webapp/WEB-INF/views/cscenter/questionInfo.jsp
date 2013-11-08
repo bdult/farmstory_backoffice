@@ -59,13 +59,13 @@
 						<div class="control-group">
 							<label class="control-label">이메일</label>
 							<div class="controls">
-								<input type="text" name="" value="">
+								<input type="text" name="" value="${ contentsList.MEMBER_EMAIL }">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">전화번호</label>
 							<div class="controls">
-								<input type="text" name="" value="">
+								<input type="text" name="" value="${ contentsList.MEMBER_CEL }">
 							</div>
 						</div>
 						<div class="control-group">
@@ -75,13 +75,13 @@
 							</div>
 						</div>
 			</div>
-		</div>
+		</div>${ contentsList }
 		
 		<div class="row-fluid">
 			<h3 class="header smaller lighter blue">고객문의 내용 답변</h3>
 			<div class="row-fluid">
 				<div class="span12">
-					<c:if test="${ comment_yn eq 'Y' }">
+					<%-- <c:if test="${ comment_yn eq 'Y' }"> --%>
 						<form id="comment-create-form" class="form-horizontal" >
 						<c:forEach var="commentsList" items="${ commentsList }">
 							<div class="control-group">
@@ -105,8 +105,8 @@
 								</a>
 							</div>
 						</form>
-					</c:if>
-					<c:if test="${ comment_yn eq 'N' }">
+					<%-- </c:if> --%>
+					<%-- <c:if test="${ contentsList.STATUS eq 2 }"> --%>
 						<form id="comment-create-form" class="form-horizontal" >
 							<input type="hidden" name="board_contents_id" value="${ contentsList.CONTENTS_ID }">
 							<input type="hidden" name="member_id" value="${ login_session.MEMBER_ID }">
@@ -114,7 +114,7 @@
 							<div class="control-group">
 								<label class="control-label">답변</label>
 								<div class="controls">
-									<textarea name="comment" rows="5" cols="50" style="width:80%;"></textarea>
+									<textarea name="sub_contents" rows="5" cols="50" style="width:80%;"></textarea>
 								</div>
 							</div>
 							
@@ -129,7 +129,7 @@
 								</a>
 							</div>
 						</form>
-					</c:if>
+					<%-- </c:if> --%>
 				</div>
 			</div>
 		</div>

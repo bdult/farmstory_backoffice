@@ -109,7 +109,7 @@
 						</div>
 					</div>
 				</form>
-				
+				${ questionList }
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
@@ -132,7 +132,7 @@
 						<td>${ questionList.COMMENT_REG_DT }</td>
 						<td>
 							<c:choose>
-								<c:when test="${ questionList.COMMENT_YN eq 'Y' }">처리완료</c:when>
+								<c:when test="${ questionList.SUB_CONTENTS_YN eq 'Y' }">처리완료</c:when>
 								<c:otherwise>미완료</c:otherwise>
 							</c:choose>
 						</td>

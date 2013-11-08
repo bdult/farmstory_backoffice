@@ -48,9 +48,9 @@ public class CscenterController {
 	@RequestMapping(value = "cscenter/questionInfo.do")
 	public String questionInfo(Model model, @RequestParam Map<String,Object> paramMap) {
 		
-		model.addAttribute("comment_yn", paramMap.get("comment_yn"));
+//		model.addAttribute("comment_yn", paramMap.get("comment_yn"));
 		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
-		model.addAttribute("commentsList", boardService.commentList(paramMap));
+//		model.addAttribute("commentsList", boardService.commentList(paramMap));
 		
 		return "cscenter/questionInfo";
 	}
@@ -58,7 +58,8 @@ public class CscenterController {
 	@RequestMapping(value = "cscenter/questionAddComments.do")
 	public String questionAddComments(Model model, @RequestParam Map<String,Object> paramMap) {
 		
-		boardService.addComment(paramMap);
+		boardService.modifyContents(paramMap);
+//		boardService.addComment(paramMap);
 		
 		return "redirect:/cscenter/questionManage.do";
 	}

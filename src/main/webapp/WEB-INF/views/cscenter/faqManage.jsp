@@ -88,7 +88,7 @@
 				<c:forEach var="faqList" items="${faqList}" varStatus="status">
 					<tr>
 						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CONTENTS_ID }</a></td>
-						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CONTENTS_CODE }</a></td>
+						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.CONTENTS_CODE_DESC }</a></td>
 						<td><a href="${ contextPath }/cscenter/faqInfo.do?board_contents_id=${ faqList.CONTENTS_ID }">${ faqList.TITLE }</a></td>
 					</tr>
 				</c:forEach>
