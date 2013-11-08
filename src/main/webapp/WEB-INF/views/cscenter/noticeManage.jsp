@@ -90,7 +90,7 @@
 								<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="prev"><a href="noticeManage.do?blockPage=${pageInfo.preBlockPage}&search_type=title&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+								<li class="prev"><a href="noticeManage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
 							</c:otherwise>
 						</c:choose>
 						<c:forEach items="${pageList }" var="page">
@@ -108,7 +108,7 @@
 								<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="next"><a href="noticeManage.do?blockPage=${pageInfo.nextBlockPage}&search_type=title&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+								<li class="next"><a href="noticeManage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -124,6 +124,9 @@
 //side active
 $("#side-cscenter").addClass("open active");
 	$("#side-cscenter-notice").addClass("active");
+
+	//page init
+	$("#searchForm input[name=search").val("${ pageInfo.search }");
 
 	$("#search").click(function(){
 		$("#searchForm").attr({

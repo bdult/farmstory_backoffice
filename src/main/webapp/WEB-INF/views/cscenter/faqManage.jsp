@@ -54,6 +54,7 @@
    								<label class="control-label">카테고리</label>
     							<div class="controls">
 									<select class="span12" name="contents_code">
+									  <option value="">전체</option>
     								<c:forEach var="cateList" items="${ cateList }">
 									  <option value="${cateList.CODE }" >${ cateList.CODE_DETAIL }</option>
     								</c:forEach>
@@ -105,16 +106,16 @@
 								<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+								<li class="prev"><a href="faqManage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
 							</c:otherwise>
 						</c:choose>
 						<c:forEach items="${pageList }" var="page">
 							<c:choose>
 								<c:when test="${pageInfo.pageNum == page.pageNum}">
-									<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+									<li class="active"><a href="faqManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+									<li><a href="faqManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -123,7 +124,7 @@
 								<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+								<li class="next"><a href="faqManage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -141,6 +142,11 @@
 $("#side-cscenter").addClass("open active");
 	$("#side-cscenter-faq").addClass("active");
 
+	//page init
+	$("#searchForm input[name=search").val("${ pageInfo.search }");
+	$("#searchForm select[name=contents_code]").val("${ pageInfo.contents_code }").attr("selected", "selected");
+
+	
 	$("#search").click(function(){
 		$("#searchForm").attr({
 			method: 'post',
