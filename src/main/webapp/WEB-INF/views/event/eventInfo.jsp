@@ -105,7 +105,9 @@
 							<div class="control-group">
 								<label class="control-label" for="form-field-2">이미지</label>
 								<div class="controls">
-									<img src="${ contextPath }/${ contentsList.IMG_PATH }">
+									<img src="http://115.71.237.215/${ contentsList.IMG_PATH }">
+									<img src="http://115.71.237.215/ozworld-movie/thumbnail/board/0a38dc3e8.jpg">
+									<img src="http://115.71.237.215/ozworld-movie/thumbnail/39/LittleMathBooks_26.png">
 								</div>
 							</div>
 							<div class="control-group">
