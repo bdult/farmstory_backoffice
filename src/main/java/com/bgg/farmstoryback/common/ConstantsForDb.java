@@ -32,6 +32,7 @@ public class ConstantsForDb {
 	public static final String CONTENTS_NM = "CONTENTS_NM";
 	public static final String CONTENTS_ID = "CONTENTS_ID";
 	public static final String CATEGORY_ID = "CATE_ID";
+	public static final String CATEGORY_NM = "CATE_NM";
 	public static final String BRAND_ID = "BRAND_ID";
 	public static final String SERIES_ID = "CONTENTS_SERIES_ID";
 
@@ -64,6 +65,7 @@ public class ConstantsForDb {
 	public static final String CONTENTS_IDX = "DETAIL_IDX";
 	public static final String STATUS = "STATUS";
 	public static final String STATUS_DESC = "STATUS_DESC";
+	public static final String LOCATION_CODE = "LOCATION_CODE";
 
 
 

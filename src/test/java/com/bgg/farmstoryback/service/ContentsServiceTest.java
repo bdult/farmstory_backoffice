@@ -448,19 +448,19 @@ public class ContentsServiceTest {
 		
 		
 		Map contentsInfo  = (Map)contentsDetailInfo.get(ConstantsForResponse.CONTENTS_INFO);
-		List<Map> contentsDetailList = (List<Map>)contentsDetailInfo.get(ConstantsForResponse.CONTENTS_DETAIL_LIST);
-		List<Map> contentsCateList = (List<Map>)contentsDetailList.get(0).get(ConstantsForResponse.CONTENTS_CATE_LIST);
+		Map contentsDetailMap = (Map)contentsDetailInfo.get(ConstantsForResponse.CONTENTS_DETAIL_MAP);
+		Map categoryMap = (Map)((Map)contentsDetailMap.get("LOC001")).get(ConstantsForResponse.CONTENTS_CATE_MAP);
 
 		// then
 		assertThat(contentsDetailInfo, is(notNullValue()));
 		assertThat(contentsInfo, is(notNullValue()));
-		assertThat(contentsDetailList, is(notNullValue()));
-		assertThat(contentsCateList, is(notNullValue()));
-		assertThat(contentsDetailList.size(), is(not(0)));
-		assertThat(contentsCateList.size(), is(not(0)));
+		assertThat(contentsDetailMap, is(notNullValue()));
+		assertThat(categoryMap, is(notNullValue()));
+		assertThat(contentsDetailMap.size(), is(not(0)));
+		assertThat(categoryMap.size(), is(not(0)));
 		
 		logger.info("{}", contentsInfo);
-		logger.info("{}", contentsDetailList);
+		logger.info("{}", contentsDetailMap);
 
 	}
 	

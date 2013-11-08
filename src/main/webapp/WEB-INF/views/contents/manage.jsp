@@ -242,8 +242,6 @@ $(function(){
 				$(this).css("cursor", "pointer");
 			});
 		
-		console.info("pageInfo ${ pageInfo }");
-		
 		var $displayBox = $("#displayBox");
 		var displayYn = $displayBox.data("displayYn");
 		$displayBox.find(":radio").each(function(){

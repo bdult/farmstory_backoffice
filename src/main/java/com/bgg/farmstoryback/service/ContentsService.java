@@ -1,17 +1,14 @@
 package com.bgg.farmstoryback.service;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
@@ -82,12 +79,14 @@ public class ContentsService {
 		detailInfo.put(ConstantsForResponse.CONTENTS_INFO, contentsInfo);
 		
 		// make contents detail List
-		List<Map> contentsDetailList = conDao.contentsDetailList(requestParamMap);
-		for(Map contentsDetail : contentsDetailList){
-			long contentsDetailIdx = (Long)contentsDetail.get(ConstantsForDb.CONTENTS_IDX);
-			contentsDetail.put(ConstantsForResponse.CONTENTS_CATE_LIST, conDao.contentsCateList(contentsDetailIdx));
-		}
-		detailInfo.put(ConstantsForResponse.CONTENTS_DETAIL_LIST, contentsDetailList);
+		Map<String, Object> detailMap = conDao.contentsDetailList(requestParamMap);
+		for (Entry<String, Object> entry : detailMap.entrySet()) {
+			String key = entry.getKey();
+			HashMap map = (HashMap)entry.getValue();
+			long contentsDetailIdx = (Long)map.get(ConstantsForDb.CONTENTS_IDX);
+			map.put(ConstantsForResponse.CONTENTS_CATE_MAP, conDao.contentsCateList(contentsDetailIdx));
+        }
+		detailInfo.put(ConstantsForResponse.CONTENTS_DETAIL_MAP, detailMap);
 		
 		return detailInfo;
 	}
