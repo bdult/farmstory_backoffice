@@ -66,6 +66,10 @@ public class ConstantsForDb {
 	public static final String STATUS_DESC = "STATUS_DESC";
 
 
+	public static final String NEW_MEMBER_COUNT = "NEW_MEMBER_COUNT";
+	public static final String PAY_MEMBER_COUNT = "PAY_MEMBER_COUNT";
+
+
 
 
 

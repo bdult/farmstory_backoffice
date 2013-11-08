@@ -27,6 +27,7 @@
 					, BBC.EVENT_START_DT
 					, BBC.EVENT_END_DT
 					, BBC.SUB_CONTENTS
+					, if(isnull(BBC.SUB_CONTENTS), 'N', 'Y') AS SUB_CONTENTS_YN
 					, BBC.HITS
 					, ifnull(BBC.STATUS, 1) AS STATUS
 					, CASE (STATUS)
@@ -35,15 +36,7 @@
 						WHEN 2 THEN '완료'
 						ELSE '준비중'
 						END  AS STATUS_DESC
-					, (SELECT REG_DT  
-						FROM BG_BOARD_COMMENTS 
-					   WHERE CONTENTS_ID = BBC.CONTENTS_ID
-					   LIMIT 1
-						) AS COMMENT_REG_DT
-					, if(
-						(SELECT COUNT(*)
-						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0, 'Y', 'N'
-					  ) AS COMMENT_YN
+					, BBC.MOD_DT
 				FROM BG_BOARD_CONTENTS BBC
 				WHERE 1=1
 				AND BBC.BOARD_ID = #{board_id}
@@ -56,14 +49,12 @@
 				<if test="contents_code !=null and contents_code !=''">
 					AND CONTENTS_CODE = #{contents_code}
 				</if>
-				<if test="comment_yn !=null and comment_yn !=''">
-				    <if test="comment_yn == 'Y'">
-				       AND (SELECT COUNT(*)
-						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) > 0 
+				<if test="complete_yn !=null and complete_yn !=''">
+				    <if test="complete_yn == 'Y'">
+				       AND  BBC.SUB_CONTENTS IS NOT NULL
 				    </if>
-				    <if test="comment_yn == 'N'">
-				       AND (SELECT COUNT(*)
-						FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID) = 0 
+				    <if test="complete_yn == 'N'">
+				       AND  BBC.SUB_CONTENTS IS NULL
 				    </if>
 				</if>
 				<if test="search_start_date !=null and search_start_date !=''">

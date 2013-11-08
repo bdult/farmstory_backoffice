@@ -138,6 +138,10 @@ public class UserService {
 		
 	}
 
+	public List<Map> latestData() {
+		return userDao.latestData();
+	}
+
 	
 //	public Map<String, Object> getOneRole(Map<String, Object> requestParamMap) {
 //		return userDao.getOneRole(requestParamMap);

@@ -186,6 +186,16 @@
 		LIMIT #{limitCount}
 	</select>
 	
+    <select id="latestData" resultType="hashmap">
+        SELECT 
+			DATE_FORMAT(BM.REG_DT, '%Y.%m.%d') AS REG_DT
+			, COUNT(BM.MEMBER_ID) AS NEW_MEMBER_COUNT
+			, COUNT(BPH.MEMBER_ID) AS PAYMENT_MEMBER
+		FROM 
+			BG_MEMBER BM LEFT JOIN BG_PAYMENT_HIS BPH ON BM.MEMBER_ID =  BPH.MEMBER_ID
+		GROUP BY DATE_FORMAT(BM.REG_DT, '%Y%m%d')
+    </select>
+	
     <update id="modifyUserInfo">
         UPDATE BG_MEMBER 
         SET

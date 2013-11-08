@@ -391,6 +391,7 @@ public class UserServiceTest {
 
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test
 	public void testChildInfoModify() {
 		
@@ -438,6 +439,23 @@ public class UserServiceTest {
 		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_BIRTH_MONTH), is(testModifyChildMonth));
 		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_GENDER), is(testModifyChildGender));
 		assertThat((String)modifyDetailInfo.get(ConstantsForDb.CHILD_PHOTO), is(testModifyChildImg));
+
+	}
+	
+	@Test
+	public void testUserLatestInfo() {
+		
+		// given 
+
+		// when
+		List<Map> latestDataList = userService.latestData();
+
+		// then
+		assertThat(latestDataList, is(notNullValue()));
+		assertThat(latestDataList.size(), is(not(0)));
+		assertThat(latestDataList.get(0).get(ConstantsForDb.REG_DT), is(notNullValue()));
+		assertThat(latestDataList.get(0).get(ConstantsForDb.NEW_MEMBER_COUNT), is(notNullValue()));
+		assertThat(latestDataList.get(0).get(ConstantsForDb.PAY_MEMBER_COUNT), is(notNullValue()));
 
 	}
 	

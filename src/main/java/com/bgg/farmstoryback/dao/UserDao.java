@@ -80,6 +80,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		getSqlSession().update("userQuery.modifyChildInfo", requestParamMap);
 	}
 
+	public List<Map> latestData() {
+		return getSqlSession().selectList("userquery.latestData");
+	}
+
 	
 
 //	/** 아이디와 비밀번호로 유저정보(id, pwd, role)가져오기
