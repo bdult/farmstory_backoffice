@@ -57,6 +57,9 @@
 				       AND  BBC.SUB_CONTENTS IS NULL
 				    </if>
 				</if>
+				<if test="status !=null and status !=''">
+				       AND  BBC.STATUS = #{status}
+				</if>
 				<if test="search_start_date !=null and search_start_date !=''">
 					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
 				</if>
@@ -92,6 +95,9 @@
 		    <if test="complete_yn == 'N'">
 		       AND  BBC.SUB_CONTENTS IS NULL
 		    </if>
+		</if>
+		<if test="status !=null and status !=''">
+		       AND  BBC.STATUS = #{status}
 		</if>
 		<if test="search_start_date !=null and search_start_date !=''">
 			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
