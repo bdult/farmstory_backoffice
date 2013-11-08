@@ -86,7 +86,7 @@ public class SeriesController {
 	}
 	
 	@RequestMapping(value = "series/create.ajax", method = RequestMethod.POST)
-	public @ResponseBody String createAjax(@RequestParam Map<String,Object> parameter) {
+	public @ResponseBody String createAjax(@RequestParam Map<String, Object> parameter) {
 		seriesService.create(parameter);
 		return "{code:ok}";
 	}
@@ -112,6 +112,13 @@ public class SeriesController {
 	@RequestMapping(value = "series/parentSeriesList.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String parentSeriesListAjax(Model model, String search_name) {
 		List<Map> seriesList = seriesService.searchByName(search_name);
+		String seriesListJson = jsonMaker.generateMapList("data", seriesList);
+		return seriesListJson;
+	}
+	
+	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String list(Model model, @RequestParam Map<String, Object> requestParamMap) {
+		List<Map> seriesList = seriesService.list(requestParamMap);
 		String seriesListJson = jsonMaker.generateMapList("data", seriesList);
 		return seriesListJson;
 	}

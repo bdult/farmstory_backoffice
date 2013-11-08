@@ -88,6 +88,7 @@
 								<label class="control-label">상태</label>
 								<div class="controls">
 									<select class="span12" name="status">
+									  <option value="" >상태 선택</option>
 									  <option value="0" >준비중</option>
 									  <option value="1" >진행중</option>
     								</select>
@@ -98,7 +99,17 @@
 								<label class="control-label" for="form-field-2">배너</label>
 								<div class="controls">
 									<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${ contentsList.IMG_PATH }" />
-									<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+									<input  type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="form-field-2">이미지</label>
+								<div class="controls">
+									<img id="img-thumbnail-src" height="94" >
+									<a class="btn btn-app btn-danger btn-small" id="deleteImg">
+										<i class="icon-trash bigger-200"></i>
+										이미지 <br>삭제
+									</a>
 								</div>
 							</div>
 							<div class="control-group">
@@ -154,7 +165,24 @@
 	</div>
 	
 </div>
-
+<!--  thumbnail modal -->
+<div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">썸네일 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="thumbnail-upload-input" name="file" />
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+</div>
 <script type="text/javascript">
 
 	//page init
@@ -162,9 +190,9 @@
 		$('.date-picker-1').datepicker();
 		$('.date-picker-2').datepicker();
 	});
-	$("[name=status]").val("1");
+	$("[name=status]").val("${ contentsList.STATUS }");
 	
-
+	
 	//child modal thombnail upload
 	$(function(){
 		
@@ -202,6 +230,9 @@
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      $("#img-thumbnail-src").attr({
+					    	 src : "http://115.71.237.215/" + (response)
+					      });
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
@@ -215,10 +246,12 @@
 		
 	}); // <!-- function() end 
 	
-	//side active
-	$("#side-event").addClass("open active");
-		$("#side-event-event").addClass("active");
-
+	$("#deleteImg").click(function(){
+		$("#img_path").val();
+		$("#img-thumbnail-src").attr({
+			src : ''
+		});
+	});
 
 	$("#create-btn").click(function(){
 		$("#create-form").attr({

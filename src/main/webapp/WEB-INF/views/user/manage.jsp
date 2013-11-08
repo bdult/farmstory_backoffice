@@ -67,7 +67,7 @@
 							</div>
 						</div>
 						<div class="span8">
-							<input class="input-xxlarge" name="search" type="text" placeholder="검색어를 입력하세요">
+							<input class="input-xxlarge" id="inputSearch" name="search" type="text" placeholder="검색어를 입력하세요">
 						</div>
 					</div>
 					<div class="row-fluid">
@@ -218,6 +218,7 @@
 			}
 		}
 	}); */
+	
 
 	jQuery(function($){
 		$('#date-picker-first').datepicker();
@@ -235,10 +236,14 @@
 	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
 
 	$("#search").click(function(){
-		$("#searchForm").attr({
-			method: 'post',
-			action: '${ contextPath }/user/manage.do'
-		}).submit();
+		if($("[name=search_type]").val() == 0 && $("#inputSearch").val() != ''){
+			alert("회원검색 목록을 선택해 주세요.");
+		}else {
+			$("#searchForm").attr({
+				method: 'post',
+				action: '${ contextPath }/user/manage.do'
+			}).submit();	
+		}
 	});
 
 	function getTimeStamp(type) {
