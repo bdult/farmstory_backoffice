@@ -218,7 +218,9 @@
 			, STATUS = #{status}
 	    WHERE 1=1
 	    AND CONTENTS_ID = #{board_contents_id}
-	    AND MEMBER_ID = #{member_id}
+	    <if test="member_id != 'master'">
+		    AND MEMBER_ID = #{member_id}
+	    </if>
 	</update>
 	
 	<delete id="deleteComment">
