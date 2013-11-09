@@ -152,7 +152,7 @@
 						<td>
 							<div class="checkbox">
 								<label>
-									<input name="cb" type="checkbox" class="ace" data-contents-id="${  obj.CONTENTS_ID }">
+									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }">
 									<span class="lbl"></span>
 								</label>
 							</div>
@@ -174,11 +174,11 @@
 		</div><!--/.row-fluid-->
 		
 		<div class="row-fluid">
-				<div class="span6">
+				<div class="span2 pagination">
 					<div class="dataTables_info">Total ${ pageInfo.totalCount } entries</div>
 				</div>
-				<div class="span6">
-					<div class="dataTables_paginate paging_bootstrap pagination">
+				<div class="span8 text-center">
+					<div class="paging_bootstrap pagination">
 						<ul>
 							<c:choose>
 								<c:when test="${ pageInfo.blockPage == 1}">
@@ -209,10 +209,18 @@
 						</ul>
 					</div>
 				</div>
+				<div class="span2 pagination text-right">
+					<button id="deleteBtn" class="btn">선택삭제</button>
+				</div>
 			</div><!--  page-link -->
 		
 	</div><!--/ .page-content-->
 </div><!--/ .main-content-->
+
+<!-- delete form -->
+<form id="deleteForm" action="${ contextPath }/contents/delete.do" method="POST">
+	<!-- content_id array here -->
+</form>
 
 <script>
 $(function(){
@@ -288,7 +296,39 @@ $(function(){
 			$("#searchForm").submit();
 		});
 	
-		$("#detail_icon").click(function(){
+		$("#deleteBtn").click(function(){
+			if( confirm("선택한 컨텐츠를 삭제하시겠습니까?") ) {
+				var $checkedArr = $("input[name='cb']:checked");
+				var $targetForm = $("#deleteForm");
+				$checkedArr.each(function(){
+					var $this = $(this);
+					$targetForm.append("<input type='text' name='contents_id' value='" + $this.data("contentsId") + "' />");
+				});
+				$("#deleteForm").submit();
+			}
+			
+			
+		});
+		
+		//체크박스 전체 선택/해제 이벤트
+		$("input[name=cb_all]").click( function(){
+			
+			// false is default value 
+			var isAllChecked = $( this ).val();
+			
+			var $checkboxArray = $("input[name='cb']");
+			console.info( $checkboxArray );
+			if( isAllChecked == "true" ) {
+				$( this ).val( "false" );
+				$.each( $checkboxArray, function(){
+					$checkboxArray.prop("checked", false);
+				});
+			} else {
+				$( this ).val( "true" );
+				$.each( $checkboxArray, function(){
+					$checkboxArray.prop("checked", true);
+				});
+			}
 			
 		});
 		

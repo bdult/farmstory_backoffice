@@ -246,9 +246,16 @@ public class ContentsController {
 //	}
 //	
 //	
-//	@RequestMapping(value = "contents/delete.do")
-//	public String delete(Model model, @RequestParam Map<String,Object> parameter){
-//		contentsService.delete(parameter);
-//		return "redirect:manage.do?pageNum=1";
-//	}
+	@RequestMapping(value = "contents/delete.do")
+	public String delete(Model model, @RequestParam MultiValueMap multiMap){
+		
+		List<String> contentsIdList = (List)multiMap.get(ConstantsForParam.CONTENTS_ID);
+		for(String contentsId : contentsIdList){
+			Map paramMap = new HashMap();
+			paramMap.put(ConstantsForParam.CONTENTS_ID, contentsId);
+			contentsService.delete(paramMap);
+		}
+		
+		return "redirect:manage.do";
+	}
 }

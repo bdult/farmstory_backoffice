@@ -525,7 +525,7 @@
 		
 		<div class="row-fluid text-center">
 			<a id="updateBtn" class="btn">수정</a>
-			<a id="deleteBtn" class="btn">삭제</a>
+			<a id="deleteBtn" class="btn" data-contents-id="${ contentInfo.CONTENTS_ID }">삭제</a>
 			<a href="javascript:history.back(-1);" class="btn">뒤로가기</a>
 		</div>
 	</div><!--/.page-content-->
@@ -737,7 +737,15 @@ $(function(){
 		}); // <!-- brand-mod-btn event end
 		
 		$("#updateBtn").click(function(){
-			$("#updateForm").submit();
+			if( confirm("수정하시겠습니까?") ) {
+				$("#updateForm").submit();
+			}
+		});
+
+		$("#deleteBtn").click(function(){
+			if( confirm("삭하시겠습니까?") ) {
+				window.location.href = "${ contextPath }/contents/delete.do?contents_id=" + $(this).data("contentsId");
+			}
 		});
 		
 	}//event
