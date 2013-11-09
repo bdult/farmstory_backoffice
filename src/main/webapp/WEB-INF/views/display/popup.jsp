@@ -52,16 +52,16 @@
 							<td>
 								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input disabled type="radio" class="ace" value="Y">
+										<input type="radio" class="ace" value="Y">
 										<span class="lbl"> 노출중 </span>
-										<input disabled type="radio" class="ace" value="N">
+										<input type="radio" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
 							</td>
 							<td>
 								<a href="${ contextPath }/display/popup/updateView.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-								<button id="delBtn" class="btn btn-minier btn-yellow">삭제</button>
+								<button class="popupDeleteBtn btn btn-minier btn-yellow" data-display-id="${ obj.DISPLAY_ID }">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -84,6 +84,13 @@ $(function(){
 		
 		$this.find(":radio[value='" + displayYn + "']").prop("checked", true)
 
+	});
+	
+	$("button.popupDeleteBtn").click(function(){
+		var $this = $(this);
+		if( confirm("삭제하시겠습니까?") ) {
+			window.location.href = "${ contextPath }/display/popup/delete.do?display_id=" + $this.data("displayId");
+		}
 	});
 });
 </script>
