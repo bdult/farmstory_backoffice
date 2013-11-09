@@ -630,7 +630,9 @@ $(function(){
 		}); // <!-- brand-mod-btn event end
 		
 		$("#createBtn").click(function(){
-			$("#createForm").submit();
+			if( confirm("등록하시겠습니까?") ) {
+				$("#createForm").submit();
+			}
 		});
 		
 		
