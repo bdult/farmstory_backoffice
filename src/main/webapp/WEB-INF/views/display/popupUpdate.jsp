@@ -88,7 +88,7 @@
 			</form>
 			<div class="text-right">
 				<button id="updateBtn" class="btn btn-sm btn-yellow">수정</button>
-				<button class="btn btn-sm btn-yellow">삭제</button>
+				<button id="deleteBtn" class="btn btn-sm btn-yellow">삭제</button>
 			</div>
 		</div><!--/.row-fluid-->
 		
@@ -173,6 +173,12 @@ $(function(){
 			
 			if( confirm("수정하시겠습니까?") ) {
 				$("#updateForm").submit();
+			}
+		});
+		
+		$("#deleteBtn").click(function(){
+			if( confirm("삭제하시겠습니까?") ) {
+				window.location.href = "${ contextPath }/display/popup/delete.do?display_id=${ obj.DISPLAY_ID }";
 			}
 		});
 	

@@ -27,6 +27,8 @@
 			<h1>컨텐츠 상세<small><i class="icon-double-angle-right"></i> 컨텐츠에 대한 상세한 정보를 입력한다</small></h1>
 		</div><!--/.page-header-->
 
+		${ detailMap }
+
 		<form id="updateForm" action="${ contextPath }/contents/modify.do" method="POST" class="form-horizontal">
 		
 			<input type="hidden" name="contents_id" value="${ contentInfo.CONTENTS_ID }"/>

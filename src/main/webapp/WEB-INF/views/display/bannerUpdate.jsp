@@ -161,7 +161,7 @@ $(function(){
 		
 		$("#delBtn").click(function(){
 			if( confirm("삭제하시겠습니까?") ) {
-				window.location.href = "${ contextPath }/display/main/bannerDelete.do?display_id=${ displayInfo.DISPLAY_ID }";
+				window.location.href = "${ contextPath }/display/main/bannerDelete.do?display_id=${ bannerInfo.DISPLAY_ID }";
 			}
 		});
 		

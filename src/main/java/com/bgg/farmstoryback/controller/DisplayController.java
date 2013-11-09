@@ -19,6 +19,7 @@ import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.common.FileUtil;
 import com.bgg.farmstoryback.service.CategoryService;
+import com.bgg.farmstoryback.service.ContentsService;
 import com.bgg.farmstoryback.service.DisplayService;
 
 
@@ -32,6 +33,9 @@ public class DisplayController {
 	
 	@Autowired
 	private DisplayService displayService;
+	
+	@Autowired
+	private ContentsService contentsService;
 	
 	@Autowired
 	private CategoryService categoryService;
@@ -124,13 +128,16 @@ public class DisplayController {
 		Object obj = parameter.get(ConstantsForParam.CATEGORY_ID);
 		
 		if(obj == null){
-			if(categoryList.size() > 0){
-				Map cate = categoryList.get(0);
-				parameter.put(ConstantsForParam.CATEGORY_ID, String.valueOf(cate.get(ConstantsForDb.CATEGORY_ID)));
-			}
+//			if(categoryList.size() > 0){
+//				Map cate = categoryList.get(0);
+//				parameter.put(ConstantsForParam.CATEGORY_ID, String.valueOf(cate.get(ConstantsForDb.CATEGORY_ID)));
+//			}
+//			TODO 전체 컨텐츠 불러오기
+//			model.addAttribute("contents", displayService.contentsList(parameter));
+		} else {
+			model.addAttribute("contents", displayService.contentsList(parameter));
 		}
 		
-		model.addAttribute("contents", displayService.contentsList(parameter));
 		return "display/contents";
 	}
 	@RequestMapping(value = "display/contents/orderingUpdate.do")
