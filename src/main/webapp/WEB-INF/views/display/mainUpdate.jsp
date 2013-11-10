@@ -59,7 +59,7 @@
 						<tr>
 							<td>노출여부</td>
 							<td>
-								<div class="display_yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
+								<div class="display_yn radio-inline" data-display-yn="${ displayInfo.DISPLAY_YN }">
 									<label>
 										<input name="display_yn" type="radio" class="ace" value="Y">
 										<span class="lbl"> 노출함 </span>

@@ -50,16 +50,16 @@
 							<td>
 								<div class="display_yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input disabled type="radio" class="ace" value="Y" >
+										<input type="radio" class="ace" value="Y" >
 										<span class="lbl"> 노출함 </span>
-										<input disabled type="radio" class="ace" value="N">
+										<input type="radio" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>
 							</td>
 							<td>
 								<a href="${ contextPath }/display/main/updateView.do?display_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-								<button data-display-id="${ obj.DISPLAY_ID }" id="mainDelBtn" class="btn btn-minier btn-yellow">삭제</button>
+								<button data-display-id="${ obj.DISPLAY_ID }" class="mainDelBtn btn btn-minier btn-yellow">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -84,7 +84,7 @@
 							</td>
 							<td>
 								<a href="${ contextPath }/display/main/bannerUpdateView.do?display_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-								<button data-display-id="${ obj.DISPLAY_ID }" id="bannerDelBtn" class="btn btn-minier btn-yellow">삭제</button>
+								<button data-display-id="${ obj.DISPLAY_ID }" class="bannerDelBtn btn btn-minier btn-yellow">삭제</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -100,14 +100,14 @@ $(function(){
 	$("#side-display-main").addClass("active");
 	$("#side-display").addClass("open active");
 	
-	$("#mainDelBtn").click(function(){
+	$("button.mainDelBtn").click(function(){
 		var $this = $(this);
 		if( confirm("삭제하시겠습니까?") ) {
 			window.location.href = "${ contextPath }/display/main/delete.do?display_id=" + $this.data("displayId");
 		}
 	});
 	
-	$("#bannerDelBtn").click(function(){
+	$("button.bannerDelBtn").click(function(){
 		var $this = $(this);
 		if( confirm("삭제하시겠습니까?") ) {
 			window.location.href = "${ contextPath }/display/main/bannerDelete.do?display_id=" + $this.data("displayId");
