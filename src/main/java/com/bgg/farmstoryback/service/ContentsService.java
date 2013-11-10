@@ -148,9 +148,9 @@ public class ContentsService {
 			conDao.modifyContentsDetailInfo(contentsDetail);
 			// update cate-contents relationship
 			// delete > insert
+			conDao.deleteContentsCate(contentsDetail);
 			for(Map contentsCate : (List<Map>)contentsDetail.get(ConstantsForParam.CATEGORY_LIST)){
 				contentsCate.put(ConstantsForParam.CONTENTS_DETAIL_IDX, contentsDetail.get(ConstantsForParam.CONTENTS_DETAIL_IDX));
-				conDao.deleteContentsCate(contentsCate);
 				conDao.addContentsCate(contentsCate);
 			}
 		}
