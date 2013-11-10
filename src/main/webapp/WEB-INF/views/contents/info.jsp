@@ -27,12 +27,11 @@
 			<h1>컨텐츠 상세<small><i class="icon-double-angle-right"></i> 컨텐츠에 대한 상세한 정보를 입력한다</small></h1>
 		</div><!--/.page-header-->
 
-		<div class="row-fluid">
+		<form id="updateForm" action="${ contextPath }/contents/modify.do" method="POST" class="form-horizontal">
 		
-			<div>${ contentInfo }</div>
-			<div>${ detailList }</div>
-		
-			<form class="form-horizontal" role="form">
+			<input type="hidden" name="contents_id" value="${ contentInfo.CONTENTS_ID }"/>
+			
+			<div class="row-fluid">
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">출판사 선택</label>
 					<div class="span3">
@@ -52,16 +51,16 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
 					<div class="span9">
-						<input type="text" id="" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
-						<a class="btn">찾아보기</a>
+						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
+						<a id="movie-mod-btn" class="btn">찾아보기</a>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
-						<input type="text" id="" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
-						<a class="btn">찾아보기</a>
+						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
+						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
 					</div>
 				</div>
 				<div class="space-4"></div>
@@ -71,83 +70,507 @@
 						<div class="checkbox-inline">
 							<label>
 								<c:forEach items="${ locationList }" var="obj">
-									<input class="ace checkboxLocationList" type="checkbox" id="chk${ obj.CODE }">
+									<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
 									<span class="lbl"> ${ obj.CODE_DETAIL }</span>
+								</c:forEach>
+								<c:forEach var="entry" items="${ detailMap }">
+									<script>$("#chk${ entry.key }").prop("checked", true);</script>
 								</c:forEach>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
-			</form>
-		</div><!--/.row-fluid-->
+			</div><!--/.row-fluid-->
 		
-		<c:forEach items="${ locationList }" var="obj">
 			
-			<c:forEach items="${ detailList }" var="detail">
-				<c:if test="${ obj.CODE eq detail.LOCATION_CODE }">
-					<c:set var="item" value="${ detail }"></c:set>
-				</c:if>
-			</c:forEach>
-			<div id="box${ obj.CODE }" style="display: none">
+		
+			<div id="boxLOC001" >
 				<hr />
-				<form action="" class="form-horizontal">
-					<div class="form-group row-fluid">
-						<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">${ obj.CODE_DETAIL }</label>
-					</div>
-					<div class="form-group row-fluid">
-						<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
-						<div class="span9">
-							<div class="checkbox-inline">
-								<label>
-									<c:forEach items="${ categoryList }" var="obj">
-										<input 
-										<c:if test="${ obj.name eq item }"></c:if>
-										class="ace" name="category_id" type="checkbox" value="${ obj.CATE_ID }">
-										<span class="lbl"> ${ obj.name }</span>
-									</c:forEach>
-								</label>
-							</div>
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">한국(필수)</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id1" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+					    		<input name="contents_detail_idx1" type="hidden" value="${ detailMap.LOC001.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC001.contentsCateMap }">
+									<script>
+										$("input[name='category_id1']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
 						</div>
 					</div>
-					<div class="space-4"></div>
-					<div class="form-group row-fluid">
-						<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
-						<div class="span9">
-							<div class="radio-inline">
-								<label>
-									<input name="display_yn" type="radio" class="ace" value="Y">
-									<span class="lbl"> 노출함 </span>
-									<input name="display_yn" type="radio" class="ace" value="N" checked>
-									<span class="lbl"> 노출안함 </span>
-								</label>
-							</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn1" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC001.DISPLAY_YN eq 'Y' }"><input name="display_yn1" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn1" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
 						</div>
 					</div>
-					<div class="space-4"></div>
-					<div class="form-group row-fluid">
-						<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
-						<div class="span9">
-							<input type="text" id="nm" placeholder="컨텐츠명" class="" value="${ item.CONTENTS_NM }">
-						</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC001.CONTENTS_NM }">
 					</div>
-					<div class="space-4"></div>
-					<div class="form-group row-fluid">
-						<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
-						<div class="span9">
-							<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ item.CONTENTS_DESC }</textarea>
-						</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC001.CONTENTS_DESC }</textarea>
 					</div>
-				</form>
+				</div>
 			</div>
-		</c:forEach>
+		
+			<div id="boxLOC002" >
+				<hr />
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">미국</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id2" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+								<input name="contents_detail_idx2" type="hidden" value="${ detailMap.LOC002.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC002.contentsCateMap }">
+									<script>
+										$("input[name='category_id2']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn2" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC002.DISPLAY_YN eq 'Y' }"><input name="display_yn2" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn2" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC002.CONTENTS_NM }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC002.CONTENTS_DESC }</textarea>
+					</div>
+				</div>
+			</div>
+		
+			<div id="boxLOC003" >
+				<hr />
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">중국</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id3" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+								<input name="contents_detail_idx3" type="hidden" value="${ detailMap.LOC003.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC003.contentsCateMap }">
+									<script>
+										$("input[name='category_id3']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn3" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC003.DISPLAY_YN eq 'Y' }"><input name="display_yn3" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn3" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC003.CONTENTS_NM }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC003.CONTENTS_DESC }</textarea>
+					</div>
+				</div>
+			</div>
+		
+		
+			<div id="boxLOC004" >
+				<hr />
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">러시아</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id4" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+								<input name="contents_detail_idx4" type="hidden" value="${ detailMap.LOC004.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC004.contentsCateMap }">
+									<script>
+										$("input[name='category_id4']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn4" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC004.DISPLAY_YN eq 'Y' }"><input name="display_yn4" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn4" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC004.CONTENTS_NM }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC004.CONTENTS_DESC }</textarea>
+					</div>
+				</div>
+			</div>
+		
+		
+			<div id="boxLOC005" >
+				<hr />
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">인도</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id5" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+								<input name="contents_detail_idx5" type="hidden" value="${ detailMap.LOC005.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC005.contentsCateMap }">
+									<script>
+										$("input[name='category_id5']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn5" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC005.DISPLAY_YN eq 'Y' }"><input name="display_yn5" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn5" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC005.CONTENTS_NM }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC005.CONTENTS_DESC }</textarea>
+					</div>
+				</div>
+			</div>
+		
+		
+			<div id="boxLOC006" >
+				<hr />
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">사우디아라비아</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id6" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+								<input name="contents_detail_idx6" type="hidden" value="${ detailMap.LOC006.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC006.contentsCateMap }">
+									<script>
+										$("input[name='category_id6']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC006.DISPLAY_YN eq 'Y' }"><input name="display_yn6" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn6" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC006.CONTENTS_NM }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC006.CONTENTS_DESC }</textarea>
+					</div>
+				</div>
+			</div>
+		
+			<div id="boxLOC007" >
+				<hr />
+				<div class="form-group row-fluid">
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">일본</label>
+				</div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<div class="span9">
+						<div class="checkbox-inline">
+							<label>
+								<c:forEach items="${ categoryList }" var="obj">
+						    		<input class="ace" name="category_id7" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
+									<span class="lbl"> ${ obj.name }</span>
+								</c:forEach>
+								<input name="contents_detail_idx7" type="hidden" value="${ detailMap.LOC007.DETAIL_IDX }">
+								<c:forEach var="entry" items="${ detailMap.LOC007.contentsCateMap }">
+									<script>
+										$("input[name='category_id7']").each(function(){
+											var $this = $(this);
+											if('${ entry.key }' == $this.data("nm") ) {
+												$this.prop("checked", true);
+											}
+										});
+									</script>
+								</c:forEach>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<div class="span9">
+						<div class="radio-inline">
+							<label>
+								<input name="display_yn7" type="radio" class="ace" value="Y" checked>
+								<span class="lbl"> 노출함 </span>
+								<c:choose>
+									<c:when test="${ detailMap.LOC007.DISPLAY_YN eq 'Y' }"><input name="display_yn7" type="radio" class="ace" value="N"></c:when>
+									<c:otherwise><input name="display_yn7" type="radio" class="ace" value="N" checked></c:otherwise>
+								</c:choose>
+								<span class="lbl"> 노출안함 </span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<div class="span9">
+						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC007.CONTENTS_NM }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<div class="span9">
+						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC007.CONTENTS_DESC }</textarea>
+					</div>
+				</div>
+			</div>
+		</form>
 		
 		<div class="row-fluid text-center">
 			<a id="updateBtn" class="btn">수정</a>
+			<a id="deleteBtn" class="btn" data-contents-id="${ contentInfo.CONTENTS_ID }">삭제</a>
 			<a href="javascript:history.back(-1);" class="btn">뒤로가기</a>
 		</div>
 	</div><!--/.page-content-->
 </div><!--/.main-content-->
+
+<!--  movie modal -->			
+<div id="movie-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="movie-upload.do" id="movie-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">동영상 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="movie-upload-input" name="file" />
+		</div>
+		<div id="movie-modal-footer" class="modal-footer">
+			<button type="submit" id="movie-upload-submit" class="btn btn-sm btn-success">
+				업로드 <i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+    <div id="upload-bar" class="progress">
+        <div class="bar"></div >
+        <div class="percent">0%</div >
+    </div>
+</div>
+
+<!--  thumbnail modal -->
+<div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 class="text-center">썸네일 업로드</h3>
+		</div>
+		<div class="modal-body">
+				<input type="file" id="thumbnail-upload-input" name="file" />
+		</div>
+		<div id="thumbnail-modal-footer" class="modal-footer">
+			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
+				업로드
+				<i class="icon-arrow-right icon-on-right bigger-110"></i>
+			</button>
+		</div>
+	</form>
+</div>
 			
 <script>
 $(function(){
@@ -179,11 +602,6 @@ $(function(){
 			$("#selectBrandBox").trigger("change");
 		}
 		
-		//한국
-		$("#chkLOC001").click(function() {
-			locationToggle( $(this), $("#boxLOC001") );
-		});
-		
 		//미국
 		$("#chkLOC002").click(function() {
 			locationToggle( $(this), $("#boxLOC002") );
@@ -214,21 +632,123 @@ $(function(){
 			locationToggle( $(this), $("#boxLOC007") );
 		});
 		
-	}//event
+		$('#movie-upload-input').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'large'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
 	
-	{//init
-		
-		$("#side-contents-contents").addClass("active");
-		$("#side-contents").addClass("open active");
-		
-		$(".checkboxLocationList").each(function(){
-			var $this = $(this);
-			console.info( $this.attr("id") );
-			
-			console.info( "${ contentsDetailList }" );
+		}).on('change', function(){
+			$("#movie-modal-footer").show();
 		});
 		
-	}//init
+		$('#thumbnail-upload-input').ace_file_input({
+			style:'well',
+			btn_choose:'Drop files here or click to choose',
+			btn_change:null,
+			no_icon:'icon-cloud-upload',
+			droppable:true,
+			thumbnail:'large'//large | fit
+			//,icon_remove:null//set null, to hide remove/reset button
+			/**,before_change:function(files, dropped) {
+				//Check an example below
+				//or examples/file-upload.html
+				return true;
+			}*/
+			/**,before_remove : function() {
+				return true;
+			}*/
+			,
+			preview_error : function(filename, error_code) {
+				//name of the file that failed
+				//error_code values
+				//1 = 'FILE_LOAD_FAILED',
+				//2 = 'IMAGE_LOAD_FAILED',
+				//3 = 'THUMBNAIL_FAILED'
+				//alert(error_code);
+			}
+	
+		}).on('change', function(){
+			$("#thumbnail-modal-footer").show();
+		});
+		
+		var bar = $('.bar');
+		var percent = $('.percent');
+		var status = $('#status');
+		$('#movie-upload-form').ajaxForm(
+				 {
+					 beforeSend: function() {
+							
+					        status.empty();
+					        var percentVal = '0%';
+					        bar.width(percentVal);
+					        percent.html(percentVal);
+					    },
+				    uploadProgress: function(event, position, total, percentComplete) {
+				    	$("#upload-bar").show();
+				        var percentVal = percentComplete + '%';
+				        bar.width(percentVal);
+				        percent.html(percentVal);
+				    },
+				    success: function(response){
+				      $("#src_path").val(response);
+				      $("#movie-modal").modal('toggle');
+					}
+				 }
+		 );
+		$('#thumbnail-upload-form').ajaxForm(
+				 {
+					    success: function(response){
+					      $("#img_path").val(response);
+					      $("#thumbnail-modal").modal('toggle');
+						}
+				 }
+		 );
+		
+		$("#movie-mod-btn").click(function(){
+			$("#movie-modal-footer").hide();
+			$("#upload-bar").hide();
+			$("#movie-modal").modal('toggle');
+		}); // <!-- brand-mod-btn event end
+		
+		$("#thumbnail-mod-btn").click(function(){
+			$("#thumbnail-modal-footer").hide();
+			$("#thumbnail-modal").modal('toggle');
+		}); // <!-- brand-mod-btn event end
+		
+		$("#updateBtn").click(function(){
+			if( confirm("수정하시겠습니까?") ) {
+				$("#updateForm").submit();
+			}
+		});
+
+		$("#deleteBtn").click(function(){
+			if( confirm("삭하시겠습니까?") ) {
+				window.location.href = "${ contextPath }/contents/delete.do?contents_id=" + $(this).data("contentsId");
+			}
+		});
+		
+	}//event
 	
 	{//function
 		
@@ -242,6 +762,22 @@ $(function(){
 		};
 
 	}//function
+	
+	{//init
+		
+		$("#side-contents-contents").addClass("active");
+		$("#side-contents").addClass("open active");
+		
+		$("input.checkboxLocationList").each(function(){
+			var $this = $(this);
+			if( !!! $this.prop("checked")  ) {
+				$("#box" + $this.data("code")).hide()
+			}
+		});
+		
+		$("#selectBrandBox").trigger("change");
+		
+	}//init
 	
 });
 </script>

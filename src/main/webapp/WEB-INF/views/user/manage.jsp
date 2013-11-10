@@ -174,7 +174,7 @@
 									<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 							<c:forEach items="${pageList }" var="page">
@@ -192,7 +192,7 @@
 									<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

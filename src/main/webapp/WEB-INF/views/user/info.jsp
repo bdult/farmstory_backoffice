@@ -125,46 +125,38 @@
 			</div>
 		<!-- clidren nav -->
 			<ul class="nav nav-tabs" id="myTab">
-				<c:if test="${ !empty childInfo }">
 				<li class="active" id="navTab1">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						자녀방설정
 					</a>
 				</li>
-				</c:if>
 
-				<c:if test="${ !empty paymentsInfo }">
 				<li class="" id="navTab2">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						결제내역
 					</a>
 				</li>
-				</c:if>
 				
-				<c:if test="${ !empty couponInfo }">
-				<li class="" id="navTab3">
+				<!-- <li class="" id="navTab3">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						쿠폰내역
 					</a>
-				</li>
-				</c:if>
+				</li> -->
 				
-				<c:if test="${ !empty questionInfo }">
 				<li class="" id="navTab4">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						1:1문의
 					</a>
 				</li>
-				</c:if>
 			</ul>
 
 		<!--/.page-header-->
-			<c:if test="${ !empty childInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList1">
+			<c:if test="${ !empty childInfo }">
 				<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="1">
 					<thead>
 						<tr>
@@ -191,11 +183,11 @@
 							</tr>
 					</tbody>
 				</c:forEach>
-			</table>
 			</c:if>
+			</table>
 			
-			<c:if test="${ !empty paymentsInfo}">
 			<table class="table table-striped table-bordered table-hover" id="navTabList2" style="display: none;">
+			<c:if test="${ !empty paymentsInfo}">
 					<thead>
 						<tr>
 							<th>NO.</th>
@@ -218,11 +210,11 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-			</table>
 			</c:if>
+			</table>
 			
+			<%-- <table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
 			<c:if test="${ !empty couponInfo }">
-			<table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
 				<thead>
 					<tr>
 						<th>NO.</th>
@@ -245,11 +237,11 @@
 						</c:forEach>
 					</tr>
 				</tbody>
-			</table>
 			</c:if>
+			</table> --%>
 			
-			<c:if test="${ !empty questionInfo }">
 			<table class="table table-striped table-bordered table-hover" id="navTabList4" style="display: none;">
+			<c:if test="${ !empty questionInfo }">
 				<thead>
 					<tr>
 						<th>NO.</th>
@@ -261,15 +253,15 @@
 				<tbody>
 					<c:forEach var="questionInfo" items="${ questionInfo }" varStatus="status">
 						<tr>
-							<td>${ questionInfo.ROWNUM }</td>
-							<td>${ questionInfo.TITLE }</td>
+							<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionInfo.CONTENTS_ID }">${ questionInfo.ROWNUM }</a></td>
+							<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionInfo.CONTENTS_ID }">${ questionInfo.TITLE }</a></td>
 							<td>${ questionInfo.REG_DT }</td>
 							<td>${ questionInfo.ANSWER_YN }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
-			</table>
 			</c:if>
+			</table>
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">

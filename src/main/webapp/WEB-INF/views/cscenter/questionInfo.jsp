@@ -82,7 +82,7 @@
 		
 				<div class="row-fluid">
 					<h3 class="header smaller lighter blue">고객문의 내용 답변</h3>
-					<div class="row-fluid">
+					<div class="row-fluid form-horizontal">
 						<div class="span12">
 							<c:if test="${ contentsInfo.SUB_CONTENTS != null }">
 								<div class="control-group">

@@ -35,13 +35,14 @@
 			<h3 class="header smaller lighter blue">공지사항 리스트</h3>
 			<!-- /. table-header -->
 			
-				<form class="form-horizontal well">
+				<form class="form-horizontal well" id="searchForm">
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="control-group">
    								<label class="control-label">제목검색</label>
     							<div class="controls">
-									<input class="input-xxlarge span10" type="text" placeholder="검색어를 입력하세요">
+    								<input type="hidden" name="search_type" value="title">
+									<input class="input-xxlarge span10" name="search" type="text" placeholder="검색어를 입력하세요">
 								</div>
 							</div>
 						</div>
@@ -49,7 +50,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-center">
-							<a class="btn btn-info input-large">검색</a>
+							<a class="btn btn-info input-large" id="search">검색</a>
 						</div>
 					</div>
 				</form>
@@ -89,16 +90,16 @@
 								<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}&search=${page.search}"><i class="icon-double-angle-left"></i></a></li>
+								<li class="prev"><a href="noticeManage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
 							</c:otherwise>
 						</c:choose>
 						<c:forEach items="${pageList }" var="page">
 							<c:choose>
 								<c:when test="${pageInfo.pageNum == page.pageNum}">
-									<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+									<li class="active"><a href="noticeManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=title&search=${pageInfo.search}">${page.pageNum}</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+									<li><a href="noticeManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=title&search=${pageInfo.search}">${page.pageNum}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -107,7 +108,7 @@
 								<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}&search=${pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+								<li class="next"><a href="noticeManage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -124,4 +125,14 @@
 $("#side-cscenter").addClass("open active");
 	$("#side-cscenter-notice").addClass("active");
 
+	//page init
+	$("#searchForm input[name=search").val("${ pageInfo.search }");
+
+	$("#search").click(function(){
+		$("#searchForm").attr({
+			method: 'post',
+			action: '${ contextPath }/cscenter/noticeManage.do'
+		}).submit();	
+	});
+	
 </script>

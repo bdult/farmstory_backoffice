@@ -66,5 +66,6 @@ public class ConstantsForParam {
 	public static final String STATUS = "status";
 	public static final String IDX = "idx";
 	public static final String COMPLETE_YN = "complete_yn";
+	public static final String LOCATION = "location";
 	
 }
