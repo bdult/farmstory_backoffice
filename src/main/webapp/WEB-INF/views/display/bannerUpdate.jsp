@@ -50,6 +50,14 @@
 							<td>대표이미지</td>
 							<td>
 								<input class="no-magin-bottom" type="text" id="img_path" name="img_path" value="${ bannerInfo.IMG_PATH }" readonly>
+								<div id="thumbnail-box" style="display: none;">
+									<br />
+									<img id="thumbnail" width="300" height="300" />
+									<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
+										<i class="icon-trash bigger-200"></i>
+										삭제
+									</a>
+								</div>
 							</td>
 							<td>
 								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
@@ -107,6 +115,11 @@ $(function(){
 		//사이드바 활성화
 		$("#side-display-main").addClass("active");
 		$("#side-display").addClass("open active");
+		
+		if( $("#img_path").val().length > 0 ) {
+			$("#thumbnail-box").show();
+			$("#thumbnail").attr("src",  "${ httpPath }/" + $("#img_path").val() );
+		}
 		
 	}//init
 	
@@ -199,10 +212,21 @@ $(function(){
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      
+					    //for thumbnail
+					      $("#thumbnail-box").show();
+					      $("#thumbnail").attr("src",  "${ httpPath }" + response );
+					      
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
 		 );
+		
+		$("#thumbnailDeleteBtn").click(function(){
+			$("#img_path").val("");
+			$("#thumbnail").attr("src",  "");
+			$("#thumbnail-box").hide();
+		});
 		
 	}//event
 	

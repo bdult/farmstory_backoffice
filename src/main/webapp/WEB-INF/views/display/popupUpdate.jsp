@@ -49,7 +49,15 @@
 						<tr>
 							<td>팝업 이미지</td>
 							<td>
-								<input class="no-magin-bottom" type="text" name="img_path" value="${ obj.IMG_PATH }" readonly>
+								<input class="no-magin-bottom" type="text" name="img_path" id="img_path" value="${ obj.IMG_PATH }" readonly>
+								<div id="thumbnail-box" style="display: none;">
+									<br />
+									<img id="thumbnail" width="300" height="300" />
+									<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
+										<i class="icon-trash bigger-200"></i>
+										삭제
+									</a>
+								</div>
 							</td>
 							<td>
 								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
@@ -130,6 +138,12 @@ $(function(){
 			$this.find(":radio[value='" + displayYn + "']").prop("checked", true);
 	
 		});
+		
+		if( $("#img_path").val().length > 0 ) {
+			$("#thumbnail-box").show();
+			$("#thumbnail").attr("src",  "${ httpPath }/" + $("#img_path").val() );
+		}
+		
 	}//init
 	
 	{//event
@@ -221,10 +235,21 @@ $(function(){
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      
+					      //for thumbnail
+					      $("#thumbnail-box").show();
+					      $("#thumbnail").attr("src",  "${ httpPath }" + response );
+					      
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
 		 );
+		
+		$("#thumbnailDeleteBtn").click(function(){
+			$("#img_path").val("");
+			$("#thumbnail").attr("src",  "");
+			$("#thumbnail-box").hide();
+		});
 	}//event
 });
 </script>
