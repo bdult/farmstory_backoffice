@@ -33,8 +33,8 @@ public class ContentsService {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> listByCategory(String categoryId) {
-		return conDao.listByCategory(categoryId);
+	public List<Map> listByCategory(Map requestParamMap) {
+		return conDao.listByCategory(requestParamMap);
 	}
 	
 	/**

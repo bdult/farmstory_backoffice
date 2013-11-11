@@ -57,8 +57,7 @@ public class DisplayService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List<Map> contentsList(Map requestParamMap) {
-		String categoryId = (String)requestParamMap.get(ConstantsForParam.CATEGORY_ID);
-		List<Map> contentsList = contentsService.listByCategory(categoryId); 
+		List<Map> contentsList = contentsService.listByCategory(requestParamMap); 
 		return contentsList;
 	}
 
