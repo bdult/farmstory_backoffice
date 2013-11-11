@@ -159,7 +159,7 @@
 								<td>${userlist.MEMBER_ROLE_DESC}</td>
 								<td>${userlist.MEMBER_CEL}</td>
 								<td>${userlist.REG_DT}</td>
-								<td>${userlist.MEMBER_STATUS_DETAIL}</td>
+								<td>${userlist.MEMBER_STATUS_DESC}</td>
 							</tr>
 				</c:forEach>
 				</tbody>
