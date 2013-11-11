@@ -265,7 +265,7 @@
 	    SET ORDERING_NO = #{ordering_no}
 	    WHERE 1=1 
 	    AND CATE_ID = #{category_id}
-	    AND CONTENTS_ID = #{contents_id}
+	    AND CONTENTS_DETAIL_IDX = #{detail_idx}
 	</update>
 	
 	<!-- 
