@@ -27,7 +27,6 @@ public class DispalyServiceTest {
 	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	
-	private String testDisplayId = null;
 	private Map requestParamMap = null;
 	
 	@Autowired
@@ -35,7 +34,6 @@ public class DispalyServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
-		testDisplayId = "1";
 		requestParamMap = new HashMap();
 	}
 
@@ -67,8 +65,10 @@ public class DispalyServiceTest {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void testDetail() {
 		
-		// given 
-		requestParamMap.put(ConstantsForParam.DISPLAY_ID, testDisplayId);
+		// given
+		Map displayInfo = displayService.listInfo();
+		List<Map> topDisplay = (List<Map>)displayInfo.get(ConstantsForResponse.TOP_DISPLAY);
+		requestParamMap.put(ConstantsForParam.DISPLAY_ID, topDisplay.get(0).get(ConstantsForDb.DISPLAY_ID));
 
 		// when
 		Map displayDetail = displayService.detail(requestParamMap);
@@ -234,9 +234,6 @@ public class DispalyServiceTest {
 	public void testInsertPopup() {
 		
 		// given 
-		List<Map> popupDisplay = displayService.popupList();
-		Map popupInfo = popupDisplay.get(0);
-		requestParamMap.put(ConstantsForParam.DISPLAY_ID, popupInfo.get(ConstantsForDb.DISPLAY_ID));
 		
 		String addPopupDisTitle = "addPopupTitle";
 		String addPopupDisImgPath = "addPopupTemp/addTemp.gif";
@@ -296,15 +293,20 @@ public class DispalyServiceTest {
 	@Test
 	public void deletePopup() {
 		// given 
+		
+		
+		
 		List<Map> popupDisplay = displayService.popupList();
-		Map popupInfo = popupDisplay.get(0);
-		requestParamMap.put(ConstantsForParam.DISPLAY_ID, popupInfo.get(ConstantsForDb.DISPLAY_ID));
-		// when
-		displayService.delete(requestParamMap);
-
-		// then
-		Map detailInfo = displayService.detail(requestParamMap);
-		assertThat(detailInfo, is(nullValue()));
+		if(popupDisplay.size() > 0){
+			Map popupInfo = popupDisplay.get(0);
+			requestParamMap.put(ConstantsForParam.DISPLAY_ID, popupInfo.get(ConstantsForDb.DISPLAY_ID));
+			// when
+			displayService.delete(requestParamMap);
+			
+			// then
+			Map detailInfo = displayService.detail(requestParamMap);
+			assertThat(detailInfo, is(nullValue()));
+		}
 
 	}
 	
