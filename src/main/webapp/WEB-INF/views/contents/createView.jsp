@@ -59,6 +59,14 @@
 					<div class="span9">
 						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
 						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
+						<div id="thumbnail-box" style="display: none;">
+							<br />
+							<img id="thumbnail" width="300" height="300" />
+							<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
+								<i class="icon-trash bigger-200"></i>
+								삭제
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
@@ -618,10 +626,21 @@ $(function(){
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      
+					    //for thumbnail
+					      $("#thumbnail-box").show();
+					      $("#thumbnail").attr("src",  "${ httpPath }" + response );
+					      
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
 		 );
+		
+		$("#thumbnailDeleteBtn").click(function(){
+			$("#img_path").val("");
+			$("#thumbnail").attr("src",  "");
+			$("#thumbnail-box").hide();
+		});
 		
 		$("#movie-mod-btn").click(function(){
 			$("#movie-modal-footer").hide();
