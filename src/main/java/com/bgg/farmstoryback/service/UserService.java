@@ -137,6 +137,10 @@ public class UserService {
 		userDao.modifyChildInfo(requestParamMap);
 		
 	}
+	
+	public void deleteUserInfo(Map requestParamMap) {
+		userDao.deleteUserInfo(requestParamMap);
+	}
 
 	public List<Map> latestData() {
 		return userDao.latestData();
