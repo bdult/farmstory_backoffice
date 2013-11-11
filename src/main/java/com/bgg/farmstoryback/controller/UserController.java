@@ -165,7 +165,7 @@ public class UserController {
 
 		userService.deleteUserInfo(paramMap);
 		
-		return "redirect:/user/detail.do?member_id=" + paramMap.get("member_id");
+		return "redirect:/user/manage.do";
   	}
   
 //  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
