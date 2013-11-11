@@ -50,7 +50,7 @@
 
 					<div class="row-fluid">
 						<div class="span4">
-							<div class="control-group">
+							<div class="control-group" style="margin: 0;">
    								<label class="control-label">카테고리</label>
     							<div class="controls">
 									<select class="span12" name="contents_code">
@@ -62,13 +62,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="span8">
-						</div>
-					</div>
-					
-					<div class="row-fluid">
-						<div class="span12 text-center">
-							<a class="btn btn-info input-large" id="search">검색</a>
+						<div class="span8 text-right">
+							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
 				</form>
