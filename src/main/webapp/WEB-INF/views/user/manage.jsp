@@ -121,8 +121,8 @@
 					</div>
 					
 					<div class="row-fluid">
-						<div class="span12 text-center">
-							<a class="btn btn-info input-large" id="search">검색</a>
+						<div class="span12 text-right">
+							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
 				</form>

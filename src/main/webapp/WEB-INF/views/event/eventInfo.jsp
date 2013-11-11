@@ -183,8 +183,47 @@
 		</div>
 	</form>
 </div>
+
 <script type="text/javascript">
 
+//validate
+setValid();
+$("#create-form").validate({
+	rules: {
+		title: {
+			required: true
+		},
+		event_start_dt: {
+			required: true
+		},
+		event_end_dt: {
+			required: true
+		},
+		status: {
+			required: true
+		},
+		contents: {
+			required: true
+		}
+	},
+	messages: {
+		title: {
+			required: "제목을 입력해 주세요."
+		},
+		event_start_dt: {
+			required: "첫번째 날짜를 입력해 주세요."
+		},
+		event_end_dt: {
+			required: "마지막 날짜를 입력해 주세요."
+		},
+		status: {
+			required: "상태를 선택해 주세요."
+		},
+		contents: {
+			required: "내용을 입력해 주세요."
+		}
+	}
+});
 	//page init
 	jQuery(function($){
 		$('.date-picker-1').datepicker();

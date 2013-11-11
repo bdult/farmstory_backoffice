@@ -104,8 +104,8 @@
 					</div>
 					
 					<div class="row-fluid">
-						<div class="span12 text-center">
-							<a class="btn btn-info input-large" id="search">검색</a>
+						<div class="span12 text-right">
+							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
 				</form>
@@ -151,16 +151,16 @@
 									<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="prev"><a href="manage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
+									<li class="prev"><a href="questionManage.do?blockPage=${pageInfo.preBlockPage}"><i class="icon-double-angle-left"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="questionManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=${pageInfo.search_type}&search=${pageInfo.search}&complete_yn=${pageInfo.complete_yn}&search_start_date=${pageInfo.search_start_date}&search_end_date=${pageInfo.search_end_date}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li><a href="questionManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=${pageInfo.search_type}&search=${pageInfo.search}&complete_yn=${pageInfo.complete_yn}&search_start_date=${pageInfo.search_start_date}&search_end_date=${pageInfo.search_end_date}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -169,7 +169,7 @@
 									<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="next"><a href="manage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
+									<li class="next"><a href="questionManage.do?blockPage=${pageInfo.nextBlockPage}"><i class="icon-double-angle-right"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>

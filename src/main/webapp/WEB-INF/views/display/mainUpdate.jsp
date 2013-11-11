@@ -88,8 +88,8 @@
 				</table>
 			</form>
 			<div class="text-right">
-				<button id="updateBtn" class="btn btn-sm btn-yellow">수정</button>
-				<button id="delBtn" class="btn btn-sm btn-yellow">삭제</button>
+				<button id="updateBtn" class="btn btn-sm btn-yellow">확인</button>
+				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</a>
 			</div>
 		</div><!--/.row-fluid-->
 		
