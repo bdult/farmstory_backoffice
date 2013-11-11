@@ -39,6 +39,7 @@
 							<!--PAGE CONTENT BEGINS-->
 
 							<form id="modify-form" method="post" action="${contextPath }/code/modify.do" class="form-horizontal" >
+								<input type="hidden" name="pageNum" value="${data.IDX}" />
 								<div class="control-group">
 									<label class="control-label" for="code_idx">코드 IDX</label>
 
@@ -51,7 +52,7 @@
 									<label class="control-label" for="code">코드</label>
 
 									<div class="controls">
-										<input type="text" id="code" name="code" value="${data.CODE == null? "코드" : data.CODE}" />
+										<input type="text" id="code" name="code" value="${data.CODE == null? "" : data.CODE}" />
 									</div>
 								</div>
 								

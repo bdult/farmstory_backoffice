@@ -59,7 +59,7 @@ public class CodeController {
 	@RequestMapping(value = "code/modify.do")
 	public String modify(Model model, @RequestParam Map<String,String> parameter) {
 		codeService.modify(parameter);
-		return "redirect:detail.do?idx="+parameter.get(ConstantsForParam.IDX);
+		return "redirect:manage.do?pageNum="+parameter.get("pageNum");
 	}
 	@RequestMapping(value = "code/createView.do")
 	public String modify(Model model) {

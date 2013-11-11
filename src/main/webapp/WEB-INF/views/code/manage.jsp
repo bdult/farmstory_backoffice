@@ -129,7 +129,7 @@
 				$("#side-code-code").attr("class", "active");
 				
 					$("#create-code-btn").click(function(){
-						location.href="${contextPath}/code/createView.do";
+						location.href="${contextPath}/code/createView.do?pageNum=${page.pageNum}";
 					});
 				
 				$("#modify_icon").click(function(){
