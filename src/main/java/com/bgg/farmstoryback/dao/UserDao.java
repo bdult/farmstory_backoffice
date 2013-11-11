@@ -80,6 +80,10 @@ public class UserDao extends SqlSessionDaoSupport {
 		getSqlSession().update("userQuery.modifyChildInfo", requestParamMap);
 	}
 
+	public void deleteUserInfo(Map requestParamMap) {
+		getSqlSession().update("userQuery.deleteUserInfo", requestParamMap);
+	}
+	
 	public List<Map> latestData() {
 		return getSqlSession().selectList("userQuery.latestData");
 	}

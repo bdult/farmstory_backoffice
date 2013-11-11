@@ -51,10 +51,10 @@
 					AND CONTENTS_CODE = #{contents_code}
 				</if>
 				<if test="complete_yn != null and complete_yn != ''">
-				    <if test="complete_yn == 'Y'">
+				    <if test="complete_yn == 'Y'.toString()">
 				       AND  BBC.SUB_CONTENTS IS NOT NULL
 				    </if>
-				    <if test="complete_yn == 'N'">
+				    <if test="complete_yn == 'N'.toString()">
 				       AND  BBC.SUB_CONTENTS IS NULL
 				    </if>
 				</if>
@@ -62,10 +62,10 @@
 				       AND  BBC.STATUS = #{status}
 				</if>
 				<if test="search_start_date !=null and search_start_date !=''">
-					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+					AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 				</if>
 				<if test="search_end_date !=null and search_end_date !=''">
-					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+					AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 				</if>
 				ORDER BY BBC.CONTENTS_ID
 			) t, ( SELECT @RNUM := 0 ) R
@@ -74,7 +74,7 @@
 					LIMIT #{startNo}, #{perPage}
 				</if>
 	</select>
-	<select id="contentsTotalCount" resultType="int">
+	<select id="contentsTotalCount" resultType="int" parameterType="hashmap">
 		SELECT /* boardQuery.contentsTotalCount */
 			COUNT(BBC.CONTENTS_ID)
 		FROM BG_BOARD_CONTENTS BBC
@@ -90,10 +90,10 @@
 			AND CONTENTS_CODE = #{contents_code}
 		</if>
 		<if test="complete_yn != null and complete_yn != ''">
-		    <if test="complete_yn == 'Y'">
+		    <if test="complete_yn == 'Y'.toString()">
 		       AND  BBC.SUB_CONTENTS IS NOT NULL
 		    </if>
-		    <if test="complete_yn == 'N'">
+		    <if test="complete_yn == 'N'.toString()">
 		       AND  BBC.SUB_CONTENTS IS NULL
 		    </if>
 		</if>
@@ -101,10 +101,10 @@
 		       AND  BBC.STATUS = #{status}
 		</if>
 		<if test="search_start_date !=null and search_start_date !=''">
-			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+			AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 		</if>
 		<if test="search_end_date !=null and search_end_date !=''">
-			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+			AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
 	</select>
 	

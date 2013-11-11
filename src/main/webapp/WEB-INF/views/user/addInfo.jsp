@@ -155,7 +155,7 @@
 
 	//side active
 	$("#side-user").addClass("open active");
-
+	
 	$("#cancel-btn").click(function(){
 		window.location.href="${ contextPath }/user/detail.do?member_id=${detail.MEMBER_ID}";
 	});

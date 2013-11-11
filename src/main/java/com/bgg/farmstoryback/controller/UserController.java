@@ -159,6 +159,15 @@ public class UserController {
 		
 		return "redirect:/user/detail.do?member_id=" + paramMap.get("member_id");
   	}
+	
+  @RequestMapping(value = "user/userDelete.do", method = RequestMethod.POST)
+  public String userDelete(Model model, @RequestParam Map paramMap) {
+
+		userService.deleteUserInfo(paramMap);
+		
+		return "redirect:/user/manage.do";
+  	}
+  
 //  @RequestMapping(value = "user/childDetail.do", method = RequestMethod.GET)
 //  public String childDetail(Model model, @RequestParam Map<String,Object> paramMap) {
 //	  

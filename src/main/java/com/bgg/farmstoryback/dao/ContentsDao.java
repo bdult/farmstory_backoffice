@@ -69,8 +69,8 @@ public class ContentsDao extends SqlSessionDaoSupport {
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<Map> listByCategory(String categoryId) {
-		return (List<Map>)getSqlSession().selectList("contentsQuery.listByCategory", categoryId);
+	public List<Map> listByCategory(Map requestParamMap) {
+		return (List<Map>)getSqlSession().selectList("contentsQuery.listByCategory", requestParamMap);
 	}
 
 	public void addContentsInfo(Map contentsInfo) {
