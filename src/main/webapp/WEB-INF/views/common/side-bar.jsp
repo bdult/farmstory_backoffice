@@ -132,18 +132,18 @@
 					<b class="arrow icon-angle-down"></b>
 				</a>
 				<ul class="submenu">
-					<li id="side-stats-setting" >
-						<a href="${contextPath }/stats/setting.do">
-							<i class="icon-double-angle-right"></i>
-							설정
-						</a>
-					</li> 
 					<li id="side-stats-view" >
 						<a href="${contextPath }/stats/view.do">
 							<i class="icon-double-angle-right"></i>
 							조회
 						</a>
 					</li>
+					<li id="side-stats-setting" >
+						<a href="${contextPath }/stats/setting.do">
+							<i class="icon-double-angle-right"></i>
+							설정
+						</a>
+					</li> 
 				</ul>
 			</li>
 			<li id="side-cscenter">

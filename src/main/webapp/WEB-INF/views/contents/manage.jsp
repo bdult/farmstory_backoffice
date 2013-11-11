@@ -1,20 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
-<style>
-.mg-bt-20 {
-	margin-bottom: 20px;
-}
-
-.datepicker {
-	z-index: 7777 !important;
-}
-
-.pd-tp {
-	padding-top: 5px;
-}
-</style>			
-
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -358,3 +344,17 @@ $(function(){
 	}//event
 });
 </script>
+
+<style>
+.mg-bt-20 {
+	margin-bottom: 20px;
+}
+
+.datepicker {
+	z-index: 7777 !important;
+}
+
+.pd-tp {
+	padding-top: 5px;
+}
+</style>	

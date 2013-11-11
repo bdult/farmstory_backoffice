@@ -635,6 +635,7 @@ $(function(){
 				      $("#movie-box").show();
 				      $("video").find("source").each(function(){
 				    	  var $this = $(this);
+				    	  cono
 				    	  $this.attr("src",  "${ httpPath }" + response );
 				      });
 				      
