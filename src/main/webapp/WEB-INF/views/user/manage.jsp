@@ -147,6 +147,7 @@
 						<th>회원구분</th>
 						<th>휴대폰번호</th>
 						<th>구독 일시</th>
+						<th>이용 상태</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -158,6 +159,7 @@
 								<td>${userlist.MEMBER_ROLE_DESC}</td>
 								<td>${userlist.MEMBER_CEL}</td>
 								<td>${userlist.REG_DT}</td>
+								<td>${userlist.MEMBER_STATUS_DETAIL}</td>
 							</tr>
 				</c:forEach>
 				</tbody>
