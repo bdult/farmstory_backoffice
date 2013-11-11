@@ -798,7 +798,7 @@ $(function(){
 		
 		if( $("#img_path").val().length > 0 ) {
 			$("#thumbnail-box").show();
-			$("#thumbnail").attr("src",  "${ httpPath }/" + $("#img_path").val() );
+			$("#thumbnail").attr("src",  "${ httpPath }" + $("#img_path").val() );
 		}
 		
 	}//init

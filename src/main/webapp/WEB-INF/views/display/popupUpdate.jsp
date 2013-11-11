@@ -95,8 +95,8 @@
 				</table>
 			</form>
 			<div class="text-right">
-				<button id="updateBtn" class="btn btn-sm btn-yellow">수정</button>
-				<button id="deleteBtn" class="btn btn-sm btn-yellow">삭제</button>
+				<button id="updateBtn" class="btn btn-sm btn-yellow">확인</button>
+				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</a>
 			</div>
 		</div><!--/.row-fluid-->
 		
@@ -141,7 +141,7 @@ $(function(){
 		
 		if( $("#img_path").val().length > 0 ) {
 			$("#thumbnail-box").show();
-			$("#thumbnail").attr("src",  "${ httpPath }/" + $("#img_path").val() );
+			$("#thumbnail").attr("src",  "${ httpPath }" + $("#img_path").val() );
 		}
 		
 	}//init
