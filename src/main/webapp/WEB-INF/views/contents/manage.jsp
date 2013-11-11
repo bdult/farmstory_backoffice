@@ -185,16 +185,16 @@
 									<li class="prev disabled"><a href="#null" ><i class="icon-double-angle-left"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="prev"><a href="manage.do?blockPage=${ pageInfo.preBlockPage}&search=${ page.search}"><i class="icon-double-angle-left"></i></a></li>
+									<li class="prev"><a href="manage.do?blockPage=${ pageInfo.preBlockPage}&search=${ page.search}&search_type=${ pageInfo.search_type }&category_id=${ pageInfo.category_id }&brand_id=${ pageInfo.brand_id }&series_id=${ pageInfo.series_id }&search_start_date=${ pageInfo.search_start_date }&search_end_date=${ pageInfo.search_end_date }&display_yn=${ pageInfo.display_yn }"><i class="icon-double-angle-left"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 							<c:forEach items="${ pageList }" var="page">
 								<c:choose>
 									<c:when test="${ pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${ page.pageNum}&blockPage=${ pageInfo.blockPage}&search=${ pageInfo.search}">${ page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${ page.pageNum}&blockPage=${ pageInfo.blockPage}&search=${ pageInfo.search}&search_type=${ pageInfo.search_type }&category_id=${ pageInfo.category_id }&brand_id=${ pageInfo.brand_id }&series_id=${ pageInfo.series_id }&search_start_date=${ pageInfo.search_start_date }&search_end_date=${ pageInfo.search_end_date }&display_yn=${ pageInfo.display_yn }">${ page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${ page.pageNum}&blockPage=${ pageInfo.blockPage}&search=${ pageInfo.search}">${ page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${ page.pageNum}&blockPage=${ pageInfo.blockPage}&search=${ pageInfo.search}&search_type=${ pageInfo.search_type }&category_id=${ pageInfo.category_id }&brand_id=${ pageInfo.brand_id }&series_id=${ pageInfo.series_id }&search_start_date=${ pageInfo.search_start_date }&search_end_date=${ pageInfo.search_end_date }&display_yn=${ pageInfo.display_yn }">${ page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -203,7 +203,7 @@
 									<li class="next disabled"><a href="#null"><i class="icon-double-angle-right"></i></a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="next"><a href="manage.do?blockPage=${ pageInfo.nextBlockPage}&search=${ pageInfo.search}"><i class="icon-double-angle-right"></i></a></li>
+									<li class="next"><a href="manage.do?blockPage=${ pageInfo.nextBlockPage}&search=${ pageInfo.search}&search_type=${ pageInfo.search_type }&category_id=${ pageInfo.category_id }&brand_id=${ pageInfo.brand_id }&series_id=${ pageInfo.series_id }&search_start_date=${ pageInfo.search_start_date }&search_end_date=${ pageInfo.search_end_date }&display_yn=${ pageInfo.display_yn }"><i class="icon-double-angle-right"></i></a></li>
 								</c:otherwise>
 							</c:choose>
 						</ul>
