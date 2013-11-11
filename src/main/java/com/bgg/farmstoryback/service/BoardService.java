@@ -97,6 +97,10 @@ public class BoardService {
 		return codeService.boardContentsCategoryList();
 	}
 
+	public List<Map> csLatestData() {
+		return boardDao.csLatestData();
+	}
+
 
 //	public void createMaster(Map boardInfo) {
 //		boardDao.create(boardInfo);

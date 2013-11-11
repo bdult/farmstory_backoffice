@@ -167,38 +167,9 @@ public class ContentsService {
 		conDao.deleteContents(requestParamMap);
 		
 	}
-	
-//	public void modify(Map<String, String> parameter) {
-//		conDao.modify(parameter);
-//	}
-//
-//	public void delete(Map<String, Object> parameter) {
-//		conDao.delete((String)parameter.get("contents_id"));
-//	}
-//
-//	public void addContentsCate(Map parameter) {
-//		int checkCount = conDao.checkContentsCate(parameter);
-//		if(checkCount == 0){
-//			conDao.addContentsCate(parameter);
-//		}
-//	}
-//
-//	public List contentsCateList(Map parameter) {
-//		return conDao.contentsCateList(parameter);
-//	}
-//
-//	public void deleteContentsCate(Map parameter) {
-//		conDao.deleteContentsCate(parameter);
-//	}
-//
-//	public String createTemp() {
-//		return conDao.createTemp();
-//	}
-//
-//
 
-
-
-
+	public List<Map> latestData() {
+		return conDao.latestData();
+	}
 
 }

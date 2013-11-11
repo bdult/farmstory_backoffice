@@ -73,8 +73,11 @@ public class BoardDao extends SqlSessionDaoSupport {
 	}
 
 	public int contentsTotalCount(Map requestParamMap) {
-		logger.info("{}", requestParamMap);
 		return (Integer)getSqlSession().selectOne("boardQuery.contentsTotalCount", requestParamMap);
+	}
+
+	public List<Map> csLatestData() {
+		return getSqlSession().selectList("boardQuery.csLatestData");
 	}
 
 }

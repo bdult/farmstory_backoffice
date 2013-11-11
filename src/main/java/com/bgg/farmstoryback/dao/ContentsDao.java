@@ -121,6 +121,10 @@ public class ContentsDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectMap("contentsQuery.contentsCateList", contentsDetail, ConstantsForDb.CATEGORY_NM);
 	}
 
+	public List<Map> latestData() {
+		return getSqlSession().selectList("contentsQuery.latestData");
+	}
+
 
 //	/** 컨텐츠 카테고리 추가
 //	 * @param parameter

@@ -81,6 +81,17 @@
 		ORDER BY BCCR.ORDERING_NO ASC, A.CONTENTS_ID DESC
 	</select>
 	
+	<select id="latestData" resultType="hashmap">
+	    SELECT 
+			DATE_FORMAT(BC.REG_DT, '%Y.%m.%d') AS REG_DT
+			, COUNT(BC.CONTENTS_ID) AS CONTENTS_COUNT
+			, (SELECT COUNT(CONTENTS_ID) FROM BG_CONTENTS WHERE DATE_FORMAT(REG_DT, '%Y%m%d') <![CDATA[ <= ]]> BC.REG_DT) AS SUM_CONTENTS_COUNT
+		FROM BG_CONTENTS BC
+		GROUP BY DATE_FORMAT(REG_DT, '%Y.%m.%d')
+		ORDER BY REG_DT DESC
+		LIMIT 10
+	</select>
+	
 	<insert id="addContentsInfo" keyProperty="contents_id">
 	    INSERT INTO BG_CONTENTS(
 	    	SRC_PATH
