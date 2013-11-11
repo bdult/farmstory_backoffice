@@ -67,8 +67,16 @@ public class StatsController {
 			
 			String metrics = "ga:visitors,ga:visits,ga:avgTimeOnSite,ga:pageviews,ga:avgTimeOnPage";
 			model.addAttribute("averageData", statsService.getAverage(metrics, dateUtil.add(-30), dateUtil.today()));
+			
+			//새로운 데이터용
+			//model.addAttribute("averageData", statsService.getAverage("ga:visits,ga:newVisits,ga:avgTimeOnSite,ga:pageviewsPerVisit", dateUtil.add(-30), dateUtil.today()));
 		}
 		
+		{//국가/브라우져별 방문수
+			model.addAttribute("countryData", statsService.getLately("ga:visits", "ga:country", dateUtil.add(-30), dateUtil.today()));
+			model.addAttribute("browserData", statsService.getLately("ga:visits", "ga:browser", dateUtil.add(-30), dateUtil.today()));
+		}
+
 		return "stats/view";
 	}
 	

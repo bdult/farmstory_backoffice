@@ -70,6 +70,7 @@
 					</div>
 	
 					<div class="widget-body">
+						<div id="geoChart"></div>
 					</div><!-- /widget-body -->
 				</div>
 			</div>
@@ -83,6 +84,24 @@
 					</div>
 	
 					<div class="widget-body">
+						<table>
+							<tr>
+								<th>Browser</th>
+								<th>Visits</th>
+							</tr>
+							<tr>
+								<td>Chrome</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>Internet Explorer</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>Safari</td>
+								<td>2</td>
+							</tr>
+						</table>
 					</div><!-- /widget-body -->
 				</div>
 
@@ -259,5 +278,26 @@ $(function(){
 	      var pieChart = new google.visualization.PieChart(document.getElementById('pieChart'));
 	      pieChart.draw(data, options);
 		}
+	}
+	
+	
+	{
+		google.load('visualization', '1', {'packages':['geochart']});
+		//지도 차트
+		google.setOnLoadCallback(drawRegionsMap);
+
+		var gaData = $( ${countryData}.rows );
+		
+		var rows = [['Country', 'Popularity']];
+		gaData.each(function(){
+			rows.push(this);
+		});
+		
+		function drawRegionsMap() {
+			var data = google.visualization.arrayToDataTable(rows);
+			var options = {};
+			var chart = new google.visualization.GeoChart(document.getElementById('geoChart'));
+			chart.draw(data, options);
+		};
 	}
 </script>	
