@@ -649,14 +649,24 @@ $(function(){
 				return false;
 			}
 			
-			var $locationList = $("input[name='location']");
-
-			$locationList.each(function(idx){
-				var $this = $(this);
-				if( $this.prop("checked") ) {
-					console.info( idx );
+			{//한국(필수) 유효성 체크
+				if( $("input[name='category_id1']:checked").length == 0 ) {
+					alert("최소 1개 이상 선택해 주세요.");
+					return false;
 				}
-			});
+				
+				if( isEmpty( $("input[name='contents_nm']").eq(0).val() ) ) {
+					alert("컨텐츠명을 입력해 주세요.");
+					$("input[name='contents_nm']").eq(0).focus();
+					return false;
+				}
+				
+				if( isEmpty( $("input[name='contents_desc']").eq(0).text() ) ) {
+					alert("컨텐츠 설명을 입력해 주세요.");
+					$("input[name='contents_desc']").eq(0).focus();
+					return false;
+				}
+			}
 			
 			if( confirm("등록하시겠습니까?") ) {
 				$("#createForm").submit();
