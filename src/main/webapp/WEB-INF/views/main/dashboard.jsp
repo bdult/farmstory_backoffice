@@ -29,9 +29,9 @@
 								<div class="span6">
 									<div class="widget-box transparent">
 										<div class="widget-header widget-header-flat">
-											<h4 class="lighter">
+											<h4 class="lighter smaller">
 												<i class="icon-star orange"></i>
-												<a href="${contextPath }/contents/manage.do?pageNum=1&pageNum=1"> 회원 최근 현황</a>
+												<a href="${contextPath }/user/manage.do"> 회원 최근 현황</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -81,9 +81,9 @@
 								<div class="span6">
 									<div class="widget-box transparent">
 										<div class="widget-header widget-header-flat">
-											<h4 class="lighter">
-												<i class="icon-signal"></i>
-												<a href="${contextPath }/user.do?pageNum=1&pageNum=1"> 결제내역 최근 현황</a>
+											<h4 class="lighter smaller">
+												<i class="icon-signal red"></i>
+												 결제내역 최근 현황
 											</h4>
 
 											<div class="widget-toolbar">
@@ -138,8 +138,8 @@
 									<div class="widget-box transparent" >
 										<div class="widget-header">
 											<h4 class="lighter smaller">
-												<i class="icon-rss orange"></i>
-												<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 고객문의</a>
+												<i class="icon-comment orange"></i>
+												<a href="${contextPath }/cscenter/questionManage.do"> 고객문의</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -199,8 +199,8 @@
 										<div class="widget-box transparent" >
 											<div class="widget-header">
 												<h4 class="lighter smaller">
-													<i class="icon-rss orange"></i>
-													<a href="${contextPath }/series/manage.do"> 컨텐츠 업로드 현황</a>
+													<i class="icon-signal orange"></i>
+													<a href="${contextPath }/contents/manage.do"> 컨텐츠 업로드 현황</a>
 												</h4>
 	
 												<div class="widget-toolbar">
