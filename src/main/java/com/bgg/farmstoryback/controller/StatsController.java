@@ -69,7 +69,7 @@ public class StatsController {
 			model.addAttribute("averageData", statsService.getAverage(metrics, dateUtil.add(-30), dateUtil.today()));
 			
 			//새로운 데이터용
-			//model.addAttribute("averageData", statsService.getAverage("ga:visits,ga:newVisits,ga:avgTimeOnSite,ga:pageviewsPerVisit", dateUtil.add(-30), dateUtil.today()));
+			model.addAttribute("gaData", statsService.getLately("ga:visits,ga:newVisits,ga:avgTimeOnSite,ga:pageviewsPerVisit", "ga:date", dateUtil.add(-30), dateUtil.today()));
 		}
 		
 		{//국가/브라우져별 방문수

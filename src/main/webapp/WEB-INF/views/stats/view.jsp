@@ -52,6 +52,7 @@
 					</div>
 	
 					<div class="widget-body">
+						<div id="visitsChart"></div>
 					</div><!-- /widget-body -->
 				</div>
 			</div>
@@ -84,27 +85,27 @@
 					</div>
 	
 					<div class="widget-body">
-						<table>
-							<tr>
-								<th>Browser</th>
-								<th>Visits</th>
-							</tr>
-							<tr>
-								<td>Chrome</td>
-								<td>2</td>
-							</tr>
-							<tr>
-								<td>Internet Explorer</td>
-								<td>1</td>
-							</tr>
-							<tr>
-								<td>Safari</td>
-								<td>2</td>
-							</tr>
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Browser</th>
+									<th>Visits</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${ browserData.rows }" var="obj">
+									<tr>
+										<td>${ obj[0] }</td>
+										<td>${ obj[1] }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
 					</div><!-- /widget-body -->
 				</div>
 
+				<br />
+				
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
@@ -114,6 +115,7 @@
 					</div>
 	
 					<div class="widget-body">
+						<div id="avgChart"></div>
 					</div><!-- /widget-body -->
 				</div>
 			</div>
@@ -211,22 +213,30 @@ $(function(){
 	    return time;
 	};
 
+	var gaData = ${ gaData }.rows;
+	
 	google.load('visualization', '1', {'packages':['corechart']});
 	
 	{
-		//선 차트
-		google.setOnLoadCallback(drawLineChart);
 		
 		var rows = $("#lineChart").data("lineChart").rows;
 		
-		var ggData = [["","visitor"]];
-		$(rows).each(function(){
+		var newVisitorData = [["", "visitor"]];
+		var visitsData = [["", "visitor"]];
+		var avgVisitData = [["", "avgTime", "pagePer"]];
+		$(gaData).each(function(){
 			var $this = $(this);
-			ggData.push([ $this[0], Number($this[1])]);
+			newVisitorData.push([ $this[0], Number($this[2])]);
 			
+			visitsData.push([ $this[0], Number($this[1])]);
+			
+			avgVisitData.push([ $this[0], Number($this[3]), Number($this[4])]);
 		});
-		function drawLineChart() {
-	        var data = google.visualization.arrayToDataTable( ggData );
+		
+		//신규방문자
+		google.setOnLoadCallback(drawNewVisitorChart);
+		function drawNewVisitorChart() {
+	        var data = google.visualization.arrayToDataTable( newVisitorData );
 	
 	        var options = {
 	          title: '',
@@ -236,15 +246,50 @@ $(function(){
 	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
 	        };
 	
-	        var lineChart = new google.visualization.AreaChart(document.getElementById('lineChart'));
-	        lineChart.draw(data, options);
+	        var newVisitorChart = new google.visualization.AreaChart(document.getElementById('lineChart'));
+	        newVisitorChart.draw(data, options);
 	    }
+		
+		//순 방문
+		google.setOnLoadCallback(drawVisitsChart);
+		function drawVisitsChart() {
+	        var data = google.visualization.arrayToDataTable( visitsData );
+	
+	        var options = {
+	          title: '',
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
+	          vAxis: {minValue: 0},
+	          pointSize: 5,
+	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
+	        };
+	
+	        var visitsChart = new google.visualization.AreaChart(document.getElementById('visitsChart'));
+	        visitsChart.draw(data, options);
+	    }
+		
+		//평균방문 시간 및 평균 페이지뷰 수
+		google.setOnLoadCallback(drawAvgChart);
+		function drawAvgChart() {
+				console.info( avgVisitData );
+	        var data = google.visualization.arrayToDataTable( avgVisitData );
+	
+	        var options = {
+	          title: '',
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
+	          vAxis: {minValue: 0},
+	          pointSize: 5,
+	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
+	        };
+	
+	        var avgChart = new google.visualization.LineChart(document.getElementById('avgChart'));
+	        avgChart.draw(data, options);
+	    }
+		
 	}
 	
 	{
 		//평균정보
 		var avgData = $("#avgBox").data("avg").rows[0];
-		console.info( avgData );
 		
 		var visitors = avgData[0];
 		var visits = avgData[1];
@@ -279,7 +324,6 @@ $(function(){
 	      pieChart.draw(data, options);
 		}
 	}
-	
 	
 	{
 		google.load('visualization', '1', {'packages':['geochart']});
