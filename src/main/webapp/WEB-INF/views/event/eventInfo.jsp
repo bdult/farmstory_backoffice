@@ -241,7 +241,7 @@ $("#create-form").validate({
 			});
 		}else {
 			$("#img-thumbnail-src").attr({
-				src : "${ httpPath }/${ contentsList.IMG_PATH }"
+				src : "${ httpPath }${ contentsList.IMG_PATH }"
 			});
 		}
 	}
