@@ -11,6 +11,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="request"/>
 <c:set var="rootPath" value="/ozworld-admin" scope="request"/>
+<c:set var="httpPath" value="http://115.71.237.215" scope="request"/>
 
 <!-- basic styles -->
 
@@ -23,12 +24,12 @@
 
 <!-- page specific plugin styles -->
 
-<link rel="stylesheet" href="${rootPath }/assets/css/jquery-ui-1.10.3.custom.min.css" />
-<link rel="stylesheet" href="${rootPath }/assets/css/chosen.css" />
-<link rel="stylesheet" href="${rootPath }/assets/css/datepicker.css" />
-<link rel="stylesheet" href="${rootPath }/assets/css/bootstrap-timepicker.css" />
-<link rel="stylesheet" href="${rootPath }/assets/css/daterangepicker.css" />
-<link rel="stylesheet" href="${rootPath }/assets/css/colorpicker.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/chosen.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/datepicker.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/bootstrap-timepicker.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/daterangepicker.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/colorpicker.css" />
 
 <!-- fonts -->
 
@@ -36,8 +37,8 @@
 
 <!-- ace styles -->
 
-<link rel="stylesheet" href="${rootPath }/assets/css/ace.min.css" />
-<link rel="stylesheet" href="${rootPath }/assets/css/ace-skins.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/ace.min.css" />
+<link rel="stylesheet" href="${contextPath}/assets/css/ace-skins.min.css" />
 
 <!-- RNTS -->
 <link rel="stylesheet" href="${contextPath}/css/main.css" />
@@ -71,19 +72,22 @@
 
 <!--page specific plugin scripts-->
 
-<script src="${rootPath}/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="${rootPath}/assets/js/jquery.ui.touch-punch.min.js"></script>
-<script src="${rootPath}/assets/js/markdown/markdown.min.js"></script>
-<script src="${rootPath}/assets/js/markdown/bootstrap-markdown.min.js"></script>
-<script src="${rootPath}/assets/js/jquery.hotkeys.min.js"></script>
-<script src="${rootPath}/assets/js/bootstrap-wysiwyg.min.js"></script>
-<script src="${rootPath}/assets/js/bootbox.min.js"></script>
-<script src="${rootPath}/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="${contextPath}/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script src="${contextPath}/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="${contextPath}/assets/js/markdown/markdown.min.js"></script>
+<script src="${contextPath}/assets/js/markdown/bootstrap-markdown.min.js"></script>
+<script src="${contextPath}/assets/js/jquery.hotkeys.min.js"></script>
+<script src="${contextPath}/assets/js/bootstrap-wysiwyg.min.js"></script>
+<script src="${contextPath}/assets/js/bootbox.min.js"></script>
+<script src="${contextPath}/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+<script src="${contextPath}/assets/js/jquery.validate.min.js"></script>
+<script src="${contextPath}/assets/js/validate.js"></script>
+<script src="${contextPath}/assets/js/rnts-validation.js"></script>
 
 <!--ace scripts-->
 
-<script src="${rootPath}/assets/js/ace-elements.min.js"></script>
-<script src="${rootPath}/assets/js/ace.min.js"></script>
+<script src="${contextPath}/assets/js/ace-elements.min.js"></script>
+<script src="${contextPath}/assets/js/ace.min.js"></script>
 
 <!-- ajaxform -->
 <script src="http://malsup.github.com/jquery.form.js"></script> 

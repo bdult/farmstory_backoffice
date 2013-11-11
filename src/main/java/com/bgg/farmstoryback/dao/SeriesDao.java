@@ -16,7 +16,7 @@ public class SeriesDao extends SqlSessionDaoSupport {
 	public List<Map> list(Map pageInfo) {
 		return (List<Map>)getSqlSession().selectList("seriesQuery.list", pageInfo);
 	}
-
+//
 	public Map detail(String series_id) {
 		return (Map)getSqlSession().selectOne("seriesQuery.detail", series_id);
 	}
@@ -47,16 +47,9 @@ public class SeriesDao extends SqlSessionDaoSupport {
 		return getSqlSession().selectList("seriesQuery.searchByName", seriesName);
 	}
 
-	public List listOfTop() {
-		return getSqlSession().selectList("seriesQuery.listOfTop");
-	}
-
 	public int totalCount(Map parameter) {
 		return (Integer)getSqlSession().selectOne("seriesQuery.totalCount", parameter);
 	}
 
-	public List<Map> top(int limitCount) {
-		return getSqlSession().selectList("seriesQuery.top", limitCount);
-	}
 	
 }

@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<style>
-
-</style>
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -19,12 +16,7 @@
 				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li class="active">
-				<c:if test="${detail.type == 'userView' }">
-					일반 회원 정보 상세
-				</c:if>
-				<c:if test="${detail.type == 'adminView' }">
-					관리자 회원 정보 상세
-				</c:if>
+				일반 회원 정보 상세
 			</li>
 		</ul>
 		<!--.breadcrumb-->
@@ -59,12 +51,6 @@
 										<input type="text" name="member_nm" value="${detail.MEMBER_NM}" />
 									</div>
 								</div>
-								<%-- <div class="control-group">
-									<label class="control-label">회원 비밀번호</label>
-									<div class="controls">
-										<input type="text" name="member_pw" value="${detail.userDetail.MEMBER_PW}" />
-									</div>
-								</div> --%>
 								<div class="control-group">
 									<label class="control-label">생년월일</label>
 									<div class="controls">
@@ -92,18 +78,6 @@
 										<input type="text" name="member_email" value="${detail.MEMBER_EMAIL}" />
 									</div>
 								</div>
-								<!-- <div class="control-group">
-									<label class="control-label">회원 주소</label>
-									<div class="controls"> -->
-										<input type="hidden" name="member_addr_1" value="${detail.userDetail.MEMBER_ADDR_1}" />
-									<!-- </div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">회원 상세 주소</label>
-									<div class="controls"> -->
-										<input type="hidden" name="member_addr_2" value="${detail.userDetail.MEMBER_ADDR_2}" />
-									<!-- </div>
-								</div> -->
 								<div class="control-group">
 									<label class="control-label">주소</label>
 									<div class="controls">
@@ -122,23 +96,7 @@
 										<input type="text" name="" value="${detail.PAYDAY}" />
 									</div>
 								</div>
-								
-								<%-- <div class="control-group">
-									<label class="control-label">회원 등급</label>
-
-									<div class="controls">
-										<input type="text" name="member_role" value="${detail.userDetail.MEMBER_ROLE}" />
-									</div>
-								</div> --%>
-								
-								<%-- <div class="control-group">
-									<label class="control-label">회원 상태</label>
-
-									<div class="controls">
-										<input type="text" name="member_status" value="${detail.userDetail.MEMBER_STATUS}" />
-									</div>
-								</div> --%>
-								<c:if test="${detail.type == 'adminView' }">
+								<%-- <c:if test="${detail.type == 'adminView' }">
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
@@ -153,7 +111,7 @@
 										취소
 									</a>
 								</div>
-								</c:if>
+								</c:if> --%>
 								<%-- <c:if test="${detail.type == 'userView' }">
 									<div class="form-actions">
 										<a class="btn btn-inverse" id="cancel-btn">
@@ -165,8 +123,6 @@
 							</form>
 					</div>
 			</div>
-			${type}
-		<c:if test="${type == 'userView' }">
 		<!-- clidren nav -->
 			<ul class="nav nav-tabs" id="myTab">
 				<li class="active" id="navTab1">
@@ -182,12 +138,14 @@
 						결제내역
 					</a>
 				</li>
-				<li class="" id="navTab3">
+				
+				<!-- <li class="" id="navTab3">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
 						쿠폰내역
 					</a>
-				</li>
+				</li> -->
+				
 				<li class="" id="navTab4">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
@@ -195,13 +153,19 @@
 					</a>
 				</li>
 			</ul>
-			
+
 		<!--/.page-header-->
 			<table class="table table-striped table-bordered table-hover" id="navTabList1">
-				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="0" end="0">
+			<c:if test="${ !empty childInfo }">
+				<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="1">
 					<thead>
 						<tr>
-							<th colspan="4">자녀A 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
+							<c:if test="${ status.index == 0 }">
+								<th colspan="4">자녀A 정보<button href="#child-modal-form-A" id="child-modal-btn-A" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
+							</c:if>
+							<c:if test="${ status.index == 1 }">
+								<th colspan="4">자녀B 정보<button href="#child-modal-form-B" id="child-modal-btn-B" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -209,66 +173,48 @@
 								<td>이름</td>
 								<td>${ childList.CHILD_NM }</td>
 								<td>성별</td>
-								<td>${ childList.GENDER }</td>
+								<td class="tdGender">${ childList.GENDER }</td>
 							</tr>
 							<tr>
 								<td>생년월일</td>
 								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
 								<td>자녀등록일</td>
-								<td></td>
+								<td>${ childList.REG_DT }</td>
 							</tr>
 					</tbody>
 				</c:forEach>
-					
-				<c:forEach var="childList" items="${detail.userChildList}" varStatus="status" begin="1" end="1">
-					<thead>
-						<tr>
-							<th colspan="4">자녀B 정보<button href="#child-modal-form" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
-						</tr>
-					</thead>
-					<tbody>
-							<tr>
-								<td>이름</td>
-								<td>${ childList.CHILD_NM }</td>
-								<td>성별</td>
-								<td>${ childList.GENDER }</td>
-							</tr>
-							<tr>
-								<td>생년월일</td>
-								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
-								<td>자녀등록일</td>
-								<td></td>
-							</tr>
-					</tbody>
-				</c:forEach>
+			</c:if>
 			</table>
 			
 			<table class="table table-striped table-bordered table-hover" id="navTabList2" style="display: none;">
-				<thead>
-					<tr>
-						<th>NO.</th>
-						<th>결제일자</th>
-						<th>요금제</th>
-						<th>결제요금</th>
-						<th>결제방법</th>
-						<th>잔여기간</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<c:forEach var="true" items="true">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+			<c:if test="${ !empty paymentsInfo}">
+					<thead>
+						<tr>
+							<th>NO.</th>
+							<th>결제일자</th>
+							<th>요금제</th>
+							<th>결제요금</th>
+							<th>결제방법</th>
+							<th>잔여기간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="paymentsInfo" items="${paymentsInfo}" varStatus="status">
+							<tr>
+								<td>${ paymentsInfo.ROWNUM }</td>
+								<td>${ paymentsInfo.REG_DT }</td>
+								<td>${ paymentsInfo.PAYMENT_CODE }</td>
+								<td>${ paymentsInfo.PRICE }</td>
+								<td>${ paymentsInfo.PAYMENT_PROCESS }</td>
+								<td>${ paymentsInfo.REMINE_DAY }</td>
+							</tr>
 						</c:forEach>
-					</tr>
-				</tbody>
+					</tbody>
+			</c:if>
 			</table>
 			
-			<table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
+			<%-- <table class="table table-striped table-bordered table-hover" id="navTabList3" style="display: none;">
+			<c:if test="${ !empty couponInfo }">
 				<thead>
 					<tr>
 						<th>NO.</th>
@@ -291,9 +237,11 @@
 						</c:forEach>
 					</tr>
 				</tbody>
-			</table>
+			</c:if>
+			</table> --%>
 			
 			<table class="table table-striped table-bordered table-hover" id="navTabList4" style="display: none;">
+			<c:if test="${ !empty questionInfo }">
 				<thead>
 					<tr>
 						<th>NO.</th>
@@ -303,30 +251,34 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<c:forEach var="true" items="true">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</c:forEach>
-					</tr>
+					<c:forEach var="questionInfo" items="${ questionInfo }" varStatus="status">
+						<tr>
+							<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionInfo.CONTENTS_ID }">${ questionInfo.ROWNUM }</a></td>
+							<td><a href="${ contextPath }/cscenter/questionInfo.do?board_contents_id=${ questionInfo.CONTENTS_ID }">${ questionInfo.TITLE }</a></td>
+							<td>${ questionInfo.REG_DT }</td>
+							<td>${ questionInfo.ANSWER_YN }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
+			</c:if>
 			</table>
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">
-					<a class="btn btn-primary" href="${ contextPath }/user/userModify.do?member_id=${detail.userDetail.MEMBER_ID}">회원정보 수정</a>
+					<a class="btn btn-danger"  id="delete-btn">관리자 회원탈퇴</a>
+					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">회원정보 수정</a>
 				</div>
 			</div>
-		</c:if>
 		</div>
 	</div>
 	<!--/.page-content-->
 <!--/.main-content-->
 
-<!-- clid modify modal form -->
-<div id="child-modal-form" class="modal hide in" tabindex="-1" >
+<!-- clid modify modal form A -->
+<form id="child-modal-form-A" class="modal hide in" tabindex="-1" >
+	<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="0" end="0">
+	<input type="hidden" name="child_idx" value="${ childList.IDX }">
+	<input type="hidden" name="member_id" value="${ detail.MEMBER_ID }">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
 		<h4 class="blue bigger">아래의 정보를 입력해 주세요</h4>
@@ -339,7 +291,7 @@
 					<label class="control-label" for="form-field-username">자녀명</label>
 
 					<div class="controls">
-						<input type="text" id="form-field-username" value="">
+						<input type="text" name="child_name" id="form-field-username" value="${ childList.CHILD_NM }">
 					</div>
 				</div>
 				<div class="control-group">
@@ -347,11 +299,82 @@
 					<div class="controls">
 						<div class="row-fluid">
 						<label class="span2">
-							<input name="form-field-radio" type="radio">
+							<input id="gender-m" name="gender" type="radio" value="남">
 							<span class="lbl"> 남</span>
 						</label>
 						<label class="span2">
-							<input name="form-field-radio" type="radio">
+							<input id="gender-f" name="gender" type="radio" value="여">
+							<span class="lbl"> 여</span>
+						</label>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">썸네일</label>
+
+					<div class="controls" style="height:40px;">
+						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" style="margin-bottom:0;"/>
+						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">생년월일</label>
+
+					<div class="controls">
+						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">년
+						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">월
+						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">일
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</c:forEach>
+
+	
+	<div class="modal-footer">
+		<a class="btn btn-small btn-primary" id="child-modify-btn-A">
+			<i class="icon-ok"></i>
+			등록
+		</a>
+		<a class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i>
+			취소
+		</a>
+
+	</div>
+</form>
+		
+<!-- clid modify modal form B -->
+<form id="child-modal-form-B" class="modal hide in" tabindex="-1" >
+	<c:forEach var="childList" items="${childInfo}" varStatus="status" begin="1" end="1">
+	<input type="hidden" name="child_idx" value="${ childList.IDX }">
+	<input type="hidden" name="member_id" value="${ detail.MEMBER_ID }">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h4 class="blue bigger">아래의 정보를 입력해 주세요</h4>
+	</div>
+
+	<div class="modal-body overflow-visible">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">자녀명</label>
+
+					<div class="controls">
+						<input type="text" name="child_name" id="form-field-username" value="${ childList.CHILD_NM }">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="form-field-username">성별</label>
+					<div class="controls">
+						<div class="row-fluid">
+						<label class="span2">
+							<input id="gender-m" name="gender" type="radio" value="남">
+							<span class="lbl"> 남</span>
+						</label>
+						<label class="span2">
+							<input id="gender-f" name="gender" type="radio" value="여">
 							<span class="lbl"> 여</span>
 						</label>
 						</div>
@@ -361,36 +384,38 @@
 					<label class="control-label" for="form-field-username">썸네일</label>
 
 					<div class="controls">
-						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
-						<input type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" />
+						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="form-field-username">생년월일</label>
 
 					<div class="controls">
-						<input class="span3" type="text" id="" value="">년
-						<input class="span3" type="text" id="" value="">월
-						<input class="span3" type="text" id="" value="">일
+						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">년
+						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">월
+						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">일
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</c:forEach>
 
+	
 	<div class="modal-footer">
-		<button class="btn btn-small btn-primary">
+		<a class="btn btn-small btn-primary" id="child-modify-btn-B">
 			<i class="icon-ok"></i>
 			등록
-		</button>
-		<button class="btn btn-small" data-dismiss="modal">
+		</a>
+		<a class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
 			취소
-		</button>
+		</a>
 
 	</div>
-</div>
-							
+</form>			
+		
 <!--  thumbnail modal -->
 <div id="thumbnail-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
@@ -410,8 +435,155 @@
 	</form>
 </div>
 <script type="text/javascript">
+	//validate
+	setValid();
+	$("#child-modal-form-A").validate({
+		rules: {
+			child_name: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			birth_year: {
+				required: true
+			},
+			birth_month: {
+				required: true
+			},
+			birth_day: {
+				required: true
+			}
+		},
+		messages: {
+			child_name: {
+				required: "이름을 입력해 주세요."
+			},
+			gender: {
+				required: "성별을 선택해 주세요."
+			},
+			birth_year: {
+				required: "생년을 입력해 주세요."
+			},
+			birth_month: {
+				required: "월을 입력해 주세요."
+			},
+			birth_day: {
+				required: "일을 입력해 주세요."
+			}
+		}
+	});
+	$("#child-modal-form-B").validate({
+		rules: {
+			child_name: {
+				required: true
+			},
+			gender: {
+				required: true
+			},
+			birth_year: {
+				required: true
+			},
+			birth_month: {
+				required: true
+			},
+			birth_day: {
+				required: true
+			}
+		},
+		messages: {
+			child_name: {
+				required: "이름을 입력해 주세요."
+			},
+			gender: {
+				required: "성별을 선택해 주세요."
+			},
+			birth_year: {
+				required: "생년을 입력해 주세요."
+			},
+			birth_month: {
+				required: "월을 입력해 주세요."
+			},
+			birth_day: {
+				required: "일을 입력해 주세요."
+			}
+		}
+	});
 
+	//side active
+	$("#side-user").addClass("open active");
+	
+	//chlid modal put items
+	$("#child-modal-btn-A").click(function(){
+		$("[name=gender]").each(function(){
+			var $this = $(this);
+			if( $this.val() ==  $(".tdGender").eq(0).text() ) {
+				$this.prop("checked", true);
+			}
+		});
+	});
+	$("#child-modal-btn-B").click(function(){
+		$("[name=gender]").each(function(){
+			var $this = $(this);
+			if( $this.val() ==  $(".tdGender").eq(1).text() ) {
+				$this.prop("checked", true);
+			}
+		});
+	}); 
+	
+	 $("#child-modify-btn-A").click(function(){
+		 $("#child-modal-form-A").attr({
+			method: 'post',
+			action: '${contextPath}/user/childModify.do'
+		 }).submit();
+	 });
+	 $("#child-modify-btn-B").click(function(){
+		 $("#child-modal-form-B").attr({
+			method: 'post',
+			action: '${contextPath}/user/childModify.do'
+		 }).submit();
+	 });
+	
+	$("#create-form input:text").attr({
+		readonly: "readonly"
+	});
+	
+	$("#delete-btn").click(function(){
+		if(confirm("회원정보를 삭제 하시겠습니까?")){
+			$("#create-form").attr({
+				method: 'post',
+				action: '${ contextPath }/user/userDelete.do'
+			}).submit();
+		}else {
+			return false;
+		}
+	});
 
+	//child nav btn
+	$("#navTab1").click(function(){
+		$("#navTabList1").show();
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab2").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").show();
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab3").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").show();
+		$("#navTabList4").css("display", "none");
+	});
+	$("#navTab4").click(function(){
+		$("#navTabList1").css("display", "none");
+		$("#navTabList2").css("display", "none");
+		$("#navTabList3").css("display", "none");
+		$("#navTabList4").show();
+	});
 
 //child modal thombnail upload
 $(function(){
@@ -455,75 +627,11 @@ $(function(){
 			 }
 	 );
 	
-	$("#thumbnail-mod-btn").click(function(){
+	$(".thumbnail-mod-btn").click(function(){
 		$("#thumbnail-modal-footer").hide();
 		$("#thumbnail-modal").modal('toggle');
 	}); // <!-- brand-mod-btn event end
 	
 	
 }); // <!-- function() end 
-
-$("#navTab1").click(function(){
-	$("#navTabList1").show();
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab2").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").show();
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab3").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").show();
-	$("#navTabList4").css("display", "none");
-});
-$("#navTab4").click(function(){
-	$("#navTabList1").css("display", "none");
-	$("#navTabList2").css("display", "none");
-	$("#navTabList3").css("display", "none");
-	$("#navTabList4").show();
-});
-
-/* $(document).ready(function(){
-	
-	var dspType = "${detail.type}";
-	$("#side-user").attr("class", "open active");
-	if(dspType == "userView"){
-		$("#side-user-user").attr("class", "active");
-	}else{
-		$("#side-user-admin").attr("class", "active");
-	}
-	
-	var $genderBox = $("#genderBox");
-	var genderData = $genderBox.data("gender_value");
-	$genderBox.find("option").each(function(){
-		
-		var $this = $(this);
-		
-		if( genderData == $this.val() ) {
-			$this.prop("selected", true);
-		}
-		
-	});
-	
-	
-	for(var i=1995; i <= 2014; i++){
-		$("#yearBox").append("<option value=" + i +">" + i + "</option>");
-		$("#yearBox").val(${childListOne.BIRTH_YEAR});
-	}
-	for(var i=1; i <= 12; i++){
-		$("#monthBox").append("<option value=" + i +">" + i + "</option>");
-		$("#monthBox").val(${childListOne.BIRTH_MONTH});
-	}
-	for(var i=1; i <= 31; i++){
-		$("#dayBox").append("<option value=" + i +">" + i + "</option>");
-		$("#dayBox").val(${childListOne.BIRTH_DAY});
-	}
-		
-}); */
-
 </script>

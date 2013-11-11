@@ -6,85 +6,315 @@
 
 
 	<select id="list" resultType="hashmap">
-		SELECT
-			A.CONTENTS_NM
-			,A.CONTENTS_ID
-			,A.CONTENTS_DESC
-			,A.SRC_PATH
-			,A.IMG_PATH
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
-			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
-		FROM  BG_CONTENTS A
+	    SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+			FROM(
+			
+		SELECT /* contenstQuery.list */
+			BCD.CONTENTS_NM
+			, A.CONTENTS_ID
+			, BB.BRAND_NM
+			, BCS.CONTENTS_SERIES_NM
+			, BCS.CONTENTS_SERIES_ID
+			, BCD.CONTENTS_DESC
+			, A.SRC_PATH
+			, A.IMG_PATH
+			, BCD.DISPLAY_YN
+			, BCCR.CATE_ID
+			, BB.BRAND_ID
+			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+		FROM  BG_CONTENTS A, BG_CONTENTS_DETAIL BCD,  BG_CATE_CONTENTS_RELATIONSHIPS BCCR, BG_CONTENTS_SERIES BCS, BG_BRAND BB
 		WHERE 1=1
-		<if test="search != null and search != ''">
-			AND A.CONTENTS_NM LIKE CONCAT('%', #{search}, '%')
+		AND A.CONTENTS_ID = BCD.CONTENTS_ID 
+		AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX 
+		AND A.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		AND BCS.BRAND_ID= BB.BRAND_ID 
+		<if test="search_type == 'id'">
+			AND A.CONTENTS_ID = #{search}
 		</if>
-		ORDER BY CONTENTS_ID DESC
+		<if test="search_type == 'name'">
+			AND BCD.CONTENTS_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
+		
+		<if test="display_yn != null and display_yn != ''">
+			AND BCD.DISPLAY_YN = #{display_yn}
+		</if>
+		<if test="brand_id != null and brand_id != ''">
+			AND BB.BRAND_ID = #{brand_id}
+		</if>
+		<if test="category_id != null and category_id != ''">
+			AND BCCR.CATE_ID = #{category_id}
+		</if>
+		<if test="series_id != null and series_id != ''">
+			AND BCS.CONTENTS_SERIES_ID = #{series_id}
+		</if>
+		<if test="search_start_date !=null and search_start_date !=''">
+			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+		</if>
+		<if test="search_end_date !=null and search_end_date !=''">
+			AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+		</if>
+		GROUP BY A.CONTENTS_ID
+		ORDER BY A.CONTENTS_ID ASC
+		) t, ( SELECT @RNUM := 0 ) R
+		ORDER BY @RNUM DESC
 		<if test="startNo != null and perPage != null">
 			LIMIT #{startNo}, #{perPage}
 		</if>
 	</select>
 	
-	<select id="listByCategory" resultType="hashmap">
-		SELECT
+	<select id="listByCategory" resultType="hashmap" parameterType="String">
+		SELECT /* contenstQuery.listByCategory */
 			A.CONTENTS_ID
-			,A.CONTENTS_NM
+			,BCD.CONTENTS_NM
+			,BCD.IDX AS CONTENTS_DETAIL_IDX
 			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
 			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
 			, BCCR.ORDERING_NO
-		FROM  BG_CONTENTS A, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
+		FROM  BG_CONTENTS A, BG_CONTENTS_DETAIL BCD, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
 		WHERE 1=1
-		AND A.CONTENTS_ID = BCCR.CONTENTS_ID
-		AND BCCR.CATE_ID = #{categoryId} 
+		AND DISPLAY_YN = 'Y'
+		AND A.CONTENTS_ID = BCD.CONTENTS_ID
+		AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
+		<if test="category_id != null and category_id != ''">
+			AND BCCR.CATE_ID = #{category_id} 
+	    </if>
 		ORDER BY BCCR.ORDERING_NO ASC, A.CONTENTS_ID DESC
 	</select>
 	
-	<select id="top" resultType="hashmap">
-		SELECT
-			A.CONTENTS_NM
-			,A.CONTENTS_ID
-			,A.CONTENTS_DESC
-			,A.SRC_PATH
-			,A.IMG_PATH
-			
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
-			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
-		FROM  BG_CONTENTS A
-		ORDER BY CONTENTS_ID DESC
-		LIMIT 0, #{limitCount}
+	<select id="latestData" resultType="hashmap">
+	    SELECT 
+			DATE_FORMAT(BC.REG_DT, '%Y.%m.%d') AS REG_DT
+			, COUNT(BC.CONTENTS_ID) AS CONTENTS_COUNT
+			, (SELECT COUNT(CONTENTS_ID) FROM BG_CONTENTS WHERE DATE_FORMAT(REG_DT, '%Y%m%d') <![CDATA[ <= ]]> BC.REG_DT) AS SUM_CONTENTS_COUNT
+		FROM BG_CONTENTS BC
+		GROUP BY DATE_FORMAT(REG_DT, '%Y.%m.%d')
+		ORDER BY REG_DT DESC
+		LIMIT 10
 	</select>
+	
+	<insert id="addContentsInfo" keyProperty="contents_id">
+	    INSERT INTO BG_CONTENTS(
+	    	SRC_PATH
+	    	, IMG_PATH
+	    	, CONTENTS_SERIES_ID
+	    )
+	    VALUES(
+	    	#{movie_path}
+	    	, #{img_path}
+	    	, #{series_id}
+	    )
+	</insert>
+	
+	<insert id="addContentsDetailInfo" keyProperty="contents_detail_idx">
+	    INSERT INTO BG_CONTENTS_DETAIL(
+	    	CONTENTS_ID
+	    	, CONTENTS_NM
+	    	, CONTENTS_DESC
+	    	, DISPLAY_YN
+	    	, LOCATION_CODE
+	    )
+	    VALUES(
+	    	#{contents_id}
+	    	, #{contents_nm}
+	    	, #{contents_desc}
+	    	, #{display_yn}
+	    	, #{location_code}
+	    )
+	</insert>
+	
+	<insert id="addContentsCate" >
+	    INSERT INTO BG_CATE_CONTENTS_RELATIONSHIPS(
+	    	CATE_ID
+	    	, CONTENTS_DETAIL_IDX
+	    )
+	    VALUES(
+	    	#{category_id}
+	    	, #{contents_detail_idx}
+	    )
+	</insert>
+	
+	<update id="modifyContentsInfo">
+	    UPDATE BG_CONTENTS
+	    SET
+	    	SRC_PATH = #{movie_path}
+	    	, IMG_PATH = #{img_path}
+	    	, CONTENTS_SERIES_ID = #{series_id}
+	    	, MOD_DT = now()
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{contents_id}
+	</update>
+	
+	<update id="modifyContentsDetailInfo">
+	    UPDATE BG_CONTENTS_DETAIL
+	    SET 
+	    	CONTENTS_NM  = #{contents_nm}
+	    	, CONTENTS_DESC = #{contents_desc}
+	    	, DISPLAY_YN = #{display_yn}
+	    	, LOCATION_CODE = #{location_code}
+	    	, MOD_DT = now()
+	    WHERE 1=1
+	    AND IDX = #{contents_detail_idx}
+	    
+	</update>
+	
+	<delete id="deleteContentsCate">
+	    DELETE FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    WHERE 1=1
+	    AND CONTENTS_DETAIL_IDX = #{contents_detail_idx}
+	</delete>
+		
+	<delete id="deleteContentsCateByContentsIs">
+	    DELETE FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    WHERE 1=1
+	    AND CONTENTS_DETAIL_IDX in (
+	    	SELECT IDX FROM BG_CONTENTS_DETAIL WHERE CONTENTS_ID = #{contents_id} 
+	    )
+	</delete>
+		
+	<delete id="deleteContentsDetail">
+	    DELETE FROM BG_CONTENTS_DETAIL
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{contents_id}
+	</delete>
+		
+	<delete id="deleteContents">
+	    DELETE FROM BG_CONTENTS
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{contents_id}
+	</delete>	
+	
 	
 	<select id="totalCount" resultType="int">
-		SELECT
-			count(*)
-		FROM  BG_CONTENTS 
-		WHERE 1=1
-		<if test="search != null and search != ''">
-			AND CONTENTS_NM LIKE CONCAT('%', #{search}, '%')
-		</if>
+	    
+	    SELECT COUNT(*) FROM(
+			SELECT /* contenstQuery.list */
+				A.CONTENTS_ID
+			FROM  BG_CONTENTS A, BG_CONTENTS_DETAIL BCD,  BG_CATE_CONTENTS_RELATIONSHIPS BCCR, BG_CONTENTS_SERIES BCS, BG_BRAND BB
+			WHERE 1=1
+			AND A.CONTENTS_ID = BCD.CONTENTS_ID 
+			AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX 
+			AND A.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+			AND BCS.BRAND_ID= BB.BRAND_ID 
+			<if test="search_type == 'id'">
+				AND A.CONTENTS_ID = #{search}
+			</if>
+			<if test="search_type == 'name'">
+				AND BCD.CONTENTS_NM LIKE CONCAT('%', #{search}, '%')
+			</if>
+			
+			<if test="display_yn != null and display_yn != ''">
+				AND BCD.DISPLAY_YN = #{display_yn}
+			</if>
+			<if test="brand_id != null and brand_id != ''">
+				AND BB.BRAND_ID = #{brand_id}
+			</if>
+			<if test="category_id != null and category_id != ''">
+				AND BCCR.CATE_ID = #{category_id}
+			</if>
+			<if test="series_id != null and series_id != ''">
+				AND BCS.CONTENTS_SERIES_ID = #{series_id}
+			</if>
+			<if test="search_start_date !=null and search_start_date !=''">
+				AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+			</if>
+			<if test="search_end_date !=null and search_end_date !=''">
+				AND DATE_FORMAT(A.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+			</if>
+			GROUP BY A.CONTENTS_ID
+			ORDER BY A.CONTENTS_ID ASC
+		) A
 	</select>
+	
+	<select id="contentsInfo" resultType="hashmap">
+	    select 
+			BC.CONTENTS_ID
+			, BC.CONTENTS_SERIES_ID
+			, BC.SRC_PATH
+			, BC.IMG_PATH
+			, BC.PREFIX_URL
+			, BC.REG_DT
+			, BCS.CONTENTS_SERIES_NM
+			, BB.BRAND_ID
+			, BB.BRAND_NM
+		from 
+			BG_CONTENTS BC, BG_CONTENTS_SERIES BCS, BG_BRAND BB 
+		where 1=1
+		and BC.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		and BCS.BRAND_ID = BB.BRAND_ID
+		and BC.CONTENTS_ID = #{contents_id}
+	</select>
+	
+	<select id="contentsDetailList" resultType="hashmap">
+	    select 
+			IDX AS DETAIL_IDX
+			, CONTENTS_NM
+			, CONTENTS_DESC
+			, DISPLAY_YN
+			, LOCATION_CODE
+			, REG_DT
+		from 
+			BG_CONTENTS_DETAIL 
+		where 1=1
+		and CONTENTS_ID = #{contents_id}
+	</select>
+	
+	<select id="contentsCateList" resultType="hashmap">
+	    select 
+			BCCR.CATE_ID
+			, BC.CATE_NM
+			, BCCR.REG_DT
+		from 
+			BG_CATE_CONTENTS_RELATIONSHIPS BCCR,  BG_CATE BC
+		where 1=1
+		and BCCR.CATE_ID = BC.CATE_ID
+		and CONTENTS_DETAIL_IDX = #{detail_idx}
+	</select>
+	
+	
+	
+	<update id="modifyOrderingNo">
+	    UPDATE BG_CATE_CONTENTS_RELATIONSHIPS
+	    SET ORDERING_NO = #{ordering_no}
+	    WHERE 1=1 
+	    AND CATE_ID = #{category_id}
+	    AND CONTENTS_DETAIL_IDX = #{detail_idx}
+	</update>
+	
+	<!-- 
 	
 	<select id="detail"  resultType="hashmap">
-		SELECT
-			A.CONTENTS_NM
-			, A.CONTENTS_ID
-			, A.CONTENTS_DESC
-			, A.SRC_PATH
-			, A.IMG_PATH
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
-			, A.CONTENTS_SERIES_ID
-			
-			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
-			,(SELECT BRAND_NM FROM BG_BRAND WHERE BRAND_ID = (SELECT BRAND_ID FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID)) AS BRAND_NM
-		FROM  BG_CONTENTS A
-		WHERE CONTENTS_ID = #{contents_id}
-		ORDER BY CONTENTS_ID DESC
+		select /* contenstQuery.detail */
+			BC.CONTENTS_ID
+			, BCD.IDX AS DETAIL_IDX
+			, BCD.CONTENTS_NM
+			, BCD.CONTENTS_DESC
+			, BCD.DISPLAY_YN
+			, BCD.LOCATION_CODE
+			, BCS.CONTENTS_SERIES_ID
+			, BCS.CONTENTS_SERIES_NM 
+		    , BB.BRAND_ID
+		    , BB.BRAND_NM
+		    , BCATE.CATE_ID
+		    , BCATE.CATE_NM
+		from 
+			BG_CONTENTS BC
+			, BG_CONTENTS_DETAIL BCD
+			, BG_CONTENTS_SERIES BCS
+			, BG_BRAND BB
+			, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
+			, BG_CATE BCATE
+		where 1=1
+		and BC.CONTENTS_ID = BCD.CONTENTS_ID
+		and BC.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
+		and BCS.BRAND_ID = BB.BRAND_ID
+		and BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
+		and BCCR.CATE_ID = BCATE.CATE_ID
+		and BC.CONTENTS_ID = 1339
 	</select>
-	
 	<select id="checkContentsCate" resultType="int">
-	    SELECT COUNT(*) FROM BG_CATE_CONTENTS_RELATIONSHIPS
+	    SELECT /* contenstQuery.checkContentsCate */ 
+	    	COUNT(*) 
+	    FROM BG_CATE_CONTENTS_RELATIONSHIPS
 	    WHERE 1=1
 	    AND CATE_ID = #{cate_id}
 	    AND CONTENTS_ID = #{contents_id}
@@ -100,9 +330,11 @@
 	    AND BC.CATE_ID = CCR.CATE_ID
 	    AND CCR.CONTENTS_ID = #{contents_id}
 	    ORDER BY CCR.REG_DT DESC
-	    
 	</select>
+	 -->
 	
+
+	<!-- 
 	<insert id="create" parameterType="map"  keyProperty="contents_id">
    		INSERT BG_CONTENTS(
 			CONTENTS_NM,
@@ -173,5 +405,6 @@
    		WHERE 1=1 
    		AND CONTENTS_ID = #{contents_id}
    </delete>
+	 -->
 	
 </mapper>

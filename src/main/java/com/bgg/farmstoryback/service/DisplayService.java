@@ -24,6 +24,9 @@ public class DisplayService {
 	@Autowired
 	private ContentsService contentsService;
 	
+	@Autowired
+	private CodeService codeService;
+	
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
@@ -54,8 +57,7 @@ public class DisplayService {
 	 */
 	@SuppressWarnings("rawtypes")
 	public List<Map> contentsList(Map requestParamMap) {
-		String categoryId = (String)requestParamMap.get(ConstantsForParam.CATEGORY_ID);
-		List<Map> contentsList = contentsService.listByCategory(categoryId); 
+		List<Map> contentsList = contentsService.listByCategory(requestParamMap); 
 		return contentsList;
 	}
 
@@ -65,6 +67,30 @@ public class DisplayService {
 
 	public Map popupDetail(Map requestParamMap) {
 		return displayDao.popupDetail(requestParamMap);
+	}
+
+	/**
+	 * 
+	 * @param requestParamMap (category_id, contenst_id, ordering_no 필수)
+	 */
+	public void modifyContentsOrderingNo(Map requestParamMap) {
+		contentsService.moddifyOrderingNo(requestParamMap);
+	}
+
+	public void modify(Map requestParamMap) {
+		displayDao.modify(requestParamMap);
+	}
+
+	public void add(Map requestParamMap) {
+		displayDao.add(requestParamMap);
+	}
+
+	public void delete(Map requestParamMap) {
+		displayDao.delete(requestParamMap);
+	}
+
+	public List<Map> codeList() {
+		return codeService.displayCodeList();
 	}
 	
 

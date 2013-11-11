@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,11 +32,6 @@ public class UserDao extends SqlSessionDaoSupport {
 	@SuppressWarnings("rawtypes")
 	public List<Map> userList(Map search) {
 		return (List<Map>)getSqlSession().selectList("userQuery.list", search);
-	}
-
-	@SuppressWarnings("rawtypes")
-	public int totalCount(Map search) {
-		return (Integer)getSqlSession().selectOne("userQuery.totalCount", search);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -70,6 +66,26 @@ public class UserDao extends SqlSessionDaoSupport {
 
 	public List<Map> top(int limitCount) {
 		return (List<Map>)getSqlSession().selectList("userQuery.top", limitCount);
+	}
+
+	public Integer userListCount(Map search) {
+		return (Integer)getSqlSession().selectOne("userQuery.listCount", search);
+	}
+
+	public void modifyUserInfo(Map requestParamMap) {
+		getSqlSession().update("userQuery.modifyUserInfo", requestParamMap);
+	}
+
+	public void modifyChildInfo(Map requestParamMap) {
+		getSqlSession().update("userQuery.modifyChildInfo", requestParamMap);
+	}
+
+	public void deleteUserInfo(Map requestParamMap) {
+		getSqlSession().update("userQuery.deleteUserInfo", requestParamMap);
+	}
+	
+	public List<Map> latestData() {
+		return getSqlSession().selectList("userQuery.latestData");
 	}
 
 	

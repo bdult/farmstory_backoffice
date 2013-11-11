@@ -57,19 +57,18 @@ public class PageUtil {
 //	public Map<String, Object> pageLink(int totalCnt, int pageNum, String search) {
 	public Map<String, Object> pageLink(int totalCnt, Map parameter) {
 		
-		Map<String, Object> pageLinkMap = new HashMap<String, Object>();
+		Map<String, Object> requestParam = parameter;
 		int totalPage = this.getTotalPageCnt(totalCnt);
-		pageLinkMap.put("totalCount", totalCnt);
+		requestParam.put("totalCount", totalCnt);
 		
-		int blockPage = creatBlockPageInfo(parameter, pageLinkMap, totalPage);
+		int blockPage = creatBlockPageInfo(parameter, requestParam, totalPage);
 		
-		setPageNumInfo(parameter, pageLinkMap, totalPage, blockPage);
+		setPageNumInfo(parameter, totalPage, blockPage);
 		
-		return pageLinkMap;
+		return requestParam;
 	}
 
-	private void setPageNumInfo(Map parameter,
-			Map<String, Object> pageLinkMap, int totalPage, int blockPage) {
+	private void setPageNumInfo(Map parameter, int totalPage, int blockPage) {
 		// 요청 페이지 number 세팅
 		int pageNum = DEFAULT_NUM;
 		if(parameter.get("pageNum") != null){
@@ -95,12 +94,12 @@ public class PageUtil {
 			pageMap.put("pageNum", pageNumSeq + "");
 			pageList.add(pageMap);
 		}
-		pageLinkMap.put("lastPage", (int)Math.ceil(totalPage / 1));
-		pageLinkMap.put("pageList", pageList);// 페이지 리스트
-		pageLinkMap.put("pageNum", pageNum);// 현재 페이지 번호
-		pageLinkMap.put("startNo", getStartRowNum(pageNum));
-		pageLinkMap.put("perPage", PER_PAGE);
-		pageLinkMap.put("search", parameter.get("search"));
+		parameter.put("lastPage", (int)Math.ceil(totalPage / 1));
+		parameter.put("pageList", pageList);// 페이지 리스트
+		parameter.put("pageNum", pageNum);// 현재 페이지 번호
+		parameter.put("startNo", getStartRowNum(pageNum));
+		parameter.put("perPage", PER_PAGE);
+		parameter.put("search", parameter.get("search"));
 	}
 
 	private int creatBlockPageInfo(Map parameter,

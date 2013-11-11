@@ -18,111 +18,127 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bgg.farmstoryback.common.ConstantsForDb;
+import com.bgg.farmstoryback.common.ConstantsForParam;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:servlet-contextForTest.xml"})
 public class SeriesServiceTest {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
-	
-	private static final String SERIES_NAME_TAG="series_nm";
-	private static final String DB_SERIES_NAME_TAG="CONTENTS_SERIES_NM";
 	
 	@Autowired
 	SeriesService seriesService;
 	
-	Map seriesInfo = null;
+	Map requestParam = null;
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		seriesInfo = new HashMap();
+		requestParam = new HashMap();
 		
 	}
 
 	@After
 	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void testList() {
-
-		// given 
-		testCreate();
 		
+	}
+	
+	
+	@Test
+	public void testSeriesListByBrandId() {
+		
+		// given 
+		long brandId = 137;
+		requestParam.put(ConstantsForParam.BRAND_ID, brandId);
+
 		// when
-		List seriesList = seriesService.list(null); 
+		List<Map> seriesList = seriesService.list(requestParam);
 
 		// then
 		assertThat(seriesList, is(notNullValue()));
 		assertThat(seriesList.size(), is(not(0)));
-		
+		assertThat((Long)seriesList.get(0).get(ConstantsForDb.BRAND_ID), is(brandId));
+
 	}
-	
-	@Test
-	public void testCreate() {
-		
-		// given 
-		String seriesNm = "series_insert_test3";
-		seriesInfo.put(SERIES_NAME_TAG, seriesNm);
-		
-		// when
-		seriesService.create(seriesInfo);
-		
-		// then
-		Map seriesDetail = seriesService.detail(seriesInfo);
-		assertThat(seriesDetail, is(notNullValue()));
-		assertThat((String)seriesDetail.get(DB_SERIES_NAME_TAG), is(seriesNm));
-	}
-	
-	
-	@Test
-	public void testDelete() {
 
-		// given 
-		testCreate();
-
-		// when
-		seriesService.delete(seriesInfo);
-
-		// then
-		Map seriesDetail = seriesService.detail(seriesInfo);
-		assertThat(seriesDetail, is(nullValue()));
-		
-	}
-	
-	@Test
-	public void testModify() {
-
-		// given
-		testCreate();
-		String seriesName = "modify";
-		seriesInfo.put(SERIES_NAME_TAG, seriesName);
-
-		// when
-		seriesService.modify(seriesInfo);
-		
-		// then
-		Map seriesDetail = seriesService.detail(seriesInfo);
-		assertThat(seriesDetail, is(notNullValue()));
-		assertThat((String)seriesDetail.get(DB_SERIES_NAME_TAG), is(seriesName));
-
-		
-	}
-	
-	@Test
-	public void testTopList() {
-		
-		// given 
-		int limitCount = 9;
-
-		// when
-		List<Map> topList = seriesService.top(limitCount);
-
-		// then
-		assertThat(topList, is(notNullValue()));
-		assertTrue(topList.size() <= limitCount);
-	}
+//	@Test
+//	public void testListll() {
+//
+//		// given 
+//		
+//		// when
+//		List seriesList = seriesService.listAll(); 
+//
+//		// then
+//		assertThat(seriesList, is(notNullValue()));
+//		assertThat(seriesList.size(), is(not(0)));
+//		
+//	}
+//	@Test
+//	public void testCreate() {
+//		
+//		// given 
+//		String seriesNm = "series_insert_test3";
+//		seriesInfo.put(SERIES_NAME_TAG, seriesNm);
+//		
+//		// when
+//		seriesService.create(seriesInfo);
+//		
+//		// then
+//		Map seriesDetail = seriesService.detail(seriesInfo);
+//		assertThat(seriesDetail, is(notNullValue()));
+//		assertThat((String)seriesDetail.get(DB_SERIES_NAME_TAG), is(seriesNm));
+//	}
+//	
+//	
+//	@Test
+//	public void testDelete() {
+//
+//		// given 
+//		testCreate();
+//
+//		// when
+//		seriesService.delete(seriesInfo);
+//
+//		// then
+//		Map seriesDetail = seriesService.detail(seriesInfo);
+//		assertThat(seriesDetail, is(nullValue()));
+//		
+//	}
+//	
+//	@Test
+//	public void testModify() {
+//
+//		// given
+//		testCreate();
+//		String seriesName = "modify";
+//		seriesInfo.put(SERIES_NAME_TAG, seriesName);
+//
+//		// when
+//		seriesService.modify(seriesInfo);
+//		
+//		// then
+//		Map seriesDetail = seriesService.detail(seriesInfo);
+//		assertThat(seriesDetail, is(notNullValue()));
+//		assertThat((String)seriesDetail.get(DB_SERIES_NAME_TAG), is(seriesName));
+//
+//		
+//	}
+//	
+//	@Test
+//	public void testTopList() {
+//		
+//		// given 
+//		int limitCount = 9;
+//
+//		// when
+//		List<Map> topList = seriesService.top(limitCount);
+//
+//		// then
+//		assertThat(topList, is(notNullValue()));
+//		assertTrue(topList.size() <= limitCount);
+//	}
 	
 	
 	

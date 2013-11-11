@@ -4,10 +4,11 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="seriesQuery">
 
-
+    
 	<select id="list" resultType="hashmap">
 		SELECT /* seriesQuery.list 2013.08.21 최지순 */
-			A.CONTENTS_SERIES_ID
+			A.BRAND_ID
+			, A.CONTENTS_SERIES_ID
 			, A.CONTENTS_SERIES_NM
 			, A.IMG_PATH   
 			, A.BRAND_ID
@@ -16,6 +17,9 @@
 			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
 		FROM BG_CONTENTS_SERIES A
 		WHERE 1=1
+		<if test="brand_id != null and brand_id != ''">
+		AND A.BRAND_ID = #{brand_id}
+		</if>
 		<if test="search != null and search != ''">
 			AND A.CONTENTS_SERIES_NM LIKE CONCAT('%', #{search}, '%')
 		</if>
@@ -25,30 +29,15 @@
 		</if>
 	</select>
 	
-	<select id="top" resultType="hashmap">
-		SELECT /* seriesQuery.list 2013.08.21 최지순 */
-			A.CONTENTS_SERIES_ID
-			, A.CONTENTS_SERIES_NM
-			, A.CONTENTS_SERIES_NM AS name
-			, A.IMG_PATH   
-			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
-			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
-		FROM BG_CONTENTS_SERIES A
-		ORDER BY CONTENTS_SERIES_ID DESC
-		LIMIT 0, #{limitCount}
+	<select id="totalCount" resultType="int">
+		SELECT
+			count(*)
+		FROM  BG_CONTENTS_SERIES 
+		WHERE 1=1
+		<if test="search != null and search != ''">
+			AND CONTENTS_SERIES_NM LIKE CONCAT('%', #{search}, '%')
+		</if>
 	</select>
-	
-	<select id="listOfTop" resultType="hashmap">
-		SELECT /* seriesQuery.listOfTop 2013.08.21 최지순 */
-			A.CONTENTS_SERIES_ID
-			, A.CONTENTS_SERIES_NM
-			, A.CONTENTS_SERIES_NM AS name
-			, A.IMG_PATH   
-			, DATE_FORMAT(A.REG_DT,'%Y-%m-%d %H:%i') AS REG_DT  
-			, DATE_FORMAT(A.MOD_DT,'%Y-%m-%d %H:%i') AS MOD_DT  
-		FROM BG_CONTENTS_SERIES A
-	</select>
-	
 	
 	<select id="detail" resultType="hashmap">
 		SELECT /* seriesQuery.detail 2013.08.21 최지순 */ 
@@ -88,15 +77,7 @@
 		WHERE CONTENTS_SERIES_NM LIKE CONCAT('%', #{parent_cate_nm}, '%')
 	</select>
 	
-	<select id="totalCount" resultType="int">
-		SELECT
-			count(*)
-		FROM  BG_CONTENTS_SERIES 
-		WHERE 1=1
-		<if test="search != null and search != ''">
-			AND CONTENTS_SERIES_NM LIKE CONCAT('%', #{search}, '%')
-		</if>
-	</select>
+	
 	
 	<insert id="create" parameterType="map"  keyProperty="series_id">
    		INSERT /* seriesQuery.create 2013.08.21 최지순 */ 

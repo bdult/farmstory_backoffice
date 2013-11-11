@@ -12,47 +12,72 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardDao extends SqlSessionDaoSupport {
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
-
-	public void create(Map boardInfo) {
-		getSqlSession().insert("boardQuery.create", boardInfo);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Map> boardList(Map requestParam) {
+		return (List<Map>)getSqlSession().selectList("boardQuery.boardList", requestParam);
 	}
 
-	public Map detail(Map boardInfo) {
-		return (Map)getSqlSession().selectOne("boardQuery.detail", boardInfo);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Map> contenstListByBoardId(Map requestParam) {
+		return (List<Map>)getSqlSession().selectList("boardQuery.contentsListByBoardId", requestParam);
 	}
 
-	public void deleteByName(String boardName) {
-		getSqlSession().update("boardQuery.deleteByName", boardName);
-	}
-
-	public List<Map> listAll() {
-		return (List<Map>)getSqlSession().selectList("boardQuery.listAll");
+	@SuppressWarnings({ "rawtypes" })
+	public Map contentsDetail(Map requestParamMap) {
+		return (Map)getSqlSession().selectOne("boardQuery.contentsDetail", requestParamMap);
 	}
 	
-	public List<Map> list(Map pageInfo) {
-		return (List<Map>)getSqlSession().selectList("boardQuery.list", pageInfo);
+	@SuppressWarnings({ "rawtypes" })
+	public void modifyContents(Map requestParamMap) {
+		getSqlSession().update("boardQuery.modifyContents", requestParamMap);
 	}
 
-	public Map boardInfoByName(String boardName) {
-		return (Map)getSqlSession().selectOne("boardQuery.boardInfoByName", boardName);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Map> commentList(Map requestParamMap) {
+		return getSqlSession().selectList("boardQuery.commentList", requestParamMap);
 	}
 
-	public void delete(Map boardInfo) {
-		getSqlSession().delete("boardQuery.delete", boardInfo);
-		
+	@SuppressWarnings({ "rawtypes" })
+	public void addComment(Map requestParamMap) {
+		getSqlSession().insert("boardQuery.addComment", requestParamMap);
 	}
 
-	public void modify(Map boardInfo) {
-		getSqlSession().update("boardQuery.modify",boardInfo);
+	@SuppressWarnings({ "rawtypes" })
+	public Map commentDetail(Map requestParamMap) {
+		return (Map)getSqlSession().selectOne("boardQuery.commentDetail", requestParamMap);
 	}
 
-	public int totalCount(Map parameter) {
-		return (Integer)getSqlSession().selectOne("boardQuery.totalCount", parameter);
+	@SuppressWarnings({ "rawtypes" })
+	public void modifyComment(Map requestParamMap) {
+		getSqlSession().update("boardQuery.modifyComment", requestParamMap);
 	}
 
-	public List<Map> top(int limitCount) {
-		return (List<Map>)getSqlSession().selectList("boardQuery.top", limitCount);
+	@SuppressWarnings({ "rawtypes" })
+	public void deleteComment(Map requestParamMap) {
+		getSqlSession().delete("boardQuery.deleteComment", requestParamMap);
 	}
+
+	public void addContents(Map requestParamMap) {
+		getSqlSession().insert("boardQuery.addContents", requestParamMap);
+	}
+
+	public void deleteContents(Map requestParamMap) {
+		getSqlSession().delete("boardQuery.deleteContents", requestParamMap);
+	}
+
+	public void deleteCommentByContentsId(Map requestParamMap) {
+		getSqlSession().delete("boardQuery.deleteCommentByContentsId", requestParamMap);
+	}
+
+	public int contentsTotalCount(Map requestParamMap) {
+		return (Integer)getSqlSession().selectOne("boardQuery.contentsTotalCount", requestParamMap);
+	}
+
+	public List<Map> csLatestData() {
+		return getSqlSession().selectList("boardQuery.csLatestData");
+	}
+
 }

@@ -3,134 +3,258 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardQuery">
-	<insert id="create" useGeneratedKeys="true"  keyProperty="board_id">
-		INSERT /* boardQuery.create 2013.08.21 최지순 */ 
-		INTO BG_BOARD_MASTER( 
-			BOARD_NM,
-			BOARD_DESC,
-			REG_MEMBER_ID,
-			MOD_DT
-			)
-		VALUES(
-			#{board_nm},
-			#{board_desc},
-			#{reg_member_id},
-			now()
-		)
+	<select id="boardList" resultType="hashmap">
+		SELECT /* boardQuery.boardList */
+			*
+		FROM BG_BOARD_MASTER
+		WHERE 1=1
+		AND USE_YN = 'Y'		
+		<if test="board_type != null and board_type != ''">
+			AND BOARD_TYPE = #{board_type}
+		</if>
+	</select>
+	
+	<select id="contentsListByBoardId" resultType="hashmap">
+	    SELECT (@RNUM := @RNUM + 1) AS ROWNUM, t.*
+			FROM(
+				SELECT /* boardQuery.contentsListByBoardId */
+					 BBC.CONTENTS_ID
+					, BBC.MEMBER_ID
+					, BBC.TITLE
+					, BBC.REG_DT
+					, BBC.CONTENTS_CODE
+					, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = BBC.CONTENTS_CODE) AS CONTENTS_CODE_DESC
+					, BBC.EVENT_START_DT
+					, BBC.EVENT_END_DT
+					, BBC.SUB_CONTENTS
+					, if(isnull(BBC.SUB_CONTENTS), 'N', 'Y') AS SUB_CONTENTS_YN
+					, BBC.HITS
+					, ifnull(BBC.STATUS, 1) AS STATUS
+					, CASE (STATUS)
+						WHEN 0 THEN '준비중'  
+						WHEN 1 THEN '진행중'  
+						WHEN 2 THEN '완료'
+						ELSE '준비중'
+						END  AS STATUS_DESC
+					, BBC.MOD_DT
+				FROM BG_BOARD_CONTENTS BBC
+				WHERE 1=1
+				AND BBC.BOARD_ID = #{board_id}
+				<if test="search_type == 'title'">
+					AND BBC.TITLE LIKE CONCAT('%', #{search} , '%')
+				</if>
+				<if test="search_type == 'member_id'">
+					AND BBC.MEMBER_ID LIKE CONCAT('%', #{search}, '%')
+				</if>
+				<if test="contents_code != null and contents_code != ''">
+					AND CONTENTS_CODE = #{contents_code}
+				</if>
+				<if test="complete_yn != null and complete_yn != ''">
+				    <if test="complete_yn == 'Y'.toString()">
+				       AND  BBC.SUB_CONTENTS IS NOT NULL
+				    </if>
+				    <if test="complete_yn == 'N'.toString()">
+				       AND  BBC.SUB_CONTENTS IS NULL
+				    </if>
+				</if>
+				<if test="status !=null and status !=''">
+				       AND  BBC.STATUS = #{status}
+				</if>
+				<if test="search_start_date !=null and search_start_date !=''">
+					AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
+				</if>
+				<if test="search_end_date !=null and search_end_date !=''">
+					AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
+				</if>
+				ORDER BY BBC.CONTENTS_ID
+			) t, ( SELECT @RNUM := 0 ) R
+			ORDER BY @RNUM DESC	
+				<if test="startNo != null and perPage != null">
+					LIMIT #{startNo}, #{perPage}
+				</if>
+	</select>
+	<select id="contentsTotalCount" resultType="int" parameterType="hashmap">
+		SELECT /* boardQuery.contentsTotalCount */
+			COUNT(BBC.CONTENTS_ID)
+		FROM BG_BOARD_CONTENTS BBC
+		WHERE 1=1
+		AND BBC.BOARD_ID = #{board_id}
+		<if test="search_type == 'title'">
+			AND BBC.TITLE LIKE CONCAT('%', #{search}, '%')
+		</if>
+		<if test="search_type == 'member_id'">
+			AND BBC.MEMBER_ID LIKE CONCAT('%', #{member_id}, '%')
+		</if>
+		<if test="search_type == 'contents_code'">
+			AND CONTENTS_CODE = #{contents_code}
+		</if>
+		<if test="complete_yn != null and complete_yn != ''">
+		    <if test="complete_yn == 'Y'.toString()">
+		       AND  BBC.SUB_CONTENTS IS NOT NULL
+		    </if>
+		    <if test="complete_yn == 'N'.toString()">
+		       AND  BBC.SUB_CONTENTS IS NULL
+		    </if>
+		</if>
+		<if test="status !=null and status !=''">
+		       AND  BBC.STATUS = #{status}
+		</if>
+		<if test="search_start_date !=null and search_start_date !=''">
+			AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
+		</if>
+		<if test="search_end_date !=null and search_end_date !=''">
+			AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
+		</if>
+	</select>
+	
+	<select id="contentsDetail" resultType="hashmap">
+	    SELECT /* boardQuery.contentsDetail */
+			BBC.CONTENTS_ID
+			, BBC.TITLE
+			, BBC.CONTENTS
+			, BBC.CONTENTS_CODE
+			, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = BBC.CONTENTS_CODE) AS CONTENTS_CODE_DESC
+			, BBC.SUB_CONTENTS
+			, BBC.HITS
+			, BBC.IMG_PATH
+			, CASE (BBC.STATUS)
+				WHEN 0 THEN '준비'  
+				WHEN 1 THEN '진행중'  
+				WHEN 2 THEN '완료'
+			  	ELSE '준비'
+			  END  AS STATUS_DESC
+			, BBC.EVENT_START_DT
+			, BBC.EVENT_END_DT
+			, BBC.MOD_DT
+			, ifnull(BBC.STATUS, 1) AS STATUS
+			, BM.MEMBER_ID
+			, BM.MEMBER_NM
+			, BM.MEMBER_EMAIL
+			, BM.MEMBER_CEL
+		FROM BG_BOARD_CONTENTS BBC, BG_MEMBER BM
+		WHERE 1=1
+		AND BBC.MEMBER_ID = BM.MEMBER_ID
+		AND BBC.CONTENTS_ID = #{board_contents_id}
+	</select>
+	
+	<select id="commentList" resultType="hashmap">
+	    SELECT /* boardQuery.commentList */
+	    	*
+	    FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND DEL_YN = 'N'
+	    AND CONTENTS_ID = #{board_contents_id}
+	    ORDER BY COMMENT_ID DESC
+	</select>
+	
+	<select id="commentDetail" resultType="hashmap">
+	    SELECT /* boardQuery.commentDetail */
+	    	*
+	    FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND DEL_YN = 'N'
+	    AND COMMENT_ID = #{comment_id}
+	</select>
+	
+	<select id="csLatestData" resultType="hashmap">
+	    SELECT 
+		  DATE_FORMAT(REG_DT, '%Y.%m.%d') AS REG_DT
+			, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = CONTENTS_CODE) AS CONTENTS_CODE_DESC
+			, TITLE
+			, MEMBER_ID
+			, if(isnull(SUB_CONTENTS), '미처리', '처리완료') AS COMPLETE_DESC
+		FROM BG_BOARD_CONTENTS
+		WHERE 1=1
+		AND BOARD_ID = 3
+		ORDER BY REG_DT DESC
+		LIMIT 10
+	</select>
+	
+	<insert id="addComment">
+	    INSERT INTO BG_BOARD_COMMENTS(
+			CONTENTS_ID
+			, MEMBER_ID
+			, COMMENT
+	    )
+	    VALUES(
+			#{board_contents_id}
+			, #{member_id}
+			, #{comment}	    
+	    )
 	</insert>
 	
-	<select id="list" resultType="hashmap">
-		SELECT /* boardQuery.list 2013.08.21 최지순 */
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-		<if test="search != null and search != ''">
-			AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
-		</if>
-		ORDER BY BOARD_ID DESC
-		<if test="startNo != null and perPage != null">
-			LIMIT #{startNo}, #{perPage}
-		</if>
-	</select>
-	
-	<select id="listAll" resultType="hashmap">
-		SELECT /* boardQuery.listAllz */
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-	</select>
-	
-	<select id="top" resultType="hashmap">
-		SELECT /* boardQuery.top */
+	<insert id="addContents">
+	    INSERT INTO BG_BOARD_CONTENTS(
 			BOARD_ID
-			, BOARD_NM
-			, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND USE_YN = 'Y'
-		ORDER BY BOARD_ID DESC
-		LIMIT 0, #{limitCount}	
-	</select>
+			, MEMBER_ID
+			, TITLE
+			, CONTENTS
+			, IMG_PATH
+			, CONTENTS_CODE
+			, EVENT_START_DT
+			, EVENT_END_DT
+			, SUB_CONTENTS
+			, STATUS
+	    )
+	    VALUES(
+	    	#{board_id}
+			, #{member_id}
+			, #{title}
+			, #{contents}	    
+			, #{img_path}	    
+			, #{contents_code}	    
+			, #{event_start_dt}
+			, #{event_end_dt}
+			, #{sub_contents}
+			, #{status}
+	    )
+	</insert>
 	
-	<select id="searchByName" resultType="hashmap">
-		SELECT /* boardQuery.searchByName 2013.08.21 최지순 */ 
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-		AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
-		ORDER BY BOARD_ID DESC
-	</select>
-	
-	<select id="listByPageNum" resultType="hashmap">
-		SELECT  /* boardQuery.listByPageNum 2013.08.21 최지순 */ 
-			A.*
-		FROM BG_BOARD_MASTER A
-		WHERE 1=1
-		AND USE_YN = 'Y'
-		ORDER BY BOARD_ID DESC
-		LIMIT #{startNo}, #{perPage}	
-	</select>
-	
-	<select id="totalCount" resultType="int">
-		SELECT  /* boardQuery.totalCount 2013.08.21 최지순 */  
-			count(*) 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND USE_YN = 'Y'		
-		<if test="search != null and search != ''">
-			AND BOARD_NM LIKE CONCAT('%', #{search}, '%')
-		</if>
-	</select>
-	
-	<select id="detail" resultType="hashmap">
-		SELECT  /* boardQuery.detail 2013.08.21 최지순 */  
-			* 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND BOARD_ID = #{board_id}
-		AND USE_YN = 'Y'
-	</select>
-	
-	<select id="boardInfoByName" resultType="hashmap">
-		SELECT  /* boardQuery.boardInfoByName 2013.08.21 최지순 */  
-			* 
-		FROM BG_BOARD_MASTER
-		WHERE 1=1
-		AND BOARD_ID = #{boardName}
-		AND USE_YN = 'Y'
-		ORDER BY BOARD_ID DESC
-	</select>
-	
-	
-	<update id="delete">
-		UPDATE  /* boardQuery.delete 2013.08.21 최지순 */  
-			BG_BOARD_MASTER 
-		SET 
-			USE_YN = 'N'
-		WHERE 1=1
-		AND BOARD_ID = #{board_id}
+	<update id="modifyComment">
+	    UPDATE BG_BOARD_COMMENTS
+	    SET 
+	    	COMMENT = #{comment}
+	    WHERE 1=1
+	    AND COMMENT_ID = #{comment_id}
+	    AND MEMBER_ID = #{member_id}
 	</update>
 	
-	<update id="deleteByName">
-		UPDATE  /* boardQuery.deleteByName 2013.08.21 최지순 */  
-			BG_BOARD_MASTER 
-		SET 
-			USE_YN = 'N'
-		WHERE 1=1
-		AND BOARD_NM = #{boardName}
+	<update id="modifyContents">
+	    UPDATE BG_BOARD_CONTENTS
+	    SET 
+	    	TITLE = #{title}
+	    	, CONTENTS = #{contents}
+	    	, MOD_DT = now()
+	    	, IMG_PATH = #{img_path}
+			, CONTENTS_CODE = #{contents_code}	    
+			, SUB_CONTENTS = #{sub_contents}
+			, STATUS = #{status}
+	    WHERE 1=1
+	    AND CONTENTS_ID = #{board_contents_id}
+	    <if test="member_id != 'master'">
+		    AND MEMBER_ID = #{member_id}
+	    </if>
 	</update>
 	
-	<update id="modify">
-		UPDATE  /* boardQuery.modify 2013.08.21 최지순 */  
-			BG_BOARD_MASTER 
-		SET 
-			BOARD_NM = #{board_nm}
-			, BOARD_DESC = #{board_desc}
-		WHERE 1=1
-		AND BOARD_ID = #{board_id}
-	</update>
+	<delete id="deleteComment">
+	    DELETE FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND MEMBER_ID = #{member_id}
+	    AND COMMENT_ID = #{comment_id}
+	</delete>
+	
+	<delete id="deleteCommentByContentsId">
+	    DELETE FROM BG_BOARD_COMMENTS
+	    WHERE 1=1
+	    AND MEMBER_ID = #{member_id}
+	    AND CONTENTS_ID = #{board_contents_id}
+	</delete>
+	
+	<delete id="deleteContents">
+	    DELETE FROM BG_BOARD_CONTENTS
+	    WHERE 1=1
+	    AND MEMBER_ID = #{member_id}
+	    AND CONTENTS_ID = #{board_contents_id}
+	</delete>
 	
 </mapper>

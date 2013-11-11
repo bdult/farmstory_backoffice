@@ -62,6 +62,8 @@ public class SeriesController {
 	
 	@RequestMapping(value = "series/createView.do")
 	public String create(Model model) {
+		model.addAttribute("viewName", "시리즈 등록");
+		model.addAttribute("viewDesc", "시리즈 정보 입력");
 		return "series/info";
 	}
 	
@@ -76,6 +78,8 @@ public class SeriesController {
 		Map detailInfo = seriesService.detail(parameter);
 		model.addAttribute("data", detailInfo);
 		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
+		model.addAttribute("viewName", "시리즈 수정");
+		model.addAttribute("viewDesc", "시리즈 정보 수정");
 		return "series/info";
 	}
 	
@@ -86,20 +90,11 @@ public class SeriesController {
 	}
 	
 	@RequestMapping(value = "series/create.ajax", method = RequestMethod.POST)
-	public @ResponseBody String createAjax(@RequestParam Map<String,Object> parameter) {
+	public @ResponseBody String createAjax(@RequestParam Map<String, Object> parameter) {
 		seriesService.create(parameter);
 		return "{code:ok}";
 	}
 	
-	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
-	public @ResponseBody String listAjax(Model model) {
-		List<Map> seriesList = null;
-			seriesList = seriesService.listOfTop();
-//			seriesList = seriesService.listOfChild(id);
-		String seriesListJson = jsonMaker.generateSeriesListForTree(seriesList);
-		logger.info(seriesListJson);
-		return seriesListJson;
-	}
 	
 	@RequestMapping(value = "series/search.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String listAjax(Model model, String series_nm) {
@@ -121,6 +116,13 @@ public class SeriesController {
 	@RequestMapping(value = "series/parentSeriesList.ajax",  produces = "application/json;charset=UTF-8")
 	public @ResponseBody String parentSeriesListAjax(Model model, String search_name) {
 		List<Map> seriesList = seriesService.searchByName(search_name);
+		String seriesListJson = jsonMaker.generateMapList("data", seriesList);
+		return seriesListJson;
+	}
+	
+	@RequestMapping(value = "series/list.ajax",  produces = "application/json;charset=UTF-8")
+	public @ResponseBody String list(Model model, @RequestParam Map<String, Object> requestParamMap) {
+		List<Map> seriesList = seriesService.list(requestParamMap);
 		String seriesListJson = jsonMaker.generateMapList("data", seriesList);
 		return seriesListJson;
 	}

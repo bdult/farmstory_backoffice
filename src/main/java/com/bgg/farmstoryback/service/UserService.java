@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bgg.farmstoryback.common.ConstantsForDb;
 import com.bgg.farmstoryback.common.ConstantsForParam;
+import com.bgg.farmstoryback.common.ConstantsForResponse;
 import com.bgg.farmstoryback.dao.UserDao;
 import com.mysql.jdbc.StringUtils;
 
@@ -22,15 +23,6 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
-	/**
-	 * 전체(이용, 탈퇴, 이용정지) 회원 카운트
-	 * @param search
-	 * @return
-	 */
-	@SuppressWarnings("rawtypes") 
-	public int totalCount(Map search) {
-		return userDao.totalCount(search);
-	}
 	
 	@SuppressWarnings({ "rawtypes"}) 
 	public Map list() {
@@ -47,9 +39,12 @@ public class UserService {
 	public Map list(Map search) {
 		Map resultInfo = new HashMap();
 		List<Map> userList = userDao.userList(search);
-		resultInfo.put(ConstantsForDb.MEMBER_LIST, userList);
-		resultInfo.put(ConstantsForDb.MEMBER_LIST_COUNT, userList.size());
+		resultInfo.put(ConstantsForResponse.MEMBER_LIST, userList);
 		return resultInfo;
+	}
+	
+	public int totalCount(Map search){
+		return userDao.userListCount(search);
 	}
 
 
@@ -132,6 +127,23 @@ public class UserService {
 
 	public List<Map> top(int limitCount) {
 		return userDao.top(limitCount);
+	}
+
+	public void modifyUserInfo(Map requestParamMap) {
+		userDao.modifyUserInfo(requestParamMap);
+	}
+
+	public void modifyChildInfo(Map requestParamMap) {
+		userDao.modifyChildInfo(requestParamMap);
+		
+	}
+	
+	public void deleteUserInfo(Map requestParamMap) {
+		userDao.deleteUserInfo(requestParamMap);
+	}
+
+	public List<Map> latestData() {
+		return userDao.latestData();
 	}
 
 	
