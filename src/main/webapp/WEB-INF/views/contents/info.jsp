@@ -51,7 +51,7 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
 					<div class="span9">
-						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
+						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.SRC_PATH }">
 						<a id="movie-mod-btn" class="btn">찾아보기</a>
 					</div>
 				</div>
@@ -59,7 +59,7 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
-						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
+						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.IMG_PATH }">
 						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
 						<div id="thumbnail-box" style="display: none;">
 							<br />

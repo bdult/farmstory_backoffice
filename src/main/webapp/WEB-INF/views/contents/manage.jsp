@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
+<style>
+.mg-bt-20 {
+	margin-bottom: 20px;
+}
+
+.datepicker {
+	z-index: 7777 !important;
+}
+</style>			
+
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -37,7 +47,7 @@
 			<!-- search -->
 			<form action="" id="searchForm" class="form-horizontal well">
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right pd-tp">컨텐츠검색</div>
+					<div class="span2 text-right">컨텐츠검색</div>
 					<div class="span2">
 						<select name="search_type" class="span12">
 							<option value="name">컨텐츠명</option>
@@ -49,7 +59,7 @@
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right pd-tp">카테고리</div>
+					<div class="span2 text-right">카테고리</div>
 					<div class="span2">
 						<select id="selectCategoryBox" name="category_id" class="span12">
 							<option value="">전체</option>
@@ -58,7 +68,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="span1 text-right pd-tp">출판사</div>
+					<div class="span1 text-right">출판사</div>
 					<div class="span2">
 						<select id="selectBrandBox" name="brand_id" class="span12">
 							<option value="">전체</option>
@@ -67,7 +77,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="span1 text-right pd-tp">시리즈</div>
+					<div class="span1 text-right">시리즈</div>
 					<div class="span2">
 						<select id="selectSeriesBox" name="series_id" class="span12">
 							<option value="">전체</option>
@@ -75,7 +85,7 @@
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right pd-tp">등록일자</div>
+					<div class="span2 text-right">등록일자</div>
 					<div class="span5">
 						<div class="input-append ">
 							<input class="span10" name="search_start_date" id="start_date" type="text" data-date-format="yyyy-mm-dd" value="${ pageInfo.search_start_date }"> 
@@ -87,7 +97,7 @@
 							<span class="add-on end_date"><i class="icon-calendar"></i></span>
 						</div>
 					</div>
-					<div class="span1 text-right pd-tp">국가</div>
+					<div class="span1 text-right">국가</div>
 					<div class="span2">
 						<select name="member_role" class="span12">
 							<option value="">전체</option>
@@ -249,15 +259,6 @@ $(function(){
 			}
 		});
 		
-		if('${ pageInfo.search_type}'.length > 0) {
-			$("select[name='search_type']").find("option").each(function(){
-				var $this = $(this);
-				if( '${ pageInfo.search_type}' == $this.val() ) {
-					$this.prop("selected", true);
-				}
-			});
-		}
-		
 	}//init
 	
 	{//event
@@ -274,16 +275,6 @@ $(function(){
 						$.each( json.data, function( idx, item ){
 							$("#selectSeriesBox").append("<option value='" + item.CONTENTS_SERIES_ID + "'>" + item.CONTENTS_SERIES_NM + "</option>");
 						});
-						
-						//check work
-						if( '${ pageInfo.series_id }'.length > 0 ) {
-							$("#selectSeriesBox").find("option").each(function(){
-								var $this = $(this);
-								if( '${ pageInfo.series_id }' == $this.val() ) {
-									$this.prop("selected", true);
-								}
-							});
-						}
 					}
 					
 				}).fail(function(jqxhr, textStatus, error) {
@@ -344,17 +335,3 @@ $(function(){
 	}//event
 });
 </script>
-
-<style>
-.mg-bt-20 {
-	margin-bottom: 20px;
-}
-
-.datepicker {
-	z-index: 7777 !important;
-}
-
-.pd-tp {
-	padding-top: 5px;
-}
-</style>	
