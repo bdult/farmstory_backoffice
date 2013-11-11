@@ -62,10 +62,10 @@
 				       AND  BBC.STATUS = #{status}
 				</if>
 				<if test="search_start_date !=null and search_start_date !=''">
-					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+					AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 				</if>
 				<if test="search_end_date !=null and search_end_date !=''">
-					AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+					AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 				</if>
 				ORDER BY BBC.CONTENTS_ID
 			) t, ( SELECT @RNUM := 0 ) R
@@ -101,10 +101,10 @@
 		       AND  BBC.STATUS = #{status}
 		</if>
 		<if test="search_start_date !=null and search_start_date !=''">
-			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ >= ]]> #{search_start_date} 
+			AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ >= ]]> #{search_start_date} 
 		</if>
 		<if test="search_end_date !=null and search_end_date !=''">
-			AND DATE_FORMAT(BBC.REG_DT,'%Y%m%d') <![CDATA[ <= ]]> #{search_end_date}
+			AND DATE_FORMAT(BBC.REG_DT,'%Y-%m-%d') <![CDATA[ <= ]]> #{search_end_date}
 		</if>
 	</select>
 	
