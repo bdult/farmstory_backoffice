@@ -117,29 +117,6 @@
 					</li>
 				</ul>
 			</li>
-			<li id="side-board">
-				<a href="#" class="dropdown-toggle">
-					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 게시판 관리
-						<span class="badge badge-primary ">2</span> 
-					</span>
-					<b class="arrow icon-angle-down"></b>
-				</a>
-				<ul class="submenu">
-					<li id="side-board-master" >
-						<a href="${contextPath }/board/manage.do">
-							<i class="icon-double-angle-right"></i>
-							마스터
-						</a>
-					</li> 
-					<li id="side-board-board" >
-						<a href="${contextPath }/board/contents/manage.do">
-							<i class="icon-double-angle-right"></i>
-							게시판 조회
-						</a>
-					</li>
-				</ul>
-			</li>
 			<li id="side-code-code">
 				<a href="${contextPath }/code/manage.do">
 					<i class="icon-file-alt"></i>
@@ -155,18 +132,18 @@
 					<b class="arrow icon-angle-down"></b>
 				</a>
 				<ul class="submenu">
-					<li id="side-stats-setting" >
-						<a href="${contextPath }/stats/setting.do">
-							<i class="icon-double-angle-right"></i>
-							설정
-						</a>
-					</li> 
 					<li id="side-stats-view" >
 						<a href="${contextPath }/stats/view.do">
 							<i class="icon-double-angle-right"></i>
 							조회
 						</a>
 					</li>
+					<li id="side-stats-setting" >
+						<a href="${contextPath }/stats/setting.do">
+							<i class="icon-double-angle-right"></i>
+							설정
+						</a>
+					</li> 
 				</ul>
 			</li>
 			<li id="side-cscenter">

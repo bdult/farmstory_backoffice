@@ -49,16 +49,36 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
 					<div class="span9">
-						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
+						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.SRC_PATH }">
 						<a id="movie-mod-btn" class="btn">찾아보기</a>
+						<div id="video-box" style="display: none;">
+							<br />
+							<video width="320" height="240" controls>
+							  <source src="" type="video/mp4">
+							  <source src="" type="video/ogg">
+							Your browser does not support the video tag.
+							</video>
+							<a class="btn btn-app btn-danger btn-small" id="videoDeleteBtn">
+								<i class="icon-trash bigger-200"></i>
+								삭제
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
-						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
+						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.IMG_PATH }">
 						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
+						<div id="thumbnail-box" style="display: none;">
+							<br />
+							<img id="thumbnail" width="300" height="300" />
+							<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
+								<i class="icon-trash bigger-200"></i>
+								삭제
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
@@ -67,8 +87,13 @@
 					<div class="span9">
 						<div class="checkbox-inline">
 							<label>
-								<c:forEach items="${ locationList }" var="obj">
-									<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
+								<c:forEach items="${ locationList }" var="obj" varStatus="util">
+									<c:if test="${ util.first }">
+										<input checked onclick="return false;" class="ace" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
+									</c:if>
+									<c:if test="${ not util.first }">
+										<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
+									</c:if>
 									<span class="lbl"> ${ obj.CODE_DETAIL }</span>
 								</c:forEach>
 							</label>
@@ -605,6 +630,16 @@ $(function(){
 				    },
 				    success: function(response){
 				      $("#src_path").val(response);
+				      
+				      //for thumbnail
+				      $("#movie-box").show();
+				      $("video").find("source").each(function(){
+				    	  var $this = $(this);
+				    	  cono
+				    	  $this.attr("src",  "${ httpPath }" + response );
+				      });
+				      
+				      
 				      $("#movie-modal").modal('toggle');
 					}
 				 }
@@ -613,10 +648,21 @@ $(function(){
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      
+					    //for thumbnail
+					      $("#thumbnail-box").show();
+					      $("#thumbnail").attr("src",  "${ httpPath }" + response );
+					      
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
 		 );
+		
+		$("#thumbnailDeleteBtn").click(function(){
+			$("#img_path").val("");
+			$("#thumbnail").attr("src",  "");
+			$("#thumbnail-box").hide();
+		});
 		
 		$("#movie-mod-btn").click(function(){
 			$("#movie-modal-footer").hide();
@@ -630,6 +676,39 @@ $(function(){
 		}); // <!-- brand-mod-btn event end
 		
 		$("#createBtn").click(function(){
+			
+			//validation
+			var $srcPath = $("#src_path");
+			if( isEmpty( $srcPath.val() ) ) {
+				alert("찾아보기 버튼을 눌러 동영상을 등록해 주세요.");
+				return false;
+			}
+
+			var $img_path = $("#img_path");
+			if( isEmpty( $img_path.val() ) ) {
+				alert("찾아보기 버튼을 눌러 이미지를 등록해 주세요.");
+				return false;
+			}
+			
+			{//한국(필수) 유효성 체크
+				if( $("input[name='category_id1']:checked").length == 0 ) {
+					alert("최소 1개 이상 선택해 주세요.");
+					return false;
+				}
+				
+				if( isEmpty( $("input[name='contents_nm']").eq(0).val() ) ) {
+					alert("컨텐츠명을 입력해 주세요.");
+					$("input[name='contents_nm']").eq(0).focus();
+					return false;
+				}
+				
+				if( isEmpty( $("input[name='contents_desc']").eq(0).text() ) ) {
+					alert("컨텐츠 설명을 입력해 주세요.");
+					$("input[name='contents_desc']").eq(0).focus();
+					return false;
+				}
+			}
+			
 			if( confirm("등록하시겠습니까?") ) {
 				$("#createForm").submit();
 			}
@@ -656,11 +735,10 @@ $(function(){
 		$("#side-contents-contents").addClass("active");
 		$("#side-contents").addClass("open active");
 		
-		$("input.checkboxLocationList").first().prop({"checked" : true});
 		$("input.checkboxLocationList").each(function(){
 			var $this = $(this);
 			if( !!! $this.prop("checked")  ) {
-				$("#box" + $this.data("code")).hide()
+				$("#box" + $this.data("code")).hide();
 			}
 		});
 		

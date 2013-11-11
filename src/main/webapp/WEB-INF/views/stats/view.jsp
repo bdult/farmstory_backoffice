@@ -28,12 +28,12 @@
 		<!--/.page-header-->
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span6">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							일 방문자 선 차트
+							신규 방문수
 						</h5>
 					</div>
 	
@@ -42,12 +42,87 @@
 					</div><!-- /widget-body -->
 				</div>
 			</div>
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							순 방문자수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+					</div><!-- /widget-body -->
+				</div>
+			</div>
+		</div>
+		
+		<br />
+
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							방문수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="geoChart"></div>
+					</div><!-- /widget-body -->
+				</div>
+			</div>
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							브라우저별 방문수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<table>
+							<tr>
+								<th>Browser</th>
+								<th>Visits</th>
+							</tr>
+							<tr>
+								<td>Chrome</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>Internet Explorer</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>Safari</td>
+								<td>2</td>
+							</tr>
+						</table>
+					</div><!-- /widget-body -->
+				</div>
+
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							평균 방문 시간 및 방문당 페이지수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+					</div><!-- /widget-body -->
+				</div>
+			</div>
 		</div>
 		
 		<br />
 		
 		<div class="row-fluid">
-			<div class="span7 infobox-container" id="avgBox" data-avg='${ averageData }'>
+			<div class="span6 infobox-container" id="avgBox" data-avg='${ averageData }'>
 				<div class="infobox infobox-green  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="visits"></span>
@@ -90,7 +165,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
@@ -203,5 +278,26 @@ $(function(){
 	      var pieChart = new google.visualization.PieChart(document.getElementById('pieChart'));
 	      pieChart.draw(data, options);
 		}
+	}
+	
+	
+	{
+		google.load('visualization', '1', {'packages':['geochart']});
+		//지도 차트
+		google.setOnLoadCallback(drawRegionsMap);
+
+		var gaData = $( ${countryData}.rows );
+		
+		var rows = [['Country', 'Popularity']];
+		gaData.each(function(){
+			rows.push(this);
+		});
+		
+		function drawRegionsMap() {
+			var data = google.visualization.arrayToDataTable(rows);
+			var options = {};
+			var chart = new google.visualization.GeoChart(document.getElementById('geoChart'));
+			chart.draw(data, options);
+		};
 	}
 </script>	

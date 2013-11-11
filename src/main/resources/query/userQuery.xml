@@ -10,17 +10,23 @@
 			FROM(
 			
 				SELECT /* userQuery.list */
-					IDX,
-					MEMBER_ID,
-					MEMBER_NM,
-					MEMBER_CEL,
-					MEMBER_ROLE,
-					DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT,
-					case (MEMBER_ROLE)
+					IDX
+					, MEMBER_ID
+					, MEMBER_NM
+					, MEMBER_CEL
+					, MEMBER_ROLE
+					, MEMBER_STATUS
+					, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
+					, case (MEMBER_ROLE)
 						when 0 then '무료회원'
 						when 1 then '유료회원'
 				    else '무료회원'
 					end AS MEMBER_ROLE_DESC
+					, case (MEMBER_STATUS)
+						when 0 then '이용'
+						when 1 then '중지'
+						when 2 then '탈퇴'
+					end AS MEMBER_STATUS_DESC
 				FROM BG_MEMBER 
 				WHERE 1=1 
 				<if test="search_type != null and search_type != ''">
@@ -105,6 +111,11 @@
 				when 1 then '유료회원'
 		      else '무료회원'
 			  end AS MEMBER_ROLE
+			, case (MEMBER_STATUS)
+						when 0 then '이용'
+						when 1 then '중지'
+						when 2 then '탈퇴'
+					end AS MEMBER_STATUS_DESC
 			, (SELECT REG_DT FROM BG_PAYMENT_HIS
 		        WHERE 1=1
 		        AND MEMBER_ID = #{member_id}
@@ -137,7 +148,7 @@
 		        	, DATE_FORMAT(REG_DT,'%Y.%m.%d') AS REG_DT
 		        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_CODE) AS PAYMENT_CODE
 		        	, (SELECT CODE_DETAIL FROM BG_CODE WHERE CODE = PAYMENT_PROCESS) AS PAYMENT_PROCESS
-		        	, PRICE
+		        	, FORMAT(PRICE, 0) AS PRICE
 		        	, IF(TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ) > 0, TO_DAYS(EXPIRE_DT) - TO_DAYS(now() ), 0) AS REMINE_DAY
 		        FROM BG_PAYMENT_HIS
 		        WHERE 1=1
@@ -189,14 +200,28 @@
 	
     <select id="latestData" resultType="hashmap">
         SELECT 
-			DATE_FORMAT(BM.REG_DT, '%Y.%m.%d') AS REG_DT
+			DATE_FORMAT(TMP_DATE.Date, '%Y.%m.%d') AS REG_DT
 			, COUNT(BM.MEMBER_ID) AS NEW_MEMBER_COUNT
 			, COUNT(BPH.MEMBER_ID) AS PAY_MEMBER_COUNT
+			, SUM(BPH.PRICE) AS PRICE
+			
 		FROM 
-			BG_MEMBER BM LEFT JOIN BG_PAYMENT_HIS BPH ON BM.MEMBER_ID =  BPH.MEMBER_ID
-		GROUP BY DATE_FORMAT(BM.REG_DT, '%Y%m%d')
-		ORDER BY REG_DT DESC
-		LIMIT 0, 10
+			(
+				select a.Date 
+					from (
+					    select curdate() - INTERVAL (a.a + (10 * b.a) + (100 * c.a)) DAY as Date
+					    from (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as a
+					    cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as b
+					    cross join (select 0 as a union all select 1 union all select 2 union all select 3 union all select 4 union all select 5 union all select 6 union all select 7 union all select 8 union all select 9) as c
+					) a
+					where DATE_FORMAT(a.Date,'%Y-%m-%d') between '2013-09-01' and DATE_FORMAT(now(),'%Y-%m-%d')
+			) TMP_DATE 
+			  LEFT JOIN BG_PAYMENT_HIS BPH ON DATE_FORMAT(TMP_DATE.Date, '%Y%m%d') = DATE_FORMAT(BPH.REG_DT, '%Y%m%d')
+			  LEFT JOIN BG_MEMBER BM ON DATE_FORMAT(TMP_DATE.Date, '%Y%m%d') = DATE_FORMAT(BM.REG_DT, '%Y%m%d')
+			  WHERE BM.MEMBER_ID IS NOT NULL OR BPH.MEMBER_ID IS NOT NULL
+			  GROUP BY DATE_FORMAT(TMP_DATE.Date, '%Y%m%d') 
+			ORDER BY TMP_DATE.Date DESC
+			LIMIT 10
     </select>
 	
     <update id="modifyUserInfo">
@@ -232,5 +257,12 @@
         
     </update>
     
+    <update id="deleteUserInfo">
+    	UPDATE BG_MEMBER
+    	SET
+    		MEMBER_STATUS = 2
+        WHERE 1=1
+        AND MEMBER_ID = #{member_id}
+    </update>
 	
 </mapper>

@@ -29,9 +29,9 @@
 								<div class="span6">
 									<div class="widget-box transparent">
 										<div class="widget-header widget-header-flat">
-											<h4 class="lighter">
+											<h4 class="lighter smaller">
 												<i class="icon-star orange"></i>
-												<a href="${contextPath }/contents/manage.do?pageNum=1&pageNum=1"> 컨텐츠</a>
+												<a href="${contextPath }/user/manage.do"> 회원 최근 현황</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -48,27 +48,27 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																컨텐츠 ID
+																가입일
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																컨텐츠 명
+																신규회원
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																생성일
+																유료회원 전환
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-														<c:forEach items="${contentsTop5 }" var="contents">
+														<c:forEach items="${memberCurrentData }" var="member">
 															<tr>
-																<td><a href="${contextPath }/contents/detail.do?pageNum=1&contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_ID}</a> </td>
-																<td><a href="${contextPath }/contents/detail.do?pageNum=1&contents_id=${contents.CONTENTS_ID}">${contents.CONTENTS_NM}</a> </td>
-																<td>${contents.REG_DT}</td>
+																<td>${member.REG_DT}</td>
+																<td>${member.NEW_MEMBER_COUNT}</td>
+																<td>${member.PAY_MEMBER_COUNT}</td>
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -81,9 +81,9 @@
 								<div class="span6">
 									<div class="widget-box transparent">
 										<div class="widget-header widget-header-flat">
-											<h4 class="lighter">
-												<i class="icon-signal"></i>
-												<a href="${contextPath }/user.do?pageNum=1&pageNum=1"> 회원</a>
+											<h4 class="lighter smaller">
+												<i class="icon-signal red"></i>
+												 결제내역 최근 현황
 											</h4>
 
 											<div class="widget-toolbar">
@@ -100,27 +100,27 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																아이디
+																결제일
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																이름
+																결제건
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																가입일
+																매출액
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-														<c:forEach items="${userTop5 }" var="user">
+														<c:forEach items="${payCurrentData }" var="payInfo">
 															<tr>
-																<td><a href="${contextPath }/user/detail.do?pageNum=1&member_id=${user.MEMBER_ID}">${user.MEMBER_ID}</a> </td>
-																<td><a href="${contextPath }/user/detail.do?pageNum=1&member_id=${user.MEMBER_ID}">${user.MEMBER_NM}</a> </td>
-																<td>${user.REG_DT}</td>
+																<td>${payInfo.REG_DT} </td>
+																<td>${payInfo.PAY_COUNT} </td>
+																<td>${payInfo.PAY_SUM}</td>
 															</tr>
 														</c:forEach>
 													</tbody>
@@ -138,8 +138,8 @@
 									<div class="widget-box transparent" >
 										<div class="widget-header">
 											<h4 class="lighter smaller">
-												<i class="icon-rss orange"></i>
-												<a href="${contextPath }/brand/manage.do?pageNum=1&pageNum=1"> 출판사</a>
+												<i class="icon-comment orange"></i>
+												<a href="${contextPath }/cscenter/questionManage.do"> 고객문의</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -156,27 +156,37 @@
 														<tr>
 															<th class="span2">
 																<i class="icon-caret-right blue"></i>
-																출판사 ID
+																등록일시
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																출판사 명
+																카테고리
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																생성일
+																제목
+															</th>
+															<th class="hidden-phone">
+																<i class="icon-time bigger-110 hidden-phone"></i>
+																고객아이디
+															</th>
+															<th class="hidden-phone">
+																<i class="icon-time bigger-110 hidden-phone"></i>
+																처리상태
 															</th>
 														</tr>
 													</thead>
 
 													<tbody>
-															<c:forEach items="${brandTop5 }" var="brand">
+															<c:forEach items="${csCurrentData }" var="csInfo">
 																<tr>
-																	<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_ID}</a> </td>
-																	<td><a href="${contextPath }/brand/detail.do?pageNum=1&brand_id=${brand.BRAND_ID}">${brand.BRAND_NM}</a> </td>
-																	<td>${brand.REG_DT}</td>
+																	<td>${csInfo.REG_DT}</td>
+																	<td>${csInfo.CONTENTS_CODE_DESC}</td>
+																	<td>${csInfo.TITLE}</td>
+																	<td>${csInfo.MEMBER_ID}</td>
+																	<td>${csInfo.COMPLETE_DESC}</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -189,8 +199,8 @@
 										<div class="widget-box transparent" >
 											<div class="widget-header">
 												<h4 class="lighter smaller">
-													<i class="icon-rss orange"></i>
-													<a href="${contextPath }/series/manage.do"> 시리즈 </a>
+													<i class="icon-signal orange"></i>
+													<a href="${contextPath }/contents/manage.do"> 컨텐츠 업로드 현황</a>
 												</h4>
 	
 												<div class="widget-toolbar">
@@ -207,27 +217,27 @@
 															<tr>
 																<th>
 																	<i class="icon-caret-right blue"></i>
-																	시리즈 ID
+																	업로드일
 																</th>
 	
 																<th>
 																	<i class="icon-caret-right blue"></i>
-																	시리즈 명
+																	컨텐츠 수
 																</th>
 	
 																<th class="hidden-phone">
 																	<i class="icon-time bigger-110 hidden-phone"></i>
-																	생성일
+																	누적 컨텐츠 수
 																</th>
 															</tr>
 														</thead>
 	
 														<tbody>
-															<c:forEach items="${seriesTop5 }" var="series">
+															<c:forEach items="${contentsCurrentData }" var="contentsInfo">
 																<tr>
-																	<td><a href="${contextPath }/series/detail.do?pageNum=1&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_ID}</a></td>
-																	<td><a href="${contextPath }/series/detail.do?pageNum=1&series_id=${series.CONTENTS_SERIES_ID}">${series.CONTENTS_SERIES_NM}</a></td>
-																	<td>${series.REG_DT}</td>
+																	<td>${contentsInfo.REG_DT}</td>
+																	<td>${contentsInfo.CONTENTS_COUNT}</td>
+																	<td>${contentsInfo.SUM_CONTENTS_COUNT}</td>
 																</tr>
 															</c:forEach>
 														</tbody>
@@ -240,111 +250,6 @@
 						
 						<div class="hr hr32 hr-dotted"></div>
 						
-						<div class="row-fluid">
-								<div class="span6">
-									<div class="widget-box transparent" >
-										<div class="widget-header">
-											<h4 class="lighter smaller">
-												<i class="icon-rss orange"></i>
-												
-												<a href="${contextPath }/board/manage.do?pageNum=1&pageNum=1"> 게시판</a>
-											</h4>
-
-											<div class="widget-toolbar">
-												<a href="#" data-action="collapse">
-													<i class="icon-chevron-up"></i>
-												</a>
-											</div>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																<i class="icon-caret-right blue"></i>
-																게시판 ID
-															</th>
-
-															<th>
-																<i class="icon-caret-right blue"></i>
-																게시판 명
-															</th>
-
-															<th class="hidden-phone">
-																<i class="icon-time bigger-110 hidden-phone"></i>
-																생성일
-															</th>
-														</tr>
-													</thead>
-
-													<tbody>
-														<c:forEach items="${boardTop5 }" var="board">
-															<tr>
-																<td><a href="${contextPath }/board/detail.do?pageNum=1&board_id=${board.BOARD_ID}">${board.BOARD_ID}</a> </td>
-																<td><a href="${contextPath }/board/detail.do?pageNum=1&board_id=${board.BOARD_ID}">${board.BOARD_NM}</a> </td>
-																<td>${board.REG_DT}</td>
-															</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div><!--/widget-main-->
-										</div><!--/widget-body-->
-									</div><!--/widget-box-->
-								</div><!--/span-->
-								<div class="span6">
-									<div class="widget-box transparent" >
-										<div class="widget-header">
-											<h4 class="lighter smaller">
-												<i class="icon-rss orange"></i>
-												<a href="${contextPath }/category/manage.do"> 카테고리</a>
-											</h4>
-
-											<div class="widget-toolbar">
-												<a href="#" data-action="collapse">
-													<i class="icon-chevron-up"></i>
-												</a>
-											</div>
-										</div>
-
-										<div class="widget-body">
-											<div class="widget-main no-padding">
-												<table class="table table-bordered table-striped">
-													<thead>
-														<tr>
-															<th>
-																<i class="icon-caret-right blue"></i>
-																카테고리 ID
-															</th>
-
-															<th>
-																<i class="icon-caret-right blue"></i>
-																카테고리 명
-															</th>
-
-															<th class="hidden-phone">
-																<i class="icon-time bigger-110 hidden-phone"></i>
-																생성일
-															</th>
-														</tr>
-													</thead>
-
-													<tbody>
-														<c:forEach items="${categoryTop5 }" var="category">
-															<tr>
-																<td>${category.CATE_ID}</td>
-																<td>${category.CATE_NM}</td>
-																<td>${category.REG_DT}</td>
-															</tr>
-														</c:forEach>
-													</tbody>
-												</table>
-											</div><!--/widget-main-->
-										</div><!--/widget-body-->
-									</div><!--/widget-box-->
-								</div><!--/span-->
-						</div><!--/.span-->
 							<!--PAGE CONTENT ENDS-->
 					</div><!--/.span12-->
 				</div><!--/.row-fluid-->

@@ -265,6 +265,7 @@
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">
+					<a class="btn btn-danger"  id="delete-btn">관리자 회원탈퇴</a>
 					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">회원정보 수정</a>
 				</div>
 			</div>
@@ -545,6 +546,17 @@
 	
 	$("#create-form input:text").attr({
 		readonly: "readonly"
+	});
+	
+	$("#delete-btn").click(function(){
+		if(confirm("회원정보를 삭제 하시겠습니까?")){
+			$("#create-form").attr({
+				method: 'post',
+				action: '${ contextPath }/user/userDelete.do'
+			}).submit();
+		}else {
+			return false;
+		}
 	});
 
 	//child nav btn

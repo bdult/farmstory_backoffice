@@ -25,17 +25,17 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">상세</li>
+						<li class="active">${viewName }</li>
 					</ul><!--.breadcrumb-->
 				</div>
 
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							시리즈 상세
+							${viewName }
 							<small>
 								<i class="icon-double-angle-right"></i>
-								시리즈에 대한 상세한 정보를 입력한다
+								${viewDesc }
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -107,11 +107,13 @@
 										<i class="icon-undo bigger-110"></i>
 										취소
 									</button>
+									<c:if test="${data.CONTENTS_SERIES_ID != null}">
 									&nbsp; &nbsp; &nbsp;
 									<button id="delete-btn" class="btn btn-danger" type="button">
 										<i class="icon-remove-sign bigger-110"></i>
 										삭제
 									</button>
+									</c:if>
 								</div>
 							</form>
 						</div><!--/.span-->
@@ -218,7 +220,7 @@
 		
 		
 		$("#cancel-btn").click(function(){
-			history.back(1);
+			window.location.href="manage.do?pageNum=${pageNum}";
 		});
 		
 		$("#delete-btn").click(function(){
@@ -248,7 +250,7 @@
 		}); // <!-- thumbnaul-mod-btn event end
 		
 		$("#modify-brand-search-btn").click(function(){
-			$("#modify-series-select").empty();
+			
 				param = {
 						search : $("#modify-brand-name").val()
 				};
@@ -263,6 +265,7 @@
 							alert("검색된 출판사가 없습니다.");
 							return false;
 						}else{
+							$("#modify-brand-select").empty();
 							$.each(response.data, function(index, brand){
 								$("#modify-brand-select").append("<option value=\""+brand.BRAND_ID+"\">"+brand.BRAND_NM+"</option>")
 							});

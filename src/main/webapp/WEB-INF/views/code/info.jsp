@@ -19,17 +19,17 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">상세</li>
+						<li class="active">${viewName}</li>
 					</ul><!--.breadcrumb-->
 				</div>
 
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							코드 상세
+							${viewName}
 							<small>
 								<i class="icon-double-angle-right"></i>
-								코드에 대한 상세 정보
+								${viewDesc}
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -39,6 +39,7 @@
 							<!--PAGE CONTENT BEGINS-->
 
 							<form id="modify-form" method="post" action="${contextPath }/code/modify.do" class="form-horizontal" >
+								<input type="hidden" name="pageNum" value="${data.IDX}" />
 								<div class="control-group">
 									<label class="control-label" for="code_idx">코드 IDX</label>
 
@@ -51,7 +52,7 @@
 									<label class="control-label" for="code">코드</label>
 
 									<div class="controls">
-										<input type="text" id="code" name="code" value="${data.CODE == null? "코드" : data.CODE}" />
+										<input type="text" id="code" name="code" value="${data.CODE == null? "" : data.CODE}" />
 									</div>
 								</div>
 								
@@ -72,11 +73,10 @@
 								</div>
 								
 								
-
 								<div class="form-actions">
 									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
-										수정
+										저장
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
@@ -84,13 +84,14 @@
 										<i class="icon-undo bigger-110"></i>
 										취소
 									</button>
+								<c:if test="${data.IDX != null}">
 									&nbsp; &nbsp; &nbsp;
 									<button id="delete-btn" class="btn btn-danger" type="button">
 										<i class="icon-remove-sign bigger-110"></i>
 										삭제
 									</button>
-								</div>
-
+								</c:if>
+								</div>								
 							</form>
 						</div><!--/.span-->
 					</div><!--/.row-fluid-->
@@ -98,7 +99,7 @@
 			</div><!--/.main-content-->
 			
 			<form id="delete-form" method="post" action="delete.do">
-				<input type="hidden" name="code_idx" value="${data.IDX }">
+				<input type="hidden" name="idx" value="${data.IDX }">
 			</form>
 			
 
@@ -108,7 +109,7 @@
 
 	$(function(){
 		$("#cancel-btn").click(function(){
-			history.back(1);
+			window.location.href="manage.do?pageNum=${pageNum}";
 		});
 		
 		$("#delete-btn").click(function(){

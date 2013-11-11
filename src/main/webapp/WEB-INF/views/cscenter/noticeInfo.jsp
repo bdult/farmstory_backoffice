@@ -109,6 +109,27 @@
 
 <script type="text/javascript">
 
+//validate
+setValid();
+$("#create-form").validate({
+	rules: {
+		title: {
+			required: true
+		},
+		contents: {
+			required: true
+		}
+	},
+	messages: {
+		title: {
+			required: "제목을 입력해 주세요."
+		},
+		contents: {
+			required: "내용을 입력해 주세요."
+		}
+	}
+});
+
 	//side active
 	$("#side-cscenter").addClass("open active");
 		$("#side-cscenter-notice").addClass("active");

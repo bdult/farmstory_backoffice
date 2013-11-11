@@ -33,12 +33,8 @@ public class ContentsService {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List<Map> listByCategory(String categoryId) {
-		if(StringUtils.isNullOrEmpty(categoryId)){
-			return null;
-		}else{
-			return conDao.listByCategory(categoryId);
-		}
+	public List<Map> listByCategory(Map requestParamMap) {
+		return conDao.listByCategory(requestParamMap);
 	}
 	
 	/**
@@ -148,9 +144,9 @@ public class ContentsService {
 			conDao.modifyContentsDetailInfo(contentsDetail);
 			// update cate-contents relationship
 			// delete > insert
+			conDao.deleteContentsCate(contentsDetail);
 			for(Map contentsCate : (List<Map>)contentsDetail.get(ConstantsForParam.CATEGORY_LIST)){
 				contentsCate.put(ConstantsForParam.CONTENTS_DETAIL_IDX, contentsDetail.get(ConstantsForParam.CONTENTS_DETAIL_IDX));
-				conDao.deleteContentsCate(contentsCate);
 				conDao.addContentsCate(contentsCate);
 			}
 		}
@@ -171,38 +167,9 @@ public class ContentsService {
 		conDao.deleteContents(requestParamMap);
 		
 	}
-	
-//	public void modify(Map<String, String> parameter) {
-//		conDao.modify(parameter);
-//	}
-//
-//	public void delete(Map<String, Object> parameter) {
-//		conDao.delete((String)parameter.get("contents_id"));
-//	}
-//
-//	public void addContentsCate(Map parameter) {
-//		int checkCount = conDao.checkContentsCate(parameter);
-//		if(checkCount == 0){
-//			conDao.addContentsCate(parameter);
-//		}
-//	}
-//
-//	public List contentsCateList(Map parameter) {
-//		return conDao.contentsCateList(parameter);
-//	}
-//
-//	public void deleteContentsCate(Map parameter) {
-//		conDao.deleteContentsCate(parameter);
-//	}
-//
-//	public String createTemp() {
-//		return conDao.createTemp();
-//	}
-//
-//
 
-
-
-
+	public List<Map> latestData() {
+		return conDao.latestData();
+	}
 
 }

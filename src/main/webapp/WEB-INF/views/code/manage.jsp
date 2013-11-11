@@ -50,10 +50,10 @@
 					<tr>
 
 						<td>
-							<a href="${contextPath }/code/detail.do?pageNum=${pageInfo.pageNum}&code_idx=${code.IDX}">${code.IDX}</a>
+							<a href="${contextPath }/code/detail.do?pageNum=${pageInfo.pageNum}&idx=${code.IDX}">${code.IDX}</a>
 						</td>
 						<td>
-							<a href="${contextPath }/code/detail.do?pageNum=${pageInfo.pageNum}&code_idx=${code.IDX}">${code.CODE}</a>
+							<a href="${contextPath }/code/detail.do?pageNum=${pageInfo.pageNum}&idx=${code.IDX}">${code.CODE}</a>
 						</td>
 						<td>${code.CODE_DETAIL}</td>
 						<td>${code.PARENT_CODE}</td>											
@@ -129,7 +129,7 @@
 				$("#side-code-code").attr("class", "active");
 				
 					$("#create-code-btn").click(function(){
-						location.href="${contextPath}/code/createView.do";
+						location.href="${contextPath}/code/createView.do?pageNum=${page.pageNum}";
 					});
 				
 				$("#modify_icon").click(function(){

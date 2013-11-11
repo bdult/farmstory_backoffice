@@ -359,6 +359,32 @@ public class GoogleApiUtil {
 		
 	}
 
+	public GaData getLatelyData(String metrics, String dimension, String startDate, String endDate) {
+		
+		GoogleCredential credential = new GoogleCredential().setAccessToken(this.getAccessTokenByFile());
+		
+		GaData result = null;
+		try {
+			Analytics analytics = new Analytics.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), credential).build();
+			
+			result = analytics.data().ga().get("ga:" + PROFILE_ID,
+					startDate,// ex:2013-10-01"
+					endDate,//"2013-10-30", // End date.
+					metrics) // Metrics.
+					.setDimensions(dimension)
+					// .setSort("-ga:visits,ga:source")
+					// .setFilters("ga:medium==organic")
+					.setMaxResults(30).execute();
+		} catch (GoogleJsonResponseException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return result;
+		
+	}
+
 	/** 평균정보를 리턴
 	 * @return null리턴시 엑세스 토큰 유효성 확인해보기
 	 */

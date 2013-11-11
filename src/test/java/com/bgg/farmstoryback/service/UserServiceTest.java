@@ -343,6 +343,20 @@ public class UserServiceTest {
 	
 	@Test
 	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void testDeleteUser(){
+
+		// given 
+		setTestMemberId();
+		
+		// when
+		userService.deleteUserInfo(requestParamMap);
+
+		// then
+		assertThat(requestParamMap.get(ConstantsForParam.MEMBER_ID), is(notNullValue()));
+	}
+	
+	@Test
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void testModifyUserName() {
 		
 		// given

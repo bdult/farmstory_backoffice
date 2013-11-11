@@ -27,8 +27,6 @@
 			<h1>컨텐츠 상세<small><i class="icon-double-angle-right"></i> 컨텐츠에 대한 상세한 정보를 입력한다</small></h1>
 		</div><!--/.page-header-->
 
-		${ detailMap }
-
 		<form id="updateForm" action="${ contextPath }/contents/modify.do" method="POST" class="form-horizontal">
 		
 			<input type="hidden" name="contents_id" value="${ contentInfo.CONTENTS_ID }"/>
@@ -53,7 +51,7 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
 					<div class="span9">
-						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
+						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.SRC_PATH }">
 						<a id="movie-mod-btn" class="btn">찾아보기</a>
 					</div>
 				</div>
@@ -61,8 +59,16 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
-						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
+						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.IMG_PATH }">
 						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
+						<div id="thumbnail-box" style="display: none;">
+							<br />
+							<img id="thumbnail" width="300" height="300" />
+							<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
+								<i class="icon-trash bigger-200"></i>
+								삭제
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
@@ -722,10 +728,21 @@ $(function(){
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      
+					      //for thumbnail
+					      $("#thumbnail-box").show();
+					      $("#thumbnail").attr("src",  "${ httpPath }" + response );
+					      
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
 		 );
+		
+		$("#thumbnailDeleteBtn").click(function(){
+			$("#img_path").val("");
+			$("#thumbnail").attr("src",  "");
+			$("#thumbnail-box").hide();
+		});
 		
 		$("#movie-mod-btn").click(function(){
 			$("#movie-modal-footer").hide();
@@ -778,6 +795,11 @@ $(function(){
 		});
 		
 		$("#selectBrandBox").trigger("change");
+		
+		if( $("#img_path").val().length > 0 ) {
+			$("#thumbnail-box").show();
+			$("#thumbnail").attr("src",  "${ httpPath }" + $("#img_path").val() );
+		}
 		
 	}//init
 	

@@ -50,6 +50,14 @@
 							<td>대표이미지</td>
 							<td>
 								<input class="no-magin-bottom" type="text" id="img_path" name="img_path" readonly>
+								<div id="thumbnail-box" style="display: none;">
+									<br />
+									<img id="thumbnail" width="300" height="300" />
+									<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
+										<i class="icon-trash bigger-200"></i>
+										삭제
+									</a>
+								</div>
 							</td>
 							<td>
 								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
@@ -73,7 +81,7 @@
 				</table>
 			</form>
 			<div class="text-right">
-				<button id="createBtn" class="btn btn-sm btn-yellow">등록</button>
+				<button id="createBtn" class="btn btn-sm btn-yellow">확인</button>
 				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</a>
 			</div>
 		</div><!--/.row-fluid-->
@@ -194,10 +202,21 @@ $(function(){
 				 {
 					    success: function(response){
 					      $("#img_path").val(response);
+					      
+					      //for thumbnail
+					      $("#thumbnail-box").show();
+					      $("#thumbnail").attr("src",  "${ httpPath }" + response );
+					      
 					      $("#thumbnail-modal").modal('toggle');
 						}
 				 }
 		 );
+		
+		$("#thumbnailDeleteBtn").click(function(){
+			$("#img_path").val("");
+			$("#thumbnail").attr("src",  "");
+			$("#thumbnail-box").hide();
+		});
 		
 	}//event
 });

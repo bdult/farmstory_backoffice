@@ -159,7 +159,34 @@
 </div>
 
 <script type="text/javascript">
-	
+
+//validate
+setValid();
+$("#create-form").validate({
+	rules: {
+		title: {
+			required: true
+		},
+		contents_code: {
+			required: true
+		},
+		contents: {
+			required: true
+		}
+	},
+	messages: {
+		title: {
+			required: "제목을 입력해 주세요."
+		},
+		contents_code: {
+			required: "카테고리를 선택해 주세요."
+		},
+		contents: {
+			required: "내용을 입력해 주세요."
+		}
+	}
+});
+
 	//side active
 	$("#side-cscenter").addClass("open active");
 		$("#side-cscenter-faq").addClass("active");
