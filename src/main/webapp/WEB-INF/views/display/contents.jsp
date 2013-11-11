@@ -38,6 +38,7 @@
 			<div class="table-header">
 				노출 카테고리 선택 
 				<select style="margin-bottom: 3px" id="categoryBox" name="category_id" data-parameter="${ parameter.category_id }">
+					<option value="">전체</option>
 					<c:forEach items="${ categories }" var="obj">
 						<option value="${ obj.CATE_ID }">${ obj.name }</option>
 					</c:forEach>

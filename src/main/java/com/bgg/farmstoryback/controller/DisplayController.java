@@ -122,21 +122,12 @@ public class DisplayController {
 		
 		model.addAttribute("parameter", parameter);
 		
+		//for select box
 		List<Map> categoryList = categoryService.list();
 		model.addAttribute("categories", categoryList);
 
-		Object obj = parameter.get(ConstantsForParam.CATEGORY_ID);
-		
-		if(obj == null){
-//			if(categoryList.size() > 0){
-//				Map cate = categoryList.get(0);
-//				parameter.put(ConstantsForParam.CATEGORY_ID, String.valueOf(cate.get(ConstantsForDb.CATEGORY_ID)));
-//			}
-//			TODO 전체 컨텐츠 불러오기
-//			model.addAttribute("contents", displayService.contentsList(parameter));
-		} else {
-			model.addAttribute("contents", displayService.contentsList(parameter));
-		}
+		//for contents list
+		model.addAttribute("contents", displayService.contentsList(parameter));
 		
 		return "display/contents";
 	}
