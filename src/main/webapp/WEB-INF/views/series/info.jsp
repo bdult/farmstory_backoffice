@@ -250,7 +250,7 @@
 		}); // <!-- thumbnaul-mod-btn event end
 		
 		$("#modify-brand-search-btn").click(function(){
-			$("#modify-series-select").empty();
+			
 				param = {
 						search : $("#modify-brand-name").val()
 				};
@@ -265,6 +265,7 @@
 							alert("검색된 출판사가 없습니다.");
 							return false;
 						}else{
+							$("#modify-brand-select").empty();
 							$.each(response.data, function(index, brand){
 								$("#modify-brand-select").append("<option value=\""+brand.BRAND_ID+"\">"+brand.BRAND_NM+"</option>")
 							});
