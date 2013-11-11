@@ -102,20 +102,7 @@
 									<input  type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
 								</div>
 							</div>
-							<c:if test="${ contentsList.CONTENTS_ID ne null }">
 							<div class="control-group" id="img-control-group">
-								<label class="control-label" for="form-field-2">이미지</label>
-								<div class="controls">
-									<img id="img-thumbnail-src" width="300" height="300" src="${ httpPath }/${ contentsList.IMG_PATH }">
-									<a class="btn btn-app btn-danger btn-small" id="deleteImg">
-										<i class="icon-trash bigger-200"></i>
-										삭제
-									</a>
-								</div>
-							</div>
-							</c:if>
-							<c:if test="${ contentsList.CONTENTS_ID eq null }">
-							<div class="control-group" id="img-control-group" style="display: none;">
 								<label class="control-label" for="form-field-2">이미지</label>
 								<div class="controls">
 									<img id="img-thumbnail-src" width="300" height="300">
@@ -125,7 +112,6 @@
 									</a>
 								</div>
 							</div>
-							</c:if>
 							<div class="control-group">
 								<label class="control-label">내용</label>
 								<div class="controls">
@@ -205,7 +191,22 @@
 		$('.date-picker-2').datepicker();
 	});
 	$("[name=status]").val("${ contentsList.STATUS }");
-
+	if("${ contentsList.CONTENTS_ID }" == ''){
+		$("#img-control-group").attr({
+			style : "display: none;"
+		});
+	}else {
+		if('${ contentsList.IMG_PATH }' == ''){
+			$("#img-control-group").attr({
+				style : "display: none;"
+			});
+		}else {
+			$("#img-thumbnail-src").attr({
+				src : "${ httpPath }/${ contentsList.IMG_PATH }"
+			});
+		}
+	}
+	
 	//child modal thombnail upload
 	$(function(){
 		
