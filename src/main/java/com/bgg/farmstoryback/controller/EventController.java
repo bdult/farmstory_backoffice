@@ -51,8 +51,11 @@ public class EventController {
 	
 	@RequestMapping(value = "event/eventInfo.do")
 	public String eventInfo(Model model, @RequestParam Map<String,Object> paramMap) {
-
-		model.addAttribute("contentsList", boardService.contentsDeail(paramMap));
+		
+		logger.info("contents id : " + paramMap.get("board_contents_id"));
+		if(paramMap.get("board_contents_id") != null){
+			model.addAttribute("contentsList", boardService.contentsDeail(paramMap));	
+		}
 		
 		return "event/eventInfo";
 	}
