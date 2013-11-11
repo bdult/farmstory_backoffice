@@ -51,6 +51,18 @@
 					<div class="span9">
 						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
 						<a id="movie-mod-btn" class="btn">찾아보기</a>
+						<div id="video-box" style="display: none;">
+							<br />
+							<video width="320" height="240" controls>
+							  <source src="" type="video/mp4">
+							  <source src="" type="video/ogg">
+							Your browser does not support the video tag.
+							</video>
+							<a class="btn btn-app btn-danger btn-small" id="videoDeleteBtn">
+								<i class="icon-trash bigger-200"></i>
+								삭제
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
@@ -618,6 +630,15 @@ $(function(){
 				    },
 				    success: function(response){
 				      $("#src_path").val(response);
+				      
+				      //for thumbnail
+				      $("#movie-box").show();
+				      $("video").find("source").each(function(){
+				    	  var $this = $(this);
+				    	  $this.attr("src",  "${ httpPath }" + response );
+				      });
+				      
+				      
 				      $("#movie-modal").modal('toggle');
 					}
 				 }
