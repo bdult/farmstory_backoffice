@@ -44,6 +44,9 @@ public class CodeController {
 	public String detail(Model model, @RequestParam Map<String,String> parameter) {
 		Map codeDetail =  codeService.detail(parameter.get(ConstantsForParam.IDX));
 		model.addAttribute("data", codeDetail);
+		model.addAttribute("pageNum", parameter.get("pageNum"));
+		model.addAttribute("viewName", "코드 상세");
+		model.addAttribute("viewDesc", "코드에 대한 상세 정보");
 		return "code/info";
 	}
 	
@@ -59,7 +62,9 @@ public class CodeController {
 		return "redirect:detail.do?idx="+parameter.get(ConstantsForParam.IDX);
 	}
 	@RequestMapping(value = "code/createView.do")
-	public String modify() {
+	public String modify(Model model) {
+		model.addAttribute("viewName", "코드 등록");
+		model.addAttribute("viewDesc", "코드 정보 입력");
 		return "code/info";
 	}
 

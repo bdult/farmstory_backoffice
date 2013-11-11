@@ -62,6 +62,8 @@ public class SeriesController {
 	
 	@RequestMapping(value = "series/createView.do")
 	public String create(Model model) {
+		model.addAttribute("viewName", "시리즈 등록");
+		model.addAttribute("viewDesc", "시리즈 정보 입력");
 		return "series/info";
 	}
 	
@@ -76,6 +78,8 @@ public class SeriesController {
 		Map detailInfo = seriesService.detail(parameter);
 		model.addAttribute("data", detailInfo);
 		model.addAttribute("pageNum", Integer.parseInt((String)parameter.get("pageNum")));
+		model.addAttribute("viewName", "시리즈 수정");
+		model.addAttribute("viewDesc", "시리즈 정보 수정");
 		return "series/info";
 	}
 	
