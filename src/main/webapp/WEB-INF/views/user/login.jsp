@@ -83,8 +83,8 @@
 		
 		//----------------------
 		//테스트 아이디/비밀번호
-		$('#member_id').val( "master" );
-		$('#member_pwd').val( "123" );
+		//$('#member_id').val( "master" );
+		//$('#member_pwd').val( "123" );
 		//----------------------
 		
 	    $('#member_id').focus();
