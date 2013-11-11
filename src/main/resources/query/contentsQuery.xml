@@ -62,7 +62,7 @@
 		</if>
 	</select>
 	
-	<select id="listByCategory" resultType="hashmap">
+	<select id="listByCategory" resultType="hashmap" parameterType="String">
 		SELECT /* contenstQuery.listByCategory */
 			A.CONTENTS_ID
 			,BCD.CONTENTS_NM
@@ -74,7 +74,7 @@
 		AND DISPLAY_YN = 'Y'
 		AND A.CONTENTS_ID = BCD.CONTENTS_ID
 		AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
-		<if test="categoryId != null and categoryId != null">
+		<if test="categoryId != null and categoryId != ''">
 			AND BCCR.CATE_ID = #{categoryId} 
 	    </if>
 		ORDER BY BCCR.ORDERING_NO ASC, A.CONTENTS_ID DESC
