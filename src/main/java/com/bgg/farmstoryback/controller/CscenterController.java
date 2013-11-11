@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bgg.farmstoryback.common.ConstantsForParam;
 import com.bgg.farmstoryback.common.PageUtil;
 import com.bgg.farmstoryback.service.BoardService;
 
@@ -33,7 +34,7 @@ public class CscenterController {
 	@RequestMapping(value = "cscenter/questionManage.do")
 	public String questionManage(Model model, @RequestParam Map<String,Object> paramMap) {
 		
-		paramMap.put("board_id", "3");
+		paramMap.put(ConstantsForParam.BOARD_ID, "3");
 
 		Map pageInfo = pageUtil.pageLink(boardService.contentsTotalCount(paramMap), paramMap);
 		model.addAttribute("pageInfo", pageInfo);

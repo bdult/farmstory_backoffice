@@ -51,10 +51,10 @@
 					AND CONTENTS_CODE = #{contents_code}
 				</if>
 				<if test="complete_yn != null and complete_yn != ''">
-				    <if test="complete_yn == 'Y'">
+				    <if test="complete_yn == 'Y'.toString()">
 				       AND  BBC.SUB_CONTENTS IS NOT NULL
 				    </if>
-				    <if test="complete_yn == 'N'">
+				    <if test="complete_yn == 'N'.toString()">
 				       AND  BBC.SUB_CONTENTS IS NULL
 				    </if>
 				</if>
@@ -74,7 +74,7 @@
 					LIMIT #{startNo}, #{perPage}
 				</if>
 	</select>
-	<select id="contentsTotalCount" resultType="int">
+	<select id="contentsTotalCount" resultType="int" parameterType="hashmap">
 		SELECT /* boardQuery.contentsTotalCount */
 			COUNT(BBC.CONTENTS_ID)
 		FROM BG_BOARD_CONTENTS BBC
@@ -90,10 +90,10 @@
 			AND CONTENTS_CODE = #{contents_code}
 		</if>
 		<if test="complete_yn != null and complete_yn != ''">
-		    <if test="complete_yn == 'Y'">
+		    <if test="complete_yn == 'Y'.toString()">
 		       AND  BBC.SUB_CONTENTS IS NOT NULL
 		    </if>
-		    <if test="complete_yn == 'N'">
+		    <if test="complete_yn == 'N'.toString()">
 		       AND  BBC.SUB_CONTENTS IS NULL
 		    </if>
 		</if>

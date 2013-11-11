@@ -5,11 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
 public class BoardDao extends SqlSessionDaoSupport {
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Map> boardList(Map requestParam) {
@@ -69,6 +73,7 @@ public class BoardDao extends SqlSessionDaoSupport {
 	}
 
 	public int contentsTotalCount(Map requestParamMap) {
+		logger.info("{}", requestParamMap);
 		return (Integer)getSqlSession().selectOne("boardQuery.contentsTotalCount", requestParamMap);
 	}
 
