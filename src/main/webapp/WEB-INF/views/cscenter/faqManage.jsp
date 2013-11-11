@@ -96,7 +96,7 @@
 				</tbody>
 			</table>
 		</div>
-		
+
 		<div class="row-fluid">
 			<div class="span12 text-center">
 				<div class="paging_bootstrap pagination">
@@ -112,10 +112,10 @@
 						<c:forEach items="${pageList }" var="page">
 							<c:choose>
 								<c:when test="${pageInfo.pageNum == page.pageNum}">
-									<li class="active"><a href="faqManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+									<li class="active"><a href="faqManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=title&search=${pageInfo.search}&contents_code=${pageInfo.contents_code}">${page.pageNum}</a></li>
 								</c:when>
 								<c:otherwise>
-									<li><a href="faqManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+									<li><a href="faqManage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search_type=title&search=${pageInfo.search}&contents_code=${pageInfo.contents_code}">${page.pageNum}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
