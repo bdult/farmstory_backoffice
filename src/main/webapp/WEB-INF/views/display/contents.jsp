@@ -77,7 +77,7 @@
 						<td>${ obj.CONTENTS_NM }</td>
 						<td>${ obj.SERIES_NM }</td>
 						<td>${ obj.BRAND_NM }</td>
-						<td><input class="no-magin-bottom" type="text" class="ordering-no" value="${ obj.ORDERING_NO }"/></td>
+						<td><input class="no-magin-bottom ordering-no" type="text" value="${ obj.ORDERING_NO }"/></td>
 					</tr>
 					</c:forEach>
 				</tbody>	
@@ -131,7 +131,6 @@ $(function(){
 			var isAllChecked = $( this ).val();
 			
 			var $checkboxArray = $("input[name='cb']");
-			console.info( $checkboxArray );
 			if( isAllChecked == "true" ) {
 				$( this ).val( "false" );
 				$.each( $checkboxArray, function(){
@@ -161,7 +160,6 @@ $(function(){
 			var isValidation = true;
 			
 			$checkedList.each(function(idx){
-				console.info( idx );
 				var $this = $(this);
 				var $orderingNo = $("input.ordering-no").eq(idx);
 				

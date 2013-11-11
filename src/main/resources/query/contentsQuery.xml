@@ -74,8 +74,8 @@
 		AND DISPLAY_YN = 'Y'
 		AND A.CONTENTS_ID = BCD.CONTENTS_ID
 		AND BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
-		<if test="categoryId != null and categoryId != ''">
-			AND BCCR.CATE_ID = #{categoryId} 
+		<if test="category_id != null and category_id != ''">
+			AND BCCR.CATE_ID = #{category_id} 
 	    </if>
 		ORDER BY BCCR.ORDERING_NO ASC, A.CONTENTS_ID DESC
 	</select>
