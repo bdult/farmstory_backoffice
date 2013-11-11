@@ -95,7 +95,7 @@
 				</table>
 			</form>
 			<div class="text-right">
-				<button id="createBtn" class="btn btn-sm btn-yellow">등록</button>
+				<button id="createBtn" class="btn btn-sm btn-yellow">확인</button>
 				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</a>
 			</div>
 		</div><!--/.row-fluid-->
