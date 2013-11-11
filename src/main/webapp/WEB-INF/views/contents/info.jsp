@@ -76,15 +76,15 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">국가 선택</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ locationList }" var="obj">
+							<c:forEach items="${ locationList }" var="obj">
+								<label class="inline">
 									<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
 									<span class="lbl"> ${ obj.CODE_DETAIL }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<c:forEach var="entry" items="${ detailMap }">
 									<script>$("#chk${ entry.key }").prop("checked", true);</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -102,11 +102,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id1" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 					    		<input name="contents_detail_idx1" type="hidden" value="${ detailMap.LOC001.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC001.contentsCateMap }">
 									<script>
@@ -118,7 +119,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -127,9 +127,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn1" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC001.DISPLAY_YN eq 'Y' }"><input name="display_yn1" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn1" type="radio" class="ace" value="N" checked></c:otherwise>
@@ -164,11 +167,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id2" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<input name="contents_detail_idx2" type="hidden" value="${ detailMap.LOC002.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC002.contentsCateMap }">
 									<script>
@@ -180,7 +184,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -189,9 +192,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn2" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC002.DISPLAY_YN eq 'Y' }"><input name="display_yn2" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn2" type="radio" class="ace" value="N" checked></c:otherwise>
@@ -226,11 +232,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id3" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<input name="contents_detail_idx3" type="hidden" value="${ detailMap.LOC003.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC003.contentsCateMap }">
 									<script>
@@ -242,7 +249,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -251,9 +257,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn3" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC003.DISPLAY_YN eq 'Y' }"><input name="display_yn3" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn3" type="radio" class="ace" value="N" checked></c:otherwise>
@@ -289,11 +298,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id4" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<input name="contents_detail_idx4" type="hidden" value="${ detailMap.LOC004.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC004.contentsCateMap }">
 									<script>
@@ -305,7 +315,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -314,9 +323,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn4" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC004.DISPLAY_YN eq 'Y' }"><input name="display_yn4" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn4" type="radio" class="ace" value="N" checked></c:otherwise>
@@ -352,11 +364,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id5" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<input name="contents_detail_idx5" type="hidden" value="${ detailMap.LOC005.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC005.contentsCateMap }">
 									<script>
@@ -368,7 +381,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -377,9 +389,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn5" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC005.DISPLAY_YN eq 'Y' }"><input name="display_yn5" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn5" type="radio" class="ace" value="N" checked></c:otherwise>
@@ -415,11 +430,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id6" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<input name="contents_detail_idx6" type="hidden" value="${ detailMap.LOC006.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC006.contentsCateMap }">
 									<script>
@@ -431,7 +447,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -440,9 +455,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
-								<input name="display_yn" type="radio" class="ace" value="Y" checked>
+							<label class="inline">
+								<input name="display_yn6" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC006.DISPLAY_YN eq 'Y' }"><input name="display_yn6" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn6" type="radio" class="ace" value="N" checked></c:otherwise>
@@ -477,11 +495,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 						    		<input class="ace" name="category_id7" type="checkbox" value="${ obj.CATE_ID }" data-nm="${ obj.name }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 								<input name="contents_detail_idx7" type="hidden" value="${ detailMap.LOC007.DETAIL_IDX }">
 								<c:forEach var="entry" items="${ detailMap.LOC007.contentsCateMap }">
 									<script>
@@ -493,7 +512,6 @@
 										});
 									</script>
 								</c:forEach>
-							</label>
 						</div>
 					</div>
 				</div>
@@ -502,9 +520,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn7" type="radio" class="ace" value="Y" checked>
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;&nbsp;&nbsp;
+							<label class="inline">
 								<c:choose>
 									<c:when test="${ detailMap.LOC007.DISPLAY_YN eq 'Y' }"><input name="display_yn7" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn7" type="radio" class="ace" value="N" checked></c:otherwise>

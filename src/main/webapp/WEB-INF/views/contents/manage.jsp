@@ -108,11 +108,15 @@
 					<div class="span2 text-right">노출여부</div>
 					<div class="span3">
 						<div id="displayBox" class="radio-inline" data-display-yn="${ pageInfo.display_yn }">
-							<label>
+							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="" checked>
 								<span class="lbl"> 전체 </span>
+							</label>
+							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="Y" >
 								<span class="lbl"> 노출 </span>
+							</label>
+							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="N">
 								<span class="lbl"> 비노출 </span>
 							</label>
