@@ -190,6 +190,14 @@ jQuery(function($){
 $("#side-cscenter").addClass("open active");
 	$("#side-cscenter-question").addClass("active");
 
+	//search init 
+	$("#searchForm input[name=search").val("${ pageInfo.search }");
+	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	$("#searchForm select[name=complete_yn]").val("${ pageInfo.complete_yn }").attr("selected", "selected");
+	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
+	$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
+
+	
 	$("#search").click(function(){
 		$("#searchForm").attr({
 			method: 'post',
