@@ -43,18 +43,18 @@
 			<table class="table table-striped table-bordered table-hover">
 
 				<tbody>
-					<c:forEach items="${ popupList }" var="obj" varStatus="status">
+					<c:forEach items="${ popupList }" var="obj" varStatus="util">
 						<tr>
 							<td>
-								${ status.count }
+								${ util.count }
 							</td>
 							<td>${ obj.TITLE }</td>
 							<td>
 								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label>
-										<input type="radio" class="ace" value="Y">
+										<input type="radio" name="display_yn${ util.count }" class="ace" value="Y">
 										<span class="lbl"> 노출중 </span>
-										<input type="radio" class="ace" value="N">
+										<input type="radio" name="display_yn${ util.count }" class="ace" value="N">
 										<span class="lbl"> 노출안함 </span>
 									</label>
 								</div>

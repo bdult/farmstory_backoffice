@@ -63,12 +63,12 @@
 					</tr>
 				</thead>			
 				<tbody>
-					<c:forEach items="${contents }" var="obj">
+					<c:forEach items="${contents }" var="obj" varStatus="util">
 					<tr>
 						<td>
 							<div class="checkbox">
 								<label>
-									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }" data-idx="${ obj.CONTENTS_DETAIL_IDX }">
+									<input name="cb" type="checkbox" class="ace" data-index="${ util.index }" data-contents-id="${ obj.CONTENTS_ID }" data-idx="${ obj.CONTENTS_DETAIL_IDX }">
 									<span class="lbl"></span>
 								</label>
 							</div>
@@ -77,7 +77,7 @@
 						<td>${ obj.CONTENTS_NM }</td>
 						<td>${ obj.SERIES_NM }</td>
 						<td>${ obj.BRAND_NM }</td>
-						<td><input class="no-magin-bottom ordering-no" type="text" value="${ obj.ORDERING_NO }"/></td>
+						<td><input class="no-magin-bottom ordering-no" id="ordering-no-${ util.index }" type="text" value="${ obj.ORDERING_NO }"/></td>
 					</tr>
 					</c:forEach>
 				</tbody>	
@@ -162,9 +162,10 @@ $(function(){
 			
 			var isValidation = true;
 			
-			$checkedList.each(function(idx){
+			var seq = 1;
+			$checkedList.each(function(){
 				var $this = $(this);
-				var $orderingNo = $("input.ordering-no").eq(idx);
+				var $orderingNo = $("#ordering-no-" + $this.data("index") );
 				
 				if( isEmpty( $orderingNo.val()) ) {
 					alert("노출순서를 입력해 주세요");
@@ -178,7 +179,7 @@ $(function(){
 				orderingNoList += $orderingNo.val();
 
 				//not last
-				if( idx != (totalCnt - 1) ) {
+				if( seq++ != totalCnt ) {
 					contentsIdList += "&";
 					detailIdxList += "&";
 					orderingNoList += "&";

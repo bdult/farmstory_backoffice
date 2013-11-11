@@ -67,8 +67,13 @@
 					<div class="span9">
 						<div class="checkbox-inline">
 							<label>
-								<c:forEach items="${ locationList }" var="obj">
-									<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
+								<c:forEach items="${ locationList }" var="obj" varStatus="util">
+									<c:if test="${ util.first }">
+										<input checked onclick="return false;" class="ace" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
+									</c:if>
+									<c:if test="${ not util.first }">
+										<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
+									</c:if>
 									<span class="lbl"> ${ obj.CODE_DETAIL }</span>
 								</c:forEach>
 							</label>
@@ -630,6 +635,29 @@ $(function(){
 		}); // <!-- brand-mod-btn event end
 		
 		$("#createBtn").click(function(){
+			
+			//validation
+			var $srcPath = $("#src_path");
+			if( isEmpty( $srcPath.val() ) ) {
+				alert("찾아보기 버튼을 눌러 동영상을 등록해 주세요.");
+				return false;
+			}
+
+			var $img_path = $("#img_path");
+			if( isEmpty( $img_path.val() ) ) {
+				alert("찾아보기 버튼을 눌러 이미지를 등록해 주세요.");
+				return false;
+			}
+			
+			var $locationList = $("input[name='location']");
+
+			$locationList.each(function(idx){
+				var $this = $(this);
+				if( $this.prop("checked") ) {
+					console.info( idx );
+				}
+			});
+			
 			if( confirm("등록하시겠습니까?") ) {
 				$("#createForm").submit();
 			}
@@ -656,11 +684,10 @@ $(function(){
 		$("#side-contents-contents").addClass("active");
 		$("#side-contents").addClass("open active");
 		
-		$("input.checkboxLocationList").first().prop({"checked" : true});
 		$("input.checkboxLocationList").each(function(){
 			var $this = $(this);
 			if( !!! $this.prop("checked")  ) {
-				$("#box" + $this.data("code")).hide()
+				$("#box" + $this.data("code")).hide();
 			}
 		});
 		
