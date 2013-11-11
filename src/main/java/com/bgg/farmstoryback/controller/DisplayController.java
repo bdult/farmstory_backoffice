@@ -138,6 +138,7 @@ public class DisplayController {
 		
 		String[] contentsIdList = String.valueOf(parameter.get(ConstantsForParam.CONTENTS_ID)).split("&");
 		String[] orderingNoList = String.valueOf(parameter.get(ConstantsForParam.ORDERING_NO)).split("&");
+		String[] detailIdxList = String.valueOf(parameter.get(ConstantsForParam.CONTENTS_DETAIL_IDX)).split("&");
 		
 		int contentsIdCount = contentsIdList.length;
 		for(int idx = 0; idx < contentsIdCount; idx++) {
@@ -145,6 +146,7 @@ public class DisplayController {
 			paramMap.put(ConstantsForParam.CATEGORY_ID, cateId);
 			paramMap.put(ConstantsForParam.CONTENTS_ID, contentsIdList[idx]);
 			paramMap.put(ConstantsForParam.ORDERING_NO, orderingNoList[idx]);
+			paramMap.put("detail_idx", detailIdxList[idx]);
 			displayService.modifyContentsOrderingNo(paramMap);
 		}
 		

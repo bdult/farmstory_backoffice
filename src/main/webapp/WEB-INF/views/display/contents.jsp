@@ -68,7 +68,7 @@
 						<td>
 							<div class="checkbox">
 								<label>
-									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }">
+									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }" data-idx="${ obj.CONTENTS_DETAIL_IDX }">
 									<span class="lbl"></span>
 								</label>
 							</div>
@@ -93,6 +93,7 @@
 <form id="orderingUpdateForm" action="${ contextPath }/display/contents/orderingUpdate.do" method="POST">
 	<input type="hidden" name="category_id" id="category_id" value="${ parameter.category_id }"/>
 	<input type="hidden" name="contents_id" id="contents_id" />
+	<input type="hidden" name="contents_detail_idx" id="detail_idx" />
 	<input type="hidden" name="ordering_no" id="ordering_no"/>
 </form>
 
@@ -147,15 +148,17 @@ $(function(){
 
 		//순서적용 이벤트
 		$("#orderUpdateBtn").click(function(){
-			var $checkedList = $("input[name='cb']:checked");
+			var $checkedList = $("input[name='cb']:checked"),
+				totalCnt = $checkedList.size();
 			
-			if( $checkedList.size() == 0 ) {
+			if( totalCnt == 0 ) {
 				alert("선택된 컨텐츠가 없습니다.");
 				return false;
 			}
 			
 			var contentsIdList = "",
-			 	orderingNoList = "";
+				orderingNoList = "",
+				detailIdxList = "";
 			
 			var isValidation = true;
 			
@@ -169,16 +172,23 @@ $(function(){
 					isValidation = false;
 					return false;
 				}
-				contentsIdList += $this.data("contentsId") + "&";
-				orderingNoList += $orderingNo.val() + "&";
+				
+				contentsIdList += $this.data("contentsId");
+				detailIdxList += $this.data("idx");
+				orderingNoList += $orderingNo.val();
+
+				//not last
+				if( idx != (totalCnt - 1) ) {
+					contentsIdList += "&";
+					detailIdxList += "&";
+					orderingNoList += "&";
+				}
 			});
 			
 			if( isValidation ) {
-				// 마지막 '&' 제거
-				contentsIdList = contentsIdList.substring(0, (contentsIdList.length - 1));
-				orderingNoList = orderingNoList.substring(0, (orderingNoList.length - 1));
 				
 				$("#contents_id").val( contentsIdList );
+				$("#detail_idx").val( detailIdxList );
 				$("#ordering_no").val( orderingNoList );
 				
 				if( confirm("적용하시겠습니까?") ) {
