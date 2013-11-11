@@ -232,5 +232,12 @@
         
     </update>
     
+    <update id="deleteUserInfo">
+    	UPDATE BG_MEMBER
+    	SET
+    		MEMBER_STATUS = 2
+        WHERE 1=1
+        AND MEMBER_ID = #{member_id}
+    </update>
 	
 </mapper>

@@ -96,6 +96,10 @@
 								</div>
 								
 								<div class="form-actions">
+									<a class="btn btn-danger" id="delete-btn" disabled>
+										<i class="icon-trash bigger-110"></i>
+										삭제
+									</a>
 									<a class="btn btn-primary" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
 										수정
@@ -156,6 +160,17 @@
 	//side active
 	$("#side-user").addClass("open active");
 
+	$("#delete-btn").click(function(){
+		if(confirm("회원정보를 삭제 하시겠습니까?")){
+			$("#create-form").attr({
+				method: 'post',
+				action: '${ contextPath }/user/userDelete.do'
+			}).submit();
+		}else {
+			return false;
+		}
+	});
+	
 	$("#cancel-btn").click(function(){
 		window.location.href="${ contextPath }/user/detail.do?member_id=${detail.MEMBER_ID}";
 	});
