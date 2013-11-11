@@ -39,7 +39,7 @@
 							<!--PAGE CONTENT BEGINS-->
 
 							<form id="modify-form" method="post" action="${contextPath }/code/modify.do" class="form-horizontal" >
-								<input type="hidden" name="pageNum" value="${data.IDX}" />
+								<input type="hidden" name="pageNum" value="${pageNum}" />
 								<div class="control-group">
 									<label class="control-label" for="code_idx">코드 IDX</label>
 
