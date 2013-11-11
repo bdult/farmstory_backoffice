@@ -82,7 +82,7 @@ public class DispalyServiceTest {
 	public void testContentsDisplay() {
 		
 		// given 
-		requestParamMap.put(ConstantsForParam.CATEGORY_ID, "32");
+//		requestParamMap.put(ConstantsForParam.CATEGORY_ID, "32");
 
 		// when
 		List<Map> contentsList = displayService.contentsList(requestParamMap);

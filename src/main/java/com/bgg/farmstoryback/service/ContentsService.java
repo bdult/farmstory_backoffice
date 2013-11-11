@@ -34,11 +34,7 @@ public class ContentsService {
 	
 	@SuppressWarnings("rawtypes")
 	public List<Map> listByCategory(String categoryId) {
-		if(StringUtils.isNullOrEmpty(categoryId)){
-			return null;
-		}else{
-			return conDao.listByCategory(categoryId);
-		}
+		return conDao.listByCategory(categoryId);
 	}
 	
 	/**
