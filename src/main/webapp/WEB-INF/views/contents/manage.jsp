@@ -137,7 +137,9 @@
 						<th>컨텐츠명</th>
 						<th>시리즈</th>
 						<th>출판사</th>
+						<!-- 
 						<th>노출여부</th>
+						 -->
 					</tr>
 				</thead>
 
@@ -147,7 +149,7 @@
 						<td>
 							<div class="checkbox">
 								<label>
-									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }">
+									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }" data-display-yn="${ obj.DISPLAY_YN }">
 									<span class="lbl"></span>
 								</label>
 							</div>
@@ -161,7 +163,9 @@
 						</td>
 						<td>${ obj.CONTENTS_SERIES_NM }</td>											
 						<td>${ obj.BRAND_NM }</td>
+						<!-- 
 						<td>${ obj.DISPLAY_YN }</td>
+						 -->
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -170,7 +174,11 @@
 		
 		<div class="row-fluid">
 				<div class="span2 pagination">
-					<div class="dataTables_info">Total ${ pageInfo.totalCount } entries</div>
+					 <div class="dataTables_info">Total ${ pageInfo.totalCount } entries</div>
+					<!-- 
+					 <button id="showOnBtn" class="btn">노출</button>
+					 <button id="showOffBtn" class="btn">비노출</button>
+					 -->
 				</div>
 				<div class="span8 text-center">
 					<div class="paging_bootstrap pagination">
