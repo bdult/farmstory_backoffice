@@ -42,7 +42,6 @@
    								<label class="control-label">검색</label>
     							<div class="controls">
 									<select class="span12" name="search_type">
-									  <option value="">전체</option>
 									  <option value="member_id">작성자</option>
 									  <option value="title">제목</option>
 									</select>
@@ -207,7 +206,11 @@ $("#side-cscenter").addClass("open active");
 
 	//search init 
 	$("#searchForm input[name=search").val("${ pageInfo.search }");
-	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	if("${ pageInfo.search_type }" == ''){
+		$("#searchForm select[name=search_type]").val("member_id").attr("selected", "selected");
+	}else {
+		$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	}
 	$("#searchForm select[name=complete_yn]").val("${ pageInfo.complete_yn }").attr("selected", "selected");
 	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
 	$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
