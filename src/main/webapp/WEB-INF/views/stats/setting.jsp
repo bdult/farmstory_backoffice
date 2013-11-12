@@ -49,7 +49,9 @@
 					<input type="text" name="code" placeholder="코드" />
 					<input type="submit" value="토큰 저장" />
 				</form>
-				<input type="text" name="code" value="${ accessToken }" placeholder="구글이 준 토큰" />
+				응답코드 : ${ accessToken }
+				<br />
+				( 200: 성공, 400,401: 실패 )
 				<hr />
 				<a href="${ contextPath }/stats/revoke.do" target="_blank">엑세스 토큰 파기하기</a>
 			</div>
