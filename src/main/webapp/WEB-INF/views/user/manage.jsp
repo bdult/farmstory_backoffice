@@ -122,6 +122,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
@@ -237,6 +238,14 @@
 	$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
 	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
 
+	$("#reset").click(function(){
+		$("#searchForm input[name=search").val("");
+		$("#searchForm input[name=search_start_date]").val("");
+		$("#searchForm input[name=search_end_date]").val("");
+		$("#searchForm select[name=member_role]").val("").attr("selected", "selected");
+		$("#searchForm select[name=search_type]").val("").attr("selected", "selected");
+	});
+	
 	$("#search").click(function(){
 		if($("[name=search_type]").val() == 0 && $("#inputSearch").val() != ''){
 			alert("회원검색 목록을 선택해 주세요.");
