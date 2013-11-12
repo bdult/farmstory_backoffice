@@ -68,9 +68,11 @@
 							<td>노출여부</td>
 							<td>
 								<div class="display_yn radio-inline" data-display-yn="${ displayInfo.DISPLAY_YN }">
-									<label>
+									<label class="inline">
 										<input name="display_yn" type="radio" class="ace" value="Y">
 										<span class="lbl"> 노출함 </span>
+									</label>
+									<label class="inline">
 										<input name="display_yn" type="radio" class="ace" value="N" checked>
 										<span class="lbl"> 노출안함 </span>
 									</label>
