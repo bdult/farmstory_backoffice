@@ -49,15 +49,27 @@
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
 					<div class="span9">
-						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.SRC_PATH }">
+						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.SRC_PATH }">
 						<a id="movie-mod-btn" class="btn">찾아보기</a>
+						<div id="video-box" style="display: none;">
+							<br />
+							<video width="320" height="240" controls>
+							  <source src="" type="video/mp4">
+							  <source src="" type="video/ogg">
+							Your browser does not support the video tag.
+							</video>
+							<a class="btn btn-app btn-danger btn-small" id="videoDeleteBtn">
+								<i class="icon-trash bigger-200"></i>
+								삭제
+							</a>
+						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
-						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.PREFIX_URL }${ contentInfo.IMG_PATH }">
+						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.IMG_PATH }">
 						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
 						<div id="thumbnail-box" style="display: none;">
 							<br />
@@ -74,8 +86,8 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">국가 선택</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ locationList }" var="obj" varStatus="util">
+							<c:forEach items="${ locationList }" var="obj" varStatus="util">
+								<label class="inline">
 									<c:if test="${ util.first }">
 										<input checked onclick="return false;" class="ace" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
 									</c:if>
@@ -83,8 +95,8 @@
 										<input class="ace checkboxLocationList" type="checkbox" name="location" id="chk${ obj.CODE }" data-code="${ obj.CODE }" value="${ obj.CODE }">
 									</c:if>
 									<span class="lbl"> ${ obj.CODE_DETAIL }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -101,12 +113,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id1" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -115,9 +127,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn1" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn1" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -150,12 +165,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id2" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -164,9 +179,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn2" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn2" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -199,12 +217,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id3" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -213,9 +231,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn3" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn3" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -248,12 +269,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id4" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -262,9 +283,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn4" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn4" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -297,12 +321,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id5" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -311,9 +335,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn5" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn5" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -346,12 +373,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id6" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -360,9 +387,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn6" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn6" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -394,12 +424,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
 					<div class="span9">
 						<div class="checkbox-inline">
-							<label>
-								<c:forEach items="${ categoryList }" var="obj">
+							<c:forEach items="${ categoryList }" var="obj">
+								<label class="inline">
 								    <input class="ace" name="category_id7" type="checkbox" value="${ obj.CATE_ID }">
 									<span class="lbl"> ${ obj.name }</span>
-								</c:forEach>
-							</label>
+								</label>&nbsp;&nbsp;&nbsp;
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -408,9 +438,12 @@
 					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
 					<div class="span9">
 						<div class="radio-inline">
-							<label>
+							<label class="inline">
 								<input name="display_yn7" type="radio" class="ace" value="Y">
 								<span class="lbl"> 노출함 </span>
+							</label>
+							&nbsp;
+							<label class="inline">
 								<input name="display_yn7" type="radio" class="ace" value="N" checked>
 								<span class="lbl"> 노출안함 </span>
 							</label>
@@ -618,6 +651,16 @@ $(function(){
 				    },
 				    success: function(response){
 				      $("#src_path").val(response);
+				      
+				      //for thumbnail
+				      $("#movie-box").show();
+				      $("video").find("source").each(function(){
+				    	  var $this = $(this);
+				    	  cono
+				    	  $this.attr("src",  "${ httpPath }" + response );
+				      });
+				      
+				      
 				      $("#movie-modal").modal('toggle');
 					}
 				 }

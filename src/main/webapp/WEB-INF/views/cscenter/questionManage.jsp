@@ -42,7 +42,6 @@
    								<label class="control-label">검색</label>
     							<div class="controls">
 									<select class="span12" name="search_type">
-									  <option value="">전체</option>
 									  <option value="member_id">작성자</option>
 									  <option value="title">제목</option>
 									</select>
@@ -78,14 +77,14 @@
     								<div class="span6">
 										<div class="input-append">
 											<input class="input-medium" id="date-picker-first" name="search_start_date" type="text" data-date-format="yyyy-mm-dd">
-											<span class="add-on">
+											<span class="add-on start_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
 											<input class="input-medium" id="date-picker-last" name="search_end_date" type="text" data-date-format="yyyy-mm-dd">
-											<span class="add-on">
+											<span class="add-on end_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
@@ -105,6 +104,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
@@ -183,7 +183,21 @@
 <script type="text/javascript">
 jQuery(function($){
 	$('#date-picker-first').datepicker();
+	$('span.start_date')
+	.click(function(){
+		$('#date-picker-first').datepicker("show");
+	})
+	.hover(function(){
+		$(this).css("cursor", "pointer");
+	});
 	$('#date-picker-last').datepicker();
+	$('span.end_date')
+	.click(function(){
+		$('#date-picker-last').datepicker("show");
+	})
+	.hover(function(){
+		$(this).css("cursor", "pointer");
+	});
 });
 
 //side active
@@ -192,11 +206,22 @@ $("#side-cscenter").addClass("open active");
 
 	//search init 
 	$("#searchForm input[name=search").val("${ pageInfo.search }");
-	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	if("${ pageInfo.search_type }" == ''){
+		$("#searchForm select[name=search_type]").val("member_id").attr("selected", "selected");
+	}else {
+		$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
+	}
 	$("#searchForm select[name=complete_yn]").val("${ pageInfo.complete_yn }").attr("selected", "selected");
 	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
 	$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
 
+	$("#reset").click(function(){
+		$("#searchForm input[name=search").val("");
+		$("#searchForm select[name=search_type]").val("member_id").attr("selected", "selected");
+		$("#searchForm select[name=complete_yn]").val("").attr("selected", "selected");
+		$("#searchForm input[name=search_start_date]").val("");
+		$("#searchForm input[name=search_end_date]").val("");
+	});
 	
 	$("#search").click(function(){
 		$("#searchForm").attr({

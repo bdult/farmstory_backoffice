@@ -74,5 +74,21 @@ public class StatsService {
 		return result;
 	}
 	
+	public GaData getLately(String metrics, String dimension, String startDate, String endDate){
+		
+		GaData result = googleApiUtil.getLatelyData(metrics, dimension, startDate, endDate);
+		
+		if(result == null){
+			//token 재생성
+			int refreshResult = googleApiUtil.refreshTokenByGoogle();
+			
+			if(refreshResult == 200){
+				result = googleApiUtil.getLatelyData(metrics, dimension, startDate, endDate);
+			}
+		}
+		
+		return result;
+	}
+	
 	
 }

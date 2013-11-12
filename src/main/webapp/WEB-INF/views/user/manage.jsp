@@ -95,14 +95,14 @@
     								<div class="span6">
 										<div class="input-append">
 											<input class="input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
-											<span class="add-on">
+											<span class="add-on start_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
 											<input class="input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
-											<span class="add-on">
+											<span class="add-on end_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
@@ -122,6 +122,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
@@ -224,7 +225,21 @@
 
 	jQuery(function($){
 		$('#date-picker-first').datepicker();
+		$('span.start_date')
+		.click(function(){
+			$('#date-picker-first').datepicker("show");
+		})
+		.hover(function(){
+			$(this).css("cursor", "pointer");
+		});
 		$('#date-picker-last').datepicker();
+		$('span.end_date')
+		.click(function(){
+			$('#date-picker-last').datepicker("show");
+		})
+		.hover(function(){
+			$(this).css("cursor", "pointer");
+		});
 	});
 	
 	//side active
@@ -237,6 +252,14 @@
 	$("#searchForm select[name=member_role]").val("${ pageInfo.member_role }").attr("selected", "selected");
 	$("#searchForm select[name=search_type]").val("${ pageInfo.search_type }").attr("selected", "selected");
 
+	$("#reset").click(function(){
+		$("#searchForm input[name=search").val("");
+		$("#searchForm input[name=search_start_date]").val("");
+		$("#searchForm input[name=search_end_date]").val("");
+		$("#searchForm select[name=member_role]").val("").attr("selected", "selected");
+		$("#searchForm select[name=search_type]").val("").attr("selected", "selected");
+	});
+	
 	$("#search").click(function(){
 		if($("[name=search_type]").val() == 0 && $("#inputSearch").val() != ''){
 			alert("회원검색 목록을 선택해 주세요.");

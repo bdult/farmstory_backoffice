@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
-<style>
-.mg-bt-20 {
-	margin-bottom: 20px;
-}
-
-.datepicker {
-	z-index: 7777 !important;
-}
-</style>			
-
 <div class="main-content">
 	<div class="breadcrumbs" id="breadcrumbs">
 		<ul class="breadcrumb">
@@ -47,7 +37,7 @@
 			<!-- search -->
 			<form action="" id="searchForm" class="form-horizontal well">
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right">컨텐츠검색</div>
+					<div class="span2 text-right pd-tp">컨텐츠검색</div>
 					<div class="span2">
 						<select name="search_type" class="span12">
 							<option value="name">컨텐츠명</option>
@@ -59,7 +49,7 @@
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right">카테고리</div>
+					<div class="span2 text-right pd-tp">카테고리</div>
 					<div class="span2">
 						<select id="selectCategoryBox" name="category_id" class="span12">
 							<option value="">전체</option>
@@ -68,7 +58,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="span1 text-right">출판사</div>
+					<div class="span1 text-right pd-tp">출판사</div>
 					<div class="span2">
 						<select id="selectBrandBox" name="brand_id" class="span12">
 							<option value="">전체</option>
@@ -77,7 +67,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<div class="span1 text-right">시리즈</div>
+					<div class="span1 text-right pd-tp">시리즈</div>
 					<div class="span2">
 						<select id="selectSeriesBox" name="series_id" class="span12">
 							<option value="">전체</option>
@@ -85,7 +75,7 @@
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right">등록일자</div>
+					<div class="span2 text-right pd-tp">등록일자</div>
 					<div class="span5">
 						<div class="input-append ">
 							<input class="span10" name="search_start_date" id="start_date" type="text" data-date-format="yyyy-mm-dd" value="${ pageInfo.search_start_date }"> 
@@ -97,7 +87,7 @@
 							<span class="add-on end_date"><i class="icon-calendar"></i></span>
 						</div>
 					</div>
-					<div class="span1 text-right">국가</div>
+					<div class="span1 text-right pd-tp">국가</div>
 					<div class="span2">
 						<select name="member_role" class="span12">
 							<option value="">전체</option>
@@ -108,17 +98,22 @@
 					<div class="span2 text-right">노출여부</div>
 					<div class="span3">
 						<div id="displayBox" class="radio-inline" data-display-yn="${ pageInfo.display_yn }">
-							<label>
+							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="" checked>
 								<span class="lbl"> 전체 </span>
+							</label>
+							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="Y" >
 								<span class="lbl"> 노출 </span>
+							</label>
+							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="N">
 								<span class="lbl"> 비노출 </span>
 							</label>
 						</div>
 					</div>
 					<div class="span7 text-right">
+						<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 						<a class="btn btn-info input-small" id="searchBtn">검색</a>
 					</div>
 				</div>
@@ -142,7 +137,9 @@
 						<th>컨텐츠명</th>
 						<th>시리즈</th>
 						<th>출판사</th>
+						<!-- 
 						<th>노출여부</th>
+						 -->
 					</tr>
 				</thead>
 
@@ -152,7 +149,7 @@
 						<td>
 							<div class="checkbox">
 								<label>
-									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }">
+									<input name="cb" type="checkbox" class="ace" data-contents-id="${ obj.CONTENTS_ID }" data-display-yn="${ obj.DISPLAY_YN }">
 									<span class="lbl"></span>
 								</label>
 							</div>
@@ -166,7 +163,9 @@
 						</td>
 						<td>${ obj.CONTENTS_SERIES_NM }</td>											
 						<td>${ obj.BRAND_NM }</td>
+						<!-- 
 						<td>${ obj.DISPLAY_YN }</td>
+						 -->
 					</tr>
 				</c:forEach>
 				</tbody>
@@ -175,7 +174,11 @@
 		
 		<div class="row-fluid">
 				<div class="span2 pagination">
-					<div class="dataTables_info">Total ${ pageInfo.totalCount } entries</div>
+					 <div class="dataTables_info">Total ${ pageInfo.totalCount } entries</div>
+					<!-- 
+					 <button id="showOnBtn" class="btn">노출</button>
+					 <button id="showOffBtn" class="btn">비노출</button>
+					 -->
 				</div>
 				<div class="span8 text-center">
 					<div class="paging_bootstrap pagination">
@@ -259,6 +262,14 @@ $(function(){
 			}
 		});
 		
+		if('${ pageInfo.search_type}'.length > 0) {
+			$("select[name='search_type']").find("option").each(function(){
+				var $this = $(this);
+				if( '${ pageInfo.search_type}' == $this.val() ) {
+					$this.prop("selected", true);
+				}
+			});
+		}
 	}//init
 	
 	{//event
@@ -275,6 +286,16 @@ $(function(){
 						$.each( json.data, function( idx, item ){
 							$("#selectSeriesBox").append("<option value='" + item.CONTENTS_SERIES_ID + "'>" + item.CONTENTS_SERIES_NM + "</option>");
 						});
+						
+						//check work
+						if( '${ pageInfo.series_id }'.length > 0 ) {
+							$("#selectSeriesBox").find("option").each(function(){
+								var $this = $(this);
+								if( '${ pageInfo.series_id }' == $this.val() ) {
+									$this.prop("selected", true);
+								}
+							});
+						}
 					}
 					
 				}).fail(function(jqxhr, textStatus, error) {
@@ -290,6 +311,17 @@ $(function(){
 		
 		$("#create-contents-btn").click(function(){
 			location.href="${ contextPath }/contents/createView.do";
+		});
+		
+		$("#reset").click(function(){
+			$("#searchForm input[name=search").val("");
+			$("#searchForm select[name=search_type]").val("name").attr("selected", "selected");
+			$("#searchForm select[name=category_id]").val("").attr("selected", "selected");
+			$("#searchForm select[name=brand_id]").val("").attr("selected", "selected");
+			$("#searchForm select[name=series_id]").val("").attr("selected", "selected");
+			$("#searchForm input[name=search_start_date]").val("");
+			$("#searchForm input[name=search_end_date]").val("");
+			$("#searchForm input[name=display_yn]").filter('[value=]').prop("checked", true);
 		});
 		
 		$("#searchBtn").click(function(){
@@ -335,3 +367,16 @@ $(function(){
 	}//event
 });
 </script>
+<style>
+.mg-bt-20 {
+	margin-bottom: 20px;
+}
+
+.datepicker {
+	z-index: 7777 !important;
+}
+
+.pd-tp {
+	padding-top: 5px;
+}
+</style>

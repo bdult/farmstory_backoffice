@@ -21,24 +21,104 @@
 	<div class="page-content">
 		<div class="page-header position-relative">
 			<h1>
-				대쉬보드 <small> <i class="icon-double-angle-right"></i> 통계
+				대쉬보드 
+				<small> 
+					<i class="icon-double-angle-right"></i>
+					Google analytics <a href="http://www.google.com/analytics/">click</a> 
 				</small>
 			</h1>
 		</div>
 		<!--/.page-header-->
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span6">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							일 방문자 선 차트
+							신규 방문수
 						</h5>
 					</div>
 	
 					<div class="widget-body">
-						<div id="lineChart" data-line-chart='${ lineChartData }'></div>
+						<div id="newVisitorChart"></div>
+					</div><!-- /widget-body -->
+				</div>
+			</div>
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							순 방문자수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="visitsChart"></div>
+					</div><!-- /widget-body -->
+				</div>
+			</div>
+		</div>
+		
+		<br />
+
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							방문수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="geoChart"></div>
+					</div><!-- /widget-body -->
+				</div>
+			</div>
+			<div class="span6">
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							브라우저별 방문수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Browser</th>
+									<th>Visits</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${ browserData.rows }" var="obj">
+									<tr>
+										<td>${ obj[0] }</td>
+										<td>${ obj[1] }</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div><!-- /widget-body -->
+				</div>
+
+				<br />
+				
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							평균 방문 시간 및 방문당 페이지수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="avgChart"></div>
 					</div><!-- /widget-body -->
 				</div>
 			</div>
@@ -47,7 +127,7 @@
 		<br />
 		
 		<div class="row-fluid">
-			<div class="span7 infobox-container" id="avgBox" data-avg='${ averageData }'>
+			<div class="span6 infobox-container" id="avgBox" data-avg='${ averageData }'>
 				<div class="infobox infobox-green  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="visits"></span>
@@ -90,7 +170,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
@@ -136,40 +216,88 @@ $(function(){
 	    return time;
 	};
 
+	var gaData = ${ gaData }.rows;
+	
 	google.load('visualization', '1', {'packages':['corechart']});
 	
 	{
-		//선 차트
-		google.setOnLoadCallback(drawLineChart);
 		
-		var rows = $("#lineChart").data("lineChart").rows;
-		
-		var ggData = [["","visitor"]];
-		$(rows).each(function(){
+		var newVisitorData = [["", "신규방문수"]];
+		var visitsData = [["", "순방문수"]];
+		var avgVisitData = [];
+		$(gaData).each(function(idx){
 			var $this = $(this);
-			ggData.push([ $this[0], Number($this[1])]);
+			newVisitorData.push([ $this[0], Number($this[2])]);
 			
+			visitsData.push([ $this[0], Number($this[1])]);
+			
+			avgVisitData.push([ $this[0], Number($this[3])/50, "평균 방문시간 " + toHHMMSS( Number($this[3]) ), Number($this[4]), "평균 페이지 수 " + Number($this[4]).toFixed(2)]);
 		});
-		function drawLineChart() {
-	        var data = google.visualization.arrayToDataTable( ggData );
+		
+		//신규방문자
+		google.setOnLoadCallback(drawNewVisitorChart);
+		function drawNewVisitorChart() {
+	        var data = google.visualization.arrayToDataTable( newVisitorData );
+	        
+	        var options = {
+	          title: '',
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}, showTextEvery: 7 },
+	          vAxis: {minValue: 0},
+	          pointSize: 5,
+	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 15}}
+	        };
+	
+	        var newVisitorChart = new google.visualization.AreaChart(document.getElementById('newVisitorChart'));
+	        newVisitorChart.draw(data, options);
+	    }
+		
+		//순 방문
+		google.setOnLoadCallback(drawVisitsChart);
+		function drawVisitsChart() {
+	        var data = google.visualization.arrayToDataTable( visitsData );
 	
 	        var options = {
 	          title: '',
-	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}, showTextEvery: 7 },
 	          vAxis: {minValue: 0},
 	          pointSize: 5,
 	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
 	        };
 	
-	        var lineChart = new google.visualization.AreaChart(document.getElementById('lineChart'));
-	        lineChart.draw(data, options);
+	        var visitsChart = new google.visualization.AreaChart(document.getElementById('visitsChart'));
+	        visitsChart.draw(data, options);
 	    }
+		
+		//평균방문 시간 및 평균 페이지뷰 수
+		google.setOnLoadCallback(drawAvgChart);
+		function drawAvgChart() {
+				console.info( avgVisitData );
+	        //var data = google.visualization.arrayToDataTable( avgVisitData );
+	        var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Month'); // Implicit domain label col.
+			data.addColumn('number', '평균방문시간'); // Implicit series 1 data col.
+			data.addColumn({type:'string', role:'tooltip'}); // annotation role col.
+			data.addColumn('number', '방문당페이지수'); // Implicit series 1 data col.
+			data.addColumn({type:'string',role:'tooltip'}); // certainty col.
+			data.addRows(avgVisitData);
+	
+	        var options = {
+	          title: '',
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}, showTextEvery: 7 },
+	          vAxis: {minValue: 0},
+	          pointSize: 5,
+	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
+	        };
+	
+	        var avgChart = new google.visualization.AreaChart(document.getElementById('avgChart'));
+	        avgChart.draw(data, options);
+	    }
+		
 	}
 	
 	{
 		//평균정보
 		var avgData = $("#avgBox").data("avg").rows[0];
-		console.info( avgData );
 		
 		var visitors = avgData[0];
 		var visits = avgData[1];
@@ -203,5 +331,25 @@ $(function(){
 	      var pieChart = new google.visualization.PieChart(document.getElementById('pieChart'));
 	      pieChart.draw(data, options);
 		}
+	}
+	
+	{
+		google.load('visualization', '1', {'packages':['geochart']});
+		//지도 차트
+		google.setOnLoadCallback(drawRegionsMap);
+
+		var gaData = $( ${countryData}.rows );
+		
+		var rows = [['Country', 'Popularity']];
+		gaData.each(function(){
+			rows.push(this);
+		});
+		
+		function drawRegionsMap() {
+			var data = google.visualization.arrayToDataTable(rows);
+			var options = {};
+			var chart = new google.visualization.GeoChart(document.getElementById('geoChart'));
+			chart.draw(data, options);
+		};
 	}
 </script>	

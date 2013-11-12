@@ -58,17 +58,21 @@ public class StatsController {
 	public String view(Model model,  @RequestParam Map parameter) {
 		
 		logger.debug("My access token is {}", statsService.getAccessToken());
-		{//선차트용 데이터 가져오기
-			String dimension = "ga:date"; //year,month,week
-			model.addAttribute("lineChartData", statsService.getVisitor(dimension, dateUtil.add(-30), dateUtil.today()));
-		}
 		
 		{//평균정보 데이터 가져오기
 			
 			String metrics = "ga:visitors,ga:visits,ga:avgTimeOnSite,ga:pageviews,ga:avgTimeOnPage";
 			model.addAttribute("averageData", statsService.getAverage(metrics, dateUtil.add(-30), dateUtil.today()));
+			
+			//새로운 데이터용
+			model.addAttribute("gaData", statsService.getLately("ga:visits,ga:newVisits,ga:avgTimeOnSite,ga:pageviewsPerVisit", "ga:date", dateUtil.add(-30), dateUtil.today()));
 		}
 		
+		{//국가/브라우져별 방문수
+			model.addAttribute("countryData", statsService.getLately("ga:visits", "ga:country", dateUtil.add(-30), dateUtil.today()));
+			model.addAttribute("browserData", statsService.getLately("ga:visits", "ga:browser", dateUtil.add(-30), dateUtil.today()));
+		}
+
 		return "stats/view";
 	}
 	
