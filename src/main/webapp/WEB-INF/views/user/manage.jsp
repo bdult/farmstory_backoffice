@@ -95,14 +95,14 @@
     								<div class="span6">
 										<div class="input-append">
 											<input class="input-medium" name="search_start_date" id="date-picker-first" type="text" data-date-format="yyyy-mm-dd">
-											<span class="add-on">
+											<span class="add-on start_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
 											<input class="input-medium" name="search_end_date" id="date-picker-last" type="text" data-date-format="yyyy-mm-dd">
-											<span class="add-on">
+											<span class="add-on end_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
@@ -225,7 +225,21 @@
 
 	jQuery(function($){
 		$('#date-picker-first').datepicker();
+		$('span.start_date')
+		.click(function(){
+			$('#date-picker-first').datepicker("show");
+		})
+		.hover(function(){
+			$(this).css("cursor", "pointer");
+		});
 		$('#date-picker-last').datepicker();
+		$('span.end_date')
+		.click(function(){
+			$('#date-picker-last').datepicker("show");
+		})
+		.hover(function(){
+			$(this).css("cursor", "pointer");
+		});
 	});
 	
 	//side active

@@ -69,14 +69,14 @@
     								<div class="span6">
 										<div class="input-append">
 											<input class="date-picker-1 input-medium" id="date-picker-first" name="event_start_dt" type="text" data-date-format="yyyy-mm-dd" value="${ contentsList.EVENT_START_DT }">
-											<span class="add-on">
+											<span class="add-on start_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
 										~
 										<div class="input-append">
 											<input class="date-picker-2 input-medium" id="date-picker-last" name="event_end_dt" type="text" data-date-format="yyyy-mm-dd" value="${ contentsList.EVENT_END_DT }">
-											<span class="add-on">
+											<span class="add-on end_date">
 												<i class="icon-calendar"></i>
 											</span>
 										</div>
@@ -226,8 +226,22 @@ $("#create-form").validate({
 });
 	//page init
 	jQuery(function($){
-		$('.date-picker-1').datepicker();
-		$('.date-picker-2').datepicker();
+		$('#date-picker-first').datepicker();
+		$('span.start_date')
+		.click(function(){
+			$('#date-picker-first').datepicker("show");
+		})
+		.hover(function(){
+			$(this).css("cursor", "pointer");
+		});
+		$('#date-picker-last').datepicker();
+		$('span.end_date')
+		.click(function(){
+			$('#date-picker-last').datepicker("show");
+		})
+		.hover(function(){
+			$(this).css("cursor", "pointer");
+		});
 	});
 	$("[name=status]").val("${ contentsList.STATUS }");
 	if("${ contentsList.CONTENTS_ID }" == ''){
