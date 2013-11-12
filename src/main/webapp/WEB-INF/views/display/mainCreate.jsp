@@ -63,14 +63,6 @@
 								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
 							</td>
 						</tr>
-						<div class="control-group" id="img-control-group">
-								<label class="control-label" for="form-field-2">이미지</label>
-								<div class="controls">
-									
-									
-								</div>
-							</div>
-						<tr>
 							<td>노출여부</td>
 							<td>
 								<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
