@@ -105,6 +105,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
@@ -197,6 +198,13 @@ $("#side-cscenter").addClass("open active");
 	$("#searchForm input[name=search_start_date]").val("${ pageInfo.search_start_date }");
 	$("#searchForm input[name=search_end_date]").val("${ pageInfo.search_end_date }");
 
+	$("#reset").click(function(){
+		$("#searchForm input[name=search").val("");
+		$("#searchForm select[name=search_type]").val("").attr("selected", "selected");
+		$("#searchForm select[name=complete_yn]").val("").attr("selected", "selected");
+		$("#searchForm input[name=search_start_date]").val("");
+		$("#searchForm input[name=search_end_date]").val("");
+	});
 	
 	$("#search").click(function(){
 		$("#searchForm").attr({

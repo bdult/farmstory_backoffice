@@ -50,6 +50,7 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 							<a class="btn btn-info input-small" id="search">검색</a>
 						</div>
 					</div>
@@ -128,6 +129,10 @@ $("#side-cscenter").addClass("open active");
 	//page init
 	$("#searchForm input[name=search").val("${ pageInfo.search }");
 
+	$("#reset").click(function(){
+		$("#searchForm input[name=search").val("");
+	});
+	
 	$("#search").click(function(){
 		$("#searchForm").attr({
 			method: 'post',

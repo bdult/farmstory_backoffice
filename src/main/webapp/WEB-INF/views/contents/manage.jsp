@@ -123,6 +123,7 @@
 						</div>
 					</div>
 					<div class="span7 text-right">
+						<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
 						<a class="btn btn-info input-small" id="searchBtn">검색</a>
 					</div>
 				</div>
@@ -294,6 +295,17 @@ $(function(){
 		
 		$("#create-contents-btn").click(function(){
 			location.href="${ contextPath }/contents/createView.do";
+		});
+		
+		$("#reset").click(function(){
+			$("#searchForm input[name=search").val("");
+			$("#searchForm select[name=search_type]").val("name").attr("selected", "selected");
+			$("#searchForm select[name=category_id]").val("").attr("selected", "selected");
+			$("#searchForm select[name=brand_id]").val("").attr("selected", "selected");
+			$("#searchForm select[name=series_id]").val("").attr("selected", "selected");
+			$("#searchForm input[name=search_start_date]").val("");
+			$("#searchForm input[name=search_end_date]").val("");
+			$("#searchForm input[name=display_yn]").filter('[value=]').prop("checked", true);
 		});
 		
 		$("#searchBtn").click(function(){
