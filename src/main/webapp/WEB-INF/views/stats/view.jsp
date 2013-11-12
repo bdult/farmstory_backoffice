@@ -21,7 +21,10 @@
 	<div class="page-content">
 		<div class="page-header position-relative">
 			<h1>
-				대쉬보드 <small> <i class="icon-double-angle-right"></i> 통계
+				대쉬보드 
+				<small> 
+					<i class="icon-double-angle-right"></i>
+					Google analytics <a href="http://www.google.com/analytics/">click</a> 
 				</small>
 			</h1>
 		</div>
@@ -221,29 +224,29 @@ $(function(){
 		
 		var rows = $("#lineChart").data("lineChart").rows;
 		
-		var newVisitorData = [["", "visitor"]];
-		var visitsData = [["", "visitor"]];
-		var avgVisitData = [["", "avgTime", "pagePer"]];
-		$(gaData).each(function(){
+		var newVisitorData = [["", "신규방문수"]];
+		var visitsData = [["", "순방문수"]];
+		var avgVisitData = [];
+		$(gaData).each(function(idx){
 			var $this = $(this);
 			newVisitorData.push([ $this[0], Number($this[2])]);
 			
 			visitsData.push([ $this[0], Number($this[1])]);
 			
-			avgVisitData.push([ $this[0], Number($this[3]), Number($this[4])]);
+			avgVisitData.push([ $this[0], Number($this[3])/50, "평균 방문시간 " + toHHMMSS( Number($this[3]) ), Number($this[4]), "평균 페이지 수 " + Number($this[4]).toFixed(2)]);
 		});
 		
 		//신규방문자
 		google.setOnLoadCallback(drawNewVisitorChart);
 		function drawNewVisitorChart() {
 	        var data = google.visualization.arrayToDataTable( newVisitorData );
-	
+	        
 	        var options = {
 	          title: '',
-	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}, showTextEvery: 7 },
 	          vAxis: {minValue: 0},
 	          pointSize: 5,
-	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
+	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 15}}
 	        };
 	
 	        var newVisitorChart = new google.visualization.AreaChart(document.getElementById('lineChart'));
@@ -257,7 +260,7 @@ $(function(){
 	
 	        var options = {
 	          title: '',
-	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}, showTextEvery: 7 },
 	          vAxis: {minValue: 0},
 	          pointSize: 5,
 	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
@@ -271,17 +274,24 @@ $(function(){
 		google.setOnLoadCallback(drawAvgChart);
 		function drawAvgChart() {
 				console.info( avgVisitData );
-	        var data = google.visualization.arrayToDataTable( avgVisitData );
+	        //var data = google.visualization.arrayToDataTable( avgVisitData );
+	        var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Month'); // Implicit domain label col.
+			data.addColumn('number', '평균방문시간'); // Implicit series 1 data col.
+			data.addColumn({type:'string', role:'tooltip'}); // annotation role col.
+			data.addColumn('number', '방문당페이지수'); // Implicit series 1 data col.
+			data.addColumn({type:'string',role:'tooltip'}); // certainty col.
+			data.addRows(avgVisitData);
 	
 	        var options = {
 	          title: '',
-	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}},
+	          hAxis: {title: 'Date',  titleTextStyle: {color: '#333'}, showTextEvery: 7 },
 	          vAxis: {minValue: 0},
 	          pointSize: 5,
 	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}}
 	        };
 	
-	        var avgChart = new google.visualization.LineChart(document.getElementById('avgChart'));
+	        var avgChart = new google.visualization.AreaChart(document.getElementById('avgChart'));
 	        avgChart.draw(data, options);
 	    }
 		
