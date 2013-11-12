@@ -31,7 +31,63 @@
 		<!--/.page-header-->
 
 		<div class="row-fluid">
-			<div class="span6">
+			<div class="span6 infobox-container" id="avgBox" data-avg='${ averageData }'>
+			
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							요약
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div class="infobox infobox-green  ">
+					<div class="infobox-data">
+						<span class="infobox-data-number" id="visits"></span>
+						<div class="infobox-content">방문수</div>
+					</div>
+				</div>
+
+				<div class="infobox infobox-blue  ">
+					<div class="infobox-data">
+						<span class="infobox-data-number" id="visitors"></span>
+						<div class="infobox-content">순 방문자수</div>
+					</div>
+				</div>
+
+				<div class="infobox infobox-pink  ">
+					<div class="infobox-data">
+						<span class="infobox-data-number" id="pageviews"></span>
+						<div class="infobox-content">페이지뷰 수</div>
+					</div>
+				</div>
+
+				<div class="infobox infobox-red  ">
+					<div class="infobox-data">
+						<span class="infobox-data-number" id="avgVisitOnPage"></span>
+						<div class="infobox-content">페이지/방문</div>
+					</div>
+				</div>
+
+				<div class="infobox infobox-orange2  ">
+					<div class="infobox-data">
+						<span class="infobox-data-number" id="avgTimeOnSite"></span>
+						<div class="infobox-content">평균 방문 시간</div>
+					</div>
+				</div>
+
+				<div class="infobox infobox-blue2  ">
+					<div class="infobox-data">
+						<span class="infobox-data-number" id="visitorsRate"></span>
+						<div class="infobox-content">신규 방문 비율(%)</div>
+					</div>
+				</div>
+					</div><!-- /widget-body -->
+				</div>
+			
+				<br />
+				
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
@@ -44,6 +100,22 @@
 						<div id="newVisitorChart"></div>
 					</div><!-- /widget-body -->
 				</div>
+				
+				<br />
+				
+				<div class="widget-box">
+					<div class="widget-header widget-header-flat widget-header-small">
+						<h5>
+							<i class="icon-signal"></i>
+							방문수
+						</h5>
+					</div>
+	
+					<div class="widget-body">
+						<div id="geoChart"></div>
+					</div><!-- /widget-body -->
+				</div>
+				
 			</div>
 			<div class="span6">
 				<div class="widget-box">
@@ -58,27 +130,9 @@
 						<div id="visitsChart"></div>
 					</div><!-- /widget-body -->
 				</div>
-			</div>
-		</div>
-		
-		<br />
-
-		<div class="row-fluid">
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-header widget-header-flat widget-header-small">
-						<h5>
-							<i class="icon-signal"></i>
-							방문수
-						</h5>
-					</div>
-	
-					<div class="widget-body">
-						<div id="geoChart"></div>
-					</div><!-- /widget-body -->
-				</div>
-			</div>
-			<div class="span6">
+				
+				<br />
+				
 				<div class="widget-box">
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
@@ -121,68 +175,9 @@
 						<div id="avgChart"></div>
 					</div><!-- /widget-body -->
 				</div>
-			</div>
-		</div>
-		
-		<br />
-		
-		<div class="row-fluid">
-			<div class="span6 infobox-container" id="avgBox" data-avg='${ averageData }'>
-				<div class="infobox infobox-green  ">
-					<div class="infobox-data">
-						<span class="infobox-data-number" id="visits"></span>
-						<div class="infobox-content">방문수</div>
-					</div>
-				</div>
-
-				<div class="infobox infobox-blue  ">
-					<div class="infobox-data">
-						<span class="infobox-data-number" id="visitors"></span>
-						<div class="infobox-content">순 방문자수</div>
-					</div>
-				</div>
-
-				<div class="infobox infobox-pink  ">
-					<div class="infobox-data">
-						<span class="infobox-data-number" id="pageviews"></span>
-						<div class="infobox-content">페이지뷰 수</div>
-					</div>
-				</div>
-
-				<div class="infobox infobox-red  ">
-					<div class="infobox-data">
-						<span class="infobox-data-number" id="avgVisitOnPage"></span>
-						<div class="infobox-content">페이지/방문</div>
-					</div>
-				</div>
-
-				<div class="infobox infobox-orange2  ">
-					<div class="infobox-data">
-						<span class="infobox-data-number" id="avgTimeOnSite"></span>
-						<div class="infobox-content">평균 방문 시간</div>
-					</div>
-				</div>
-
-				<div class="infobox infobox-blue2  ">
-					<div class="infobox-data">
-						<span class="infobox-data-number" id="visitorsRate"></span>
-						<div class="infobox-content">신규 방문 비율(%)</div>
-					</div>
-				</div>
-			</div>
-			<div class="span6">
-				<div class="widget-box">
-					<div class="widget-header widget-header-flat widget-header-small">
-						<h5>
-							<i class="icon-signal"></i>
-							방문자 비교
-						</h5>
-					</div>
-	
-					<div class="widget-body">
-						<div id="pieChart" data-line-chart='${pieChartData }'></div>
-					</div><!-- /widget-body -->
-				</div>
+				
+				
+				
 			</div>
 		</div>
 	
@@ -352,4 +347,10 @@ $(function(){
 			chart.draw(data, options);
 		};
 	}
-</script>	
+</script>
+
+<style>
+.infobox {
+	width: 47%;
+}
+</style>	
