@@ -217,7 +217,7 @@ $("#side-cscenter").addClass("open active");
 
 	$("#reset").click(function(){
 		$("#searchForm input[name=search").val("");
-		$("#searchForm select[name=search_type]").val("").attr("selected", "selected");
+		$("#searchForm select[name=search_type]").val("member_id").attr("selected", "selected");
 		$("#searchForm select[name=complete_yn]").val("").attr("selected", "selected");
 		$("#searchForm input[name=search_start_date]").val("");
 		$("#searchForm input[name=search_end_date]").val("");
