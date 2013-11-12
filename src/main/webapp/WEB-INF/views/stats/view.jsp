@@ -41,7 +41,7 @@
 					</div>
 	
 					<div class="widget-body">
-						<div id="lineChart" data-line-chart='${ lineChartData }'></div>
+						<div id="newVisitorChart"></div>
 					</div><!-- /widget-body -->
 				</div>
 			</div>
@@ -222,8 +222,6 @@ $(function(){
 	
 	{
 		
-		var rows = $("#lineChart").data("lineChart").rows;
-		
 		var newVisitorData = [["", "신규방문수"]];
 		var visitsData = [["", "순방문수"]];
 		var avgVisitData = [];
@@ -249,7 +247,7 @@ $(function(){
 	          legend: {position: 'top', textStyle: {color: 'blue', fontSize: 15}}
 	        };
 	
-	        var newVisitorChart = new google.visualization.AreaChart(document.getElementById('lineChart'));
+	        var newVisitorChart = new google.visualization.AreaChart(document.getElementById('newVisitorChart'));
 	        newVisitorChart.draw(data, options);
 	    }
 		
