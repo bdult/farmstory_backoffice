@@ -21,10 +21,10 @@
 			</li>
 			<li class="active">
 				<c:if test="${ contentsList.CONTENTS_ID ne null }">
-					문의하기 상세
+					공지사항 상세
 				</c:if>
 				<c:if test="${ contentsList.CONTENTS_ID eq null }">
-					문의하기 등록
+					공지사항 등록
 				</c:if>
 			</li>
 		</ul>
@@ -41,10 +41,10 @@
 	<div class="page-content">
 		<div class="row-fluid">
 			<c:if test="${ contentsList.CONTENTS_ID ne null }">
-				<h3 class="header smaller lighter blue">문의하기 상세</h3>
+				<h3 class="header smaller lighter blue">공지사항 상세</h3>
 			</c:if>
 			<c:if test="${ contentsList.CONTENTS_ID eq null }">
-				<h3 class="header smaller lighter blue">문의하기 등록</h3>
+				<h3 class="header smaller lighter blue">공지사항 등록</h3>
 			</c:if>
 			<!-- /. table-header -->
 			
