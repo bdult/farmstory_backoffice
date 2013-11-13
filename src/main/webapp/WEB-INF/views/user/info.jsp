@@ -511,7 +511,7 @@
 	});
 
 	//side active
-	$("#side-user").addClass("open active");
+	$("#side-user").addClass("active");
 	
 	//chlid modal put items
 	$("#child-modal-btn-A").click(function(){

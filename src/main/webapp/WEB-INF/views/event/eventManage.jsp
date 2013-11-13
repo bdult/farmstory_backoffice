@@ -20,14 +20,6 @@
 			</li>
 			<li class="active">이벤트 리스트</li>
 		</ul>
-		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 
 	<div class="page-content">
@@ -139,8 +131,7 @@
 <script type="text/javascript">
 
 //side active
-$("#side-event").addClass("open active");
-	$("#side-event-event").addClass("active");
+$("#side-event").addClass("active");
 
 	//page init
 	$("#searchForm input[name=search").val("${ pageInfo.search }");

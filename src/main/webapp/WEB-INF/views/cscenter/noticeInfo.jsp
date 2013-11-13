@@ -21,30 +21,22 @@
 			</li>
 			<li class="active">
 				<c:if test="${ contentsList.CONTENTS_ID ne null }">
-					문의하기 상세
+					공지사항 상세
 				</c:if>
 				<c:if test="${ contentsList.CONTENTS_ID eq null }">
-					문의하기 등록
+					공지사항 등록
 				</c:if>
 			</li>
 		</ul>
-		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 	
 	<div class="page-content">
 		<div class="row-fluid">
 			<c:if test="${ contentsList.CONTENTS_ID ne null }">
-				<h3 class="header smaller lighter blue">문의하기 상세</h3>
+				<h3 class="header smaller lighter blue">공지사항 상세</h3>
 			</c:if>
 			<c:if test="${ contentsList.CONTENTS_ID eq null }">
-				<h3 class="header smaller lighter blue">문의하기 등록</h3>
+				<h3 class="header smaller lighter blue">공지사항 등록</h3>
 			</c:if>
 			<!-- /. table-header -->
 			

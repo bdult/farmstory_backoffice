@@ -28,14 +28,6 @@
 				</c:if>
 			</li>
 		</ul>
-		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 
 	<div class="page-content">
