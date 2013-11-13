@@ -139,8 +139,7 @@
 <script type="text/javascript">
 
 //side active
-$("#side-event").addClass("open active");
-	$("#side-event-event").addClass("active");
+$("#side-event").addClass("active");
 
 	//page init
 	$("#searchForm input[name=search").val("${ pageInfo.search }");

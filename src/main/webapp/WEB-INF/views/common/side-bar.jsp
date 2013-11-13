@@ -176,27 +176,10 @@
 				</ul>
 			</li>
 			<li id="side-event">
-				<a href="#" class="dropdown-toggle">
+				<a href="${contextPath }/event/eventManage.do" class="dropdown-toggle">
 					<i class="icon-file-alt"></i>
-					<span class="menu-text"> 이벤트 관리
-						<span class="badge badge-primary ">2</span> 
-					</span>
-					<b class="arrow icon-angle-down"></b>
+					이벤트 관리
 				</a>
-				<ul class="submenu">
-					<li id="side-event-event" >
-						<a href="${contextPath }/event/eventManage.do">
-							<i class="icon-double-angle-right"></i>
-							이벤트 관리
-						</a>
-					</li> 
-					<%-- <li id="side-board-board" >
-						<a href="${contextPath }/event/eventManage.do">
-							<i class="icon-double-angle-right"></i>
-							쿠폰 관리
-						</a>
-					</li>  --%>
-				</ul>
 			</li>
 		</ul><!--/.nav-list-->
 	

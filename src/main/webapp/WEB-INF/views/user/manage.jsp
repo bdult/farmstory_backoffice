@@ -243,7 +243,7 @@
 	});
 	
 	//side active
-	$("#side-user").addClass("open active");
+	$("#side-user").addClass("active");
 
 	//search init 
 	$("#searchForm input[name=search").val("${ pageInfo.search }");

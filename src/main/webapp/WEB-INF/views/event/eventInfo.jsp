@@ -186,6 +186,9 @@
 
 <script type="text/javascript">
 
+	//side bar
+	$("#side-event").addClass("active");
+
 //validate
 setValid();
 $("#create-form").validate({
