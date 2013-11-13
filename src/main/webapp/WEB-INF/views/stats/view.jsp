@@ -37,7 +37,7 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							요약
+							Summary
 						</h5>
 					</div>
 	
