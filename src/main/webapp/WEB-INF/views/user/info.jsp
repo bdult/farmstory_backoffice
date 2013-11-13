@@ -12,11 +12,11 @@
 			</li>
 
 			<li>
-				<a href="#">회원 관리</a> 
+				<a href="#">Members</a> 
 				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li class="active">
-				일반 회원 정보 상세
+				Member Detail
 			</li>
 		</ul>
 		<!--.breadcrumb-->

@@ -27,7 +27,7 @@
 											<div class="widget-main">
 												<h4 class="header blue lighter bigger">
 													<i class="icon-coffee green"></i>
-													회원정보를 입력해 주세요
+													Login
 												</h4>
 
 												<div class="space-6"></div>
@@ -59,7 +59,7 @@
 
 															<button id="loginBtn" type="button" class="width-35 pull-right btn btn-small btn-primary">
 																<i class="icon-key"></i>
-																로그인
+																login
 															</button>
 														</div>
 

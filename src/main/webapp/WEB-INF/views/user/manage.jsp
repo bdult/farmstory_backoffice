@@ -24,26 +24,14 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>회원 관리
-				<span class="divider">
-					<i class="icon-angle-right arrow-icon"></i>
-				</span>
+			<li>Members
 			</li>
-			<li class="active">일반 회원 관리</li>
 		</ul>
-		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">일반 회원 정보 리스트</h3>
+			<h3 class="header smaller lighter blue">Members</h3>
 			<%-- <c:if test="${ type == 'adminView' }">
 				<h3 class="header smaller lighter blue">관리자 회원 정보 리스트</h3></li>
 			</c:if> --%>
@@ -55,30 +43,30 @@
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
-   								<label class="control-label">회원검색</label>
+   								<label class="control-label">Search Type</label>
     							<div class="controls">
 									<select name="search_type" class="span12">
-									  <option value="">목록 선택</option>
-									  <option value="id">아이디</option>
-									  <option value="name">이름</option>
-									  <option value="cel">휴대폰번호</option>
+									  <option value="">SELECT</option>
+									  <option value="id">ID</option>
+									  <option value="name">Name</option>
+									  <option value="cel">Phone</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="span8">
-							<input class="input-xxlarge" id="inputSearch" name="search" type="text" placeholder="검색어를 입력하세요">
+							<input class="input-xxlarge" id="inputSearch" name="search" type="text" placeholder="">
 						</div>
 					</div>
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
-   								<label class="control-label">회원구분</label>
+   								<label class="control-label">Members Type</label>
     							<div class="controls">
 									<select name="member_role" class="span12">
-									  <option value="">전체</option>
-									  <option value="0">무료회원</option>
-									  <option value="1">유료회원</option>
+									  <option value="">ALL</option>
+									  <option value="0">FREE</option>
+									  <option value="1">PREMIUM</option>
 									</select>
 								</div>
 							</div>
@@ -89,7 +77,7 @@
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="control-group">
-   								<label class="control-label">회원가입일</label>
+   								<label class="control-label">Date</label>
    									
     							<div class="controls">
     								<div class="span6">
@@ -109,11 +97,11 @@
 									</div>
 									
 									<div data-toggle="buttons-radio" class="span6 btn-group">
-										<a class="btn btn-light" id="todayCalenderBtn">오늘</a>
-										<a class="btn btn-light" id="weekCalenderBtn">1주</a>
-										<a class="btn btn-light" id="monthCalenderBtn">1개월</a>
-										<a class="btn btn-light" id="yearCalenderBtn">1년</a>
-										<a class="btn btn-light" id="allCalenderBtn">전체</a>
+										<a class="btn btn-light" id="todayCalenderBtn">Today</a>
+										<a class="btn btn-light" id="weekCalenderBtn">Week</a>
+										<a class="btn btn-light" id="monthCalenderBtn">Month</a>
+										<a class="btn btn-light" id="yearCalenderBtn">Year</a>
+										<a class="btn btn-light" id="allCalenderBtn">All</a>
 									</div>
 								</div>
 							</div>
@@ -122,14 +110,14 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
-							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
-							<a class="btn btn-info input-small" id="search">검색</a>
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">Reset</a>
+							<a class="btn btn-info input-small" id="search">Search</a>
 						</div>
 					</div>
 				</form>
 				
 			<div class="row-fluid text-right">
-				<div class="dataTables_info">회원수: ${ pageInfo.totalCount }명</div>
+				<div class="dataTables_info">Total : ${ pageInfo.totalCount }</div>
 			</div>
 				
 			<%-- <c:if test="${ type == 'userView' }">
@@ -143,12 +131,12 @@
 				<thead>
 					<tr>
 						<th>NO</th>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>회원구분</th>
-						<th>휴대폰번호</th>
-						<th>구독 일시</th>
-						<th>이용 상태</th>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Phone</th>
+						<th>Date</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -14,19 +14,12 @@
 				</span>
 			</li>
 			<li>
-				<a href="#">공지사항 관리</a>
+				<a href="#">CS</a>
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">
-				<c:if test="${ contentsList.CONTENTS_ID ne null }">
-					문의하기 상세
-				</c:if>
-				<c:if test="${ contentsList.CONTENTS_ID eq null }">
-					문의하기 등록
-				</c:if>
-			</li>
+			<li class="active">Notice</li>
 		</ul>
 		<div class="nav-search" id="nav-search">
 			<form class="form-search" action="manage.do" method="post">
@@ -40,14 +33,8 @@
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<c:if test="${ contentsList.CONTENTS_ID ne null }">
-				<h3 class="header smaller lighter blue">문의하기 상세</h3>
-			</c:if>
-			<c:if test="${ contentsList.CONTENTS_ID eq null }">
-				<h3 class="header smaller lighter blue">문의하기 등록</h3>
-			</c:if>
+				<h3 class="header smaller lighter blue">Notice Information</h3>
 			<!-- /. table-header -->
-			
 		<div class="row-fluid">
 			<div class="span12 form-horizontal">
 						<form id="create-form" class="form-horizontal" >
@@ -57,13 +44,13 @@
 							</c:if>
 							
 							<div class="control-group">
-								<label class="control-label">제목</label>
+								<label class="control-label">Title</label>
 								<div class="controls">
 									<input type="text" name="title" value="${ contentsList.TITLE }" style="width:80%">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label">내용</label>
+								<label class="control-label">Contents</label>
 								<div class="controls">
 									<textarea name="contents" rows="5" cols="50" style="width:80%;">${ contentsList.CONTENTS }</textarea>
 								</div>
@@ -122,10 +109,10 @@ $("#create-form").validate({
 	},
 	messages: {
 		title: {
-			required: "제목을 입력해 주세요."
+			required: "Please insert title."
 		},
 		contents: {
-			required: "내용을 입력해 주세요."
+			required: "Please insert contents."
 		}
 	}
 });

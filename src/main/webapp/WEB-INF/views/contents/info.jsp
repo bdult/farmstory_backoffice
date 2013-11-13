@@ -11,20 +11,20 @@
 				<span class="divider"><i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li>
-				컨텐츠 관리
+				Contents
 				<span class="divider"><i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 			<li>
-				컨텐츠
+				Contents
 				<span class="divider"><i class="icon-angle-right arrow-icon"></i></span>
 			</li>
-			<li class="active">상세</li>
+			<li class="active">Contents Detail</li>
 		</ul><!--.breadcrumb-->
 	</div>
 
 	<div class="page-content">
 		<div class="page-header position-relative">
-			<h1>컨텐츠 상세<small><i class="icon-double-angle-right"></i> 컨텐츠에 대한 상세한 정보를 입력한다</small></h1>
+			<h1>Contents Detail</h1>
 		</div><!--/.page-header-->
 
 		<form id="updateForm" action="${ contextPath }/contents/modify.do" method="POST" class="form-horizontal">
@@ -33,7 +33,7 @@
 			
 			<div class="row-fluid">
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">출판사 선택</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Publisher</label>
 					<div class="span3">
 						<select id="selectBrandBox" name="brand_id" class="span12">
 							<c:forEach items="${ brandList }" var="obj">
@@ -41,7 +41,7 @@
 							</c:forEach>
 						</select>
 					</div>
-					<label class="span3 control-label no-padding-right" for="form-field-1">시리즈 선택</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Series</label>
 					<div class="span3">
 						<select id="selectSeriesBox" name="series_id" class="span12">
 						</select>
@@ -49,31 +49,31 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 파일</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Movie</label>
 					<div class="span9">
 						<input type="text" id="src_path" name="movie_path" placeholder="" class="input-xxlarge" value="${ contentInfo.SRC_PATH }">
-						<a id="movie-mod-btn" class="btn">찾아보기</a>
+						<a id="movie-mod-btn" class="btn">Searching..</a>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Image</label>
 					<div class="span9">
 						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.IMG_PATH }">
-						<a id="thumbnail-mod-btn" class="btn">찾아보기</a>
+						<a id="thumbnail-mod-btn" class="btn">Searching..</a>
 						<div id="thumbnail-box" style="display: none;">
 							<br />
 							<img id="thumbnail" width="300" height="300" />
 							<a class="btn btn-app btn-danger btn-small" id="thumbnailDeleteBtn">
 								<i class="icon-trash bigger-200"></i>
-								삭제
+								Delete
 							</a>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">국가 선택</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Location</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ locationList }" var="obj">
@@ -96,10 +96,10 @@
 			<div id="boxLOC001" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">한국(필수)</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">Korean(Required)</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Category</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -124,12 +124,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn1" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -137,21 +137,21 @@
 									<c:when test="${ detailMap.LOC001.DISPLAY_YN eq 'Y' }"><input name="display_yn1" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn1" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
-						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC001.CONTENTS_NM }">
+						<input type="text" name="contents_nm" class="input-xxlarge" value="${ detailMap.LOC001.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC001.CONTENTS_DESC }</textarea>
 					</div>
@@ -161,10 +161,10 @@
 			<div id="boxLOC002" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">미국</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">USA</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Catetory</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -189,12 +189,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn2" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -202,21 +202,21 @@
 									<c:when test="${ detailMap.LOC002.DISPLAY_YN eq 'Y' }"><input name="display_yn2" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn2" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
 						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC002.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC002.CONTENTS_DESC }</textarea>
 					</div>
@@ -226,10 +226,10 @@
 			<div id="boxLOC003" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">중국</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">China</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Catetory</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -254,12 +254,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn3" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -267,21 +267,21 @@
 									<c:when test="${ detailMap.LOC003.DISPLAY_YN eq 'Y' }"><input name="display_yn3" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn3" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
 						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC003.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC003.CONTENTS_DESC }</textarea>
 					</div>
@@ -292,10 +292,10 @@
 			<div id="boxLOC004" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">러시아</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">Russia</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Catetory</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -320,12 +320,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn4" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -333,21 +333,21 @@
 									<c:when test="${ detailMap.LOC004.DISPLAY_YN eq 'Y' }"><input name="display_yn4" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn4" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
-						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC004.CONTENTS_NM }">
+						<input type="text" name="contents_nm" placeholder="Contents Title" class="input-xxlarge" value="${ detailMap.LOC004.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC004.CONTENTS_DESC }</textarea>
 					</div>
@@ -358,10 +358,10 @@
 			<div id="boxLOC005" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">인도</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">India</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Catetory</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -386,12 +386,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn5" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -399,21 +399,21 @@
 									<c:when test="${ detailMap.LOC005.DISPLAY_YN eq 'Y' }"><input name="display_yn5" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn5" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
-						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC005.CONTENTS_NM }">
+						<input type="text" name="contents_nm" placeholder="Contents Title" class="input-xxlarge" value="${ detailMap.LOC005.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC005.CONTENTS_DESC }</textarea>
 					</div>
@@ -424,10 +424,10 @@
 			<div id="boxLOC006" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">사우디아라비아</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">Saudi Arabia</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Catetory</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -452,12 +452,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn6" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -465,21 +465,21 @@
 									<c:when test="${ detailMap.LOC006.DISPLAY_YN eq 'Y' }"><input name="display_yn6" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn6" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
-						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC006.CONTENTS_NM }">
+						<input type="text" name="contents_nm" placeholder="Contents Title" class="input-xxlarge" value="${ detailMap.LOC006.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC006.CONTENTS_DESC }</textarea>
 					</div>
@@ -489,10 +489,10 @@
 			<div id="boxLOC007" >
 				<hr />
 				<div class="form-group row-fluid">
-					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">일본</label>
+					<label class="span3 offset-9 control-label no-padding-right" for="form-field-1">Japan</label>
 				</div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 카테고리</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display Catetory</label>
 					<div class="span9">
 						<div class="checkbox-inline">
 							<c:forEach items="${ categoryList }" var="obj">
@@ -517,12 +517,12 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">노출 여부</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Display</label>
 					<div class="span9">
 						<div class="radio-inline">
 							<label class="inline">
 								<input name="display_yn7" type="radio" class="ace" value="Y" checked>
-								<span class="lbl"> 노출함 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							&nbsp;&nbsp;&nbsp;
 							<label class="inline">
@@ -530,21 +530,21 @@
 									<c:when test="${ detailMap.LOC007.DISPLAY_YN eq 'Y' }"><input name="display_yn7" type="radio" class="ace" value="N"></c:when>
 									<c:otherwise><input name="display_yn7" type="radio" class="ace" value="N" checked></c:otherwise>
 								</c:choose>
-								<span class="lbl"> 노출안함 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Title</label>
 					<div class="span9">
 						<input type="text" name="contents_nm" placeholder="컨텐츠명" class="input-xxlarge" value="${ detailMap.LOC007.CONTENTS_NM }">
 					</div>
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
-					<label class="span3 control-label no-padding-right" for="form-field-1">컨텐츠 설명</label>
+					<label class="span3 control-label no-padding-right" for="form-field-1">Description</label>
 					<div class="span9">
 						<textarea rows="5" class="autosize-transition span12" id="contents_desc" name="contents_desc" >${ detailMap.LOC007.CONTENTS_DESC }</textarea>
 					</div>
@@ -554,8 +554,8 @@
 		
 		<div class="row-fluid text-center">
 			<a id="updateBtn" class="btn">수정</a>
-			<a id="deleteBtn" class="btn" data-contents-id="${ contentInfo.CONTENTS_ID }">삭제</a>
-			<a href="javascript:history.back(-1);" class="btn">뒤로가기</a>
+			<a id="deleteBtn" class="btn" data-contents-id="${ contentInfo.CONTENTS_ID }">Delete</a>
+			<a href="javascript:history.back(-1);" class="btn">List</a>
 		</div>
 	</div><!--/.page-content-->
 </div><!--/.main-content-->
@@ -565,14 +565,14 @@
 	<form action="movie-upload.do" id="movie-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">동영상 업로드</h3>
+			<h3 class="text-center">Movie Upload</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="movie-upload-input" name="file" />
 		</div>
 		<div id="movie-modal-footer" class="modal-footer">
 			<button type="submit" id="movie-upload-submit" class="btn btn-sm btn-success">
-				업로드 <i class="icon-arrow-right icon-on-right bigger-110"></i>
+				Upload <i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
 	</form>
@@ -587,14 +587,14 @@
 	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">썸네일 업로드</h3>
+			<h3 class="text-center">Image Upload</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="thumbnail-upload-input" name="file" />
 		</div>
 		<div id="thumbnail-modal-footer" class="modal-footer">
 			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
@@ -777,13 +777,13 @@ $(function(){
 		}); // <!-- brand-mod-btn event end
 		
 		$("#updateBtn").click(function(){
-			if( confirm("수정하시겠습니까?") ) {
+			if( confirm("Save ?") ) {
 				$("#updateForm").submit();
 			}
 		});
 
 		$("#deleteBtn").click(function(){
-			if( confirm("삭하시겠습니까?") ) {
+			if( confirm("Delete ?") ) {
 				window.location.href = "${ contextPath }/contents/delete.do?contents_id=" + $(this).data("contentsId");
 			}
 		});

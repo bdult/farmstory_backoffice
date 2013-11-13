@@ -14,31 +14,23 @@
 				</span>
 			</li>
 			<li>
-				전시관리
+				Display
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">컨텐츠 노출 관리</li>
+			<li class="active">Contents</li>
 		</ul><!--.breadcrumb-->
 
-		<div class="nav-search" id="nav-search">
-			<form class="form-search">
-				<span class="input-icon">
-					<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div>
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">컨텐츠 노출 관리</h3>
+			<h3 class="header smaller lighter blue">Contents Display Mangement</h3>
 			<div class="table-header">
-				노출 카테고리 선택 
+				Category 
 				<select style="margin-bottom: 3px" id="categoryBox" name="category_id" data-parameter="${ parameter.category_id }">
-					<option value="">전체</option>
+					<option value="">All</option>
 					<c:forEach items="${ categories }" var="obj">
 						<option value="${ obj.CATE_ID }">${ obj.name }</option>
 					</c:forEach>
@@ -55,11 +47,11 @@
 								</label>
 							</div>
 						</th>
-						<th>컨텐츠ID</th>
-						<th>컨텐츠명</th>
-						<th>시리즈</th>
-						<th>출판사</th>
-						<th>노출순서</th>
+						<th>ID</th>
+						<th>Title</th>
+						<th>Series</th>
+						<th>Publisher</th>
+						<th>Order</th>
 					</tr>
 				</thead>			
 				<tbody>
@@ -84,7 +76,7 @@
 			</table>
 			
 			<div class="text-right">
-				<button id="orderUpdateBtn" class="btn btn-sm btn-yellow">순서적용</button>
+				<button id="orderUpdateBtn" class="btn btn-sm btn-yellow">Save</button>
 			</div>
 		</div><!--/.row-fluid-->
 	</div><!--/.page-content-->
@@ -152,7 +144,7 @@ $(function(){
 				totalCnt = $checkedList.size();
 			
 			if( totalCnt == 0 ) {
-				alert("선택된 컨텐츠가 없습니다.");
+				alert("Please select contents");
 				return false;
 			}
 			
@@ -168,7 +160,7 @@ $(function(){
 				var $orderingNo = $("#ordering-no-" + $this.data("index") );
 				
 				if( isEmpty( $orderingNo.val()) ) {
-					alert("노출순서를 입력해 주세요");
+					alert("Please insert order");
 					$orderingNo.focus();
 					isValidation = false;
 					return false;
@@ -192,7 +184,7 @@ $(function(){
 				$("#detail_idx").val( detailIdxList );
 				$("#ordering_no").val( orderingNoList );
 				
-				if( confirm("적용하시겠습니까?") ) {
+				if( confirm("Save ?") ) {
 					$("#orderingUpdateForm").submit();
 				}
 			}

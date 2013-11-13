@@ -13,27 +13,19 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>문의하기 관리
+			<li>CS
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">문의하기 상세</li>
+			<li class="active">Custom Voice</li>
 		</ul>
-		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 	
 	<div class="page-content">
 		<form id="modify-form" >
 			<div class="row-fluid">
-				<h3 class="header smaller lighter blue">고객문의 내용</h3>
+				<h3 class="header smaller lighter blue">Custom Voice Detail</h3>
 				<!-- /. table-header -->
 				<input type="hidden" name="board_contents_id" value="${ contentsInfo.CONTENTS_ID }">
 				<input type="hidden" name="member_id" value="${ login_session.MEMBER_ID }">
@@ -42,37 +34,37 @@
 					<div class="span12 form-horizontal">
 						<!--PAGE CONTENT BEGINS-->
 						<div class="control-group">
-							<label class="control-label">문의 제목</label>
+							<label class="control-label">Title</label>
 							<div class="controls">
 								<input type="text" name="title" value="${ contentsInfo.TITLE }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">작성자</label>
+							<label class="control-label">Writer</label>
 							<div class="controls">
 								<input type="text" name="member_nm" value="${ contentsInfo.MEMBER_NM }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">회원 아이디</label>
+							<label class="control-label">Member ID</label>
 							<div class="controls">
 								<input type="text" value="${ contentsInfo.MEMBER_ID }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">이메일</label>
+							<label class="control-label">E-mail</label>
 							<div class="controls">
 								<input type="text" name="member_email" value="${contentsInfo.MEMBER_EMAIL }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">전화번호</label>
+							<label class="control-label">Phone</label>
 							<div class="controls">
 								<input type="text" name="member_email" value="${contentsInfo.MEMBER_CEL }">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">내용</label>
+							<label class="control-label">Contents</label>
 							<div class="controls">
 								<textarea name="contents" rows="5" cols="50" style="width:80%;" readonly="readonly">${ contentsList.CONTENTS }</textarea>
 							</div>
@@ -81,18 +73,18 @@
 				</div><!-- 고객문의 내용 .row-fluid -->
 		
 				<div class="row-fluid">
-					<h3 class="header smaller lighter blue">고객문의 내용 답변</h3>
+					<h3 class="header smaller lighter blue">Response Infomation</h3>
 					<div class="row-fluid form-horizontal">
 						<div class="span12">
 							<c:if test="${ contentsInfo.SUB_CONTENTS != null }">
 								<div class="control-group">
-									<label class="control-label">답변</label>
+									<label class="control-label">Response</label>
 									<div class="controls">
 										<textarea rows="5" name="sub_contents" cols="50" style="width:80%;" readonly="readonly">${ contentsInfo.SUB_CONTENTS }</textarea>
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">답변일</label>
+									<label class="control-label">Date</label>
 									<div class="controls">
 										<input type="text" value="${ contentsInfo.MOD_DT }">
 									</div>
@@ -100,13 +92,13 @@
 								<div class="form-actions">
 									<a class="btn btn-default" href="${ contextPath }/cscenter/questionManage.do">
 										<i class="icon-wrench bigger-110"></i>
-										목록
+										List
 									</a>
 								</div>
 							</c:if>
 							<c:if test="${ contentsInfo.SUB_CONTENTS == null }">
 								<div class="control-group">
-									<label class="control-label">답변</label>
+									<label class="control-label">Response</label>
 									<div class="controls">
 										<textarea name="sub_contents" rows="5" cols="50" style="width:80%;"></textarea>
 									</div>
@@ -115,11 +107,11 @@
 								<div class="form-actions">
 									<a class="btn btn-primary" id="modify-btn">
 										<i class="icon-wrench bigger-110"></i>
-										확인
+										Save
 									</a>
 									<a class="btn btn-inverse" id="cancel-btn">
 										<i class="icon-undo bigger-110"></i>
-										취소
+										Cancel
 									</a>
 								</div>
 							</c:if>

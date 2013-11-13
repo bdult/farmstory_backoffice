@@ -13,54 +13,46 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>문의하기 관리
+			<li>CS
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">문의하기 리스트</li>
+			<li class="active">Custom Voice</li>
 		</ul>
-		<div class="nav-search" id="nav-search">
-			<form class="form-search">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" autocomplete="off"  value="${search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 	
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">문의하기 리스트</h3>
+			<h3 class="header smaller lighter blue">Custom Voice List</h3>
 			<!-- /. table-header -->
 			
 				<form class="form-horizontal well" id="searchForm">
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
-   								<label class="control-label">검색</label>
+   								<label class="control-label">Search</label>
     							<div class="controls">
 									<select class="span12" name="search_type">
-									  <option value="member_id">작성자</option>
-									  <option value="title">제목</option>
+									  <option value="member_id">Writer</option>
+									  <option value="title">Title</option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="span8">
-							<input class="input-xxlarge" name="search" type="text" placeholder="검색어를 입력하세요">
+							<input class="input-xxlarge" name="search" type="text">
 						</div>
 					</div>
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="control-group">
-   								<label class="control-label">처리여부</label>
+   								<label class="control-label">Status</label>
     							<div class="controls">
 									<select class="span12" name="complete_yn">
-									  <option value="">전체</option>
-									  <option value="N">미처리</option>
-									  <option value="Y">처리완료</option>
+									  <option value="">All</option>
+									  <option value="N">No Response</option>
+									  <option value="Y">Response</option>
 									</select>
 								</div>
 							</div>
@@ -71,7 +63,7 @@
 					<div class="row-fluid">
 						<div class="span12">
 							<div class="control-group">
-   								<label class="control-label">문의일</label>
+   								<label class="control-label">Date</label>
    									
     							<div class="controls">
     								<div class="span6">
@@ -91,11 +83,11 @@
 									</div>
 									
 									<div data-toggle="buttons-radio" class="span6 btn-group">
-										<a class="btn btn-light" id="todayCalenderBtn">오늘</a>
-										<a class="btn btn-light" id="weekCalenderBtn">1주</a>
-										<a class="btn btn-light" id="monthCalenderBtn">1개월</a>
-										<a class="btn btn-light" id="yearCalenderBtn">1년</a>
-										<a class="btn btn-light" id="allCalenderBtn">전체</a>
+										<a class="btn btn-light" id="todayCalenderBtn">Today</a>
+										<a class="btn btn-light" id="weekCalenderBtn">Week</a>
+										<a class="btn btn-light" id="monthCalenderBtn">Month</a>
+										<a class="btn btn-light" id="yearCalenderBtn">Year</a>
+										<a class="btn btn-light" id="allCalenderBtn">All</a>
 									</div>
 								</div>
 							</div>
@@ -104,8 +96,8 @@
 					
 					<div class="row-fluid">
 						<div class="span12 text-right">
-							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
-							<a class="btn btn-info input-small" id="search">검색</a>
+							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">Reset</a>
+							<a class="btn btn-info input-small" id="search">Searching..</a>
 						</div>
 					</div>
 				</form>
@@ -114,11 +106,11 @@
 				<thead>
 					<tr>
 						<th>NO</th>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>등록일시</th>
-						<th>답변일시</th>
-						<th>답변방법</th>
+						<th>Writer</th>
+						<th>Title</th>
+						<th>Date</th>
+						<th>Reply Date</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				
@@ -132,8 +124,8 @@
 						<td>${ questionList.MOD_DT }</td>
 						<td>
 							<c:choose>
-								<c:when test="${ questionList.SUB_CONTENTS_YN eq 'Y' }">처리완료</c:when>
-								<c:otherwise>미완료</c:otherwise>
+								<c:when test="${ questionList.SUB_CONTENTS_YN eq 'Y' }">Response</c:when>
+								<c:otherwise>No Response</c:otherwise>
 							</c:choose>
 						</td>
 					</tr>

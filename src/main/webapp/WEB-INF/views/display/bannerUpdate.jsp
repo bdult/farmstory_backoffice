@@ -14,12 +14,12 @@
 				</span>
 			</li>
 			<li>
-				전시관리 
+				Display 
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">메인화면 관리</li>
+			<li class="active">Main</li>
 		</ul><!--.breadcrumb-->
 
 		<div class="nav-search" id="nav-search">
@@ -34,12 +34,12 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">배너 수정</h3>
+			<h3 class="header smaller lighter blue">Banner Modify</h3>
 			<form id="updateForm" action="${ contextPath }/display/main/bannerUpdate.do" method="POST">
 				<table class="table table-striped table-bordered table-hover">
 					<tbody>
 						<tr>
-							<td>제목</td>
+							<td>Title</td>
 							<td>
 								<input class="no-magin-bottom" type="text" name="title" value="${ bannerInfo.TITLE }">
 								<input type="hidden" name="display_id" value="${ bannerInfo.DISPLAY_ID }">
@@ -47,7 +47,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td>대표이미지</td>
+							<td>Image</td>
 							<td>
 								<input class="no-magin-bottom" type="text" id="img_path" name="img_path" value="${ bannerInfo.IMG_PATH }" readonly>
 								<div id="thumbnail-box" style="display: none;">
@@ -60,11 +60,11 @@
 								</div>
 							</td>
 							<td>
-								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
+								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">Search</a>
 							</td>
 						</tr>
 						<tr>
-							<td>링크 URL</td>
+							<td>Link URL</td>
 							<td>
 								http:// <input class="no-magin-bottom" type="text" id="link_url" name="link_url" value="${ bannerInfo.LINK_URL }" /> 
 							</td>
@@ -72,7 +72,7 @@
 								<div class="checkbox">
 									<label>
 										<input class="ace" type="checkbox" id="noLink">
-										<span class="lbl"> 링크없음</span>
+										<span class="lbl"> No Link</span>
 									</label>
 								</div>
 							</td>
@@ -81,8 +81,8 @@
 				</table>
 			</form>
 			<div class="text-right">
-				<button id="updateBtn" class="btn btn-sm btn-yellow">확인</button>
-				<button id="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</button>
+				<button id="updateBtn" class="btn btn-sm btn-yellow">Save</button>
+				<button id="javascript:history.back(-1);" class="btn btn-sm btn-yellow">Cancel</button>
 			</div>
 		</div><!--/.row-fluid-->
 		
@@ -94,14 +94,14 @@
 	<form action="${ contextPath }/file/imageUpload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">배너이미지 업로드</h3>
+			<h3 class="text-center">Image Upload</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="thumbnail-upload-input" name="file" />
 		</div>
 		<div id="thumbnail-modal-footer" class="modal-footer">
 			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
@@ -146,14 +146,14 @@ $(function(){
 			//validation
 			var $title = $("input[name='title']");
 			if( isEmpty( $title.val() ) ) {
-				alert("제목을 입력해 주세요.");
+				alert("Please insert title.");
 				$title.focus();
 				return false;
 			}
 
 			var $img_path = $("input[name='img_path']");
 			if( isEmpty( $img_path.val() ) ) {
-				alert("찾아보기 버튼을 눌러 이미지를 등록해 주세요.");
+				alert("Please upload image.");
 				return false;
 			}
 			
@@ -161,19 +161,19 @@ $(function(){
 			if( $noLink.prop("checked") == false ) {
 				var $link_url = $("input[name='link_url']");
 				if( isEmpty( $link_url.val() ) ) {
-					alert("링크 URL을 입력해 주세요.");
+					alert("Please insert link.");
 					$link_url.focus();
 					return false;
 				}
 			}
 			
-			if( confirm("수정하시겠습니까?") ) {
+			if( confirm("Save ?") ) {
 				$("#updateForm").submit();
 			}
 		});
 		
 		$("#delBtn").click(function(){
-			if( confirm("삭제하시겠습니까?") ) {
+			if( confirm("Delete?") ) {
 				window.location.href = "${ contextPath }/display/main/bannerDelete.do?display_id=${ bannerInfo.DISPLAY_ID }";
 			}
 		});

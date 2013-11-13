@@ -14,29 +14,25 @@
 							</span>
 						</li>
 						<li>
-							컨텐츠 관리
+							Contents
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
 						<li>
-							시리즈
+							Series
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">${viewName }</li>
+						<li class="active">Detail</li>
 					</ul><!--.breadcrumb-->
 				</div>
 
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							${viewName }
-							<small>
-								<i class="icon-double-angle-right"></i>
-								${viewDesc }
-							</small>
+							Series detail
 						</h1>
 					</div><!--/.page-header-->
 
@@ -48,7 +44,7 @@
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_series_id">시리즈 ID</label>
+									<label class="control-label" for="contents_series_id">ID</label>
 
 									<div class="controls">
 										<input readonly="readonly" type="text" id="series_id" name="series_id" value="${data.CONTENTS_SERIES_ID}" />
@@ -56,33 +52,33 @@
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="series_nm">시리즈 명</label>
+									<label class="control-label" for="series_nm">Name</label>
 
 									<div class="controls">
-										<input type="text" id="series_nm" name="series_nm" placeholder="시리즈 명" value="${data.CONTENTS_SERIES_NM}" />
+										<input type="text" id="series_nm" name="series_nm" placeholder="Name" value="${data.CONTENTS_SERIES_NM}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">출판사 명</label>
+									<label class="control-label" for="contents_nm">Publisher</label>
 
 									<div class="controls">
 										<input  type="hidden" id="brand_id" name="brand_id" value="${data.BRAND_ID == null? 0 : data.BRAND_ID}" />
-										<input readonly="readonly" type="text" id="brand_nm" placeholder="출판사 명" name="brand_nm" value="${data.BRAND_NM}" />
-										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="출판사 변경" />
+										<input readonly="readonly" type="text" id="brand_nm" placeholder="Publisher" name="brand_nm" value="${data.BRAND_NM}" />
+										<input  type="button" id="brand-mod-btn" class="btn btn-primary" value="Modify" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">썸네일 이미지</label>
+									<label class="control-label" for="form-field-2">Thumbnail</label>
 									<div class="controls">
 										<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${data.IMG_PATH }" />
-										<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="썸네일 변경" />
+										<input  type="button" id="thumbnail-mod-btn" class="btn btn-primary" value="Modify" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">시리즈 설명</label>
+									<label class="control-label" for="contents_nm">Description</label>
 
 									<div class="controls">
 										<c:choose>
@@ -99,21 +95,19 @@
 								<div class="form-actions">
 									<button id="submit-btn" class="btn btn-primary" type="button">
 										<i class="icon-ok bigger-110"></i>
-										저장
+										Save
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
 									<button id="cancel-btn" class="btn btn-inverse" type="button">
 										<i class="icon-undo bigger-110"></i>
-										취소
+										Cancel
 									</button>
-									<c:if test="${data.CONTENTS_SERIES_ID != null}">
 									&nbsp; &nbsp; &nbsp;
 									<button id="delete-btn" class="btn btn-danger" type="button">
 										<i class="icon-remove-sign bigger-110"></i>
-										삭제
+										Delete
 									</button>
-									</c:if>
 								</div>
 							</form>
 						</div><!--/.span-->
@@ -131,14 +125,14 @@
 	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">썸네일 업로드</h3>
+			<h3 class="text-center">Thumbnail upload</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="thumbnail-upload-input" name="file" />
 		</div>
 		<div id="thumbnail-modal-footer" class="modal-footer">
 			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
@@ -148,18 +142,18 @@
 <div id="modify-brand-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">출판사 설정</h3>
+			<h3 class="text-center">Publisher</h3>
 		</div>
 		<div class="modal-body">
 			<div  class="control-group row-fluid">
-				<label class="control-label ">출판사 명</label>
+				<label class="control-label ">Name</label>
 				<div class="controls">
 					<input  id="modify-brand-name" name="brand_nm" type="text">					
-					<button id="modify-brand-search-btn" type="button" class="btn btn-primary">검색</button>
+					<button id="modify-brand-search-btn" type="button" class="btn btn-primary">Search</button>
 				</div>
 			</div>
 			<div class="control-group" id="brand-modal-list">
-				<label class="control-label">출판사 리스트</label>
+				<label class="control-label">Publisher list</label>
 				<div class="controls">
 					<select id="modify-brand-select">
 					</select>
@@ -167,8 +161,8 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-brand-submit-btn" type="button" class="btn btn-primary">등록</button>
+			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			<button id="modify-brand-submit-btn" type="button" class="btn btn-primary">Registe</button>
 		</div>
 </div>		
 
@@ -220,11 +214,11 @@
 		
 		
 		$("#cancel-btn").click(function(){
-			window.location.href="manage.do?pageNum=${pageNum}";
+			 history.back(1);
 		});
 		
 		$("#delete-btn").click(function(){
-			if(confirm("삭제 하시겠습니까?")){
+			if(confirm("Delete ?")){
 				$("#delete-form").submit();
 			}else{
 				return false;
@@ -232,7 +226,7 @@
 		});
 		
 		$("#submit-btn").click(function(){
-			if(confirm("저장 하시겠습니까?")){
+			if(confirm("Save ?")){
 				$("#modify-form").submit();
 			}else{
 				return false;
@@ -250,7 +244,7 @@
 		}); // <!-- thumbnaul-mod-btn event end
 		
 		$("#modify-brand-search-btn").click(function(){
-			
+			$("#modify-series-select").empty();
 				param = {
 						search : $("#modify-brand-name").val()
 				};
@@ -262,10 +256,9 @@
 					dataType: 'json',
 					success : function(response) {
 						if(response.data.length == 0){
-							alert("검색된 출판사가 없습니다.");
+							alert("Not found publisher");
 							return false;
 						}else{
-							$("#modify-brand-select").empty();
 							$.each(response.data, function(index, brand){
 								$("#modify-brand-select").append("<option value=\""+brand.BRAND_ID+"\">"+brand.BRAND_NM+"</option>")
 							});

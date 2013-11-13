@@ -14,30 +14,22 @@
 				</span>
 			</li>
 			<li>
-				전시관리
+				Display
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">팝업관리</li>
+			<li class="active">Popup</li>
 		</ul><!--.breadcrumb-->
 
-		<div class="nav-search" id="nav-search">
-			<form class="form-search">
-				<span class="input-icon">
-					<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div>
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">팝업관리</h3>
+			<h3 class="header smaller lighter blue">Popup Management</h3>
 			<div class="table-header">
 				<div class="text-right">
-					<a href="${ contextPath }/display/popup/createView.do" class="btn btn-success">등록</a>
+					<a href="${ contextPath }/display/popup/createView.do" class="btn btn-success">Add</a>
 				</div>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
@@ -53,17 +45,17 @@
 								<div class="display-yn radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label class="inline">
 										<input type="radio" name="display_yn${ util.count }" class="ace" value="Y">
-										<span class="lbl"> 노출중 </span>
+										<span class="lbl"> Show </span>
 									</label>
 									<label class="inline">
 										<input type="radio" name="display_yn${ util.count }" class="ace" value="N">
-										<span class="lbl"> 노출안함 </span>
+										<span class="lbl"> Hide </span>
 									</label>
 								</div>
 							</td>
 							<td>
-								<a href="${ contextPath }/display/popup/updateView.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">수정</a>
-								<button class="popupDeleteBtn btn btn-minier btn-yellow" data-display-id="${ obj.DISPLAY_ID }">삭제</button>
+								<a href="${ contextPath }/display/popup/updateView.do?popup_id=${ obj.DISPLAY_ID }" class="btn btn-minier btn-yellow">Modify</a>
+								<button class="popupDeleteBtn btn btn-minier btn-yellow" data-display-id="${ obj.DISPLAY_ID }">Delete</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -90,7 +82,7 @@ $(function(){
 	
 	$("button.popupDeleteBtn").click(function(){
 		var $this = $(this);
-		if( confirm("삭제하시겠습니까?") ) {
+		if( confirm("Delete ?") ) {
 			window.location.href = "${ contextPath }/display/popup/delete.do?display_id=" + $this.data("displayId");
 		}
 	});

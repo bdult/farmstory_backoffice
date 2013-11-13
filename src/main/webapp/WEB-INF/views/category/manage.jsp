@@ -12,22 +12,18 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li>컨텐츠 관리
+						<li>Contents
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">카테고리</li>
+						<li class="active">Category</li>
 					</ul>
 				</div><!--.breadcrumb-->
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							카테고리 관리
-							<small>
-								<i class="icon-double-angle-right"></i>
-								카테고리 생성, 수정, 삭제를 할 수 있습니다.
-							</small>
+							Category information
 						</h1>
 					</div>
 					<!--/.page-header-->
@@ -39,8 +35,8 @@
 							<div class="row-fluid">
 								<div class="widget-box span6">
 									<div class="widget-header header-color-blue2">
-										<h4 class="lighter smaller">Choose Categories</h4>
-										<button id="create-category-btn" class="btn btn-success">생성</button>
+										<h4 class="lighter smaller">Choose categories</h4>
+										<button id="create-category-btn" class="btn btn-success">Add</button>
 									</div>
 
 									<div class="widget-body">
@@ -52,7 +48,7 @@
 								
 								<div class="widget-box span6">
 									<div class="widget-header header-color-green2">
-										<h4 class="lighter smaller">Category Infomation</h4>
+										<h4 class="lighter smaller">Category information</h4>
 									</div>
 							
 									<div class="widget-body">
@@ -62,41 +58,41 @@
 														<input type="hidden" id="category-id" name="cate_id">
 														<input type="hidden" id="origin-category-ordering-no" name="origin-category-ordering-no" >		
 														<div class="control-group">
-															<label class="control-label">카테고리 명</label>
+															<label class="control-label">Category name</label>
 															<div class="controls">
 																<input id="category-name" name="cate_nm" type="text">															
 															</div>
 														</div>
 														<div class="control-group">
-															<label class="control-label">카테고리 순서</label>
+															<label class="control-label">Category ordering</label>
 															<div class="controls">
 																<input id="category-ordering-no" name="category-ordering-no" type="text">															
 															</div>
 														</div>
 														<div class="control-group">
-															<label class="control-label">카테고리 레벨</label>
+															<label class="control-label">Category level</label>
 															<div class="controls">
 																<input id="category-level" name="cate_level" type="text">															
 															</div>
 														</div>
 														<div class="control-group">
-															<label class="control-label">이미지</label>
+															<label class="control-label">Thumbnail</label>
 															<div class="controls">
 																<input id="img_path" name="img_path" type="text" readonly>
-																<button id="modify-img-btn" class="btn btn-info" type="button">변경</button>
+																<button id="modify-img-btn" class="btn btn-info" type="button">Modify</button>
 															</div>
 														</div>
 														<div class="control-group">
-															<label class="control-label">상위 카테고리 명</label>
+															<label class="control-label">Parent category name</label>
 															<div class="controls">
 																<input id="parent-category-id" name="parent_cate_id" type="hidden">
 																<input id="parent-category-name" name="parent_cate_nm" type="text" readonly>
-																<button id="modify-parent-category-btn" class="btn btn-info" type="button"> 상위 카테고리 변경</button>
+																<button id="modify-parent-category-btn" class="btn btn-info" type="button">Parent category modify</button>
 															</div>
 														</div>
 														<div class="form-actions">
-															<button class="btn btn-info" type="submit"> 수정완료</button>
-															<button id="delete-category-btn" class="btn" type="button"> 삭제</button>
+															<button class="btn btn-info" type="submit">Modify</button>
+															<button id="delete-category-btn" class="btn" type="button">Delete</button>
 														</div>
 												</form>
 											</div>
@@ -125,24 +121,24 @@
 	<form action="${contextPath }/category/create.do" class="form-horizontal" method="post">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">카테고리 등록</h3>
+			<h3 class="text-center">Category</h3>
 		</div>
 		<div class="modal-body ">
 			<div class="control-group">
-				<label class="control-label">카테고리 명</label>
+				<label class="control-label">Name</label>
 				<div class="controls">
 					<input id="modal-category-name" name="cate_nm" type="text">															
 				</div>
 			</div>
 			<div  class="control-group">
-				<label class="control-label">상위 카테고리 명</label>
+				<label class="control-label">Parent category name</label>
 				<div class="controls">
 					<input  id="modal-parent-category-name" name="parent_cate_nm" type="text">					
-					<button id="parent-cate-search" type="button" class="btn btn-primary">검색</button>
+					<button id="parent-cate-search" type="button" class="btn btn-primary">Search</button>
 				</div>
 			</div>
 			<div id="parent-category-list" class="control-group">
-				<label class="control-label">상위 카테고리 리스트</label>
+				<label class="control-label">Parent category list</label>
 				<div class="controls">
 					<select id="parent-category-select" name="parent_cate_id">
 					</select>
@@ -150,8 +146,8 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">등록취소</button>
-			<button type="submit" class="btn btn-primary">등록하기</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			<button type="submit" class="btn btn-primary">Registe</button>
 		</div>
 	</form>
 </div>
@@ -160,18 +156,18 @@
 <div id="modify-parent-category-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">상위 카테고리 변경</h3>
+			<h3 class="text-center">Parent category</h3>
 		</div>
 		<div class="modal-body">
 			<div  class="control-group row-fluid">
-				<label class="control-label ">상위 카테고리 명</label>
+				<label class="control-label ">Name</label>
 				<div class="controls">
 					<input  id="modify-parent-category-name" name="parent_cate_nm" type="text">					
-					<button id="modify-parent-cate-search" type="button" class="btn btn-primary">검색</button>
+					<button id="modify-parent-cate-search" type="button" class="btn btn-primary">Search</button>
 				</div>
 			</div>
 			<div id="modify-parent-category-list" class="control-group">
-				<label class="control-label">상위 카테고리 리스트</label>
+				<label class="control-label">Parent category list</label>
 				<div class="controls">
 					<select id="modify-parent-category-select">
 					</select>
@@ -179,8 +175,8 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">취소</button>
-			<button id="modify-parent-category-modify-btn" type="button" class="btn btn-primary">변경</button>
+			<button type="button" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+			<button id="modify-parent-category-modify-btn" type="button" class="btn btn-primary">Modify</button>
 		</div>
 </div>		
 
@@ -189,14 +185,14 @@
 	<form action="imgUpload.do" id="img-upload-form" method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">이미지 업로드</h3>
+			<h3 class="text-center">Thumbnail</h3>
 		</div>
 		<div class="modal-body">
 			<input type="file" id="img-upload-input" name="file" />
 		</div>
 		<div id="img-modal-footer" class="modal-footer">
 			<button type="submit" id="img-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
@@ -316,16 +312,16 @@
 								dataType: 'json',
 								success : function(response) {
 									if(response.data.length == 0){
-										alert("검색된 상위 카테고리가 없습니다.");
+										alert("Not found category");
 										return false;
 									}else{
 										$("#modify-parent-category-list").show();
 										$.each(response.data, function(index, cate){
 											displayCateName="";
 											if(cate.CATE_LEVEL === 1){
-												displayCateName = cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨"+")";
+												displayCateName = cate.CATE_NM+"("+cate.CATE_LEVEL+"Level"+")";
 											}else{
-												displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨 "+")";
+												displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM+"("+cate.CATE_LEVEL+"Level "+")";
 											}
 											$("#modify-parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+displayCateName+"</option>")
 										});
@@ -360,16 +356,16 @@
 							dataType: 'json',
 							success : function(response) {
 								if(response.data.length == 0){
-									alert("검색된 상위 카테고리가 없습니다.");
+									alert("Not found parent category");
 									return false;
 								}else{
 									$("#parent-category-list").show();
 									$.each(response.data, function(index, cate){
 										displayCateName="";
 										if(cate.CATE_LEVEL === 1){
-											displayCateName = cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨"+")";
+											displayCateName = cate.CATE_NM+"("+cate.CATE_LEVEL+"Level"+")";
 										}else{
-											displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM+"("+cate.CATE_LEVEL+"레벨 "+")";
+											displayCateName = cate.PRE_PARENT_CATE_NM+" >> "+cate.CATE_NM+"("+cate.CATE_LEVEL+"Level "+")";
 										}
 										$("#parent-category-select").append("<option value=\""+cate.CATE_ID+"\">"+displayCateName+"</option>")
 									});

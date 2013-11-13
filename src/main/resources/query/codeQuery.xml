@@ -117,11 +117,12 @@
                 UPDATE /* codeQuery.modify */
                         BG_CODE
                 SET
-                        CODE_DETAIL = #{code_detail}
+                        CODE = #{code}
+                        , CODE_DETAIL = #{code_detail}
                          ,CODE_LEVEL=#{code_level}
                          ,PARENT_CODE=#{parent_code}
                 WHERE 1=1
-                AND CODE = #{code}
+                AND IDX = #{idx}
         </update>
          
         <delete id="deleteChild">

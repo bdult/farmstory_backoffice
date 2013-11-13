@@ -14,32 +14,24 @@
 				</span>
 			</li>
 			<li>
-				전시관리 
+				Display
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">메인화면 관리</li>
+			<li class="active">Main</li>
 		</ul><!--.breadcrumb-->
 
-		<div class="nav-search" id="nav-search">
-			<form class="form-search">
-				<span class="input-icon">
-					<input type="text" placeholder="Search ..." class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div>
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">상단 비주얼 등록</h3>
+			<h3 class="header smaller lighter blue">Top Visual Registration</h3>
 			<form id="createForm" action="${ contextPath }/display/main/create.do" method="POST">
 				<table class="table table-striped table-bordered table-hover">
 					<tbody>
 						<tr>
-							<td>제목</td>
+							<td>Title</td>
 							<td>
 								<input class="no-magin-bottom" type="text" name="title">
 								<input type="hidden" name="display_code" value="DIS001">
@@ -47,7 +39,7 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td>대표이미지</td>
+							<td>Image</td>
 							<td>
 								<input class="no-magin-bottom" type="text" name="img_path" id="img_path" readonly>
 								<div id="thumbnail-box" style="display: none;">
@@ -60,34 +52,27 @@
 								</div>
 							</td>
 							<td>
-								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">찾아보기</a>
+								<a id="mainImgUploadBtn" class="btn btn-sm btn-yellow">Search</a>
 							</td>
 						</tr>
-						<div class="control-group" id="img-control-group">
-								<label class="control-label" for="form-field-2">이미지</label>
-								<div class="controls">
-									
-									
-								</div>
-							</div>
 						<tr>
-							<td>노출여부</td>
+							<td>Display</td>
 							<td>
 								<div class="radio-inline" data-display-yn="${ obj.DISPLAY_YN }">
 									<label class="inline">
 										<input name="display_yn" type="radio" class="ace" value="Y">
-										<span class="lbl"> 노출함 </span>
+										<span class="lbl"> Show </span>
 									</label>
 									<label class="inline">
 										<input name="display_yn" type="radio" class="ace" value="N" checked>
-										<span class="lbl"> 노출안함 </span>
+										<span class="lbl"> Hide </span>
 									</label>
 								</div>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>링크 URL</td>
+							<td>Link URL</td>
 							<td>
 								http:// <input class="no-magin-bottom" type="text" id="link_url" name="link_url" /> 
 							</td>
@@ -95,7 +80,7 @@
 								<div class="checkbox">
 									<label>
 										<input class="ace" type="checkbox" id="noLink">
-										<span class="lbl"> 링크없음</span>
+										<span class="lbl"> No Link</span>
 									</label>
 								</div>
 							</td>
@@ -104,8 +89,8 @@
 				</table>
 			</form>
 			<div class="text-right">
-				<button id="createBtn" class="btn btn-sm btn-yellow">확인</button>
-				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">취소</a>
+				<button id="createBtn" class="btn btn-sm btn-yellow">Save</button>
+				<a href="javascript:history.back(-1);" class="btn btn-sm btn-yellow">Cancel</a>
 			</div>
 		</div><!--/.row-fluid-->
 		
@@ -117,14 +102,14 @@
 	<form action="${ contextPath }/file/imageUpload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">대표이미지 업로드</h3>
+			<h3 class="text-center">Image Upload</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="thumbnail-upload-input" name="file" />
 		</div>
 		<div id="thumbnail-modal-footer" class="modal-footer">
 			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
@@ -160,14 +145,14 @@ $(function(){
 			//validation
 			var $title = $("input[name='title']");
 			if( isEmpty( $title.val() ) ) {
-				alert("제목을 입력해 주세요.");
+				alert("Please insert title");
 				$title.focus();
 				return false;
 			}
 
 			var $img_path = $("input[name='img_path']");
 			if( isEmpty( $img_path.val() ) ) {
-				alert("찾아보기 버튼을 눌러 이미지를 등록해 주세요.");
+				alert("Please upload image");
 				return false;
 			}
 			
@@ -175,13 +160,13 @@ $(function(){
 			if( $noLink.prop("checked") == false ) {
 				var $link_url = $("input[name='link_url']");
 				if( isEmpty( $link_url.val() ) ) {
-					alert("링크 URL을 입력해 주세요.");
+					alert("Please insert link url");
 					$link_url.focus();
 					return false;
 				}
 			}
 			
-			if( confirm("등록하시겠습니까?") ) {
+			if( confirm("Save ?") ) {
 				$("#createForm").submit();
 			}
 		});

@@ -20,10 +20,10 @@
 							<br>
 							<c:choose>
 								<c:when test="${ login_session.MEMBER_TYPE == 2 }">
-									권한 : 슈퍼어드민
+									Role : SA
 								</c:when>
 								<c:otherwise>
-									권한 : 어드민
+									Role : A
 								</c:otherwise>
 							</c:choose>
 						</span>
@@ -32,6 +32,7 @@
 					</a>
 
 					<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+						<!-- 
 						<li>
 							<a href="#">
 								<i class="icon-cog"></i>
@@ -47,6 +48,7 @@
 						</li>
 
 						<li class="divider"></li>
+						 -->
 
 						<li>
 							<a href="${ contextPath }/user/logout.do">

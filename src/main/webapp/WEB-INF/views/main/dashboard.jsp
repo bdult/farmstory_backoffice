@@ -11,14 +11,14 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">메인화면</li>
+						<li class="active">Main</li>
 					</ul><!--.breadcrumb-->
 				</div>
 
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							메인화면
+							Main
 						</h1>
 					</div><!--/.page-header-->
 
@@ -31,7 +31,7 @@
 										<div class="widget-header widget-header-flat">
 											<h4 class="lighter smaller">
 												<i class="icon-star orange"></i>
-												<a href="${contextPath }/user/manage.do"> 회원 최근 현황</a>
+												<a href="${contextPath }/user/manage.do">Members Status</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -48,17 +48,17 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																가입일
+																Date
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																신규회원
+																New members
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																유료회원 전환
+																Paid members
 															</th>
 														</tr>
 													</thead>
@@ -83,7 +83,7 @@
 										<div class="widget-header widget-header-flat">
 											<h4 class="lighter smaller">
 												<i class="icon-signal red"></i>
-												 결제내역 최근 현황
+												 Payment Status
 											</h4>
 
 											<div class="widget-toolbar">
@@ -100,17 +100,17 @@
 														<tr>
 															<th>
 																<i class="icon-caret-right blue"></i>
-																결제일
+																Date
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																결제건
+																Count
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																매출액
+																Price
 															</th>
 														</tr>
 													</thead>
@@ -139,7 +139,7 @@
 										<div class="widget-header">
 											<h4 class="lighter smaller">
 												<i class="icon-comment orange"></i>
-												<a href="${contextPath }/cscenter/questionManage.do"> 고객문의</a>
+												<a href="${contextPath }/cscenter/questionManage.do"> Custom Voice</a>
 											</h4>
 
 											<div class="widget-toolbar">
@@ -156,25 +156,25 @@
 														<tr>
 															<th class="span2">
 																<i class="icon-caret-right blue"></i>
-																등록일시
+																Date
 															</th>
 
 															<th>
 																<i class="icon-caret-right blue"></i>
-																카테고리
+																Category
 															</th>
 
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																제목
+																Title
 															</th>
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																고객아이디
+																Member ID
 															</th>
 															<th class="hidden-phone">
 																<i class="icon-time bigger-110 hidden-phone"></i>
-																처리상태
+																Status
 															</th>
 														</tr>
 													</thead>
@@ -200,7 +200,7 @@
 											<div class="widget-header">
 												<h4 class="lighter smaller">
 													<i class="icon-signal orange"></i>
-													<a href="${contextPath }/contents/manage.do"> 컨텐츠 업로드 현황</a>
+													<a href="${contextPath }/contents/manage.do"> Contents Status</a>
 												</h4>
 	
 												<div class="widget-toolbar">
@@ -217,17 +217,17 @@
 															<tr>
 																<th>
 																	<i class="icon-caret-right blue"></i>
-																	업로드일
+																	Date
 																</th>
 	
 																<th>
 																	<i class="icon-caret-right blue"></i>
-																	컨텐츠 수
+																	Count
 																</th>
 	
 																<th class="hidden-phone">
 																	<i class="icon-time bigger-110 hidden-phone"></i>
-																	누적 컨텐츠 수
+																	Accumulate
 																</th>
 															</tr>
 														</thead>

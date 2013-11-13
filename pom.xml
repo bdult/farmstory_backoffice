@@ -236,6 +236,7 @@
 	</reporting>
 	
     <build>
+        <finalName>ozworld-admin-en</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>

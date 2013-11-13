@@ -18,14 +18,14 @@
 					, MEMBER_STATUS
 					, DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT
 					, case (MEMBER_ROLE)
-						when 0 then '무료회원'
-						when 1 then '유료회원'
+						when 0 then 'Free'
+						when 1 then 'Premium'
 				    else '무료회원'
 					end AS MEMBER_ROLE_DESC
 					, case (MEMBER_STATUS)
-						when 0 then '이용'
-						when 1 then '중지'
-						when 2 then '탈퇴'
+						when 0 then 'Using'
+						when 1 then 'Pause'
+						when 2 then 'Leave'
 					end AS MEMBER_STATUS_DESC
 				FROM BG_MEMBER 
 				WHERE 1=1 

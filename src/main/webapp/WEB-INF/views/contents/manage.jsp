@@ -12,70 +12,62 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>컨텐츠 관리
+			<li>Contents
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">컨텐츠</li>
+			<li class="active">Contents</li>
 		</ul>
 
-		<div class="nav-search" id="nav-search">
-			<form class="form-search" action="manage.do" method="post">
-				<span class="input-icon">
-					<input type="text" name="search" placeholder="Search ..." class="input-small nav-search-input" id="search-input" autocomplete="off" value="${ search }" />
-					<i class="icon-search nav-search-icon"></i>
-				</span>
-			</form>
-		</div><!--#nav-search-->
 	</div><!--.breadcrumb-->
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">컨텐츠 관리</h3>
+			<h3 class="header smaller lighter blue">Contents Management</h3>
 			
 			<!-- search -->
 			<form action="" id="searchForm" class="form-horizontal well">
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right pd-tp">컨텐츠검색</div>
+					<div class="span2 text-right pd-tp">Search</div>
 					<div class="span2">
 						<select name="search_type" class="span12">
-							<option value="name">컨텐츠명</option>
-							<option value="id">아이디</option>
+							<option value="name">Title</option>
+							<option value="id">ID</option>
 						</select>
 					</div>
 					<div class="span8">
-						<input class="input-xxlarge" name="search" type="text" value="${ pageInfo.search }" placeholder="검색어를 입력하세요">
+						<input class="input-xxlarge" name="search" type="text" value="${ pageInfo.search }" >
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right pd-tp">카테고리</div>
+					<div class="span2 text-right pd-tp">Category</div>
 					<div class="span2">
 						<select id="selectCategoryBox" name="category_id" class="span12">
-							<option value="">전체</option>
+							<option value="">All</option>
 							<c:forEach items="${ categoryList }" var="obj">
 								<option <c:if test="${ obj.CATE_ID eq pageInfo.category_id }">selected</c:if> value="${ obj.CATE_ID }">${ obj.name }</option>
 							</c:forEach>
 						</select>
 					</div>
-					<div class="span1 text-right pd-tp">출판사</div>
+					<div class="span1 text-right pd-tp">Publisher</div>
 					<div class="span2">
 						<select id="selectBrandBox" name="brand_id" class="span12">
-							<option value="">전체</option>
+							<option value="">All</option>
 							<c:forEach items="${ brandList }" var="obj">
 								<option <c:if test="${ obj.BRAND_ID eq pageInfo.brand_id }">selected</c:if> value="${ obj.BRAND_ID }" >${ obj.BRAND_NM }</option>
 							</c:forEach>
 						</select>
 					</div>
-					<div class="span1 text-right pd-tp">시리즈</div>
+					<div class="span1 text-right pd-tp">Series</div>
 					<div class="span2">
 						<select id="selectSeriesBox" name="series_id" class="span12">
-							<option value="">전체</option>
+							<option value="">All</option>
 						</select>
 					</div>
 				</div>
 				<div class="row-fluid mg-bt-20">
-					<div class="span2 text-right pd-tp">등록일자</div>
+					<div class="span2 text-right pd-tp">Date</div>
 					<div class="span5">
 						<div class="input-append ">
 							<input class="span10" name="search_start_date" id="start_date" type="text" data-date-format="yyyy-mm-dd" value="${ pageInfo.search_start_date }"> 
@@ -87,40 +79,40 @@
 							<span class="add-on end_date"><i class="icon-calendar"></i></span>
 						</div>
 					</div>
-					<div class="span1 text-right pd-tp">국가</div>
+					<div class="span1 text-right pd-tp">Location</div>
 					<div class="span2">
 						<select name="member_role" class="span12">
-							<option value="">전체</option>
+							<option value="">All</option>
 						</select>
 					</div>
 				</div>
 				<div class="row-fluid">
-					<div class="span2 text-right">노출여부</div>
+					<div class="span2 text-right">Display</div>
 					<div class="span3">
 						<div id="displayBox" class="radio-inline" data-display-yn="${ pageInfo.display_yn }">
 							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="" checked>
-								<span class="lbl"> 전체 </span>
+								<span class="lbl"> All </span>
 							</label>
 							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="Y" >
-								<span class="lbl"> 노출 </span>
+								<span class="lbl"> Show </span>
 							</label>
 							<label class="inline">
 								<input name="display_yn" type="radio" class="ace" value="N">
-								<span class="lbl"> 비노출 </span>
+								<span class="lbl"> Hide </span>
 							</label>
 						</div>
 					</div>
 					<div class="span7 text-right">
-						<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">초기화</a>
-						<a class="btn btn-info input-small" id="searchBtn">검색</a>
+						<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">Reset</a>
+						<a class="btn btn-info input-small" id="searchBtn">Searching..</a>
 					</div>
 				</div>
 			</form>
 			
 			<div class="table-header" align="right">
-				<button id="create-contents-btn" class="btn btn-success">등록</button>
+				<button id="create-contents-btn" class="btn btn-success">Add</button>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
@@ -133,10 +125,10 @@
 								</label>
 							</div>
 						</th>
-						<th>컨텐츠 ID</th>
-						<th>컨텐츠명</th>
-						<th>시리즈</th>
-						<th>출판사</th>
+						<th>ID</th>
+						<th>Title</th>
+						<th>Series</th>
+						<th>Publisher</th>
 						<!-- 
 						<th>노출여부</th>
 						 -->
@@ -213,7 +205,7 @@
 					</div>
 				</div>
 				<div class="span2 pagination text-right">
-					<button id="deleteBtn" class="btn">선택삭제</button>
+					<button id="deleteBtn" class="btn">Delete</button>
 				</div>
 			</div><!--  page-link -->
 		

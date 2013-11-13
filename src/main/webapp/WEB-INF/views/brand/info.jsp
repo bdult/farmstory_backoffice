@@ -13,18 +13,18 @@
 							</span>
 						</li>
 						<li>
-							컨텐츠 관리
+							Contents
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
 						<li>
-							출판사
+							Publisher
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">상세</li>
+						<li class="active">Detail</li>
 					</ul><!--.breadcrumb-->
 			
 				</div><!-- #breadcrumbs -->
@@ -32,11 +32,7 @@
 				<div class="page-content">
 					<div class="page-header position-relative">
 						<h1>
-							출판사 상세
-							<small>
-								<i class="icon-double-angle-right"></i>
-								출판사에 대한 상세한 정보
-							</small>
+							Publisher detail
 						</h1>
 					</div><!--/.page-header-->
 
@@ -48,7 +44,7 @@
 								<input type="hidden" name="mode" value="${mode}" />
 								
 								<div class="control-group">
-									<label class="control-label" for="contents_id">출판사 ID</label>
+									<label class="control-label" for="contents_id">ID</label>
 
 									<div class="controls">
 										<input readonly="readonly" type="text" id="brand_id" name="brand_id" value="${data.BRAND_ID}" />
@@ -56,23 +52,23 @@
 								</div>
 
 								<div class="control-group">
-									<label class="control-label" for="contents_nm">출판사 명</label>
+									<label class="control-label" for="contents_nm">Name</label>
 
 									<div class="controls">
-										<input type="text" id="brand_nm" name="brand_nm" placeholder="출판사 명" value="${data.BRAND_NM}" />
+										<input type="text" id="brand_nm" name="brand_nm" placeholder="Name" value="${data.BRAND_NM}" />
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label">이미지</label>
+									<label class="control-label">Thumbnail</label>
 									<div class="controls">
 										<input id="img_path" name="img_path" type="text" readonly value="${data.IMG_PATH}">
-										<button id="modify-img-btn" class="btn btn-info" type="button">변경</button>
+										<button id="modify-img-btn" class="btn btn-info" type="button">Modify</button>
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label class="control-label" for="form-field-2">출판사 설명</label>
+									<label class="control-label" for="form-field-2">Description</label>
 									<div class="controls">
 										<c:choose>
 											<c:when test="${data.BRAND_DESC != null}">
@@ -88,18 +84,18 @@
 								<div class="form-actions">
 									<button class="btn btn-primary" type="submit">
 										<i class="icon-ok bigger-110"></i>
-										저장
+										Save
 									</button>
 
 									&nbsp; &nbsp; &nbsp;
 									<button id="cancel-btn" class="btn btn-inverse" type="button">
 										<i class="icon-undo bigger-110"></i>
-										취소
+										Cancel
 									</button>
 									&nbsp; &nbsp; &nbsp;
 									<button id="delete-btn" class="btn btn-danger" type="button">
 										<i class="icon-remove-sign bigger-110"></i>
-										삭제
+										Delete
 									</button>
 								</div>
 							</form>
@@ -118,14 +114,14 @@
 	<form action="imgUpload.do" id="img-upload-form" method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">이미지 업로드</h3>
+			<h3 class="text-center">Thumbnail</h3>
 		</div>
 		<div class="modal-body">
 			<input type="file" id="img-upload-input" name="file" />
 		</div>
 		<div id="img-modal-footer" class="modal-footer">
 			<button type="submit" id="img-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>

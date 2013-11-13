@@ -19,12 +19,12 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li>컨텐츠 관리
+			<li>Contents
 				<span class="divider">
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">출판사</li>
+			<li class="active">Publisher</li>
 		</ul>
 
 		<div class="nav-search" id="nav-search">
@@ -39,16 +39,16 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-				<h3 class="header smaller lighter blue">출판사 리스트</h3>
+				<h3 class="header smaller lighter blue">Publisher Information</h3>
 				<div class="table-header" align="right">
-					<button id="create-brand-btn" class="btn btn-success">추가</button>
+					<button id="create-brand-btn" class="btn btn-success">Add</button>
 				</div>
 				<table  class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>이름</th>
-							<th><i class="icon-time bigger-110 hidden-phone"></i>생성일</th>
+							<th>Name</th>
+							<th><i class="icon-time bigger-110 hidden-phone"></i>Create Date</th>
 						</tr>
 					</thead>				
 					<tbody>
@@ -62,8 +62,8 @@
 					</tbody>	
 				</table>
 		</div><!--/.row-fluid-->
-	</div>
-		<div class="row-fluid">
+	</div>	
+	<div class="row-fluid">
 				<div class="span6">
 					<div class="dataTables_info">Total ${pageInfo.totalCount } entries</div>
 				</div>
@@ -81,10 +81,10 @@
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

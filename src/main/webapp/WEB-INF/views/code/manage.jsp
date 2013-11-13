@@ -13,7 +13,7 @@
 					<i class="icon-angle-right arrow-icon"></i>
 				</span>
 			</li>
-			<li class="active">코드 관리
+			<li class="active">Code
 			</li>
 		</ul>
 
@@ -29,19 +29,19 @@
 
 	<div class="page-content">
 		<div class="row-fluid">
-			<h3 class="header smaller lighter blue">코드 리스트
+			<h3 class="header smaller lighter blue">Code information
 			</h3>
 			<div class="table-header" align="right">
-				<button id="create-code-btn" class="btn btn-success">추가</button>
+				<button id="create-code-btn" class="btn btn-success">Add</button>
 			</div><!-- /. table-header -->
 			<table class="table table-striped table-bordered table-hover">
 				<thead>
 					<tr>
-						<th>인덱스</th>
-						<th>코드</th>
-						<th>코드 설명</th>
-						<th>상위 코드</th>
-						<th><i class="icon-time bigger-110 hidden-phone"></i>생성일</th>
+						<th>IDX</th>
+						<th>Code</th>
+						<th>Description</th>
+						<th>Parent code</th>
+						<th><i class="icon-time bigger-110 hidden-phone"></i>Create date</th>
 					</tr>
 				</thead>
 
@@ -82,10 +82,10 @@
 							<c:forEach items="${pageList }" var="page">
 								<c:choose>
 									<c:when test="${pageInfo.pageNum == page.pageNum}">
-										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li class="active"><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="manage.do?pageNum=${page.pageNum}&blockPage=${pageInfo.blockPage}&search=${pageInfo.search}">${page.pageNum}</a></li>
+										<li><a href="manage.do?pageNum=${page.pageNum}&search=${pageInfo.search}">${page.pageNum}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
@@ -129,7 +129,7 @@
 				$("#side-code-code").attr("class", "active");
 				
 					$("#create-code-btn").click(function(){
-						location.href="${contextPath}/code/createView.do?pageNum=${page.pageNum}";
+						location.href="${contextPath}/code/detail.do";
 					});
 				
 				$("#modify_icon").click(function(){
