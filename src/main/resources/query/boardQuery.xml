@@ -34,7 +34,7 @@
 						WHEN 0 THEN 'Ready'  
 						WHEN 1 THEN 'Doing'  
 						WHEN 2 THEN 'Done'
-						ELSE '준비중'
+						ELSE 'Ready'
 						END  AS STATUS_DESC
 					, BBC.MOD_DT
 				FROM BG_BOARD_CONTENTS BBC

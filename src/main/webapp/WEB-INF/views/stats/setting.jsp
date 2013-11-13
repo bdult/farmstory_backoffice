@@ -9,11 +9,11 @@
 				href="${contextPath }/">Home</a> <span class="divider"> <i
 					class="icon-angle-right arrow-icon"></i>
 			</span></li>
-			<li>통계관리 <span class="divider"> <i
+			<li>Statistics <span class="divider"> <i
 					class="icon-angle-right arrow-icon"></i>
 			</span>
 			</li>
-			<li class="active">설정</li>
+			<li class="active">Setting</li>
 		</ul>
 		<!--.breadcrumb-->
 	</div>
@@ -21,7 +21,7 @@
 	<div class="page-content">
 		<div class="page-header position-relative">
 			<h1>
-				설정 <small> <i class="icon-double-angle-right"></i> 구글 API
+				Setting <small> <i class="icon-double-angle-right"></i> Google API
 				</small>
 			</h1>
 		</div>
@@ -30,30 +30,28 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
-				0. 구글 콘솔 정보(필요한가?)
-				<hr />
-				<a href="${ contextPath }/stats/checkAccessToken.do" target="">1. 엑세스 토큰 확인</a>
+				<a href="${ contextPath }/stats/checkAccessToken.do" target="">1. Access Token</a>
 				<p style="color: red;">
 				<c:if test="${ not empty isValidAccessToken }">
 					<c:choose>
-						<c:when test="${ isValidAccessToken eq true }">사용할 수 있는 토큰입니다!</c:when>
-						<c:otherwise>사용할 수 없는 토큰입니다!</c:otherwise>
+						<c:when test="${ isValidAccessToken eq true }">A token can be used!</c:when>
+						<c:otherwise>A token can not be used!</c:otherwise>
 					</c:choose>
 				</c:if>
 				</p>
 				<hr />
-				<a href="${ contextPath }/stats/getCode.do" target="_blank">2. 코드 가져오기</a>
+				<a href="${ contextPath }/stats/getCode.do" target="_blank">2. Get the code</a>
 				<hr />
-				3. 토큰 저장하기
+				3. Token to store
 				<form action="${ contextPath }/stats/saveAccessToken.do">
-					<input type="text" name="code" placeholder="코드" />
-					<input type="submit" value="토큰 저장" />
+					<input type="text" name="code" placeholder="code" />
+					<input type="submit" value="Save" />
 				</form>
-				응답코드 : ${ accessToken }
+				Response code : ${ accessToken }
 				<br />
-				( 200: 성공, 400,401: 실패 )
+				( 200: Ok, 400,401: Faile )
 				<hr />
-				<a href="${ contextPath }/stats/revoke.do" target="_blank">엑세스 토큰 파기하기</a>
+				<a href="${ contextPath }/stats/revoke.do" target="_blank">Access token to destroy</a>
 			</div>
 			<!--/.span-->
 		</div>

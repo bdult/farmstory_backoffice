@@ -86,15 +86,15 @@
 							<div class="form-actions">
 								<a class="btn btn-danger" id="delete-btn" disabled>
 									<i class="icon-trash bigger-110"></i>
-									삭제
+									Delete
 								</a>
 								<a class="btn btn-primary" id="modify-btn">
 									<i class="icon-wrench bigger-110"></i>
-									확인
+									Save
 								</a>
 								<a class="btn btn-inverse" id="cancel-btn" href="javascript:history.back();">
 									<i class="icon-undo bigger-110"></i>
-									취소
+									Cancel
 								</a>
 							</div>
 							</c:if>
@@ -152,7 +152,7 @@ $("#create-form").validate({
 
 	//side active
 	$("#side-cscenter").addClass("open active");
-		$("#side-cscenter-faq").addClass("active");
+	$("#side-cscenter-faq").addClass("active");
 
 	//page init
 	/* if("${ contentsList.CONTENTS_ID }" != ''){

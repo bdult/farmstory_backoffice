@@ -11,12 +11,8 @@
 				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
 			</li>
 
-			<li>
-				<a href="#">Members</a> 
-				<span class="divider"> <i class="icon-angle-right arrow-icon"></i></span>
-			</li>
 			<li class="active">
-				Member Detail
+				Member
 			</li>
 		</ul>
 		<!--.breadcrumb-->
@@ -26,11 +22,7 @@
 	<div class="page-content">
 		<div class="page-header position-relative">
 			<h1>
-				회원 정보
-				<small>
-					<i class="icon-double-angle-right"></i>
-					회원 정보에 대한 상세한 정보를 입력한다
-				</small>
+				Member Information
 			</h1>
 		</div>
 		<!--/.page-header-->
@@ -40,58 +32,58 @@
 				<!--PAGE CONTENT BEGINS-->
 							<form id="create-form" method="get" class="form-horizontal" >
 								<div class="control-group">
-									<label class="control-label">아이디</label>
+									<label class="control-label">ID</label>
 									<div class="controls">
 										<input type="text" readonly="readonly" name="member_id" value="${detail.MEMBER_ID}">
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">이름</label>
+									<label class="control-label">Name</label>
 									<div class="controls">
 										<input type="text" name="member_nm" value="${detail.MEMBER_NM}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">생년월일</label>
+									<label class="control-label">Birth</label>
 									<div class="controls">
 										<input type="hidden" value="${detail.MEMBER_YEAR}" />
 										<input type="hidden" value="${detail.MEMBER_MONTHL}" />
 										<input type="hidden" value="${detail.MEMBER_DAY}" />
-										<input type="text" value="${detail.MEMBER_YEAR}년 ${detail.MEMBER_MONTH}월 ${detail.MEMBER_DAY}일" />
+										<input type="text" value="${detail.MEMBER_YEAR}.${detail.MEMBER_MONTH}.${detail.MEMBER_DAY}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">성별</label>
+									<label class="control-label">Gender</label>
 									<div class="controls">
 										<input type="text" name="member_gender" value="${detail.MEMBER_GENDER}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">휴대폰</label>
+									<label class="control-label">Phone</label>
 									<div class="controls">
 										<input type="text" name="member_cel" value="${detail.MEMBER_CEL}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">이메일</label>
+									<label class="control-label">E-mail</label>
 									<div class="controls">
 										<input type="text" name="member_email" value="${detail.MEMBER_EMAIL}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">주소</label>
+									<label class="control-label">Address</label>
 									<div class="controls">
 										<input class="input-xxlarge" type="text" value="${detail.MEMBER_ADDR_1} ${detail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">회원구분</label>
+									<label class="control-label">Member Type</label>
 									<div class="controls">
 										<input type="text" name="" value="${detail.MEMBER_ROLE}" />
 									</div>
 								</div>
 								<div class="control-group">
-									<label class="control-label">최근결제일</label>
+									<label class="control-label">Payment Date</label>
 									<div class="controls">
 										<input type="text" name="" value="${detail.PAYDAY}" />
 									</div>
@@ -128,14 +120,14 @@
 				<li class="active" id="navTab1">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
-						자녀방설정
+						Child Info
 					</a>
 				</li>
 
 				<li class="" id="navTab2">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
-						결제내역
+						Payment History
 					</a>
 				</li>
 				
@@ -149,7 +141,7 @@
 				<li class="" id="navTab4">
 					<a data-toggle="tab" href="#home">
 						<i class="green icon-home bigger-110"></i>
-						1:1문의
+						Custom Voice
 					</a>
 				</li>
 			</ul>
@@ -161,24 +153,24 @@
 					<thead>
 						<tr>
 							<c:if test="${ status.index == 0 }">
-								<th colspan="4">자녀A 정보<button href="#child-modal-form-A" id="child-modal-btn-A" class="btn pull-right" data-toggle="modal">자녀A 정보 수정</button></th>
+								<th colspan="4">Child A Information<button href="#child-modal-form-A" id="child-modal-btn-A" class="btn pull-right" data-toggle="modal">Modify</button></th>
 							</c:if>
 							<c:if test="${ status.index == 1 }">
-								<th colspan="4">자녀B 정보<button href="#child-modal-form-B" id="child-modal-btn-B" class="btn pull-right" data-toggle="modal">자녀B 정보 수정</button></th>
+								<th colspan="4">Child B Information<button href="#child-modal-form-B" id="child-modal-btn-B" class="btn pull-right" data-toggle="modal">Modify</button></th>
 							</c:if>
 						</tr>
 					</thead>
 					<tbody>
 							<tr>
-								<td>이름</td>
+								<td>Name</td>
 								<td>${ childList.CHILD_NM }</td>
-								<td>성별</td>
+								<td>Gender</td>
 								<td class="tdGender">${ childList.GENDER }</td>
 							</tr>
 							<tr>
-								<td>생년월일</td>
+								<td>Birth</td>
 								<td>${ childList.BIRTH_YEAR } . ${ childList.BIRTH_MONTH } . ${ childList.BIRTH_DAY }</td>
-								<td>자녀등록일</td>
+								<td>Date</td>
 								<td>${ childList.REG_DT }</td>
 							</tr>
 					</tbody>
@@ -191,11 +183,11 @@
 					<thead>
 						<tr>
 							<th>NO.</th>
-							<th>결제일자</th>
-							<th>요금제</th>
-							<th>결제요금</th>
-							<th>결제방법</th>
-							<th>잔여기간</th>
+							<th>Payment date</th>
+							<th>Plan</th>
+							<th>Price</th>
+							<th>Pay process</th>
+							<th>Remain time</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -245,9 +237,9 @@
 				<thead>
 					<tr>
 						<th>NO.</th>
-						<th>제목</th>
-						<th>작성일</th>
-						<th>답변현황</th>
+						<th>Title</th>
+						<th>Date</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -265,8 +257,8 @@
 			
 			<div class="row-fluid">
 				<div class="span12 text-right">
-					<a class="btn btn-danger"  id="delete-btn">관리자 회원탈퇴</a>
-					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">회원정보 수정</a>
+					<a class="btn btn-danger"  id="delete-btn">Break away</a>
+					<a class="btn btn-primary" href="${ contextPath }/user/userModifyView.do?member_id=${detail.MEMBER_ID}">Modify</a>
 				</div>
 			</div>
 		</div>
@@ -281,49 +273,49 @@
 	<input type="hidden" name="member_id" value="${ detail.MEMBER_ID }">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h4 class="blue bigger">아래의 정보를 입력해 주세요</h4>
+		<h4 class="blue bigger">Insert child information</h4>
 	</div>
 
 	<div class="modal-body overflow-visible">
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">자녀명</label>
+					<label class="control-label" for="form-field-username">Child name</label>
 
 					<div class="controls">
 						<input type="text" name="child_name" id="form-field-username" value="${ childList.CHILD_NM }">
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">성별</label>
+					<label class="control-label" for="form-field-username">Gender</label>
 					<div class="controls">
 						<div class="row-fluid">
 						<label class="span2">
-							<input id="gender-m" name="gender" type="radio" value="남">
-							<span class="lbl"> 남</span>
+							<input id="gender-m" name="gender" type="radio" value="M">
+							<span class="lbl"> Man</span>
 						</label>
 						<label class="span2">
-							<input id="gender-f" name="gender" type="radio" value="여">
-							<span class="lbl"> 여</span>
+							<input id="gender-f" name="gender" type="radio" value="F">
+							<span class="lbl"> Female</span>
 						</label>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">썸네일</label>
+					<label class="control-label" for="form-field-username">Image</label>
 
 					<div class="controls" style="height:40px;">
 						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" style="margin-bottom:0;"/>
-						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
+						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="Modify" />
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">생년월일</label>
+					<label class="control-label" for="form-field-username">Birth</label>
 
 					<div class="controls">
-						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">년
-						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">월
-						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">일
+						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">Year
+						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">Month
+						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">Day
 					</div>
 				</div>
 			</div>
@@ -352,49 +344,49 @@
 	<input type="hidden" name="member_id" value="${ detail.MEMBER_ID }">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h4 class="blue bigger">아래의 정보를 입력해 주세요</h4>
+		<h4 class="blue bigger">Insert child information</h4>
 	</div>
 
 	<div class="modal-body overflow-visible">
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">자녀명</label>
+					<label class="control-label" for="form-field-username">Name</label>
 
 					<div class="controls">
 						<input type="text" name="child_name" id="form-field-username" value="${ childList.CHILD_NM }">
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">성별</label>
+					<label class="control-label" for="form-field-username">Gender</label>
 					<div class="controls">
 						<div class="row-fluid">
 						<label class="span2">
-							<input id="gender-m" name="gender" type="radio" value="남">
-							<span class="lbl"> 남</span>
+							<input id="gender-m" name="gender" type="radio" value="M">
+							<span class="lbl"> Man</span>
 						</label>
 						<label class="span2">
-							<input id="gender-f" name="gender" type="radio" value="여">
-							<span class="lbl"> 여</span>
+							<input id="gender-f" name="gender" type="radio" value="F">
+							<span class="lbl"> Female</span>
 						</label>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">썸네일</label>
+					<label class="control-label" for="form-field-username">Image</label>
 
 					<div class="controls">
 						<input readonly="readonly" type="text" id="img_path" name="img_path" value="${ childList.PHOTO }" />
-						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
+						<input type="button" class="btn btn-primary thumbnail-mod-btn" value="Modify" />
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="form-field-username">생년월일</label>
+					<label class="control-label" for="form-field-username">Birth</label>
 
 					<div class="controls">
-						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">년
-						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">월
-						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">일
+						<input name="birth_year" class="span3" type="text" id="" value="${ childList.BIRTH_YEAR }">year
+						<input name="birth_month" class="span3" type="text" id="" value="${ childList.BIRTH_MONTH }">month
+						<input name="birth_day" class="span3" type="text" id="" value="${ childList.BIRTH_DAY }">day
 					</div>
 				</div>
 			</div>
@@ -406,11 +398,11 @@
 	<div class="modal-footer">
 		<a class="btn btn-small btn-primary" id="child-modify-btn-B">
 			<i class="icon-ok"></i>
-			등록
+			Save
 		</a>
 		<a class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
-			취소
+			Cancel
 		</a>
 
 	</div>
@@ -421,14 +413,14 @@
 	<form action="thumbnail-upload.do" id="thumbnail-upload-form"  method="POST" enctype="multipart/form-data">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 class="text-center">썸네일 업로드</h3>
+			<h3 class="text-center">Image Upload</h3>
 		</div>
 		<div class="modal-body">
 				<input type="file" id="thumbnail-upload-input" name="file" />
 		</div>
 		<div id="thumbnail-modal-footer" class="modal-footer">
 			<button type="submit" id="thumbnail-upload-submit" class="btn btn-sm btn-success">
-				업로드
+				Upload
 				<i class="icon-arrow-right icon-on-right bigger-110"></i>
 			</button>
 		</div>
@@ -457,19 +449,19 @@
 		},
 		messages: {
 			child_name: {
-				required: "이름을 입력해 주세요."
+				required: "Please insert name."
 			},
 			gender: {
-				required: "성별을 선택해 주세요."
+				required: "Please insert gender."
 			},
 			birth_year: {
-				required: "생년을 입력해 주세요."
+				required: "Please insert birth-year."
 			},
 			birth_month: {
-				required: "월을 입력해 주세요."
+				required: "Please insert birth-month."
 			},
 			birth_day: {
-				required: "일을 입력해 주세요."
+				required: "Please insert birth-day."
 			}
 		}
 	});
@@ -493,19 +485,19 @@
 		},
 		messages: {
 			child_name: {
-				required: "이름을 입력해 주세요."
+				required: "Please insert name."
 			},
 			gender: {
-				required: "성별을 선택해 주세요."
+				required: "Please insert gender."
 			},
 			birth_year: {
-				required: "생년을 입력해 주세요."
+				required: "Please insert birth-year."
 			},
 			birth_month: {
-				required: "월을 입력해 주세요."
+				required: "Please insert birth-month."
 			},
 			birth_day: {
-				required: "일을 입력해 주세요."
+				required: "Please insert birth-day."
 			}
 		}
 	});
@@ -549,7 +541,7 @@
 	});
 	
 	$("#delete-btn").click(function(){
-		if(confirm("회원정보를 삭제 하시겠습니까?")){
+		if(confirm("Delete ?")){
 			$("#create-form").attr({
 				method: 'post',
 				action: '${ contextPath }/user/userDelete.do'

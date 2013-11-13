@@ -73,7 +73,7 @@
 								<label class="control-label" for="form-field-2">Banner</label>
 								<div class="controls">
 									<input readonly="readonly" class="span5" type="text" id="img_path" name="img_path" value="${ contentsList.IMG_PATH }" />
-									<input  type="button" class="btn btn-primary thumbnail-mod-btn" value="썸네일 변경" />
+									<input  type="button" class="btn btn-primary thumbnail-mod-btn" value="Searching.." />
 								</div>
 							</div>
 							<div class="control-group" id="img-control-group">
@@ -197,9 +197,13 @@ $("#create-form").validate({
 			required: "Please insert contents."
 		}
 	}
+	
 });
 	//page init
 	jQuery(function($){
+		//side active
+		$("#side-event").addClass("active");
+		
 		$('#date-picker-first').datepicker();
 		$('span.start_date')
 		.click(function(){

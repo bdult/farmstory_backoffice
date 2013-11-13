@@ -20,7 +20,7 @@
 					, case (MEMBER_ROLE)
 						when 0 then 'Free'
 						when 1 then 'Premium'
-				    else '무료회원'
+				    else 'Free'
 					end AS MEMBER_ROLE_DESC
 					, case (MEMBER_STATUS)
 						when 0 then 'Using'
@@ -107,14 +107,14 @@
 			, MEMBER_ADDR_1
 			, MEMBER_ADDR_2
 			, case (MEMBER_ROLE)
-				when 0 then '무료회원'
-				when 1 then '유료회원'
-		      else '무료회원'
+				when 0 then 'Free'
+				when 1 then 'Premium'
+		      else 'Free'
 			  end AS MEMBER_ROLE
 			, case (MEMBER_STATUS)
-						when 0 then '이용'
-						when 1 then '중지'
-						when 2 then '탈퇴'
+						when 0 then 'Using'
+						when 1 then 'Pause'
+						when 2 then 'Leave'
 					end AS MEMBER_STATUS_DESC
 			, (SELECT REG_DT FROM BG_PAYMENT_HIS
 		        WHERE 1=1
@@ -166,8 +166,8 @@
 		        	, BBC.TITLE
 		        	, DATE_FORMAT(BBC.REG_DT,'%Y.%m.%d') AS REG_DT
 		        	, CASE (SELECT COUNT(COMMENT_ID) FROM BG_BOARD_COMMENTS WHERE CONTENTS_ID = BBC.CONTENTS_ID)
-		        	WHEN 0 THEN '미처리'
-		        	ELSE '답변완료' 
+		        	WHEN 0 THEN 'No Response'
+		        	ELSE 'Response' 
 		        	END AS ANSWER_YN
 		        FROM BG_BOARD_CONTENTS BBC, BG_BOARD_MASTER BBM
 		        WHERE 1=1
@@ -188,9 +188,9 @@
 			MEMBER_ROLE,
 			DATE_FORMAT(REG_DT,'%Y-%m-%d %H:%i') AS REG_DT,
 			case (MEMBER_ROLE)
-				when 0 then '무료회원'
-				when 1 then '유료회원'
-		    else '무료회원'
+				when 0 then 'Free'
+				when 1 then 'Premium'
+		    else 'Fress'
 			end AS MEMBER_ROLE
 		FROM BG_MEMBER 
 		WHERE 1=1 

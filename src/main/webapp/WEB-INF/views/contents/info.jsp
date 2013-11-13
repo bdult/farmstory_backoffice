@@ -553,7 +553,7 @@
 		</form>
 		
 		<div class="row-fluid text-center">
-			<a id="updateBtn" class="btn">수정</a>
+			<a id="updateBtn" class="btn">Save</a>
 			<a id="deleteBtn" class="btn" data-contents-id="${ contentInfo.CONTENTS_ID }">Delete</a>
 			<a href="javascript:history.back(-1);" class="btn">List</a>
 		</div>

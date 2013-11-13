@@ -111,7 +111,7 @@
 					<div class="row-fluid">
 						<div class="span12 text-right">
 							<a class="btn btn-success input-small" id="reset" style="line-height: 20px;">Reset</a>
-							<a class="btn btn-info input-small" id="search">Search</a>
+							<a class="btn btn-info input-small" id="search">Searching..</a>
 						</div>
 					</div>
 				</form>
@@ -250,7 +250,7 @@
 	
 	$("#search").click(function(){
 		if($("[name=search_type]").val() == 0 && $("#inputSearch").val() != ''){
-			alert("회원검색 목록을 선택해 주세요.");
+			alert("Please select search type.");
 		}else {
 			$("#searchForm").attr({
 				method: 'post',

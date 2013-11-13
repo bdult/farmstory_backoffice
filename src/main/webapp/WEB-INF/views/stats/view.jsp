@@ -9,11 +9,11 @@
 				href="${contextPath }/">Home</a> <span class="divider"> <i
 					class="icon-angle-right arrow-icon"></i>
 			</span></li>
-			<li>통계관리 <span class="divider"> <i
+			<li>Statistics <span class="divider"> <i
 					class="icon-angle-right arrow-icon"></i>
 			</span>
 			</li>
-			<li class="active">통계 조회</li>
+			<li class="active">Searching</li>
 		</ul>
 		<!--.breadcrumb-->
 	</div>
@@ -21,7 +21,7 @@
 	<div class="page-content">
 		<div class="page-header position-relative">
 			<h1>
-				대쉬보드 
+				Dashboard
 				<small> 
 					<i class="icon-double-angle-right"></i>
 					Google analytics <a href="http://www.google.com/analytics/">click</a> 
@@ -45,42 +45,42 @@
 						<div class="infobox infobox-green  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="visits"></span>
-						<div class="infobox-content">방문수</div>
+						<div class="infobox-content">Visits</div>
 					</div>
 				</div>
 
 				<div class="infobox infobox-blue  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="visitors"></span>
-						<div class="infobox-content">순 방문자수</div>
+						<div class="infobox-content">Unique Visits</div>
 					</div>
 				</div>
 
 				<div class="infobox infobox-pink  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="pageviews"></span>
-						<div class="infobox-content">페이지뷰 수</div>
+						<div class="infobox-content">Page Views</div>
 					</div>
 				</div>
 
 				<div class="infobox infobox-red  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="avgVisitOnPage"></span>
-						<div class="infobox-content">페이지/방문</div>
+						<div class="infobox-content">Page/Visits</div>
 					</div>
 				</div>
 
 				<div class="infobox infobox-orange2  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="avgTimeOnSite"></span>
-						<div class="infobox-content">평균 방문 시간</div>
+						<div class="infobox-content">Average time</div>
 					</div>
 				</div>
 
 				<div class="infobox infobox-blue2  ">
 					<div class="infobox-data">
 						<span class="infobox-data-number" id="visitorsRate"></span>
-						<div class="infobox-content">신규 방문 비율(%)</div>
+						<div class="infobox-content">Percentage of new visits(%)</div>
 					</div>
 				</div>
 					</div><!-- /widget-body -->
@@ -92,7 +92,7 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							신규 방문수
+							New Visits
 						</h5>
 					</div>
 	
@@ -107,7 +107,7 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							방문수
+							Visits
 						</h5>
 					</div>
 	
@@ -122,7 +122,7 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							순 방문자수
+							Unique Visitors
 						</h5>
 					</div>
 	
@@ -137,7 +137,7 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							브라우저별 방문수
+							Visits by Browser
 						</h5>
 					</div>
 	
@@ -167,7 +167,7 @@
 					<div class="widget-header widget-header-flat widget-header-small">
 						<h5>
 							<i class="icon-signal"></i>
-							평균 방문 시간 및 방문당 페이지수
+							Average time spent and the number of pages per visit
 						</h5>
 					</div>
 	
@@ -217,8 +217,8 @@ $(function(){
 	
 	{
 		
-		var newVisitorData = [["", "신규방문수"]];
-		var visitsData = [["", "순방문수"]];
+		var newVisitorData = [["", "New Visits"]];
+		var visitsData = [["", "Unique Visits"]];
 		var avgVisitData = [];
 		$(gaData).each(function(idx){
 			var $this = $(this);
@@ -226,7 +226,7 @@ $(function(){
 			
 			visitsData.push([ $this[0], Number($this[1])]);
 			
-			avgVisitData.push([ $this[0], Number($this[3])/50, "평균 방문시간 " + toHHMMSS( Number($this[3]) ), Number($this[4]), "평균 페이지 수 " + Number($this[4]).toFixed(2)]);
+			avgVisitData.push([ $this[0], Number($this[3])/50, "Average time " + toHHMMSS( Number($this[3]) ), Number($this[4]), "Average pages " + Number($this[4]).toFixed(2)]);
 		});
 		
 		//신규방문자
@@ -270,9 +270,9 @@ $(function(){
 	        //var data = google.visualization.arrayToDataTable( avgVisitData );
 	        var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Month'); // Implicit domain label col.
-			data.addColumn('number', '평균방문시간'); // Implicit series 1 data col.
+			data.addColumn('number', 'Average time'); // Implicit series 1 data col.
 			data.addColumn({type:'string', role:'tooltip'}); // annotation role col.
-			data.addColumn('number', '방문당페이지수'); // Implicit series 1 data col.
+			data.addColumn('number', 'The count of pages per visit'); // Implicit series 1 data col.
 			data.addColumn({type:'string',role:'tooltip'}); // certainty col.
 			data.addRows(avgVisitData);
 	
