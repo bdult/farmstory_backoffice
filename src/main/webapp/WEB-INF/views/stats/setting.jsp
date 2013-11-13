@@ -30,8 +30,6 @@
 		<div class="row-fluid">
 			<div class="span12">
 				<!--PAGE CONTENT BEGINS-->
-				0. 구글 콘솔 정보(필요한가?)
-				<hr />
 				<a href="${ contextPath }/stats/checkAccessToken.do" target="">1. 엑세스 토큰 확인</a>
 				<p style="color: red;">
 				<c:if test="${ not empty isValidAccessToken }">
