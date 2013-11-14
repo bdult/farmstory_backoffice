@@ -67,5 +67,7 @@ public class ConstantsForParam {
 	public static final String IDX = "idx";
 	public static final String COMPLETE_YN = "complete_yn";
 	public static final String LOCATION = "location";
+	public static final String MOVIE_WIDTH = "movie_width";
+	public static final String MOVIE_HEIGHT = "movie_height";
 	
 }

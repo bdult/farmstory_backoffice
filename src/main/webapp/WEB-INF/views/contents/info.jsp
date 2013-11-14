@@ -57,6 +57,20 @@
 				</div>
 				<div class="space-4"></div>
 				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 Width</label>
+					<div class="span3">
+						<input type="text" id="movie_width" name="movie_width" placeholder="Width" value="${ contentInfo.MOVIE_WIDTH }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
+					<label class="span3 control-label no-padding-right" for="form-field-1">동영상 Heigt</label>
+					<div class="span3">
+						<input type="text" id="movie_height" name="movie_height" placeholder="Heigt" value="${ contentInfo.MOVIE_HEIGHT }">
+					</div>
+				</div>
+				<div class="space-4"></div>
+				<div class="form-group row-fluid">
 					<label class="span3 control-label no-padding-right" for="form-field-1">썸네일 파일</label>
 					<div class="span9">
 						<input type="text" id="img_path" name="img_path" placeholder="" class="input-xxlarge" value="${ contentInfo.IMG_PATH }">
