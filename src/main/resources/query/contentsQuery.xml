@@ -18,6 +18,9 @@
 			, BCD.CONTENTS_DESC
 			, A.SRC_PATH
 			, A.IMG_PATH
+			, A.MOVIE_RESOLUTION
+			, A.MOVIE_WIDTH
+			, A.MOVIE_HEIGHT
 			, BCD.DISPLAY_YN
 			, BCCR.CATE_ID
 			, BB.BRAND_ID
@@ -65,6 +68,9 @@
 	<select id="listByCategory" resultType="hashmap" parameterType="String">
 		SELECT /* contenstQuery.listByCategory */
 			A.CONTENTS_ID
+			, A.MOVIE_RESOLUTION
+			, A.MOVIE_WIDTH
+			, A.MOVIE_HEIGHT
 			,BCD.CONTENTS_NM
 			,BCD.IDX AS CONTENTS_DETAIL_IDX
 			,(SELECT CONTENTS_SERIES_NM FROM BG_CONTENTS_SERIES WHERE CONTENTS_SERIES_ID = A.CONTENTS_SERIES_ID) AS SERIES_NM
@@ -97,11 +103,19 @@
 	    	SRC_PATH
 	    	, IMG_PATH
 	    	, CONTENTS_SERIES_ID
+	    	, MOVIE_WIDTH
+	    	, MOVIE_HEIGHT
+	    	, MOVIE_RESOLUTION
+	    	, MOD_DT
 	    )
 	    VALUES(
 	    	#{movie_path}
 	    	, #{img_path}
 	    	, #{series_id}
+	    	, #{movie_width}
+	    	, #{movie_height}
+	    	, right(#{movie_path}, 3)
+	    	, now();
 	    )
 	</insert>
 	
@@ -140,6 +154,9 @@
 	    	, IMG_PATH = #{img_path}
 	    	, CONTENTS_SERIES_ID = #{series_id}
 	    	, MOD_DT = now()
+	    	, MOVIE_WIDTH = #{movie_width}
+	    	, MOVIE_HEIGHT = #{movie_height}
+	    	, MOVIE_RESOLUTION = right(#{movie_path}, 3)
 	    WHERE 1=1
 	    AND CONTENTS_ID = #{contents_id}
 	</update>
@@ -228,6 +245,9 @@
 	<select id="contentsInfo" resultType="hashmap">
 	    select 
 			BC.CONTENTS_ID
+			, BC.MOVIE_RESOLUTION
+			, BC.MOVIE_WIDTH
+			, BC.MOVIE_HEIGHT
 			, BC.CONTENTS_SERIES_ID
 			, BC.SRC_PATH
 			, BC.IMG_PATH
@@ -279,132 +299,5 @@
 	    AND CATE_ID = #{category_id}
 	    AND CONTENTS_DETAIL_IDX = #{detail_idx}
 	</update>
-	
-	<!-- 
-	
-	<select id="detail"  resultType="hashmap">
-		select /* contenstQuery.detail */
-			BC.CONTENTS_ID
-			, BCD.IDX AS DETAIL_IDX
-			, BCD.CONTENTS_NM
-			, BCD.CONTENTS_DESC
-			, BCD.DISPLAY_YN
-			, BCD.LOCATION_CODE
-			, BCS.CONTENTS_SERIES_ID
-			, BCS.CONTENTS_SERIES_NM 
-		    , BB.BRAND_ID
-		    , BB.BRAND_NM
-		    , BCATE.CATE_ID
-		    , BCATE.CATE_NM
-		from 
-			BG_CONTENTS BC
-			, BG_CONTENTS_DETAIL BCD
-			, BG_CONTENTS_SERIES BCS
-			, BG_BRAND BB
-			, BG_CATE_CONTENTS_RELATIONSHIPS BCCR
-			, BG_CATE BCATE
-		where 1=1
-		and BC.CONTENTS_ID = BCD.CONTENTS_ID
-		and BC.CONTENTS_SERIES_ID = BCS.CONTENTS_SERIES_ID
-		and BCS.BRAND_ID = BB.BRAND_ID
-		and BCD.IDX = BCCR.CONTENTS_DETAIL_IDX
-		and BCCR.CATE_ID = BCATE.CATE_ID
-		and BC.CONTENTS_ID = 1339
-	</select>
-	<select id="checkContentsCate" resultType="int">
-	    SELECT /* contenstQuery.checkContentsCate */ 
-	    	COUNT(*) 
-	    FROM BG_CATE_CONTENTS_RELATIONSHIPS
-	    WHERE 1=1
-	    AND CATE_ID = #{cate_id}
-	    AND CONTENTS_ID = #{contents_id}
-	    
-	</select>
-	
-	<select id="contentsCateList" resultType="hashmap">
-	    SELECT 
-	    	BC.CATE_ID 
-	    	, BC.CATE_NM 
-	  	FROM BG_CATE_CONTENTS_RELATIONSHIPS CCR, BG_CATE BC
-	    WHERE 1=1
-	    AND BC.CATE_ID = CCR.CATE_ID
-	    AND CCR.CONTENTS_ID = #{contents_id}
-	    ORDER BY CCR.REG_DT DESC
-	</select>
-	 -->
-	
-
-	<!-- 
-	<insert id="create" parameterType="map"  keyProperty="contents_id">
-   		INSERT BG_CONTENTS(
-			CONTENTS_NM,
-			CONTENTS_SERIES_ID,
-			SRC_PATH,
-			IMG_PATH,
-			CONTENTS_DESC,
-			MOD_DT   		
-   		)
-   		VALUES(
-   			#{contents_nm},
-   			#{contents_series_id},
-   			#{src_path},
-   			#{img_path},
-   			#{contents_desc},
-   			now()
-   		)
-   </insert>
-   
-	<insert parameterType="map" id="createTemp">
-   		INSERT BG_CONTENTS(
-			CONTENTS_NM,
-			CONTENTS_SERIES_ID
-   		)
-   		VALUES(
-   			'준비중...',
-   			0
-   		)
-   		<selectKey keyProperty="contents_id" resultType="integer" order="AFTER">
-		    SELECT LAST_INSERT_ID()
-		</selectKey>
-   </insert>
-   
-	<insert id="addContentsCate" parameterType="map">
-	    INSERT INTO BG_CATE_CONTENTS_RELATIONSHIPS(
-	    	CATE_ID
-	    	, CONTENTS_ID
-	    ) 
-	    VALUES (
-			#{cate_id}
-			, #{contents_id}	    	
-	    )
-	</insert>
-   
-   <update id="modify">
-   		UPDATE BG_CONTENTS SET
-   			CONTENTS_NM = #{contents_nm}
-   			, IMG_PATH = #{img_path}
-   			, SRC_PATH = #{src_path}
-   			<if test="contents_series_id != null and contents_series_id != ''">
-   			, CONTENTS_SERIES_ID = #{contents_series_id}
-   			</if>
-   			, STATUS = #{status}
-   			, CONTENTS_DESC = #{contents_desc}
-   			, MOD_DT = now()
-   			
-   		WHERE 1=1
-   		AND CONTENTS_ID = #{contents_id}
-   </update>
-   
-   <delete id="delete" >
-   		DELETE FROM BG_CONTENTS
-   		WHERE CONTENTS_ID = #{contentsID}
-   </delete>
-   
-   <delete id="deleteContentsCate" >
-   		DELETE FROM BG_CATE_CONTENTS_RELATIONSHIPS
-   		WHERE 1=1 
-   		AND CONTENTS_ID = #{contents_id}
-   </delete>
-	 -->
 	
 </mapper>

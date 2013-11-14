@@ -112,9 +112,13 @@ public class ContentsController {
 		String seriesId = reqParamMap.getFirst(ConstantsForParam.SERIES_ID).toString();
 		String moviePath = reqParamMap.getFirst(ConstantsForParam.MOVIE_PATH).toString();
 		String imgPath = reqParamMap.getFirst(ConstantsForParam.IMG_PATH).toString();
+		String movieWidth = reqParamMap.getFirst(ConstantsForParam.MOVIE_WIDTH).toString();
+		String movieHeight = reqParamMap.getFirst(ConstantsForParam.MOVIE_HEIGHT).toString();
 		dbMap.put(ConstantsForParam.SERIES_ID, seriesId);
 		dbMap.put(ConstantsForParam.MOVIE_PATH, moviePath);
 		dbMap.put(ConstantsForParam.IMG_PATH, imgPath);
+		dbMap.put(ConstantsForParam.MOVIE_WIDTH, movieWidth);
+		dbMap.put(ConstantsForParam.MOVIE_HEIGHT, movieHeight);
 		
 		List<String> locationList = (List<String>)reqParamMap.get(ConstantsForParam.LOCATION);
 		for(String code : locationList){
@@ -163,10 +167,14 @@ public class ContentsController {
 		String seriesId = reqParamMap.getFirst(ConstantsForParam.SERIES_ID).toString();
 		String moviePath = reqParamMap.getFirst(ConstantsForParam.MOVIE_PATH).toString();
 		String imgPath = reqParamMap.getFirst(ConstantsForParam.IMG_PATH).toString();
+		String movieWidth = reqParamMap.getFirst(ConstantsForParam.MOVIE_WIDTH).toString();
+		String movieHeight = reqParamMap.getFirst(ConstantsForParam.MOVIE_HEIGHT).toString();
 		dbMap.put(ConstantsForParam.CONTENTS_ID, contentsId);
 		dbMap.put(ConstantsForParam.SERIES_ID, seriesId);
 		dbMap.put(ConstantsForParam.MOVIE_PATH, moviePath);
 		dbMap.put(ConstantsForParam.IMG_PATH, imgPath);
+		dbMap.put(ConstantsForParam.MOVIE_WIDTH, movieWidth);
+		dbMap.put(ConstantsForParam.MOVIE_HEIGHT, movieHeight);
 		
 		List<String> locationList = (List<String>)reqParamMap.get(ConstantsForParam.LOCATION);
 		for(String code : locationList){

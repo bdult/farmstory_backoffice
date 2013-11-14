@@ -270,10 +270,14 @@ public class ContentsServiceTest {
 		String imgPath = "temp/temp.gif";
 		int publisherId = 137;
 		int seriesId = 48;
+		int width = 1280;
+		int height = 720;
 		contentsInfo.put(ConstantsForParam.MOVIE_PATH, moviePath);
 		contentsInfo.put(ConstantsForParam.IMG_PATH, imgPath);
 		contentsInfo.put(ConstantsForParam.BRAND_ID, publisherId);
 		contentsInfo.put(ConstantsForParam.SERIES_ID, seriesId);
+		contentsInfo.put(ConstantsForParam.MOVIE_WIDTH, width);
+		contentsInfo.put(ConstantsForParam.MOVIE_HEIGHT, height);
 		
 		// root > contentsDetail
 		List<Map> contenstDetailList = new ArrayList<Map>();
