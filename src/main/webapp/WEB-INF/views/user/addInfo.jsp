@@ -155,7 +155,7 @@
 		<div class="row-fluid">
 		</div>
 	<div class="modal-footer">
-		<a class="btn btn-small" data-dismiss="modal">
+		<a id="cancel-modal-btn" class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
 			취소
 		</a>
@@ -251,6 +251,8 @@
 
 						$("input[name='member_zipno']").val($this.data("zipno"));
 						$("input[name='member_addr_1']").val($this.data("lnmadres"));
+
+						$("#addr-modal-form").modal('toggle');
 					});
 			}
 		});
