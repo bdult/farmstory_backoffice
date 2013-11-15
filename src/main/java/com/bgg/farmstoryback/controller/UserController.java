@@ -143,7 +143,7 @@ public class UserController {
 	  
 	  	return "user/addInfo";
 	}
-	
+  
   @RequestMapping(value = "user/userModify.do", method = RequestMethod.POST)
   public String userModify(Model model, @RequestParam Map paramMap) {
 

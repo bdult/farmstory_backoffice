@@ -71,11 +71,11 @@
 								<div class="control-group">
 									<label class="control-label">주소</label>
 									<div class="controls">
-										<input type="text" value="" readonly="readonly"/>&nbsp;&nbsp;
-										<a class="btn btn-primary">우편번호 검색</a>
+										<input type="text" name="member_zipno" readonly="readonly"/>&nbsp;&nbsp;
+										<a class="btn btn-primary" href="#addr-modal-form" data-toggle="modal">우편번호 검색</a>
 									</div>
 									<div class="controls">
-										<input type="text" name="member_addr_1" value="${detail.MEMBER_ADDR_1}" />&nbsp;&nbsp;
+										<input type="text" name="member_addr_1" value="${detail.MEMBER_ADDR_1}"  readonly="readonly"/>&nbsp;&nbsp;
 										<input type="text" name="member_addr_2" value="${detail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
@@ -106,6 +106,7 @@
 									</a>
 								</div>
 							</form>
+						</div>
 					</div>
 			</div>
 		</div>
@@ -113,7 +114,57 @@
 	<!--/.page-content-->
 <!--/.main-content-->
 
+<!-- addr-modal -->
+<form id="addr-modal-form" class="modal hide in" tabindex="-1" >
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h4 class="blue bigger">검색 정보를 입력해 주세요</h4>
+	</div>
+
+	<div class="modal-body overflow-visible">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="control-group">
+					<label class="control-label" for="form-field-username"></label>
+
+					<div class="controls">
+						도로명 : <input name="birth_year" class="span3" type="text" id="roadNo" style="margin: 0;">
+						건물번호 : <input name="birth_month" class="span3" type="text" id="buildNo" style="margin: 0;">
+						<a class="btn btn-small btn-primary" id="addr-modify-btn">
+							<i class="icon-ok"></i>
+							검색
+						</a>
+					</div>
+				</div>
+				<hr>
+				<div class="control-group">
+				</div>
+				<div class="control-group">
+					<div class="span12">
+						<div class="widget-main padding-4">
+							<div class="slim-scroll" data-height="270">
+								<ul class="unstyled" id="addrList">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="row-fluid">
+		</div>
+	<div class="modal-footer">
+		<a class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i>
+			취소
+		</a>
+
+	</div>
+</form>
+
 <script type="text/javascript">
+
 	//validate
 	setValid();
 	$("#create-form").validate({
@@ -171,4 +222,73 @@
 		}
 	});
 
+	function xmlLoader(){
+		var roadNo = encodeURI($("#roadNo").val()) + encodeURI(" ")
+		var buildNo = encodeURI($("#buildNo").val())
+		console.info(roadNo + buildNo);
+		
+		var comp = roadNo + buildNo;
+		
+		$.ajax({
+		    url: 'http://openapi.epost.go.kr/postal/retrieveNewAdressService/retrieveNewAdressService/getNewAddressList?searchSe=road&srchwrd=' + comp + '&ServiceKey=Cjso/MVtBKmmlaTCL5JlbdPozTRBWknR42ujuuEnun8zRtISeezAPK3UIBxus6a9Z0IqBAjS7J7Hlwgb7dcrtQ==&encoding=UTF-8',
+		    dataType: "xml",
+		    type: 'GET',
+		    success: function(res) {
+				var xml = res.responseText;
+				var $xml = $(xml);
+
+					$("#addrList li").remove();
+					$xml.find("newAddressList").each(function(index){
+						var $this = $(this);
+						var zipno = $this.find("zipNo").text();
+						var lnmadres = $this.find("lnmadres").text();
+						$("#addrList").append(
+							"<li>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+						);
+					});
+					$("a.addrSelect").click(function(){
+						var $this = $(this);
+
+						$("input[name='member_zipno']").val($this.data("zipno"));
+						$("input[name='member_addr_1']").val($this.data("lnmadres"));
+					});
+			}
+		});
+	}
+
+	
+	$("#addr-modify-btn").click(function(){
+		xmlLoader();
+	});
+	
+
+	$(function() {
+	
+		// scrollables
+		$('.slim-scroll').each(function () {
+			var $this = $(this);
+			$this.slimScroll({
+				height: $this.data('height') || 100,
+				railVisible:true
+			});
+		});
+	
+	});
+
+
 </script>
+<style>
+	
+	#addrList > li {
+		list-style: none;
+	    display: inline-block;
+	    width: 100%;
+	    margin: 5px 0px 5px 0px;
+		vertical-align: middle;
+		font-size: 15px;
+	}
+	
+	#addrList > li > a{
+		float: right;
+	}
+</style>
