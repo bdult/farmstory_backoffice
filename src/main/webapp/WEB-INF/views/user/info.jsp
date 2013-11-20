@@ -81,7 +81,7 @@
 								<div class="control-group">
 									<label class="control-label">주소</label>
 									<div class="controls">
-										<input class="input-xxlarge" type="text" value="${detail.MEMBER_ADDR_1} ${detail.MEMBER_ADDR_2}" />
+										<input class="input-xxlarge" type="text" value="${detail.MEMBER_POST} ${detail.MEMBER_ADDR_1} ${detail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
 								<div class="control-group">

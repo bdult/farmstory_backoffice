@@ -71,7 +71,7 @@
 								<div class="control-group">
 									<label class="control-label">주소</label>
 									<div class="controls">
-										<input type="text" name="member_zipno" readonly="readonly"/>&nbsp;&nbsp;
+										<input type="text" name="member_post" readonly="readonly" value="${detail.MEMBER_POST}"/>&nbsp;&nbsp;
 										<a class="btn btn-primary" href="#addr-modal-form" data-toggle="modal">우편번호 검색</a>
 									</div>
 									<div class="controls">
@@ -309,7 +309,7 @@
 					$("a.addrSelect").click(function(){
 						var $this = $(this);
 
-						$("input[name='member_zipno']").val($this.data("zipno"));
+						$("input[name='member_post']").val($this.data("zipno"));
 						$("input[name='member_addr_1']").val($this.data("lnmadres"));
 
 						$("#addr-modal-form").modal('toggle');

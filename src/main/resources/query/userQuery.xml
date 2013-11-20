@@ -104,6 +104,7 @@
 			, MEMBER_YEAR
 			, MEMBER_MONTH
 			, MEMBER_DAY
+			, MEMBER_POST
 			, MEMBER_ADDR_1
 			, MEMBER_ADDR_2
 			, case (MEMBER_ROLE)
@@ -230,6 +231,7 @@
         	MEMBER_NM = #{member_name}
         	, MEMBER_EMAIL = #{member_email}
         	, MEMBER_CEL = #{member_cel}
+        	, MEMBER_POST = #{member_post}
         	, MEMBER_ADDR_1 = #{member_addr_1}
         	, MEMBER_ADDR_2 = #{member_addr_2}
         	<!-- 
