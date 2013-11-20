@@ -121,24 +121,80 @@
 		<h4 class="blue bigger">검색 정보를 입력해 주세요</h4>
 	</div>
 
-	<div class="modal-body overflow-visible">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="control-group">
-					<label class="control-label" for="form-field-username"></label>
+		<ul class="nav nav-tabs" id="myTab">
+			<li>
+				<a data-toggle="tab" href="#dong">
+					동명 검색
+				</a>
+			</li>
 
-					<div class="controls">
-						도로명 : <input name="birth_year" class="span3" type="text" id="roadNo" style="margin: 0;">
-						건물번호 : <input name="birth_month" class="span3" type="text" id="buildNo" style="margin: 0;">
-						<a class="btn btn-small btn-primary" id="addr-modify-btn">
-							<i class="icon-ok"></i>
-							검색
-						</a>
+			<li class="active">
+				<a data-toggle="tab" href="#road">
+					도로명 검색
+				</a>
+			</li>
+			
+			<li>
+				<a data-toggle="tab" href="#post">
+					우편번호 검색
+				</a>
+			</li>
+		</ul>
+										
+		<div class="row-fluid">
+			<div class="tab-content">
+				<div id="dong" class="tab-pane">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="form-field-username"></label>
+		
+							<div class="controls">
+								동명 : <input name="birth_year" class="span3" type="text" id="dongNo" style="margin: 0;">
+								건물번호 : <input name="birth_month" class="span3" type="text" id="buildNo1" style="margin: 0;">
+								<a class="btn btn-small btn-primary" id="dong-modify-btn">
+									<i class="icon-ok"></i>
+									검색
+								</a>
+							</div>
+						</div>
 					</div>
 				</div>
-				<hr>
-				<div class="control-group">
+
+				<div id="road" class="tab-pane in active">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="form-field-username"></label>
+		
+							<div class="controls">
+								도로명 : <input name="birth_year" class="span3" type="text" id="roadNo" style="margin: 0;">
+								건물번호 : <input name="birth_month" class="span3" type="text" id="buildNo" style="margin: 0;">
+								<a class="btn btn-small btn-primary" id="road-modify-btn">
+									<i class="icon-ok"></i>
+									검색
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<div id="post" class="tab-pane">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="form-field-username"></label>
+		
+							<div class="controls">
+								우편번호 : <input name="birth_year" class="span3" type="text" id="postNo" style="margin: 0;">
+								<a class="btn btn-small btn-primary" id="post-modify-btn">
+									<i class="icon-ok"></i>
+									검색
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<hr>
+				
 				<div class="control-group">
 					<div class="span12">
 						<div class="widget-main padding-4">
@@ -149,11 +205,13 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
-	</div>
+		
 		<div class="row-fluid">
 		</div>
+		
 	<div class="modal-footer">
 		<a id="cancel-modal-btn" class="btn btn-small" data-dismiss="modal">
 			<i class="icon-remove"></i>
@@ -222,15 +280,9 @@
 		}
 	});
 
-	function xmlLoader(){
-		var roadNo = encodeURI($("#roadNo").val()) + encodeURI(" ")
-		var buildNo = encodeURI($("#buildNo").val())
-		console.info(roadNo + buildNo);
-		
-		var comp = roadNo + buildNo;
-		
+	function xmlLoader(seComp, wrdComp){
 		$.ajax({
-		    url: 'http://openapi.epost.go.kr/postal/retrieveNewAdressService/retrieveNewAdressService/getNewAddressList?searchSe=road&srchwrd=' + comp + '&ServiceKey=Cjso/MVtBKmmlaTCL5JlbdPozTRBWknR42ujuuEnun8zRtISeezAPK3UIBxus6a9Z0IqBAjS7J7Hlwgb7dcrtQ==&encoding=UTF-8',
+		    url: 'http://openapi.epost.go.kr/postal/retrieveNewAdressService/retrieveNewAdressService/getNewAddressList?searchSe=' + seComp + '&srchwrd=' + wrdComp + '&ServiceKey=Cjso/MVtBKmmlaTCL5JlbdPozTRBWknR42ujuuEnun8zRtISeezAPK3UIBxus6a9Z0IqBAjS7J7Hlwgb7dcrtQ==',
 		    dataType: "xml",
 		    type: 'GET',
 		    success: function(res) {
@@ -242,9 +294,17 @@
 						var $this = $(this);
 						var zipno = $this.find("zipNo").text();
 						var lnmadres = $this.find("lnmadres").text();
+						var rnAdres = $this.find("rnAdres").text();
+						if(seComp == 'dong'){
 						$("#addrList").append(
-							"<li>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+							"<li>" + rnAdres + "<br>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
 						);
+						}else {
+							$("#addrList").append(
+								"<li>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+							);	
+						}
+						
 					});
 					$("a.addrSelect").click(function(){
 						var $this = $(this);
@@ -259,8 +319,29 @@
 	}
 
 	
-	$("#addr-modify-btn").click(function(){
-		xmlLoader();
+	$("#dong-modify-btn").click(function(){
+		var dongNo = encodeURI($("#dongNo").val());
+		var buildNo = encodeURI($("#buildNo1").val());
+		var wrdComp = dongNo + encodeURI(" ") + buildNo;
+		var seComp = 'dong';
+		
+		xmlLoader(seComp, wrdComp);
+	});
+
+	$("#road-modify-btn").click(function(){
+		var roadNo = encodeURI($("#roadNo").val());
+		var buildNo = encodeURI($("#buildNo").val());
+		var wrdComp = roadNo + encodeURI(" ") + buildNo;
+		var seComp = 'road';
+		
+		xmlLoader(seComp, wrdComp);
+	});
+
+	$("#post-modify-btn").click(function(){
+		var wrdComp = encodeURI($("#postNo").val());
+		var seComp = 'post';
+		
+		xmlLoader(seComp, wrdComp);
 	});
 	
 
@@ -280,7 +361,6 @@
 
 </script>
 <style>
-	
 	#addrList > li {
 		list-style: none;
 	    display: inline-block;
