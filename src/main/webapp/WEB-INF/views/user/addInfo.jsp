@@ -149,8 +149,8 @@
 							<label class="control-label" for="form-field-username"></label>
 		
 							<div class="controls">
-								동명 : <input name="birth_year" class="span3" type="text" id="dongNo" style="margin: 0;">
-								건물번호 : <input name="birth_month" class="span3" type="text" id="buildNo1" style="margin: 0;">
+								동명 : <input class="span3" type="text" id="dongNo" style="margin: 0;">
+								건물번호 : <input class="span3" type="text" id="buildNo1" style="margin: 0;">
 								<a class="btn btn-small btn-primary" id="dong-modify-btn">
 									<i class="icon-ok"></i>
 									검색
@@ -166,8 +166,8 @@
 							<label class="control-label" for="form-field-username"></label>
 		
 							<div class="controls">
-								도로명 : <input name="birth_year" class="span3" type="text" id="roadNo" style="margin: 0;">
-								건물번호 : <input name="birth_month" class="span3" type="text" id="buildNo" style="margin: 0;">
+								도로명 : <input class="span3" type="text" id="roadNo" style="margin: 0;">
+								건물번호 : <input class="span3" type="text" id="buildNo" style="margin: 0;">
 								<a class="btn btn-small btn-primary" id="road-modify-btn">
 									<i class="icon-ok"></i>
 									검색
@@ -183,7 +183,7 @@
 							<label class="control-label" for="form-field-username"></label>
 		
 							<div class="controls">
-								우편번호 : <input name="birth_year" class="span3" type="text" id="postNo" style="margin: 0;">
+								우편번호 : <input class="span3" type="text" id="postNo" style="margin: 0;">
 								<a class="btn btn-small btn-primary" id="post-modify-btn">
 									<i class="icon-ok"></i>
 									검색
@@ -279,8 +279,80 @@
 			return false;
 		}
 	});
+	
+	$("#road-modify-btn").click(function(){
+		var roadNo = $("#roadNo").val();
+		var buildNo = $("#buildNo").val();
+		var wrdComp = roadNo + " " + buildNo;
+		var seComp = 'road';
+		
+		addrSearchAjax(seComp, wrdComp);
+	});
+	
+	$("#dong-modify-btn").click(function(){
+		var dongNo = $("#dongNo").val();
+		var buildNo = $("#buildNo1").val();
+		var wrdComp = dongNo + " " + buildNo;
+		var seComp = 'dong';
+		
+		addrSearchAjax(seComp, wrdComp);
+	});
 
-	function xmlLoader(seComp, wrdComp){
+	$("#post-modify-btn").click(function(){
+		var wrdComp = $("#postNo").val();
+		var seComp = 'post';
+		
+		addrSearchAjax(seComp, wrdComp);
+	});
+	
+	function addrSearchAjax(seComp, wrdComp){
+		param = {
+				searchSe : seComp,
+				srchwrd : wrdComp
+		};
+		$.ajax({
+			url: "${contextPath}/post/addr.ajax",
+			data: param,
+			dataType: "text",
+			type: 'get',
+		    success: function(res) {
+				var $xml = $(res);
+
+					$("#addrList li").remove();
+					$xml.find("newAddressList").each(function(index){
+						var $this = $(this);
+						var zipno = $this.find("zipNo").text();
+						var lnmadres = $this.find("lnmadres").text();
+						var rnAdres = $this.find("rnAdres").text();
+						if(seComp == 'dong'){
+						$("#addrList").append(
+							"<li>" + rnAdres + "<br>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+						);
+						}else {
+							$("#addrList").append(
+								"<li>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+							);	
+						}
+						
+					});
+					$("a.addrSelect").click(function(){
+						var $this = $(this);
+
+						$("input[name='member_post']").val($this.data("zipno"));
+						$("input[name='member_addr_1']").val($this.data("lnmadres"));
+
+						$("#addr-modal-form").modal('toggle');
+					});
+			},
+			error: function(xhr, status, error) {
+				console.log(error);
+				console.log(xhr);
+				console.log(status);
+			}
+		});
+	}
+	
+/* 	function xmlLoader(seComp, wrdComp){
 		$.ajax({
 		    url: 'http://openapi.epost.go.kr/postal/retrieveNewAdressService/retrieveNewAdressService/getNewAddressList?searchSe=' + seComp + '&srchwrd=' + wrdComp + '&ServiceKey=Cjso/MVtBKmmlaTCL5JlbdPozTRBWknR42ujuuEnun8zRtISeezAPK3UIBxus6a9Z0IqBAjS7J7Hlwgb7dcrtQ==',
 		    dataType: "xml",
@@ -342,7 +414,7 @@
 		var seComp = 'post';
 		
 		xmlLoader(seComp, wrdComp);
-	});
+	}); */
 	
 
 	$(function() {
