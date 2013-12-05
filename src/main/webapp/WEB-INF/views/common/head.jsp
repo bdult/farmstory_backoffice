@@ -83,6 +83,8 @@
 <script src="${contextPath}/assets/js/jquery.validate.min.js"></script>
 <script src="${contextPath}/assets/js/validate.js"></script>
 <script src="${contextPath}/assets/js/rnts-validation.js"></script>
+<script src="${contextPath}/assets/js/jquery.slimscroll.min.js"></script>
+
 
 <!--ace scripts-->
 

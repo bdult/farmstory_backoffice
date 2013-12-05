@@ -213,7 +213,6 @@
 			<artifactId>google-oauth-client-jetty</artifactId>
 			<version>1.17.0-rc</version>
 		</dependency>
-            
 
         <!-- HttpClient 4.3.1 -->
         <dependency>

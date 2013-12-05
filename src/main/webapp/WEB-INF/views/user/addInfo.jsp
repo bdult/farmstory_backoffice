@@ -71,11 +71,11 @@
 								<div class="control-group">
 									<label class="control-label">주소</label>
 									<div class="controls">
-										<input type="text" value="" readonly="readonly"/>&nbsp;&nbsp;
-										<a class="btn btn-primary">우편번호 검색</a>
+										<input type="text" name="member_post" readonly="readonly" value="${detail.MEMBER_POST}"/>&nbsp;&nbsp;
+										<a class="btn btn-primary" href="#addr-modal-form" data-toggle="modal">우편번호 검색</a>
 									</div>
 									<div class="controls">
-										<input type="text" name="member_addr_1" value="${detail.MEMBER_ADDR_1}" />&nbsp;&nbsp;
+										<input type="text" name="member_addr_1" value="${detail.MEMBER_ADDR_1}"  readonly="readonly"/>&nbsp;&nbsp;
 										<input type="text" name="member_addr_2" value="${detail.MEMBER_ADDR_2}" />
 									</div>
 								</div>
@@ -106,6 +106,7 @@
 									</a>
 								</div>
 							</form>
+						</div>
 					</div>
 			</div>
 		</div>
@@ -113,7 +114,115 @@
 	<!--/.page-content-->
 <!--/.main-content-->
 
+<!-- addr-modal -->
+<form id="addr-modal-form" class="modal hide in" tabindex="-1" >
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h4 class="blue bigger">검색 정보를 입력해 주세요</h4>
+	</div>
+
+		<ul class="nav nav-tabs" id="myTab">
+			<li>
+				<a data-toggle="tab" href="#dong">
+					동명 검색
+				</a>
+			</li>
+
+			<li class="active">
+				<a data-toggle="tab" href="#road">
+					도로명 검색
+				</a>
+			</li>
+			
+			<li>
+				<a data-toggle="tab" href="#post">
+					우편번호 검색
+				</a>
+			</li>
+		</ul>
+										
+		<div class="row-fluid">
+			<div class="tab-content">
+				<div id="dong" class="tab-pane">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="form-field-username"></label>
+		
+							<div class="controls">
+								동명 : <input class="span3" type="text" id="dongNo" style="margin: 0;">
+								건물번호 : <input class="span3" type="text" id="buildNo1" style="margin: 0;">
+								<a class="btn btn-small btn-primary" id="dong-modify-btn">
+									<i class="icon-ok"></i>
+									검색
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="road" class="tab-pane in active">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="form-field-username"></label>
+		
+							<div class="controls">
+								도로명 : <input class="span3" type="text" id="roadNo" style="margin: 0;">
+								건물번호 : <input class="span3" type="text" id="buildNo" style="margin: 0;">
+								<a class="btn btn-small btn-primary" id="road-modify-btn">
+									<i class="icon-ok"></i>
+									검색
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="post" class="tab-pane">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="form-field-username"></label>
+		
+							<div class="controls">
+								우편번호 : <input class="span3" type="text" id="postNo" style="margin: 0;">
+								<a class="btn btn-small btn-primary" id="post-modify-btn">
+									<i class="icon-ok"></i>
+									검색
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<hr>
+				
+				<div class="control-group">
+					<div class="span12">
+						<div class="widget-main padding-4">
+							<div class="slim-scroll" data-height="270">
+								<ul class="unstyled" id="addrList">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		
+		<div class="row-fluid">
+		</div>
+		
+	<div class="modal-footer">
+		<a id="cancel-modal-btn" class="btn btn-small" data-dismiss="modal">
+			<i class="icon-remove"></i>
+			취소
+		</a>
+
+	</div>
+</form>
+
 <script type="text/javascript">
+
 	//validate
 	setValid();
 	$("#create-form").validate({
@@ -170,5 +279,106 @@
 			return false;
 		}
 	});
+	
+	$("#road-modify-btn").click(function(){
+		var roadNo = $("#roadNo").val();
+		var buildNo = $("#buildNo").val();
+		var wrdComp = roadNo + " " + buildNo;
+		var seComp = 'road';
+		
+		addrSearchAjax(seComp, wrdComp);
+	});
+	
+	$("#dong-modify-btn").click(function(){
+		var dongNo = $("#dongNo").val();
+		var buildNo = $("#buildNo1").val();
+		var wrdComp = dongNo + " " + buildNo;
+		var seComp = 'dong';
+		
+		addrSearchAjax(seComp, wrdComp);
+	});
+
+	$("#post-modify-btn").click(function(){
+		var wrdComp = $("#postNo").val();
+		var seComp = 'post';
+		
+		addrSearchAjax(seComp, wrdComp);
+	});
+	
+	function addrSearchAjax(seComp, wrdComp){
+		param = {
+				searchSe : seComp,
+				srchwrd : wrdComp
+		};
+		$.ajax({
+			url: "${contextPath}/post/addr.ajax",
+			data: param,
+			dataType: "text",
+			type: 'get',
+		    success: function(res) {
+				var $xml = $(res);
+
+					$("#addrList li").remove();
+					$xml.find("newAddressList").each(function(index){
+						var $this = $(this);
+						var zipno = $this.find("zipNo").text();
+						var lnmadres = $this.find("lnmadres").text();
+						var rnAdres = $this.find("rnAdres").text();
+						if(seComp == 'dong'){
+						$("#addrList").append(
+							"<li>" + rnAdres + "<br>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+						);
+						}else {
+							$("#addrList").append(
+								"<li>" + lnmadres + "<a data-zipNo='" + zipno + "' data-lnmadres='" + lnmadres + "' class='btn btn-default addrSelect'>" + "선택" + "</a>" + "</li>" 
+							);	
+						}
+						
+					});
+					$("a.addrSelect").click(function(){
+						var $this = $(this);
+
+						$("input[name='member_post']").val($this.data("zipno"));
+						$("input[name='member_addr_1']").val($this.data("lnmadres"));
+
+						$("#addr-modal-form").modal('toggle');
+					});
+			},
+			error: function(xhr, status, error) {
+				console.log(error);
+				console.log(xhr);
+				console.log(status);
+			}
+		});
+	}
+	
+
+	$(function() {
+	
+		// scrollables
+		$('.slim-scroll').each(function () {
+			var $this = $(this);
+			$this.slimScroll({
+				height: $this.data('height') || 100,
+				railVisible:true
+			});
+		});
+	
+	});
+
 
 </script>
+<style>
+	#addrList > li {
+		list-style: none;
+	    display: inline-block;
+	    width: 100%;
+	    margin: 5px 0px 5px 0px;
+		vertical-align: middle;
+		font-size: 15px;
+	}
+	
+	#addrList > li > a{
+		float: right;
+	}
+</style>
